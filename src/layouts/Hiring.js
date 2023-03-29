@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import "./Hiring.css"
 import Rating from "../components/Rating"
 const Hiring = (props) => {

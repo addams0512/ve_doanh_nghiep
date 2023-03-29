@@ -7,9 +7,14 @@ import { impressServicesData } from "../data/impressServicesData"
 import { servicesData } from "../data/servicesData"
 import AddServices from "../layouts/AddServices"
 import React, { useState } from "react"
+import Dropdown from "../components/Dropdown"
 
 const Services = () => {
 	const [displayEditService, setDisplayEditServices] = useState(false)
+	const [displayDropDown, setDisplayDropDown] = useState(false)
+	const dropDown = () => {
+		setDisplayDropDown(true)
+	}
 	const unDisplayEditService = () => {
 		setDisplayEditServices(false)
 	}
@@ -73,13 +78,14 @@ const Services = () => {
 					<div className="main-services-nav-arrange">
 						<div className="main-services-nav-arrange-title">Phân loại:</div>
 						<div className="main-services-nav-arrange-dropdown">
-							Tất cả <IoMdArrowDropdown size={"18"} />
+							<Dropdown />
 						</div>
 					</div>
 					<div className="main-services-nav-sort">
 						<div className="main-services-nav-sort-title">Sắp xếp:</div>
 						<div className="main-services-nav-sort-dropdown">
-							Mới nhất <IoMdArrowDropdown size={"18"} />
+							<p>Mới nhất</p>
+							<IoMdArrowDropdown size={"22"} />
 						</div>
 					</div>
 				</div>

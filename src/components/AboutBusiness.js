@@ -8,7 +8,6 @@ import Post from "../layouts/Post"
 import CreatePost from "../layouts/CreatePost"
 import PreviewPost from "../layouts/PreviewPost"
 import Cart from "../layouts/Cart"
-import { fabClasses } from "@mui/material"
 const AboutBusiness = () => {
 	const [aboutUsDisplay, setAboutUsDisplay] = useState(false)
 	const [displayPost, setDisplayPost] = useState(true)
@@ -21,6 +20,7 @@ const AboutBusiness = () => {
 	const Showme = () => {
 		setHiringDisplay(true)
 	}
+
 	return (
 		<>
 			<div className="AboutBusiness">
