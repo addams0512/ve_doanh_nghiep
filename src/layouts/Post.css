@@ -10,10 +10,10 @@
 	height: 30px;
 }
 
-.createPost-managePost-btn button:hover {
+/* .createPost-managePost-btn button:hover {
 	background-color: white;
 	color: black;
-}
+} */
 
 .createPost-managePost-btn {
 	display: flex;
@@ -23,13 +23,16 @@
 button.managePost {
 	width: auto !important;
 	background-color: white;
-	color: black;
 }
 
-button.managePost:hover {
-	background-color: rgb(248, 168, 89);
-	color: white;
-	border: 0.25px solid transparent;
+.managePost:hover {
+	background-color: rgb(248, 168, 89) !important;
+	color: white !important;
+}
+
+.createPost:hover {
+	background-color: rgb(248, 168, 89) !important;
+	color: white !important;
 }
 
 @media (max-width: 912px) {

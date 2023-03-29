@@ -1,14 +1,13 @@
 import React from "react"
 import "./Paid.css"
 import { useState } from "react"
-export default function Pay() {
-	const [PayDisplay, setPayDisplay] = useState(true)
-	function handleclick() {
-		setPayDisplay(false)
+export default function Pay({ hidePaid }) {
+	const handlePaid = () => {
+		hidePaid()
 	}
 	return (
-		<div className="pay-BOX-container">
-			{PayDisplay && (
+		<>
+			<div className="pay-BOX-container">
 				<div className="pay-BOX">
 					<div className="pay-Box-heading">
 						<div className="pay-heading-info">Thanh toán</div>
@@ -89,10 +88,10 @@ export default function Pay() {
 						</div>
 					</div>
 					<div className="pay-Box-bottom">
-						<button onClick={handleclick}>THANH TOÁN</button>
+						<button onClick={handlePaid}>THANH TOÁN</button>
 					</div>
 				</div>
-			)}
-		</div>
+			</div>
+		</>
 	)
 }

@@ -4,25 +4,31 @@ import { useState } from "react"
 import { BiPlus } from "react-icons/bi"
 import { BiMinus } from "react-icons/bi"
 import Paid from "./Paid"
-export default function Cart() {
+export default function Cart({ hideCart }) {
 	const [number, setnumber] = useState(0)
 	const [paidDisplay, setPaidDisplay] = useState(false)
-	function handleclick() {
-		// setCartDisplay(false)
-		setPaidDisplay(true)
+
+	function removeCart() {
+		hideCart()
 	}
+
+	function handleclick() {
+		setCartDisplay(false)
+	}
+
 	const [cartDisplay, setCartDisplay] = useState(true)
 
 	function clickme() {
 		setnumber(number - 1)
 	}
+
 	function clickmeNOW() {
 		setnumber(number + 1)
 	}
 
 	return (
 		<>
-			{cartDisplay && (
+			{cartDisplay ? (
 				<div className="cart">
 					<div className="cart-container">
 						<div className="cart-box-heading">
@@ -94,8 +100,9 @@ export default function Cart() {
 							</div>
 						</div>
 					</div>
-					{paidDisplay && <Paid />}
 				</div>
+			) : (
+				<Paid hidePaid={removeCart} />
 			)}
 		</>
 	)

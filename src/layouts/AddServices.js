@@ -60,7 +60,7 @@ const AddServices = ({ remove }) => {
 							</div>
 
 							<div className="purchase-btn-add-services-main">
-								<button onClick={removeAddServices}>HOÀNH THÀNH</button>
+								<button onClick={removeAddServices}>HOÀN THÀNH</button>
 							</div>
 						</div>
 					</div>

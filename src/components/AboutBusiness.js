@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import AboutUs from "../layouts/AboutUs"
-import ManagePost from "../layouts/ManagePost"
 import Hiring from "../layouts/Hiring"
 import Services from "../layouts/Services"
 import "./AboutBusiness.css"
@@ -15,7 +14,6 @@ const AboutBusiness = () => {
 	const [displayServices, setDisplayServices] = useState(false)
 	const [displayHiring, setDisplayHiring] = useState(false)
 	const [displayCreatePost, setDisplayCreatePost] = useState(false)
-	const [displayManagePost, setDisplayManagePost] = useState(false)
 	const [displayPreviewPost, setDisplayPreviewPost] = useState(false)
 	const [displayCart, setDisplayCart] = useState(false)
 	const removeHiring = () => {
@@ -103,7 +101,6 @@ const AboutBusiness = () => {
 								setAboutUsDisplay(true)
 								setDisplayServices(false)
 								setDisplayPost(false)
-								setDisplayManagePost(false)
 							}}>
 							Về chúng tôi
 						</div>
@@ -133,7 +130,6 @@ const AboutBusiness = () => {
 								setDisplayServices(false)
 								setDisplayPost(false)
 								setDisplayCreatePost(false)
-								setDisplayManagePost(true)
 							}}
 						/>
 					)}
@@ -144,7 +140,6 @@ const AboutBusiness = () => {
 							}}
 						/>
 					)}
-					{displayManagePost && <ManagePost />}
 					{displayPreviewPost && (
 						<PreviewPost
 							hideCreatePost={() => {
@@ -154,7 +149,7 @@ const AboutBusiness = () => {
 							}}
 						/>
 					)}
-					{displayCart && <Cart onCartHide={() => setDisplayCart(false)} />}
+					{displayCart && <Cart hideCart={() => setDisplayCart(false)} />}
 				</>
 			</div>
 		</>
