@@ -1,0 +1,113 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+.preview-post {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.55);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 9999;
+}
+.preview-post-BOX {
+	padding: 20px;
+	background-color: white;
+	border-top-right-radius: 40px;
+	width: 800px;
+	height: 700px;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.preview-post-Box-heading {
+	height: 120px;
+	display: flex;
+}
+.preview-post-circles {
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	border: 1px solid;
+	margin: 10px;
+}
+.preview-post-heading-info {
+	margin: 10px;
+}
+.preview-post-heading-info-1 {
+	font-size: 23px;
+	font-weight: 600;
+}
+.preview-post-heading-info-2 {
+	font-size: 18px;
+	font-weight: 600;
+}
+.preview-post-heading-info-3 {
+	font-size: 15px;
+	font-style: italic;
+}
+.preview-post-Date {
+	display: flex;
+	margin-left: auto;
+	margin-top: 10px;
+	margin-right: 50px;
+	font-style: italic;
+	color: #ccc;
+	font-weight: 500;
+}
+.preview-post-Box-body {
+	height: 120px;
+}
+
+.preview-post-Box-botttom {
+	height: 350px;
+}
+.preview-post-bottom-box {
+	margin-top: 20px;
+	height: 330px;
+	width: auto;
+	border: 1px solid;
+}
+.preview-post-Box-below {
+	display: flex;
+}
+.preview-post-below-button {
+	font-size: 0.8rem;
+	display: flex;
+	width: 780px;
+	height: 90px;
+	align-items: center;
+	justify-content: end;
+	padding-bottom: 40px;
+}
+.preview-post-button-1 button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 180px;
+	margin-right: 15px;
+	height: 35px;
+	background-color: white;
+	border-radius: 7px;
+	color: black;
+	border: 1px solid black;
+}
+.preview-post-button-1 button:hover {
+	background-color: black;
+	color: white;
+}
+.preview-post-button-2 button {
+	height: 35px;
+	background-color: rgb(233, 138, 21);
+	border-radius: 7px;
+	color: white;
+	border: 0px white;
+	width: 90px;
+}
+.preview-post-button-2 button:hover {
+	background-color: white;
+	border: 1px solid;
+	color: black;
+}

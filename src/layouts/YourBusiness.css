@@ -1,0 +1,364 @@
+.your-business-container {
+	display: grid;
+	grid-template-rows: 0.6fr 6fr;
+	padding: 0px 0 10px 10px;
+	width: auto;
+}
+
+.title-your-business-container {
+	grid-row: 1;
+}
+
+.main-your-business {
+	overflow-x: auto;
+}
+
+.title-your-business-container {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	justify-content: start;
+	margin-bottom: 20px;
+}
+
+.title-your-business {
+	margin-left: 100px;
+	display: flex;
+	width: 100%;
+	gap: 40px;
+	font-size: 20px;
+	font-weight: bolder;
+}
+
+.heading-your-business {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.create-your-business-btn {
+	width: 200px !important;
+	padding: 20px 6px 20px 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0 20px 0;
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	border-radius: 28px;
+}
+
+.bell-icon {
+	margin-left: auto;
+	margin-right: 20px;
+	color: gray;
+}
+
+.main-your-business-container {
+	width: auto;
+}
+
+/* nav */
+.nav-main-your-business {
+	text-align: center;
+	align-items: center;
+	font-size: 0.8em;
+	display: grid;
+	grid-template-areas: "flag card post time-post queue-message viewwer notable bill income admin address";
+	gap: 18px;
+}
+
+.nav-main-your-business .flag-nav-main-your-business {
+	box-shadow: none;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	position: sticky;
+	left: 0;
+	z-index: 9999;
+	grid-area: flag;
+	width: 20px;
+	margin-right: 8px;
+}
+
+.nav-main-your-business .card-nav-main-your-business {
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	position: sticky;
+	left: 0;
+	z-index: 9999;
+	box-shadow: none;
+	grid-area: card;
+	width: 228px;
+}
+
+.nav-main-your-business .post-nav-main-your-business {
+	grid-area: post;
+	width: 100px;
+}
+
+.nav-main-your-business .time-post-nav-main-your-business {
+	grid-area: time-post;
+	width: 100px;
+}
+
+.nav-main-your-business .queue-message-nav-main-your-business {
+	grid-area: queue-message;
+	width: 100px;
+}
+
+.nav-main-your-business .viewer-nav-main-your-business {
+	grid-area: viewwer;
+	width: 300px;
+}
+
+.nav-main-your-business .notable-nav-main-your-business {
+	grid-area: notable;
+	width: 100px;
+}
+
+.nav-main-your-business .bill-nav-main-your-business {
+	grid-area: bill;
+	width: 100px;
+}
+
+.nav-main-your-business .income-nav-main-your-business {
+	grid-area: income;
+	width: 120px;
+}
+
+.nav-main-your-business .admin-nav-main-your-business {
+	grid-area: admin;
+	width: 200px;
+}
+
+.nav-main-your-business .address-nav-main-your-business {
+	grid-area: address;
+	width: 300px;
+}
+
+/* content */
+.main-your-business-container {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.main-your-business-container-item {
+	position: relative;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	background-color: rgb(235, 252, 252);
+	gap: 16px;
+	align-items: center;
+	font-size: 0.8em;
+	width: fit-content;
+	display: grid;
+	border-radius: 16px;
+	grid-template-areas: "card post time-post queue-message viewwer notable bill income admin address";
+}
+.submain-your-business-item-container {
+	display: flex;
+	flex-direction: column;
+}
+.submain-your-business-container {
+	display: flex;
+	align-items: center;
+}
+
+.heading-main-your-business-container {
+	cursor: pointer;
+	border-radius: 16px;
+	background-color: rgb(120, 290, 232);
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	display: flex;
+	height: fit-content;
+	border-radius: 16px;
+	align-items: center;
+	z-index: 9998;
+	left: 41px;
+	position: sticky;
+	padding-right: 12px;
+}
+
+.main-your-business-container .flag-item-main-your-business {
+	width: 20px;
+	background-color: white;
+	width: 50px;
+	height: 90.66px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: sticky;
+	z-index: 9999;
+	left: 0;
+	margin-left: auto;
+	padding: 0 12px;
+}
+
+/* card */
+.card-item-main-your-business {
+	grid-area: card;
+	width: 228px;
+	border-radius: 16px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	background-color: white;
+	display: flex;
+	line-height: 1.4;
+	align-items: center;
+	padding: 6px;
+}
+
+.circles-card-nav-main-your-business {
+	width: 50px;
+	height: 50px;
+	border: 1px solid rgb(193, 190, 190);
+	border-radius: 100%;
+}
+
+.heading-info-card-nav-main-your-business {
+	display: flex;
+	flex-direction: column;
+	margin-left: 10px;
+	align-items: flex-start;
+	text-align: left !important;
+}
+
+/* end  */
+
+.main-your-business-container .post-nav-main-your-business {
+	grid-area: post;
+	width: 100px;
+}
+
+.main-your-business-container .time-post-nav-main-your-business {
+	grid-area: time-post;
+	width: 100px;
+}
+
+.main-your-business-container .queue-message-nav-main-your-business {
+	grid-area: queue-message;
+	width: 100px;
+}
+
+.main-your-business-container .viewer-nav-main-your-business {
+	grid-area: viewwer;
+	width: 300px;
+}
+
+.main-your-business-container .notable-nav-main-your-business {
+	grid-area: notable;
+	width: 100px;
+}
+
+.main-your-business-container .bill-nav-main-your-business {
+	grid-area: bill;
+	width: 100px;
+}
+
+.main-your-business-container .income-nav-main-your-business {
+	grid-area: income;
+	width: 120px;
+}
+
+.main-your-business-container .admin-nav-main-your-business {
+	grid-area: admin;
+	width: 200px;
+}
+
+.main-your-business-container .address-nav-main-your-business {
+	grid-area: address;
+	width: 300px;
+}
+
+/* comment */
+.comment-main-your-business {
+	text-align: center;
+	align-items: center;
+	font-size: 1em;
+	display: grid;
+	grid-template-areas: "flag card post time-post queue-message viewwer notable bill income admin address";
+	gap: 16px;
+}
+
+.comment-main-your-business .flag-comment-main-your-business {
+	grid-area: flag;
+	width: 20px;
+}
+
+.comment-main-your-business .card-comment-main-your-business {
+	grid-area: card;
+	width: 228px;
+}
+
+.comment-main-your-business .post-comment-main-your-business {
+	grid-area: post;
+	width: 100px;
+}
+
+.comment-main-your-business .time-post-comment-main-your-business {
+	grid-area: time-post;
+	width: 100px;
+}
+
+.comment-main-your-business .queue-message-comment-main-your-business {
+	grid-area: queue-message;
+	width: 100px;
+}
+
+.comment-main-your-business .viewer-comment-main-your-business {
+	grid-area: viewwer;
+	border-bottom-right-radius: 16px;
+	border-bottom-left-radius: 16px;
+	height: 60px;
+	background-color: rgb(235, 252, 252);
+	width: 300px;
+	display: flex;
+	font-size: 0.8em !important;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	margin-top: -10px;
+}
+
+.unlike-viewer-comment-main-your-business {
+	border-left: 1px solid #cccccc9b;
+	display: flex;
+	align-items: center;
+	height: 100%;
+	padding-left: 10px;
+}
+
+.comment-viewer-comment-main-your-business {
+	border-left: 1px solid #cccccc9b;
+	display: flex;
+	align-items: center;
+	height: 100%;
+	padding-left: 10px;
+}
+
+.comment-main-your-business .notable-comment-main-your-business {
+	grid-area: notable;
+	width: 100px;
+}
+
+.comment-main-your-business .bill-comment-main-your-business {
+	grid-area: bill;
+	width: 100px;
+}
+
+.comment-main-your-business .income-comment-main-your-business {
+	grid-area: income;
+	width: 120px;
+}
+
+.comment-main-your-business .admin-comment-main-your-business {
+	grid-area: admin;
+	width: 200px;
+}
+
+.comment-main-your-business .address-comment-main-your-business {
+	grid-area: address;
+	width: 300px;
+}

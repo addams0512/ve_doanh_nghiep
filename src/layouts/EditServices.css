@@ -1,0 +1,129 @@
+.add-services-main {
+	display: flex;
+	flex-direction: column;
+}
+
+.heading-add-services-main {
+	height: fit-content;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: 20px;
+}
+
+.title-add-services-main {
+	padding: 12px;
+	background-color: white;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.icon-title-add-services-main {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	padding-right: 10px;
+}
+
+.detail-icon-title-add-services-main {
+	font-size: 20px;
+	height: fit-content;
+	width: fit-content;
+	padding: 2px;
+	background-color: white;
+	border-top-right-radius: 8px;
+}
+/* part2 */
+.main2-add-services-main {
+	display: grid;
+	grid-template-columns: 0.6fr 2fr;
+	background-color: white;
+	gap: 16px;
+	border-top-right-radius: 34px;
+	border-bottom-right-radius: 34px;
+	border-bottom-left-radius: 34px;
+	margin-bottom: 10px;
+}
+
+/* small-img */
+.img-main2-add-services-main {
+	display: flex;
+	height: fit-content;
+	width: auto;
+	flex-direction: column;
+	padding-left: 10px;
+	align-items: center;
+}
+.small-img-main2-add-services-main {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	width: 100%;
+}
+.small-detail-img-main2-add-services-main {
+	height: 162px;
+	width: auto;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+}
+.name-img-main2-add-services-main {
+	margin-top: 16px;
+	font-style: italic;
+	color: #979494;
+}
+
+/* big-img */
+.description-main2-add-services-main {
+	display: grid;
+	grid-template-rows: 5.2fr 1fr 0.4fr;
+}
+.name-main2-add-services-main {
+	display: flex;
+	justify-content: space-between;
+}
+
+.big-img-main2-add-services-main {
+	border: 1px solid darkgray;
+	border-top-right-radius: 34px;
+}
+
+.name-main2-add-services-main {
+	margin-top: 16px;
+	font-size: 1em;
+	color: #979494;
+	font-style: italic;
+}
+.price-big-img-main2-add-services-main {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	gap: 16px;
+	margin-right: 20px;
+}
+
+/* part3 */
+.purchase2-btn-add-services-main {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	height: 100px;
+	padding: 0 20px 20px 0;
+}
+
+.purchase2-btn-add-services-main button {
+	font-size: 1em;
+	width: fit-content;
+	height: fit-content;
+	padding: 10px;
+	box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 1px;
+	margin-right: 20px;
+	border-radius: 16px;
+}
+
+.purchase2-btn-add-services-main p {
+	font-size: 0.9em;
+	font-style: italic;
+	color: #a6a6a6;
+}

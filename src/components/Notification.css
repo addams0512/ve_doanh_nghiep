@@ -1,0 +1,92 @@
+.card {
+	border-bottom: 1px solid rgb(176, 170, 170);
+	position: relative;
+	height: fit-content;
+	overflow: hidden;
+	width: auto;
+	font-size: 0.8em;
+}
+
+.card h4 {
+	font-size: 1.2em;
+	margin-left: 20px;
+	padding: 10px;
+}
+
+@media screen and (max-width: 912px) {
+	.notifications {
+		display: none;
+	}
+}
+@media screen and (max-width: 500px) {
+	.notifications {
+		display: none;
+	}
+}
+
+.notifications h3 {
+	margin: auto;
+	color: black;
+	padding: 10px;
+}
+
+.card-tag {
+	top: -10px;
+	left: -1px;
+	width: 0;
+	height: 0;
+	border-top: 12px solid transparent;
+	border-bottom: 12px solid transparent;
+	border-right: 12px solid red;
+	transform: rotate(45deg);
+	position: absolute;
+}
+
+.date-notification {
+	margin-top: 10px;
+	font-style: italic;
+	margin-left: 70%;
+	display: flex;
+	font-size: 0.6em;
+}
+
+.card-content {
+	display: flex;
+	height: fit-content;
+	width: auto;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.avartar-notification {
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	border: 1px solid rgb(219, 216, 216);
+}
+
+.action-notification {
+	padding-top: 4px;
+	font-size: 0.7em;
+	width: 50px !important;
+}
+
+.card-content-notification {
+	gap: 6px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: fit-content;
+	text-align: center;
+}
+
+.time-notifcation {
+	margin-left: auto;
+	margin-bottom: 10px;
+}
+
+.notification-content {
+	padding: 0 10px 0 10px;
+	width: auto;
+	line-height: 1.4;
+}

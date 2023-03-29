@@ -1,0 +1,4 @@
+.create-business-page {
+	display: grid;
+	grid-template-columns: 1000px 300px;
+}
