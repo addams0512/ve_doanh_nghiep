@@ -80,11 +80,12 @@
 	border-top: 1px solid #ccc;
 	display: flex;
 	justify-content: space-between;
-	align-items: end;
+	justify-content: end;
 	font-weight: bold;
 	gap: 20px;
 	margin-bottom: 20px;
 	padding-top: 40px;
+	align-items: center;
 }
 
 .main-services-nav-arrange {
@@ -156,9 +157,6 @@
 	align-items: end;
 	margin-top: 20px;
 	line-height: 1.6;
-}
-
-.main-services-content-name-title {
 }
 
 .main-services-content-name-des {

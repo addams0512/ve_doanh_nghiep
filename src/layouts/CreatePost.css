@@ -15,7 +15,7 @@
 	background-color: rgba(0, 0, 0, 0.55);
 }
 .create-post-container {
-	padding: 10px;
+	padding: 10px 20px;
 	background-color: white;
 	width: 700px;
 	height: 820px;
@@ -33,7 +33,7 @@
 }
 .create-post-heading-1 {
 	margin: 10px 20px 10px 10px;
-	color: rgb(244, 177, 33);
+	color: rgb(248, 168, 89);
 	font-weight: 700;
 }
 .create-post-heading-2 {
@@ -91,10 +91,9 @@
 	color: white;
 }
 .create-post-bottom-info-7 {
-	margin-top: 10px;
 	justify-content: end;
+	margin-top: 8px;
 	display: flex;
-	margin-right: 20px;
 }
 .create-post-bottom-info-2 button {
 	margin-left: 10px;
@@ -116,22 +115,20 @@
 	border: 1px solid black;
 }
 .create-post-bottom-info-7 button {
-	margin: 20px 0 0 40px !important;
+	margin-top: 10px;
 	border-radius: 10px;
-	background-color: rgb(244, 177, 33);
+	background-color: rgb(248, 168, 89);
 	cursor: pointer;
 	font-size: 12px;
-	height: 30px;
+	height: 40px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	color: white;
-	border: 1px rgb(244, 177, 33);
 }
 .create-post-bottom-info-7 button:hover {
-	background-color: white;
-	color: black;
-	border: 1px solid black;
+	background-color: rgb(55, 55, 55);
+	color: white;
 }
 .create-post-bottom-info-2-option {
 	margin-top: 5px !important;

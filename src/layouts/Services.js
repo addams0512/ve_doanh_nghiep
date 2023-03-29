@@ -11,10 +11,6 @@ import Dropdown from "../components/Dropdown"
 
 const Services = () => {
 	const [displayEditService, setDisplayEditServices] = useState(false)
-	const [displayDropDown, setDisplayDropDown] = useState(false)
-	const dropDown = () => {
-		setDisplayDropDown(true)
-	}
 	const unDisplayEditService = () => {
 		setDisplayEditServices(false)
 	}
