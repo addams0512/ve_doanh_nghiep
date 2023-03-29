@@ -17,8 +17,8 @@
 .create-post-container {
 	padding: 10px;
 	background-color: white;
-	width: 680px;
-	height: 720px;
+	width: 700px;
+	height: 820px;
 	border-radius: 10px;
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
@@ -26,8 +26,8 @@
 	width: 100%;
 }
 .create-post-circles {
-	width: 65px;
-	height: 65px;
+	width: 70px;
+	height: 70px;
 	border: 1px solid;
 	border-radius: 100%;
 }
@@ -57,10 +57,10 @@
 
 .create-post-body-box {
 	width: auto;
-	margin-top: 5px;
+	margin-top: 25px;
 }
 .create-post-body-info {
-	height: 60px;
+	height: 100px;
 	width: 100%;
 	border-radius: 10px;
 	border: 1px solid gray;
@@ -79,9 +79,9 @@
 	background-color: white;
 	cursor: pointer;
 	height: 25px;
-	font-size: 10px;
+	font-size: 12px;
 	font-weight: 600;
-	width: 200px;
+	width: 230px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -91,7 +91,7 @@
 	color: white;
 }
 .create-post-bottom-info-7 {
-	margin-top: 15px;
+	margin-top: 10px;
 	justify-content: end;
 	display: flex;
 	margin-right: 20px;
@@ -103,9 +103,9 @@
 	background-color: white;
 	cursor: pointer;
 	height: 25px;
-	font-size: 10px;
+	font-size: 12px;
 	font-weight: 600;
-	width: 170px;
+	width: 200px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -120,7 +120,7 @@
 	border-radius: 10px;
 	background-color: rgb(244, 177, 33);
 	cursor: pointer;
-	font-size: 10px;
+	font-size: 12px;
 	height: 30px;
 	display: flex;
 	justify-content: center;
@@ -150,7 +150,7 @@
 	padding: 10px;
 }
 .create-post-heading-info-3 {
-	font-size: 12px;
+	font-size: 14px;
 	font-style: italic;
 }
 .create-post-STAR {
@@ -167,9 +167,9 @@
 	justify-content: space-between;
 }
 .create-post-bottom-info4-option {
-	width: 130px;
+	width: 150px;
 	border: 1px solid;
-	height: 180px;
+	height: 200px;
 }
 .create-post-bottom-info-6 {
 	display: flex;
@@ -178,7 +178,7 @@
 }
 .create-post-box-1 {
 	width: 180px;
-	height: 170px;
+	height: 200px;
 	border: 1px solid;
 	display: grid;
 	grid-template-areas:
@@ -201,7 +201,7 @@
 }
 .create-post-box-2 {
 	width: 180px;
-	height: 170px;
+	height: 200px;
 	border: 1px solid;
 	display: grid;
 	grid-template-areas:
@@ -212,7 +212,7 @@
 }
 .create-post-box-3 {
 	width: 180px;
-	height: 170px;
+	height: 200px;
 	border: 1px solid;
 	display: grid;
 	grid-template-areas:
@@ -222,7 +222,7 @@
 	padding: 10px;
 }
 .create-post-bottom-info-5 {
-	margin: 20px 10px 10px 10px;
-	font-size: 12px;
+	margin: 25px 10px 10px 10px;
+	font-size: 14px;
 	font-weight: 600;
 }

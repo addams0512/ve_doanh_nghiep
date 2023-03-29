@@ -12,13 +12,13 @@ export default function CreatePost({ post }) {
 			<div className="create-post-container">
 				<div className="create-post-container-heading">
 					<div className="create-post-heading-1">
-						<h5>TẠO BÀI VIẾT</h5>
+						<h4>TẠO BÀI VIẾT</h4>
 					</div>
 					<div className="create-post-heading-2">
 						<div className="create-post-circles"></div>
 						<div className="create-post-heading-info">
-							<h4>Tên doanh nghiệp</h4>
-							<h6>Lĩnh vực</h6>
+							<h3>Tên doanh nghiệp</h3>
+							<h5>Lĩnh vực</h5>
 							<div className="create-post-STAR">
 								<Rating size="small" />
 							</div>
