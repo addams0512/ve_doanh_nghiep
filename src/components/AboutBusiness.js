@@ -8,16 +8,18 @@ import Post from "../layouts/Post"
 import CreatePost from "../layouts/CreatePost"
 import PreviewPost from "../layouts/PreviewPost"
 import Cart from "../layouts/Cart"
+import { fabClasses } from "@mui/material"
 const AboutBusiness = () => {
 	const [aboutUsDisplay, setAboutUsDisplay] = useState(false)
 	const [displayPost, setDisplayPost] = useState(true)
 	const [displayServices, setDisplayServices] = useState(false)
-	const [displayHiring, setDisplayHiring] = useState(false)
 	const [displayCreatePost, setDisplayCreatePost] = useState(false)
 	const [displayPreviewPost, setDisplayPreviewPost] = useState(false)
 	const [displayCart, setDisplayCart] = useState(false)
-	const removeHiring = () => {
-		setDisplayHiring(false)
+	const [HiringDisplay, setHiringDisplay] = useState(false)
+
+	const Showme = () => {
+		setHiringDisplay(true)
 	}
 	return (
 		<>
@@ -43,9 +45,7 @@ const AboutBusiness = () => {
 						<button className="btn-contact">Liên hệ</button>
 						<button
 							type="button"
-							onClick={() => {
-								setDisplayHiring(true)
-							}}>
+							onClick={Showme}>
 							Ứng tuyển
 						</button>
 					</div>
@@ -117,8 +117,15 @@ const AboutBusiness = () => {
 					</div>
 				</div>
 				<>
+					{HiringDisplay && (
+						<Hiring
+							reset={() => {
+								setHiringDisplay(false)
+							}}
+						/>
+					)}
 					{aboutUsDisplay && <AboutUs />}
-					{displayHiring && <Hiring reset={removeHiring} />}
+
 					{displayServices && <Services />}
 					{displayPost && (
 						<Post
@@ -137,6 +144,7 @@ const AboutBusiness = () => {
 						<CreatePost
 							post={() => {
 								setDisplayPreviewPost(true)
+								setDisplayCreatePost(false)
 							}}
 						/>
 					)}
