@@ -1,10 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
 import "./Hiring.css"
 import Rating from "../components/Rating"
-const Hiring = ({ reset }) => {
-	const ask = () => {
-		reset()
+const Hiring = (props) => {
+	const handleclick = () => {
+		props.reset()
 	}
+
 	return (
 		<div className="about-business-hiring">
 			<div className="about-business-hiring-container ">
@@ -48,7 +49,7 @@ const Hiring = ({ reset }) => {
 							</div>
 						</div>
 						<div className="hiring-bottom-info-4">
-							<button onClick={ask}>HOÀN THÀNH</button>
+							<button onClick={handleclick}>HOÀN THÀNH</button>
 						</div>
 					</div>
 				</div>
