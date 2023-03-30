@@ -1,0 +1,10 @@
+.color-picker-container {
+	position: relative;
+}
+
+.main-color-picker {
+	position: absolute;
+	z-index: 9999;
+	width: 200px;
+	height: 500px;
+}

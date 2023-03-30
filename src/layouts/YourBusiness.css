@@ -64,76 +64,100 @@
 	font-size: 0.8em;
 	display: grid;
 	grid-template-areas: "flag card post time-post queue-message viewwer notable bill income admin address";
-	gap: 18px;
+	gap: 16px;
 }
 
 .nav-main-your-business .flag-nav-main-your-business {
 	box-shadow: none;
-	width: 100%;
+	width: 20px;
 	height: 100%;
-	background-color: white;
 	position: sticky;
 	left: 0;
 	z-index: 9999;
 	grid-area: flag;
-	width: 20px;
-	margin-right: 8px;
+	background-color: white;
 }
 
 .nav-main-your-business .card-nav-main-your-business {
-	width: 100%;
+	width: 260px !important;
 	height: 100%;
+	padding-left: 20px;
 	background-color: white;
 	position: sticky;
-	left: 0;
-	z-index: 9999;
+	left: 20px;
+	z-index: 9998;
 	box-shadow: none;
 	grid-area: card;
 	width: 228px;
 }
 
 .nav-main-your-business .post-nav-main-your-business {
+	justify-content: center;
 	grid-area: post;
+	display: flex;
 	width: 100px;
 }
-
+.icon-sort-post-nav-main-your-business {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+}
 .nav-main-your-business .time-post-nav-main-your-business {
 	grid-area: time-post;
 	width: 100px;
+	display: flex;
 }
 
 .nav-main-your-business .queue-message-nav-main-your-business {
+	display: flex;
 	grid-area: queue-message;
+	justify-content: center;
+	align-items: center;
 	width: 100px;
 }
 
 .nav-main-your-business .viewer-nav-main-your-business {
+	display: flex;
 	grid-area: viewwer;
+	justify-content: center;
+	align-items: center;
 	width: 300px;
 }
 
 .nav-main-your-business .notable-nav-main-your-business {
 	grid-area: notable;
+	justify-content: center;
+	display: flex;
 	width: 100px;
 }
 
 .nav-main-your-business .bill-nav-main-your-business {
+	display: flex;
 	grid-area: bill;
+	justify-content: center;
 	width: 100px;
 }
 
 .nav-main-your-business .income-nav-main-your-business {
+	display: flex;
 	grid-area: income;
 	width: 120px;
+	justify-content: center;
 }
 
 .nav-main-your-business .admin-nav-main-your-business {
+	display: flex;
 	grid-area: admin;
+	justify-content: center;
+
 	width: 200px;
 }
 
 .nav-main-your-business .address-nav-main-your-business {
+	display: flex;
 	grid-area: address;
+	justify-content: center;
+
 	width: 300px;
 }
 
@@ -167,30 +191,26 @@
 }
 
 .heading-main-your-business-container {
-	cursor: pointer;
 	border-radius: 16px;
 	background-color: rgb(120, 290, 232);
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 	display: flex;
 	height: fit-content;
-	border-radius: 16px;
 	align-items: center;
-	z-index: 9998;
+	z-index: 8887;
 	left: 41px;
 	position: sticky;
-	padding-right: 12px;
+	width: 252px;
 }
 
 .main-your-business-container .flag-item-main-your-business {
-	width: 20px;
 	background-color: white;
-	width: 50px;
 	height: 90.66px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	position: sticky;
-	z-index: 9999;
+	z-index: 8888;
 	left: 0;
 	margin-left: auto;
 	padding: 0 12px;
@@ -199,8 +219,7 @@
 /* card */
 .card-item-main-your-business {
 	grid-area: card;
-	width: 228px;
-	border-radius: 16px;
+	width: 238px;
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
 	background-color: white;
@@ -209,7 +228,13 @@
 	align-items: center;
 	padding: 6px;
 }
-
+.color-picker-card-item-main-your-business {
+	display: flex;
+	margin-top: auto;
+	margin-left: auto;
+	margin-right: 6px;
+	position: relative;
+}
 .circles-card-nav-main-your-business {
 	width: 50px;
 	height: 50px;
@@ -218,6 +243,8 @@
 }
 
 .heading-info-card-nav-main-your-business {
+	cursor: pointer;
+
 	display: flex;
 	flex-direction: column;
 	margin-left: 10px;
@@ -285,11 +312,23 @@
 .comment-main-your-business .flag-comment-main-your-business {
 	grid-area: flag;
 	width: 20px;
+	height: 100%;
+	position: sticky;
+	z-index: 8888;
+	background-color: white;
+	left: 0;
+	margin-top: -6px;
 }
 
 .comment-main-your-business .card-comment-main-your-business {
 	grid-area: card;
-	width: 228px;
+	width: 260px;
+	margin-top: -6px;
+	background-color: white;
+	height: 60px;
+	position: sticky;
+	z-index: 7777;
+	left: 20px;
 }
 
 .comment-main-your-business .post-comment-main-your-business {
@@ -319,7 +358,7 @@
 	justify-content: center;
 	align-items: center;
 	gap: 20px;
-	margin-top: -10px;
+	margin-top: -20px;
 	box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 2px;
 }
 

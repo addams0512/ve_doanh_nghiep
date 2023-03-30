@@ -6,7 +6,7 @@
 	padding: 2px 6px;
 	position: relative;
 }
-.main-services-nav-arrange-dropdown:hover .dropdown-container {
+.main-drop-down:hover .dropdown-container {
 	display: block;
 }
 .dropdown-container input {
