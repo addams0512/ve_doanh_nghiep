@@ -191,13 +191,14 @@
 }
 
 .heading-main-your-business-container {
+	border: 1px solid red;
 	border-radius: 16px;
 	background-color: rgb(120, 290, 232);
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 	display: flex;
 	height: fit-content;
 	align-items: center;
-	z-index: 8887;
+	z-index: 8888;
 	left: 41px;
 	position: sticky;
 	width: 252px;
@@ -218,6 +219,8 @@
 
 /* card */
 .card-item-main-your-business {
+	border: 2px solid blue;
+	z-index: 8888;
 	grid-area: card;
 	width: 238px;
 	border-top-right-radius: 10px;
@@ -232,8 +235,6 @@
 	display: flex;
 	margin-top: auto;
 	margin-left: auto;
-	margin-right: 6px;
-	position: relative;
 }
 .circles-card-nav-main-your-business {
 	width: 50px;
@@ -327,7 +328,7 @@
 	background-color: white;
 	height: 60px;
 	position: sticky;
-	z-index: 7777;
+	z-index: 8887;
 	left: 20px;
 }
 

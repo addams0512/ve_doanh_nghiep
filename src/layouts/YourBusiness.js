@@ -8,6 +8,7 @@ import { YourBusinessData as data } from "../data/yourbusinessData"
 import { FaSortUp, FaSortDown } from "react-icons/fa"
 import ColorPicker from "../components/ColorPicker"
 import { useCallback } from "react"
+import { HelpOutline } from "@material-ui/icons"
 const YourBusiness = ({ createBusinessPage }) => {
 	const [loading, setLoading] = useState(false)
 	const [sortStatus, setSortStatus] = useState("")
@@ -20,16 +21,13 @@ const YourBusiness = ({ createBusinessPage }) => {
 	const [sortIncome, setSortIncome] = useState(true)
 	const [sortAdmin, setSortAdmin] = useState(true)
 	const [sortAddress, setSortAddress] = useState(true)
-	const [dataSelected, setDataSelected] = useState()
-	const isFirstRender = useRef(true)
+	const [dataSelected, setDataSelected] = useState(data)
+	const [sortData, setSortData] = useState([])
+
 	const handleColorPicker = (id) => {
-		if (isFirstRender.current) {
-			isFirstRender.current = false
-			return
-		}
 		setDataSelected(
 			data.map((item) => {
-				if (id === item.id) {
+				if (item.id === id) {
 					item.colorPicker = !item.colorPicker
 				} else {
 					item.colorPicker = false
@@ -38,85 +36,173 @@ const YourBusiness = ({ createBusinessPage }) => {
 			})
 		)
 	}
-	useEffect(() => {
-		switch (sortPostWeek) {
-			case true:
-				data.sort((a, b) => {
-					return a.postInWeek - b.postInWeek
-				})
-				break
-			case false:
-				data.sort((a, b) => {
-					return b.postInWeek - a.postInWeek
-				})
-				break
-			default:
-				break
-		}
-	}, [sortPostWeek])
-
-	useEffect(() => {
-		switch (sortTimePost) {
-			case true:
-				data.sort((a, b) => {
-					return a.timePost - b.timePost
-				})
-				break
-			case false:
-				data.sort((a, b) => {
-					return b.timePost - a.timePost
-				})
-				break
-			default:
-				break
-		}
-	}, [sortTimePost])
-
-	useEffect(() => {
-		switch (sortQueueMessage) {
-			case true:
-				data.sort((a, b) => {
-					return a.queueMessage - b.queueMessage
-				})
-				break
-			case false:
-				data.sort((a, b) => {
-					return b.queueMessage - a.queueMessage
-				})
-				break
-			default:
-				break
-		}
-	}, [sortQueueMessage])
 
 	const handleClickSort = (name) => {
 		switch (name) {
 			case "PostInWeek":
 				setSortPostWeek(!sortPostWeek)
+				setSortData(() => {
+					switch (sortPostWeek) {
+						case true:
+							data.sort((a, b) => {
+								return a.postInWeek - b.postInWeek
+							})
+							break
+						case false:
+							data.sort((a, b) => {
+								return b.postInWeek - a.postInWeek
+							})
+							break
+						default:
+							break
+					}
+				})
 				break
 			case "TimePost":
 				setSortTimePost(!sortTimePost)
+				setSortData(() => {
+					switch (sortTimePost) {
+						case true:
+							data.sort((a, b) => {
+								return a.timePost - b.timePost
+							})
+							break
+						case false:
+							data.sort((a, b) => {
+								return b.timePost - a.timePost
+							})
+							break
+						default:
+							break
+					}
+				})
 				break
 			case "QueueMessage":
 				setSortQueueMessage(!sortQueueMessage)
+				setSortData(() => {
+					switch (sortQueueMessage) {
+						case true:
+							data.sort((a, b) => {
+								return a.queueMessage - b.queueMessage
+							})
+							break
+						case false:
+							data.sort((a, b) => {
+								return b.queueMessage - a.queueMessage
+							})
+							break
+						default:
+							break
+					}
+				})
 				break
 			case "Viewer":
 				setSortViewer(!sortViewer)
+				setSortData(() => {
+					switch (sortViewer) {
+						case true:
+							data.sort((a, b) => {
+								return a.viewer - b.viewer
+							})
+							break
+						case false:
+							data.sort((a, b) => {
+								return b.viewer - a.viewer
+							})
+							break
+						default:
+							break
+					}
+				})
 				break
 			case "Notable":
 				setSortNotable(!sortNotable)
+				setSortData(() => {
+					switch (sortNotable) {
+						case true:
+							data.sort((a, b) => {
+								return a.notable - b.notable
+							})
+							break
+						case false:
+							data.sort((a, b) => {
+								return b.notable - a.notable
+							})
+							break
+						default:
+							break
+					}
+				})
 				break
 			case "Bill":
 				setSortBill(!sortBill)
+				setSortData(() => {
+					switch (sortBill) {
+						case true:
+							data.sort((a, b) => {
+								return a.bill - b.bill
+							})
+							break
+						case false:
+							data.sort((a, b) => {
+								return b.bill - a.bill
+							})
+							break
+						default:
+							break
+					}
+				})
 				break
 			case "Income":
 				setSortIncome(!sortIncome)
+				setSortData(() => {
+					switch (sortIncome) {
+						case true:
+							data.sort((a, b) => {
+								return a.income - b.income
+							})
+							break
+						case false:
+							data.sort((a, b) => {
+								return b.income - a.income
+							})
+							break
+						default:
+							break
+					}
+				})
 				break
 			case "Admin":
 				setSortAdmin(!sortAdmin)
+				setSortData(() => {
+					const dataTimePost = data.map((element) => element.admin)
+					const name1 = dataTimePost[0].toLowerCase()
+					console.log(name1)
+					const name2 = dataTimePost[1].toLowerCase()
+					console.log(name2)
+					if (name1 < name2) {
+						console.log("hello")
+					}
+				})
 				break
 			case "Address":
 				setSortAddress(!sortAddress)
+				setSortData(() => {
+					switch (sortAddress) {
+						case true:
+							data.sort((a, b) => {
+								return a.address - b.address
+							})
+							break
+						case false:
+							data.sort((a, b) => {
+								return b.address - a.address
+							})
+							break
+						default:
+							break
+					}
+				})
 				break
 			default:
 				break
