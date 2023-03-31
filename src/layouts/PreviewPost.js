@@ -1,6 +1,6 @@
 import React from "react"
 import "./PreviewPost.css"
-import { Rating } from "@mui/material"
+import Rating from "@material-ui/lab/Rating"
 import { VscTriangleDown } from "react-icons/vsc"
 import { MdOutlineCalendarMonth } from "react-icons/md"
 
@@ -8,6 +8,7 @@ export default function PreviewPost({ hideCreatePost }) {
 	function handleclick() {
 		hideCreatePost()
 	}
+
 	return (
 		<div className="preview-post">
 			<div className="preview-post-BOX">

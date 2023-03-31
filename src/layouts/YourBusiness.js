@@ -8,7 +8,6 @@ import { YourBusinessData as data } from "../data/yourbusinessData"
 import { FaSortUp, FaSortDown } from "react-icons/fa"
 import ColorPicker from "../components/ColorPicker"
 import { useCallback } from "react"
-import { HelpOutline } from "@material-ui/icons"
 const YourBusiness = ({ createBusinessPage }) => {
 	const [loading, setLoading] = useState(false)
 	const [sortStatus, setSortStatus] = useState("")
@@ -175,13 +174,19 @@ const YourBusiness = ({ createBusinessPage }) => {
 			case "Admin":
 				setSortAdmin(!sortAdmin)
 				setSortData(() => {
-					const dataTimePost = data.map((element) => element.admin)
-					const name1 = dataTimePost[0].toLowerCase()
-					console.log(name1)
-					const name2 = dataTimePost[1].toLowerCase()
-					console.log(name2)
-					if (name1 < name2) {
-						console.log("hello")
+					switch (sortAdmin) {
+						case true:
+							data.map((element) => {
+								return element.admin.sort()
+							})
+							break
+						case false:
+							data.sort((a, b) => {
+								return b.income - a.income
+							})
+							break
+						default:
+							break
 					}
 				})
 				break

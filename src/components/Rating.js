@@ -1,6 +1,6 @@
 import * as React from "react"
-import Box from "@mui/material/Box"
-import { Rating } from "@mui/material"
+import Rating from "@material-ui/lab/Rating"
+import Box from "@material-ui/core/Box"
 
 export default function BasicRating({ defaultValue, size }) {
 	const [value, setValue] = React.useState(2)

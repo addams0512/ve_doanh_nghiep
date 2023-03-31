@@ -5,7 +5,7 @@ import { AiOutlineLike } from "react-icons/ai"
 import { FaRegCommentDots } from "react-icons/fa"
 import { GrShare } from "react-icons/gr"
 import { BsReply } from "react-icons/bs"
-import { Rating } from "@mui/material"
+import Rating from "@material-ui/lab/Rating"
 import { useState } from "react"
 import ManagePost from "./ManagePost"
 const Post = ({ createPost }) => {
