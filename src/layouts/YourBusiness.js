@@ -4,12 +4,15 @@ import { BsFillBellFill } from "react-icons/bs"
 import Rating from "../components/Rating"
 import { BiDotsHorizontalRounded } from "react-icons/bi"
 import { BsFlagFill } from "react-icons/bs"
-import { YourBusinessData as data } from "../data/yourbusinessData"
+
 import { FaSortUp, FaSortDown } from "react-icons/fa"
 import ColorPicker from "../components/ColorPicker"
+import axios from "axios"
 import { useCallback } from "react"
+import instance from "../data/instance"
 const YourBusiness = ({ createBusinessPage }) => {
-	const [loading, setLoading] = useState(false)
+	const [data, setData] = useState([])
+	const [loading, setLoading] = useState(true)
 	const [sortStatus, setSortStatus] = useState("")
 	const [sortPostWeek, setSortPostWeek] = useState(true)
 	const [sortTimePost, setSortTimePost] = useState(true)
@@ -20,8 +23,17 @@ const YourBusiness = ({ createBusinessPage }) => {
 	const [sortIncome, setSortIncome] = useState(true)
 	const [sortAdmin, setSortAdmin] = useState(true)
 	const [sortAddress, setSortAddress] = useState(true)
-	const [dataSelected, setDataSelected] = useState(data)
+	const [dataSelected, setDataSelected] = useState()
 	const [sortData, setSortData] = useState([])
+	const [color, setColor] = useState([])
+
+	// Get API
+	useEffect(() => {
+		instance.get("/DataYourBusiness").then((res) => {
+			setData(res.data)
+			setLoading(false)
+		})
+	}, [])
 
 	const handleColorPicker = (id) => {
 		setDataSelected(
@@ -173,49 +185,77 @@ const YourBusiness = ({ createBusinessPage }) => {
 				break
 			case "Admin":
 				setSortAdmin(!sortAdmin)
-				setSortData(() => {
-					switch (sortAdmin) {
-						case true:
-							data.map((element) => {
-								return element.admin.sort()
-							})
-							break
-						case false:
-							data.sort((a, b) => {
-								return b.income - a.income
-							})
-							break
-						default:
-							break
-					}
-				})
+				switch (sortAdmin) {
+					case true:
+						data.sort((a, b) => {
+							if (a.admin < b.admin) return -1
+							if (a.admin > b.admin) return 1
+							return 0
+						})
+						break
+					case false:
+						data.sort((a, b) => {
+							if (a.admin > b.admin) return -1
+							if (a.admin < b.admin) return 1
+							return 0
+						})
+						break
+					default:
+						break
+				}
 				break
 			case "Address":
 				setSortAddress(!sortAddress)
-				setSortData(() => {
-					switch (sortAddress) {
-						case true:
-							data.sort((a, b) => {
-								return a.address - b.address
-							})
-							break
-						case false:
-							data.sort((a, b) => {
-								return b.address - a.address
-							})
-							break
-						default:
-							break
-					}
-				})
+				switch (sortAddress) {
+					case true:
+						data.sort((a, b) => {
+							if (a.address < b.address) return -1
+							if (a.address > b.address) return 1
+							return 0
+						})
+						break
+					case false:
+						data.sort((a, b) => {
+							if (a.address > b.address) return -1
+							if (a.address < b.address) return 1
+							return 0
+						})
+						break
+					default:
+						break
+				}
 				break
 			default:
-				break
 		}
 	}
 
 	const createBusiness = () => {
 		createBusinessPage()
+	}
+
+	function hexToRgbA(hex) {
+		var c
+		if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+			c = hex.substring(1).split("")
+			if (c.length === 3) {
+				c = [c[0], c[0], c[1], c[1], c[2], c[2]]
+			}
+			c = "0x" + c.join("")
+			return (
+				"rgba(" + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(",") + ",0.2)"
+			)
+		}
+	}
+
+	const confirmColor = () => {
+		color.forEach((item) => {
+			axios.put(
+				`https://64267442556bad2a5b50064a.mockapi.io/DataYourBusiness/${item.id}`,
+				{
+					color: item.color,
+				}
+			)
+		})
 	}
 
 	return (
@@ -336,8 +376,16 @@ const YourBusiness = ({ createBusinessPage }) => {
 									<div className="flag-item-main-your-business">
 										<BsFlagFill />
 									</div>
-									<div className="main-your-business-container-item">
-										<div className="heading-main-your-business-container">
+									<div
+										style={{
+											backgroundColor: hexToRgbA(element?.color),
+										}}
+										className="main-your-business-container-item">
+										<div
+											style={{
+												backgroundColor: `${element.color}`,
+											}}
+											className="heading-main-your-business-container">
 											{/* card */}
 											<div className="card-item-main-your-business">
 												<div className="circles-card-nav-main-your-business"></div>
@@ -345,14 +393,14 @@ const YourBusiness = ({ createBusinessPage }) => {
 													onClick={createBusiness}
 													className="heading-info-card-nav-main-your-business">
 													<h3 style={{ fontWeight: "900" }}>
-														Tên doanh nghiệp
+														{element.yourBusiness}
 													</h3>
 													<Rating
 														name="size-small"
 														defaultValue={2}
 														size="small"
 													/>
-													<p>Lĩnh vực</p>
+													<p>{element.major}</p>
 												</div>
 												<div className="color-picker-card-item-main-your-business">
 													<BiDotsHorizontalRounded
@@ -361,7 +409,18 @@ const YourBusiness = ({ createBusinessPage }) => {
 														size={20}
 													/>
 													{element.colorPicker && (
-														<ColorPicker color2={element.color} />
+														<ColorPicker
+															displayColor={(displayColor) => {
+																setColor(
+																	data.map((item) => {
+																		if (item.id === element.id) {
+																			return (item.color = displayColor.hex)
+																		}
+																		return item
+																	})
+																)
+															}}
+														/>
 													)}
 												</div>
 											</div>
@@ -406,12 +465,12 @@ const YourBusiness = ({ createBusinessPage }) => {
 											<div className="time-post-comment-main-your-business"></div>
 											<div className="queue-message-comment-main-your-business"></div>
 											<div className="viewer-comment-main-your-business">
-												<div>{element.like}</div>
+												<div>{element.like} thích</div>
 												<div className="unlike-viewer-comment-main-your-business">
-													{element.unlike}
+													{element.unlike} không thích
 												</div>
 												<div className="comment-viewer-comment-main-your-business">
-													{element.comment}
+													{element.comment} bình luận
 												</div>
 											</div>
 											<div className="notable-comment-main-your-business"></div>
@@ -426,6 +485,11 @@ const YourBusiness = ({ createBusinessPage }) => {
 						)
 					})}
 				</div>
+				<button
+					onClick={confirmColor}
+					className="confirm-color">
+					CONFIRMCOLOR
+				</button>
 			</div>
 		</div>
 	)

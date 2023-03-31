@@ -1,6 +1,6 @@
 import React from "react"
 import "./PreviewPost.css"
-import Rating from "@material-ui/lab/Rating"
+// import Rating from "@material-ui/lab/Rating"
 import { VscTriangleDown } from "react-icons/vsc"
 import { MdOutlineCalendarMonth } from "react-icons/md"
 
@@ -17,9 +17,7 @@ export default function PreviewPost({ hideCreatePost }) {
 					<div className="preview-post-heading-info">
 						<div className="preview-post-heading-info-1">Tên doanh nghiệp</div>
 						<div className="preview-post-heading-info-2">Lĩnh vực</div>
-						<div className="preview-post-STAR">
-							<Rating />
-						</div>
+						<div className="preview-post-STAR">{/* <Rating /> */}</div>
 						<div className="preview-post-heading-info-3">Người đăng bài</div>
 					</div>
 					<div className="preview-post-Date">
