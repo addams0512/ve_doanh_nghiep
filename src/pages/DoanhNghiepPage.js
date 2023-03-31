@@ -9,7 +9,6 @@ const DoanhNghiepPage = () => {
 	return (
 		<div className="business-page">
 			<Sidebar />
-
 			{isYourBusiness && (
 				<YourBusiness
 					createBusinessPage={() => {
