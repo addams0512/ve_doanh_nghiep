@@ -3,13 +3,14 @@ import "./YourBusiness.css"
 import { BsFillBellFill } from "react-icons/bs"
 import Rating from "../components/Rating"
 import { BiDotsHorizontalRounded } from "react-icons/bi"
-import { BsFlagFill } from "react-icons/bs"
+import { BsFlagFill, BsFlag } from "react-icons/bs"
 
 import { FaSortUp, FaSortDown } from "react-icons/fa"
 import ColorPicker from "../components/ColorPicker"
 import axios from "axios"
 import { useCallback } from "react"
 import instance from "../data/instance"
+import Notification from "../components/Notification"
 const YourBusiness = ({ createBusinessPage }) => {
 	const [data, setData] = useState([])
 	const [loading, setLoading] = useState(true)
@@ -26,6 +27,9 @@ const YourBusiness = ({ createBusinessPage }) => {
 	const [dataSelected, setDataSelected] = useState()
 	const [sortData, setSortData] = useState([])
 	const [color, setColor] = useState([])
+	const [displayNotification, setDisplayNotification] = useState(false)
+	const [dataFavorite, setDataFavovrite] = useState(data)
+	const [onFiltering, setOnFiltering] = useState(false)
 
 	// Get API
 	useEffect(() => {
@@ -35,19 +39,41 @@ const YourBusiness = ({ createBusinessPage }) => {
 		})
 	}, [])
 
+	// handleColorPicker
 	const handleColorPicker = (id) => {
 		setDataSelected(
 			data.map((item) => {
 				if (item.id === id) {
 					item.colorPicker = !item.colorPicker
-				} else {
-					item.colorPicker = false
 				}
 				return item
 			})
 		)
 	}
 
+	// handlePriority
+	const displayPriority = (id) => {
+		// const newArray = data.filter((item) => {
+		// 	return item.id !== id
+		// })
+
+		// const dataPriority = data.find((item) => {
+		// 	return item.id === id
+		// })
+
+		// newArray.unshift(dataPriority)
+
+		setDataSelected(
+			data.map((item) => {
+				if (item.id === id) {
+					item.priOrity = !item.priOrity
+				}
+				return item
+			})
+		)
+	}
+
+	// handleClickSort
 	const handleClickSort = (name) => {
 		switch (name) {
 			case "PostInWeek":
@@ -229,10 +255,7 @@ const YourBusiness = ({ createBusinessPage }) => {
 		}
 	}
 
-	const createBusiness = () => {
-		createBusinessPage()
-	}
-
+	// convertRGBA
 	function hexToRgbA(hex) {
 		var c
 		if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
@@ -247,16 +270,59 @@ const YourBusiness = ({ createBusinessPage }) => {
 		}
 	}
 
+	// confirmColor
 	const confirmColor = () => {
 		color.forEach((item) => {
-			axios.put(
-				`https://64267442556bad2a5b50064a.mockapi.io/DataYourBusiness/${item.id}`,
-				{
-					color: item.color,
-				}
-			)
+			axios
+				.put(
+					`https://64267442556bad2a5b50064a.mockapi.io/DataYourBusiness/${item.id}`,
+					{
+						color: item.color,
+						id: item.id,
+					}
+				)
+				.then(() => {
+					console.log(
+						"🚀 ~ file: YourBusiness.js:256 ~ color.forEach ~ item.id:",
+						item.id + "-" + item.color
+					)
+				})
+				.catch((err) => {
+					console.log(err)
+				})
 		})
 	}
+	const createBusiness = () => {
+		createBusinessPage()
+	}
+
+	const toggleNoti = () => {
+		setDisplayNotification(!displayNotification)
+	}
+
+	// filterFavorite
+	// const filterFavorite = () => {
+	// 	setDataFavovrite(
+	// 		data.filter((item) => {
+	// 			if (item.priOrity === true) return item
+	// 		})
+	// 	)
+	// 	console.log(dataFavorite)
+	// }
+
+	const favoriteData = data.filter((s) => {
+		if (onFiltering) {
+			return s.priOrity
+		} else {
+			return s
+		}
+	})
+
+	// const reOrderingData = data.sort((a, b) => {
+	// 	a = a.priOrity || ""
+	// 	b = b.priOrity || ""
+	// 	return b - a
+	// })
 
 	return (
 		<div className="your-business-container">
@@ -265,7 +331,19 @@ const YourBusiness = ({ createBusinessPage }) => {
 					<div className="heading-your-business"> Doanh nghiệp của bạn </div>
 					<button className="create-your-business-btn">Tạo doanh nghiệp</button>
 				</div>
-				<BsFillBellFill className="bell-icon" />
+				<BsFillBellFill
+					onClick={toggleNoti}
+					className="bell-icon"
+				/>
+				{displayNotification && (
+					<div
+						onMouseDown={() => setDisplayNotification(false)}
+						className="notification-toggle-background">
+						<div className="notification-toggle-container">
+							<Notification />
+						</div>
+					</div>
+				)}
 			</div>
 			{/* main */}
 			<div className="main-your-business">
@@ -367,14 +445,18 @@ const YourBusiness = ({ createBusinessPage }) => {
 				{/* content */}
 				<div className="main-your-business-container">
 					{/* item */}
-					{data.map((element) => {
+					{favoriteData.map((element) => {
 						return (
 							<div
 								key={element.id}
 								className="submain-your-business-item-container">
 								<div className="submain-your-business-container">
-									<div className="flag-item-main-your-business">
-										<BsFlagFill />
+									<div
+										onClick={() => {
+											displayPriority(element.id)
+										}}
+										className="flag-item-main-your-business">
+										{element.priOrity ? <BsFlagFill /> : <BsFlag />}
 									</div>
 									<div
 										style={{
@@ -414,7 +496,7 @@ const YourBusiness = ({ createBusinessPage }) => {
 																setColor(
 																	data.map((item) => {
 																		if (item.id === element.id) {
-																			return (item.color = displayColor.hex)
+																			item.color = displayColor.hex
 																		}
 																		return item
 																	})
@@ -490,6 +572,7 @@ const YourBusiness = ({ createBusinessPage }) => {
 					className="confirm-color">
 					CONFIRMCOLOR
 				</button>
+				<button onClick={() => setOnFiltering(!onFiltering)}>FAVORITE</button>
 			</div>
 		</div>
 	)
