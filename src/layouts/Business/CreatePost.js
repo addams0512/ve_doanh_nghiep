@@ -1,6 +1,6 @@
 import React from "react"
 import "./CreatePost.css"
-import Rating from "../components/Rating"
+import Rating from "../../components/Business/Rating"
 import { AiFillPicture } from "react-icons/ai"
 import { AiOutlineTag } from "react-icons/ai"
 export default function CreatePost({ post }) {

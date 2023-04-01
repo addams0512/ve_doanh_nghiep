@@ -3,11 +3,11 @@ import { BsThreeDots } from "react-icons/bs"
 import { FaEdit } from "react-icons/fa"
 import { IoMdArrowDropdown } from "react-icons/io"
 import { BsPlusCircleFill } from "react-icons/bs"
-import { impressServicesData } from "../data/impressServicesData"
-import { servicesData } from "../data/servicesData"
-import AddServices from "../layouts/AddServices"
+import { impressServicesData } from "../../data/impressServicesData"
+import { servicesData } from "../../data/servicesData"
+import AddServices from "./AddServices"
 import React, { useState } from "react"
-import Dropdown from "../components/Dropdown"
+import Dropdown from "../../components/Business/Dropdown"
 
 const Services = () => {
 	const [displayEditService, setDisplayEditServices] = useState(false)

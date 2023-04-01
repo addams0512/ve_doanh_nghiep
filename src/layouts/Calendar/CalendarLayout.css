@@ -1,0 +1,102 @@
+.container-calendar {
+	background-color: white;
+	display: grid;
+	grid-template-columns: 400px 900px;
+	height: fit-content;
+	padding: 40px 20px 0 20px;
+}
+
+/* box1 */
+.box1-calendar {
+	background-color: rgb(156, 156, 231);
+	display: grid;
+	grid-template-rows: 100px 100px 400px 160px 300px;
+}
+
+.date-calendar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 18px;
+}
+
+.date-calendar h1 {
+	font-weight: normal;
+	font-size: 60px;
+}
+
+.date-calendar p {
+	font-size: 40px;
+}
+
+.add-plan-calendar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.add-plan-calendar button {
+	background-color: #f6f6f6;
+	width: 240px;
+	height: 40px;
+	font-size: 20px;
+	color: black;
+	font-weight: normal;
+	margin-top: 0;
+}
+
+.display-calendar {
+	background-color: aqua;
+}
+
+.type-plan-calendar {
+	border-radius: 12%;
+	background-color: #f6f6f6;
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: center;
+	justify-content: center;
+}
+
+.type-plan-calendar p {
+	font-size: 1.6rem;
+}
+
+.title-type-plan-calendar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.description-type-plan-calendar {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 340px;
+	height: fit-content;
+	font-size: 1.1rem;
+	height: fit-content;
+}
+
+.description-type-plan-container {
+	display: flex;
+	width: fit-content;
+}
+
+.color-descrtiption-type-plan {
+	height: 40px;
+	width: 40px;
+}
+
+/* box2 */
+.box2-calendar {
+	background-color: rgb(207, 118, 118);
+	display: grid;
+	grid-template-rows: 100px 100px auto;
+}
+
+.container-box2-plan {
+	display: flex;
+}

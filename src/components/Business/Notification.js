@@ -1,6 +1,6 @@
 import React from "react"
 import "./Notification.css"
-import notificationData from "../data/notification"
+import notificationData from "../../data/notification"
 import { useState } from "react"
 const Notification = () => {
 	const [selectedData, setSelectedData] = useState([])

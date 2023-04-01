@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from "react"
 import "./YourBusiness.css"
 import { BsFillBellFill } from "react-icons/bs"
-import Rating from "../components/Rating"
+import Rating from "../../components/Business/Rating"
 import { BiDotsHorizontalRounded } from "react-icons/bi"
 import { BsFlagFill, BsFlag } from "react-icons/bs"
 
 import { FaSortUp, FaSortDown } from "react-icons/fa"
-import ColorPicker from "../components/ColorPicker"
+import ColorPicker from "../../components/Business/ColorPicker"
 import axios from "axios"
 import { useCallback } from "react"
-import instance from "../data/instance"
-import Notification from "../components/Notification"
+import instance from "../../data/instance"
+import Notification from "../../components/Business/Notification"
 const YourBusiness = ({ createBusinessPage }) => {
 	const [data, setData] = useState([])
 	const [loading, setLoading] = useState(true)

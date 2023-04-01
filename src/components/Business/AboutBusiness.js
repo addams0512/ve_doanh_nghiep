@@ -1,13 +1,13 @@
 import React, { useState } from "react"
-import AboutUs from "../layouts/AboutUs"
-import Hiring from "../layouts/Hiring"
-import Services from "../layouts/Services"
+import AboutUs from "../../layouts/Business/AboutUs"
+import Hiring from "../../layouts/Business/Hiring"
+import Services from "../../layouts/Business/Services"
 import "./AboutBusiness.css"
 import Rating from "./Rating"
-import Post from "../layouts/Post"
-import CreatePost from "../layouts/CreatePost"
-import PreviewPost from "../layouts/PreviewPost"
-import Cart from "../layouts/Cart"
+import Post from "../../layouts/Business/Post"
+import CreatePost from "../../layouts/Business/CreatePost"
+import PreviewPost from "../../layouts/Business/PreviewPost"
+import Cart from "../../layouts/Business/Cart"
 const AboutBusiness = () => {
 	const [aboutUsDisplay, setAboutUsDisplay] = useState(false)
 	const [displayPost, setDisplayPost] = useState(true)

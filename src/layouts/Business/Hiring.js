@@ -1,6 +1,6 @@
 import React from "react"
 import "./Hiring.css"
-import Rating from "../components/Rating"
+import Rating from "../../components/Business/Rating"
 const Hiring = (props) => {
 	const handleclick = () => {
 		props.reset()

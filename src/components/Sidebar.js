@@ -107,44 +107,83 @@ export default function Sidebar({ user }) {
 				Nguồn lực
 			</p>
 			<div className="sidebar-column-menu">
-				{/* <NavLink to="/home" activeClassName="active" className="sidebar-column-menu-option">
-                    <FcHome size={25} className="nav-icon" />
-                    <h5>Nhà của Tôi</h5>
-                </NavLink>
-                <NavLink exact to="/news" activeClassName="active" className="sidebar-column-menu-option">
-                    <FcGlobe size={25} className="nav-icon" />
-                    <h5>Thế giới</h5>
-                </NavLink>
-                <NavLink exact to="/business" className="sidebar-column-menu-option">
-                    <FcBusiness size={25} className="nav-icon" />
-                    <h5>Doanh nghiệp</h5>
-                </NavLink>
-                <NavLink exact to="/ads" className="sidebar-column-menu-option">
-                    <FcSpeaker size={25} className="nav-icon" />
-                    <h5>Quảng cáo</h5>
-                </NavLink>
-                <NavLink exact to="/commercial" activeClassName="active" className="sidebar-column-menu-option">
-                    <FcBusiness size={25} className="nav-icon" />
-                    <h5>Thị trường</h5>
-                </NavLink>
-                <NavLink exact to="/friend" activeClassName="active" className="sidebar-column-menu-option">
-                    <FcConferenceCall size={25} className="nav-icon" />
-                    <h5>Mối quan hệ</h5>
-                </NavLink> */}
+				<NavLink
+					to="/home"
+					// activeClassName="active"
+					className="sidebar-column-menu-option">
+					<FcHome
+						size={25}
+						className="nav-icon"
+					/>
+					<h5>Nhà của Tôi</h5>
+				</NavLink>
+				{/* <NavLink
+					exact
+					to="/news"
+					activeClassName="active"
+					className="sidebar-column-menu-option">
+					<FcGlobe
+						size={25}
+						className="nav-icon"
+					/>
+					<h5>Thế giới</h5>
+				</NavLink> */}
 				<NavLink
 					// exact
-					// to="/booked"
-					// isActive={() =>
-					// 	["/booked", "/booked/shipment", "/booked/saved"].includes(pathname)
-					// }
-					// activeClassName="active"
+					to="/business"
+					className="sidebar-column-menu-option">
+					<FcBusiness
+						size={25}
+						className="nav-icon"
+					/>
+					<h5>Doanh nghiệp</h5>
+				</NavLink>
+				{/* <NavLink
+					exact
+					to="/ads"
+					className="sidebar-column-menu-option">
+					<FcSpeaker
+						size={25}
+						className="nav-icon"
+					/>
+					<h5>Quảng cáo</h5>
+				</NavLink> */}
+				{/* <NavLink
+					exact
+					to="/commercial"
+					activeClassName="active"
+					className="sidebar-column-menu-option">
+					<FcBusiness
+						size={25}
+						className="nav-icon"
+					/>
+					<h5>Thị trường</h5>
+				</NavLink> */}
+				{/* <NavLink
+					exact
+					to="/friend"
+					activeClassName="active"
+					className="sidebar-column-menu-option">
+					<FcConferenceCall
+						size={25}
+						className="nav-icon"
+					/>
+					<h5>Mối quan hệ</h5>
+				</NavLink> */}
+				{/* <NavLink
+					exact
+					to="/booked"
+					isActive={() =>
+						["/booked", "/booked/shipment", "/booked/saved"].includes(pathname)
+					}
+					activeClassName="active"
 					className="sidebar-column-menu-option">
 					<FcShipped
 						size={25}
 						className="nav-icon"
 					/>
 					<h5>Vận chuyển</h5>
-				</NavLink>
+				</NavLink> */}
 				<NavLink
 					// exact
 					// to="/moving"

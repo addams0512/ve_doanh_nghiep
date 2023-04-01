@@ -1,6 +1,6 @@
 import React from "react"
-import AboutBusiness from "../components/AboutBusiness"
-import Notification from "../components/Notification"
+import AboutBusiness from "../../components/Business/AboutBusiness"
+import Notification from "../../components/Business/Notification"
 import "./CreateBusiness.css"
 const CreateBusiness = () => {
 	return (
