@@ -35,7 +35,10 @@ import { useLocation, useParams, useNavigate } from "react-router-dom"
 import { BiBuildingHouse } from "react-icons/bi"
 export default function Sidebar({ user }) {
 	const { pathname } = useLocation()
-
+	const [displayMakeMoney, setDisplayMakeMoney] = useState(false)
+	const handleDisplayMakeMoney = () => {
+		setDisplayMakeMoney(true)
+	}
 	const [loading, setLoading] = useState(false)
 	const [userData, setUserData] = useState([])
 	const navigate = useNavigate()
@@ -60,9 +63,13 @@ export default function Sidebar({ user }) {
 					<h3>{userData.displayName}</h3>
 					<p>{userData.major}</p>
 					<div className="sidebar-user-info-button">
-						<div className="sidebar-user-info-text">
-							<h5>Kiếm tiền</h5>
-						</div>
+						<NavLink to="/makemoney">
+							<div
+								onClick={handleDisplayMakeMoney}
+								className="sidebar-user-info-text">
+								<h5>Kiếm tiền</h5>
+							</div>
+						</NavLink>
 					</div>
 					<div className="sidebar-user-info-control">
 						<div className="sidebar-user-control-icon">
