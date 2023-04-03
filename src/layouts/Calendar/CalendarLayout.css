@@ -8,9 +8,8 @@
 
 /* box1 */
 .box1-calendar {
-	background-color: rgb(156, 156, 231);
 	display: grid;
-	grid-template-rows: 100px 100px 300px 160px 300px;
+	grid-template-rows: auto auto 300px 160px 300px;
 }
 
 .date-calendar {
@@ -44,11 +43,12 @@
 	color: black;
 	font-weight: normal;
 	margin-top: 0;
+	border: none;
+	border-radius: 20px;
 }
 
 /* main-calendar */
 .display-calendar {
-	background-color: aqua;
 	display: flex;
 	justify-content: center;
 	align-items: center;
