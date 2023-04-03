@@ -1,6 +1,6 @@
 import React from "react"
 import "./CalendarLayout.css"
-import BasicDateCalendar from "../../components/Calendar/Calendar"
+import BasicCalendar from "../../components/Calendar/BasicCalendar"
 const CalendarLayout = () => {
 	return (
 		<div className="container-calendar">
@@ -12,7 +12,9 @@ const CalendarLayout = () => {
 				<div className="add-plan-calendar">
 					<button>Thêm kế hoạch</button>
 				</div>
-				<div className="display-calendar">{/* <BasicDateCalendar /> */}</div>
+				<div className="display-calendar">
+					<BasicCalendar />
+				</div>
 				<div className="type-plan-calendar">
 					<div className="title-type-plan-calendar">
 						<p> Loại kế hoạch</p>
@@ -24,11 +26,7 @@ const CalendarLayout = () => {
 						</div>
 						<div className="description-type-plan-container">
 							<div className="color-descrtiption-type-plan"></div>
-							<div className="description-type-plan">Công việc</div>
-						</div>
-						<div className="description-type-plan-container">
-							<div className="color-descrtiption-type-plan"></div>
-							<div className="description-type-plan">Công việc</div>
+							<div className="description-type-plan">Vợ</div>
 						</div>
 						<div className="description-type-plan-container">
 							<div className="color-descrtiption-type-plan"></div>

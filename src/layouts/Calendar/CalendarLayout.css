@@ -10,7 +10,7 @@
 .box1-calendar {
 	background-color: rgb(156, 156, 231);
 	display: grid;
-	grid-template-rows: 100px 100px 400px 160px 300px;
+	grid-template-rows: 100px 100px 300px 160px 300px;
 }
 
 .date-calendar {
@@ -29,6 +29,7 @@
 	font-size: 40px;
 }
 
+/* btn-add-plan */
 .add-plan-calendar {
 	display: flex;
 	justify-content: center;
@@ -45,8 +46,12 @@
 	margin-top: 0;
 }
 
+/* main-calendar */
 .display-calendar {
 	background-color: aqua;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .type-plan-calendar {
@@ -77,17 +82,22 @@
 	max-width: 340px;
 	height: fit-content;
 	font-size: 1.1rem;
-	height: fit-content;
+	justify-content: center;
 }
 
 .description-type-plan-container {
+	align-items: center;
+	justify-content: center;
+	margin: 10px 10px 10px 0;
 	display: flex;
 	width: fit-content;
+	gap: 10px;
 }
 
 .color-descrtiption-type-plan {
-	height: 40px;
-	width: 40px;
+	height: 20px;
+	width: 20px;
+	background-color: red;
 }
 
 /* box2 */
