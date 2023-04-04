@@ -1,9 +1,17 @@
-import React from "react"
+import React, { useState } from "react"
 import "./CalendarLayout.css"
 import BasicCalendar from "../../components/Calendar/BasicCalendar"
 import { AiOutlineSearch } from "react-icons/ai"
-import { RxAvatar } from "react-icons/rx"
+import DayLayout from "./DayLayout"
+import MonthLayout from "./MonthLayout"
+import WeekLayout from "./WeekLayout"
+import YearLayout from "./YearLayout"
 const CalendarLayout = () => {
+	const [displayDay, setDisplayDay] = useState(true)
+	const [displayWeek, setDisplayWeek] = useState(false)
+	const [displayMonth, setDisplayMonth] = useState(false)
+	const [displayYear, setDisplayYear] = useState(false)
+
 	return (
 		<div className="container-calendar">
 			<div className="box1-calendar">
@@ -97,10 +105,74 @@ const CalendarLayout = () => {
 			<div className="box2-calendar">
 				<div className="container-box2-plan">
 					<div className="time-type-calendar">
-						<button>Ngày</button>
-						<button>Tuần</button>
-						<button>Tháng</button>
-						<button>Năm</button>
+						<button
+							style={
+								displayDay
+									? {
+											backgroundColor: "black",
+											color: "white",
+									  }
+									: {}
+							}
+							onClick={() => {
+								setDisplayDay(true)
+								setDisplayWeek(false)
+								setDisplayMonth(false)
+								setDisplayYear(false)
+							}}>
+							Ngày
+						</button>
+						<button
+							style={
+								displayWeek
+									? {
+											backgroundColor: "black",
+											color: "white",
+									  }
+									: {}
+							}
+							onClick={() => {
+								setDisplayDay(false)
+								setDisplayWeek(true)
+								setDisplayMonth(false)
+								setDisplayYear(false)
+							}}>
+							Tuần
+						</button>
+						<button
+							style={
+								displayMonth
+									? {
+											backgroundColor: "black",
+											color: "white",
+									  }
+									: {}
+							}
+							onClick={() => {
+								setDisplayDay(false)
+								setDisplayWeek(false)
+								setDisplayMonth(true)
+								setDisplayYear(false)
+							}}>
+							Tháng
+						</button>
+						<button
+							style={
+								displayYear
+									? {
+											backgroundColor: "black",
+											color: "white",
+									  }
+									: {}
+							}
+							onClick={() => {
+								setDisplayDay(false)
+								setDisplayWeek(false)
+								setDisplayMonth(false)
+								setDisplayYear(true)
+							}}>
+							Năm
+						</button>
 					</div>
 					<div className="btn-search-calendar">
 						<AiOutlineSearch size={20} />
@@ -119,101 +191,10 @@ const CalendarLayout = () => {
 					<button>T6</button>
 					<button>T7</button>
 				</div>
-				<div className="plan-calendar">
-					<div className="plan-calendar-container">
-						<div className="detail-plan-calendar">
-							<div className="detail-plan-calendar-container">
-								<div className="specific-time-plan-calendar">9:00 AM</div>
-								<div className="content-detail-plan-calendar">
-									<div className="tag-detail-plan-calendar"></div>
-									<div className="detail-description-plan-calendar">
-										<div className="title-detail-plan-calendar">
-											Họp cùng sales team
-										</div>
-										<div className="time-detail-plan-calendar">9:00 - 9:30</div>
-										<div className="avatar-detail-plan-caledar">
-											<RxAvatar size={40} />
-											<RxAvatar size={40} />
-											<RxAvatar size={40} />
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="detail-plan-calendar-container">
-								<div className="specific-time-plan-calendar">10:00 AM</div>
-
-								<div className="content-detail-plan-calendar">
-									<div className="tag-detail-plan-calendar"></div>
-									<div className="detail-description-plan-calendar">
-										<div className="title-detail-plan-calendar">
-											Họp cùng sales team
-										</div>
-										<div className="time-detail-plan-calendar">9:00 - 9:30</div>
-										<div className="avatar-detail-plan-caledar">
-											<RxAvatar size={40} />
-											<RxAvatar size={40} />
-											<RxAvatar size={40} />
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="detail-plan-calendar-container">
-								<div className="specific-time-plan-calendar">11:00 AM</div>
-
-								<div className="content-detail-plan-calendar">
-									<div className="tag-detail-plan-calendar"></div>
-									<div className="detail-description-plan-calendar">
-										<div className="title-detail-plan-calendar">
-											Họp cùng sales team
-										</div>
-										<div className="time-detail-plan-calendar">9:00 - 9:30</div>
-										<div className="avatar-detail-plan-caledar">
-											<RxAvatar size={40} />
-											<RxAvatar size={40} />
-											<RxAvatar size={40} />
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="detail-plan-calendar-container">
-								<div className="specific-time-plan-calendar">12:00 AM</div>
-
-								<div className="content-detail-plan-calendar">
-									<div className="tag-detail-plan-calendar"></div>
-									<div className="detail-description-plan-calendar">
-										<div className="title-detail-plan-calendar">
-											Họp cùng sales team
-										</div>
-										<div className="time-detail-plan-calendar">9:00 - 9:30</div>
-										<div className="avatar-detail-plan-caledar">
-											<RxAvatar size={40} />
-											<RxAvatar size={40} />
-											<RxAvatar size={40} />
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="detail-plan-calendar-container">
-								<div className="specific-time-plan-calendar">10:00 AM</div>
-
-								<div className="content-detail-plan-calendar">
-									<div className="tag-detail-plan-calendar"></div>
-									<div className="detail-description-plan-calendar">
-										<div className="title-detail-plan-calendar">
-											Họp cùng sales team
-										</div>
-										<div className="time-detail-plan-calendar">9:00 - 9:30</div>
-										<div className="avatar-detail-plan-caledar">
-											<RxAvatar size={40} />
-											<RxAvatar size={40} />
-											<RxAvatar size={40} />
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				{displayDay && <DayLayout />}
+				{displayWeek && <WeekLayout />}
+				{displayMonth && <MonthLayout />}
+				{displayYear && <YearLayout />}
 			</div>
 		</div>
 	)
