@@ -30,7 +30,6 @@ abbr[title] {
 }
 .react-calendar__month-view__days {
 	margin: 10px 0;
-	gap: 10px;
 }
 /* .react-calendar__month-view__days__day--weekend {
 	color: #d10000;
@@ -101,7 +100,10 @@ abbr[title] {
 button.react-calendar__tile.react-calendar__month-view__days__day {
 	border: none;
 	background-color: transparent;
+	margin-bottom: 10px;
 }
+
 .react-calendar__month-view__weekdays {
 	text-align: center;
+	/* gap: 10px; */
 }
