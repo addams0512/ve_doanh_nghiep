@@ -4,10 +4,11 @@ import { DayPilotCalendar } from "@daypilot/daypilot-lite-react"
 import { planAPI } from "../../data/planAPI"
 const WeekLayout = () => {
 	const day = [1, 2, 3, 4, 5, 6, 7]
-	// const time = () => {
-	// 	for (let i = 0; i < 24; i++) {}
-	// }
-	// console.log(time)
+	const plan = Array.from({ length: 25 * 7 }, (v, i) => {
+		return {
+			id: i + 1,
+		}
+	})
 	const time = [
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
 		21, 22, 23, 24,
@@ -38,7 +39,6 @@ const WeekLayout = () => {
 		return s.planWeekDate === "Sunday"
 	})
 
-	let grid = []
 	const gridLength = 25 - generateSunday.length
 	for (let i = 0; i < gridLength; i++) {
 		generateSunday.push(new Array(25))
@@ -81,7 +81,25 @@ const WeekLayout = () => {
 						</div>
 					))}
 				</div>
-				<div
+				<div className="plan-time-week__layout-container">
+					<div className="day-week__layout-container">
+						{day.map((item) => {
+							return (
+								<div className="item-day-week__layout-container">{item}</div>
+							)
+						})}
+					</div>
+					<div className="plan-week__layout-container">
+						{plan.map((item) => {
+							return (
+								<div className="item-plan-week__layout-container">
+									{item.id}
+								</div>
+							)
+						})}
+					</div>
+				</div>
+				{/* <div
 					className="week-layout-edit-timeColumn"
 					style={{ display: "flex" }}>
 					<div>
@@ -262,7 +280,7 @@ const WeekLayout = () => {
 							</div>
 						))}
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	)

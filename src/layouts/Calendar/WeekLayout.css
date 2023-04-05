@@ -3,8 +3,8 @@
 	border-radius: 40px;
 	margin-top: 20px;
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-	width: 1000px;
-	height: 700px;
+	width: 900px;
+	height: 800px;
 	overflow-y: auto;
 	margin-bottom: 20px;
 	display: flex;
@@ -21,29 +21,51 @@
 	width: fit-content;
 }
 
-.specific-time__layout-container {
-	font-size: 1rem;
-}
-
-.day-week__layout-container {
-	width: auto;
+.week-layout-edit {
 	display: flex;
 }
 
-.specific-day__layout-container {
-	width: 100px;
-	height: fit-content;
-	border: 2px solid blue;
-}
 .week-layout-edit-timeColumn {
 	padding: 10px;
-}
-.week-layout-edit-timeOption {
-	height: 230px;
-	padding: 10px;
+	font-size: 1.2rem;
+	height: fit-content;
 }
 
-.week-layout-edit {
+.week-layout-edit-timeOption {
+	height: 200px;
+	padding: 10px 0 10px 10px;
+}
+
+.plan-time-week__layout-container {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 1000px;
+}
+.day-week__layout-container {
+	display: flex;
+}
+.item-day-week__layout-container {
+	width: calc(1000px / 7);
+	height: 68px;
+	display: flex;
+	align-items: center;
+	font-size: 1.4rem;
+	border-right: 1px solid #ccc;
+	justify-content: center;
+}
+.plan-week__layout-container {
+	display: flex;
+	max-width: 1000px;
+	flex-wrap: wrap;
+}
+.item-plan-week__layout-container {
+	display: flex;
+	width: calc(1000px / 7);
+	height: 200px;
+	border: 1px solid #ccc;
+}
+
+/* .week-layout-edit {
 	display: flex;
 }
 .week-layout-edit-timeOption h5 {
@@ -57,7 +79,7 @@
 }
 .week-layout-edit-weekdayRow {
 	display: flex;
-}
+} */
 /* .week-layout-timeline {
 	position: sticky;
 	left: 0;

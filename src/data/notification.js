@@ -59,16 +59,16 @@ const notificationData = [
 		seen: false,
 		id: 5,
 	},
-	{
-		function: "Liên hệ",
-		title: "Deedword Platforms",
-		main: "đã nộp hồ sơ ứng tuyển vào vị trí nhân viên Marketing",
-		name: "Lê Thanh Thảo",
-		content: "1209381029",
-		date: " 3 phút trước",
-		seen: false,
-		id: 5,
-	},
+	// {
+	// 	function: "Liên hệ",
+	// 	title: "Deedword Platforms",
+	// 	main: "đã nộp hồ sơ ứng tuyển vào vị trí nhân viên Marketing",
+	// 	name: "Lê Thanh Thảo",
+	// 	content: "1209381029",
+	// 	date: " 3 phút trước",
+	// 	seen: false,
+	// 	id: 5,
+	// },
 ]
 
 export default notificationData

@@ -1,17 +1,32 @@
 .container-calendar {
 	background-color: white;
 	display: grid;
-	grid-template-columns: 400px 900px;
+	grid-template-rows: 100px 1000px;
 	height: fit-content;
-	padding: 40px 20px 0 20px;
+	padding: 20px 20px 0 20px;
+}
+
+.content-container-calendar {
+	display: grid;
+	grid-template-columns: 400px 900px;
+}
+
+.header-container-calendar {
+	padding-top: 20px;
+	display: grid;
+	grid-template-columns: 400px 900px;
+}
+
+.time-search-type-calendar {
+	display: flex;
+	justify-content: flex-end;
 }
 
 /* box1 */
 .box1-calendar {
 	display: grid;
-	grid-template-rows: 80px 80px 260px 110px 210px;
+	grid-template-rows: 80px 260px 110px 210px;
 }
-
 .date-calendar {
 	display: flex;
 	align-items: center;
@@ -133,7 +148,6 @@
 	flex-direction: column;
 	gap: 10px;
 	height: 180px;
-	overflow-y: auto;
 	background-color: #f6f6f6;
 	width: 360px;
 	border-radius: 40px;

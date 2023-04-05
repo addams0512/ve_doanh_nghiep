@@ -1,0 +1,311 @@
+.create-plan-container {
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.55);
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+}
+
+.create-plan-box {
+	background-color: white;
+	border-radius: 16px;
+	width: 700px;
+	height: 710px;
+}
+
+.create-plan-btn {
+	border-radius: 16px;
+	background-color: rgba(37, 37, 37, 1);
+	width: 100%;
+	height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 2rem;
+}
+
+.name-create-plan-input {
+	width: 90%;
+	height: 100%;
+	font-size: 1.2rem;
+	display: flex;
+	height: 70px;
+	margin: 0 40px;
+	border: none;
+	border-bottom: 4px solid #9e9b9b;
+	padding-top: 20px;
+	margin-bottom: 40px;
+}
+
+.name-create-plan-input:focus {
+	outline: none;
+}
+
+.type-create-plan-container {
+	display: flex;
+	flex-direction: column;
+	margin-left: 40px;
+}
+
+.title-type-create-plan-container {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.title-type-create-plan {
+	background-color: #f0f0f0;
+	width: 200px;
+	height: 40px;
+	font-size: 1.2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+}
+
+.tag-type-create-plan-container {
+	display: flex;
+	gap: 20px;
+	font-size: 1.2rem;
+	margin-left: 50px;
+	margin-top: 20px;
+	width: fit-content;
+}
+.tag-type-create-plan__box {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	align-items: center;
+}
+
+.tag-type-create-plan {
+	border-radius: 8px;
+	background-color: red;
+	width: 27px;
+	height: 29px;
+}
+
+.time-create-plan-container {
+	margin-top: 20px;
+	margin-left: 40px;
+	font-size: 1.2rem;
+	display: flex;
+	width: 471px;
+	height: 93px;
+}
+
+.date-detail-create-plan-box {
+	flex-wrap: wrap;
+	display: flex;
+	flex-direction: column;
+	width: 440px;
+	padding-left: 18px;
+}
+
+.date-detail-create-plan-container {
+	background-color: #f0f0f0;
+	width: 200px;
+	height: 40px;
+	font-size: 1.2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+	flex-wrap: wrap;
+}
+
+.time-detail-create-plan-container {
+	background-color: #f0f0f0;
+	width: 160px;
+	height: 40px;
+	font-size: 1.2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+	margin-left: auto;
+}
+/* toggle button */
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 42px;
+	height: 24px;
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 22px;
+	width: 22px;
+	left: 4px;
+	bottom: 1px;
+	background-color: white;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+input:checked + .slider {
+	background-color: rgb(97, 203, 115);
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px rgb(97, 203, 115);
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(20px);
+	-ms-transform: translateX(20px);
+	transform: translateX(16px);
+}
+
+/* Rounded sliders */
+.slider.round {
+	border-radius: 34px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}
+
+.toggle-date-create-plan-container {
+	display: flex;
+	background-color: #f0f0f0;
+	width: 140px;
+	height: 40px;
+	font-size: 1.2rem;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+	gap: 10px;
+	margin-top: auto;
+}
+
+.repeat-create-plan-container {
+	background-color: #f0f0f0;
+	width: 100px;
+	height: 40px;
+	font-size: 1.2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-top: auto;
+}
+
+/* go-together */
+.go-together-create-plan-container {
+	margin-top: 20px;
+	display: flex;
+	margin-left: 40px;
+	gap: 18px;
+	align-items: center;
+}
+
+.go-together-create-plan-box {
+	background-color: #f0f0f0;
+	width: 200px;
+	height: 40px;
+	font-size: 1.2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+}
+
+/* location */
+.location-create-plan-container {
+	margin-top: 20px;
+	display: flex;
+	margin-left: 40px;
+	gap: 18px;
+	align-items: center;
+}
+
+.location-create-plan-box {
+	background-color: #f0f0f0;
+	width: 200px;
+	height: 40px;
+	font-size: 1.2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+}
+
+.notice-create-plan-container {
+	margin-top: 20px;
+	display: flex;
+	margin-left: 40px;
+	gap: 18px;
+	align-items: center;
+	width: 1000px;
+	height: auto;
+}
+
+.notice-create-plan-container textarea {
+	padding: 10px 20px;
+	background-color: #f0f0f0;
+	width: 600px;
+	height: 100px;
+	font-size: 1.2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+	resize: none;
+	border: none;
+}
+
+.notice-create-plan-container textarea:focus {
+	outline: none;
+}
+
+.button-delete-create-plan-container {
+	justify-content: flex-end;
+	margin: 20px 20px 10px 0px;
+	display: flex;
+	gap: 20px;
+}
+
+.button-delete-create-plan-container button {
+	width: 100px;
+	height: 40px;
+	font-size: 1.2rem;
+	border-radius: 40px;
+	border: none;
+	background-color: #f0f0f0;
+	cursor: pointer;
+}
+
+.button-delete-create-plan-container button:hover {
+	background-color: rgb(37, 37, 37);
+	color: white;
+	box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
