@@ -1,20 +1,20 @@
-import React, { useContext, useState } from "react"
+import React, { useContext } from "react"
 import "./YearLayout.css"
 import BasicCalendar from "../../components/Calendar/BasicCalendar"
 import { PlanContext } from "./CalendarLayout"
-import CreatePlan from "../../components/Calendar/CreatePlan"
 const YearLayout = () => {
-	const { setDisplayPlanCreate } = useContext(PlanContext)
-	const { displayPlanCreate } = useContext(PlanContext)
+	const value = useContext(PlanContext)
 
 	const displayPlan = () => {
-		setDisplayPlanCreate(true)
+		value.setDisplayPlanCreate(!value.displayPlanCreate)
 	}
+
 	const month = Array.from({ length: 12 }, (v, i) => {
 		return {
 			id: i + 1,
 		}
 	})
+
 	return (
 		<div className="year-layout-container">
 			<div className="btn-year-layout-container">
@@ -35,9 +35,6 @@ const YearLayout = () => {
 					)
 				})}
 			</div>
-			{displayPlanCreate && (
-				<CreatePlan remove={() => setDisplayPlanCreate(false)} />
-			)}
 		</div>
 	)
 }

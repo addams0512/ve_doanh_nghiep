@@ -218,10 +218,10 @@ const CalendarLayout = () => {
 							{displayYear && <YearLayout />}
 						</div>
 						<div />
-						{displayPlanCreate && (
-							<CreatePlan remove={() => setDisplayPlanCreate(false)} />
-						)}
 					</div>
+				)}
+				{displayPlanCreate && (
+					<CreatePlan remove={() => setDisplayPlanCreate(false)} />
 				)}
 			</div>
 		</PlanContext.Provider>
