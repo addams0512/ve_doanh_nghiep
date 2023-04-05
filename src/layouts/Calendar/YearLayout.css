@@ -22,8 +22,12 @@
 	border: none;
 	font-size: 1.2rem;
 	margin-bottom: 20px;
+	cursor: pointer;
 }
-
+.btn-year-layout:hover {
+	background-color: black;
+	color: white;
+}
 .calendar-year-detail-layout-container {
 	margin-bottom: 20px;
 }

@@ -8,7 +8,7 @@ import WeekLayout from "./WeekLayout"
 import YearLayout from "./YearLayout"
 import CreatePlan from "../../components/Calendar/CreatePlan"
 
-const PlanContext = createContext()
+export const PlanContext = createContext()
 const CalendarLayout = () => {
 	const [displayDay, setDisplayDay] = useState(true)
 	const [displayWeek, setDisplayWeek] = useState(false)
@@ -18,8 +18,12 @@ const CalendarLayout = () => {
 	const handleClickAddPlan = () => {
 		setDisplayPlanCreate(!displayPlanCreate)
 	}
+	const value = {
+		setDisplayPlanCreate,
+		displayPlanCreate,
+	}
 	return (
-		<PlanContext.Provider value={displayPlanCreate}>
+		<PlanContext.Provider value={value}>
 			<div className="container-calendar">
 				<div className="header-container-calendar">
 					<div className="date-calendar">

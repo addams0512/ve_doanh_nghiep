@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react"
 import "./YearLayout.css"
 import BasicCalendar from "../../components/Calendar/BasicCalendar"
+import { PlanContext } from "./CalendarLayout"
+import CreatePlan from "../../components/Calendar/CreatePlan"
 const YearLayout = () => {
-	const displayCreatePlan = useContext()
-	const [displayPLan, setDisplayPlan] = useState(displayCreatePlan)
+	const { setDisplayPlanCreate } = useContext(PlanContext)
+	const { displayPlanCreate } = useContext(PlanContext)
+
 	const displayPlan = () => {
-		setDisplayPlan(!displayPLan)
+		setDisplayPlanCreate(true)
 	}
 	const month = Array.from({ length: 12 }, (v, i) => {
 		return {
@@ -32,6 +35,9 @@ const YearLayout = () => {
 					)
 				})}
 			</div>
+			{displayPlanCreate && (
+				<CreatePlan remove={() => setDisplayPlanCreate(false)} />
+			)}
 		</div>
 	)
 }
