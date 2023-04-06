@@ -1,23 +1,34 @@
 .react-calendar {
+	height: 340px;
 	width: 380px;
 	max-width: 100%;
 	background-color: #f6f6f6;
-	color: #222;
+	color: gray;
 	border-radius: 10px;
 	font-family: Arial, Helvetica, sans-serif;
 	line-height: 1.125em;
+	font-size: 1rem;
+	font-weight: bold;
 }
+
 .react-calendar__navigation {
 	display: flex;
+	height: 60px;
+	justify-content: center;
 }
 .react-calendar__navigation button {
+	display: flex;
+	flex-direction: row;
 	border: none;
-	color: black;
+	color: gray;
 	min-width: 44px;
 	background: none;
-	font-size: 16px;
+	font-size: 20px;
 	margin-top: 8px;
+	align-items: center;
+	justify-content: center;
 }
+
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
 	background-color: #f8f8fa;
@@ -30,6 +41,7 @@ abbr[title] {
 }
 .react-calendar__month-view__days {
 	margin: 10px 0;
+	display: flex;
 }
 /* .react-calendar__month-view__days__day--weekend {
 	color: #d10000;
@@ -42,18 +54,19 @@ abbr[title] {
 }
 
 .react-calendar__tile--now {
-	background: #6f48eb33;
 	border-radius: 6px;
 	font-weight: bold;
-	color: green;
+	width: 100%;
+	height: 100%;
+	color: brown;
 }
 
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-	background: #6f48eb33;
+	background: #060606;
 	border-radius: 6px;
 	font-weight: bold;
-	color: blue;
+	color: white;
 }
 .react-calendar__tile--hasActive:enabled:hover,
 .react-calendar__tile--hasActive:enabled:focus {
@@ -93,17 +106,39 @@ abbr[title] {
 	margin-bottom: 10px;
 }
 
-.react-calendar__month-view {
-	padding: 0 10px;
-}
-
 button.react-calendar__tile.react-calendar__month-view__days__day {
 	border: none;
 	background-color: transparent;
+	height: 30px !important;
 	margin-bottom: 10px;
+	border-radius: 20px !important;
 }
 
 .react-calendar__month-view__weekdays {
 	text-align: center;
-	/* gap: 10px; */
+}
+
+.react-calendar__year-view__months__month {
+	height: 60px;
+	border: none;
+	font-size: 1.2rem;
+	background-color: transparent;
+}
+
+.react-calendar__decade-view__years__year {
+	height: 60px;
+	background-color: transparent;
+	border: none;
+	font-size: 1.2rem;
+}
+
+.react-calendar__century-view__decades__decade {
+	height: 60px;
+	background-color: transparent;
+	border: none;
+	font-size: 1.2rem;
+}
+
+.react-calendar__navigation button[disabled] {
+	background-color: transparent;
 }

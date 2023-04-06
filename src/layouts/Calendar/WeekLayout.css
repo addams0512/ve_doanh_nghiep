@@ -33,7 +33,7 @@
 
 .week-layout-edit-timeOption {
 	height: 200px;
-	padding: 10px 0 10px 10px;
+	padding: 6px 0 10px 10px;
 }
 
 .plan-time-week__layout-container {
@@ -46,10 +46,10 @@
 }
 .item-day-week__layout-container {
 	width: calc(1000px / 7);
-	height: 68px;
+	height: 60px;
 	display: flex;
 	align-items: center;
-	font-size: 1.4rem;
+	font-size: 1.2rem;
 	border-right: 1px solid #ccc;
 	justify-content: center;
 }
@@ -63,46 +63,39 @@
 	width: calc(1000px / 7);
 	height: 200px;
 	border: 1px solid #ccc;
+	border-left: none;
+	border-bottom: none;
 }
-
-/* .week-layout-edit {
-	display: flex;
-}
-.week-layout-edit-timeOption h5 {
-	font-size: 15px;
-	font-weight: 600;
-}
-.week-layout-edit-weekdayOption {
-	border-right: 1px solid black;
+.specific-plan-week__container {
+	border: 1px solid #ccc;
+	border-left: none;
+	width: calc(1000px / 7);
 	display: flex;
 	flex-direction: column;
+	padding: 10px;
 }
-.week-layout-edit-weekdayRow {
-	display: flex;
-} */
-/* .week-layout-timeline {
-	position: sticky;
-	left: 0;
-	background-color: white;
-	width: 70px;
+.box-specific-plan-week__container {
+	padding: 10px;
+
+	background: rgba(255, 255, 255, 0);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(3px);
+	border: 1px solid rgba(255, 255, 255, 0.03);
 	height: 100%;
 }
-.week-layout-header {
-	display: flex;
-}
-.week-layout-emptyBox {
-	padding: 10px;
-}
-.week-layout-header-option {
-	padding: 10px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	width: 200px;
-	border-right: 1px solid lightgray;
-	border-bottom: 1px solid lightgray;
+.tag-specific-plan-week__container {
+	height: 8px;
+	width: 100%;
+	border-radius: 20px;
 }
 
-.week-layout-timer-option {
-	height: 100px;
-	border-bottom: 1px solid;
-} */
+.title-specific-plan-week__container {
+	margin-top: 20px;
+	line-height: 1.2;
+}
+
+.heading-specific-plan-week__container {
+	margin-bottom: 10px;
+}

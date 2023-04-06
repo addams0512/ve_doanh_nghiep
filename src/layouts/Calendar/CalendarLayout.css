@@ -25,7 +25,7 @@
 /* box1 */
 .box1-calendar {
 	display: grid;
-	grid-template-rows: 80px 260px 110px 210px;
+	grid-template-rows: 80px 400px 110px 210px;
 }
 .date-calendar {
 	display: flex;
@@ -219,6 +219,9 @@
 	border: none;
 	justify-content: center;
 	align-items: center;
+}
+.btn-search-calendar input:focus {
+	outline: none;
 }
 .btn-date-calendar {
 	margin-left: 30px;
