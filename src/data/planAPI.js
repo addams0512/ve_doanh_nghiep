@@ -109,4 +109,85 @@ export const planAPI = [
 	},
 ]
 
-export const planMonthAPI = () => {}
+export const planMonthAPI = [
+	{
+		id: 1,
+		dateInMonth: 12,
+		type: {
+			colorType: "red",
+			contentType: "Gọi cho chủ tịch",
+		},
+	},
+	{
+		id: 2,
+		type: {
+			colorType: "pink",
+			contentType: "Họp sales cùng team",
+		},
+		dateInMonth: 27,
+	},
+	{
+		id: 3,
+		type: {
+			colorType: "orange",
+			contentType: "Học SQL",
+		},
+		dateInMonth: 3,
+	},
+	{
+		id: 4,
+		type: {
+			colorType: "brown",
+			contentType: "Học context API",
+		},
+		dateInMonth: 31,
+	},
+	{
+		id: 5,
+		type: {
+			colorType: "black",
+			contentType: "Truy vấn dữ liệu",
+		},
+		dateInMonth: 8,
+	},
+	{
+		id: 6,
+		type: {
+			colorType: "green",
+			contentType: "Học về Redux",
+		},
+		dateInMonth: 9,
+	},
+	{
+		id: 7,
+		type: {
+			colorType: "pink",
+			contentType: "Continue Calendar-Project",
+		},
+		dateInMonth: 10,
+	},
+	{
+		id: 8,
+		type: {
+			colorType: "pink",
+			contentType: "Họp sales cùng team",
+		},
+		dateInMonth: 11,
+	},
+	{
+		id: 9,
+		type: {
+			colorType: "pink",
+			contentType: "Họp sales cùng team",
+		},
+		dateInMonth: 13,
+	},
+	{
+		id: 10,
+		type: {
+			colorType: "pink",
+			contentType: "Họp sales cùng team",
+		},
+		dateInMonth: 14,
+	},
+]

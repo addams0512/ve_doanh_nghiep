@@ -68,10 +68,7 @@ abbr[title] {
 	font-weight: bold;
 	color: white;
 }
-.react-calendar__tile--hasActive:enabled:hover,
-.react-calendar__tile--hasActive:enabled:focus {
-	background: #f8f8fa;
-}
+
 .react-calendar__tile--active {
 	background: yellow;
 	border-radius: 6px;

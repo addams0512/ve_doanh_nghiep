@@ -1,15 +1,16 @@
 import React, { createContext } from "react"
 import Calendar from "react-calendar"
 import "./BasicCalendar.css"
-import { useState } from "react"
-export default function BasicCalendar() {
-	const [value, onChange] = useState(new Date())
 
+export const CalendarDay = createContext()
+
+export default function BasicCalendar({ onChange, value, month }) {
 	return (
 		<>
 			<Calendar
 				onChange={onChange}
 				value={value}
+				month={month}
 			/>
 		</>
 	)

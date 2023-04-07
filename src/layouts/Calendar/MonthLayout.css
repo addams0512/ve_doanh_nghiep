@@ -5,17 +5,49 @@
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 	width: 900px;
 	height: 800px;
-	overflow-y: auto;
+	overflow: auto;
 	margin-bottom: 20px;
+	display: flex;
+}
+
+.month-layout-overflow-container {
 	display: flex;
 	flex-wrap: wrap;
 }
 
-.month-layout-box {
+.month-layout-box1 {
+	width: calc(900px / 6);
+	height: calc(800px / 5);
+	display: flex;
+	border-right: 0.8px solid #ccc;
+	border-bottom: 0.8px solid #ccc;
+	padding: 10px 10px 4px 10px;
+}
+
+.month-layout-box2 {
+	width: calc(900px / 6);
+	height: calc(800px / 5);
 	display: flex;
 	align-items: end;
 	justify-content: end;
-	width: calc(900px / 7);
+	border-right: 0.8px solid #ccc;
+	border-bottom: 0.8px solid #ccc;
+	padding: 10px 10px 4px 10px;
+}
+
+.month-plan-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.month-layout-description {
+	margin-top: auto;
+}
+.content-month-plan-container {
+	width: 70px;
+	display: flex;
+	flex-wrap: wrap;
 	height: auto;
-	border: 0.8px solid #ccc;
+	font-size: 0.8rem;
 }

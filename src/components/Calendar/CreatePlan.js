@@ -1,11 +1,21 @@
-import React from "react"
+import React, { useContext } from "react"
 import "./CreatePlan.css"
 import { IoLocationSharp } from "react-icons/io5"
-import { BsFillPersonFill } from "react-icons/bs"
+import { BsCurrencyEuro, BsFillPersonFill } from "react-icons/bs"
 import { FaRegClock, FaTags } from "react-icons/fa"
 import { AiOutlinePlus } from "react-icons/ai"
-import { useState } from "react"
+import { DayContext } from "../../layouts/Calendar/CalendarLayout"
+import moment from "moment"
 const CreatePlan = ({ remove }) => {
+	const currentDay = useContext(DayContext)
+	const nowDay = moment(currentDay).format("YYYY/MM/DD")
+
+	const getDayName = (date = currentDay, locale = "vi-VN") => {
+		return date.toLocaleDateString(locale, { weekday: "long" })
+	}
+
+	const day = currentDay.getDate()
+	const month = currentDay.getMonth()
 	const handleCancel = () => {
 		remove()
 	}
@@ -60,13 +70,13 @@ const CreatePlan = ({ remove }) => {
 					</div>
 					<div className="date-detail-create-plan-box">
 						<div className="date-detail-create-plan-container">
-							Chủ nhật, 7 tháng 8{" "}
+							{getDayName()}, {day} tháng {month}{" "}
 						</div>
 						<div className="toggle-date-create-plan-container">
 							<div>
-								<label class="switch">
+								<label className="switch">
 									<input type="checkbox" />
-									<span class="slider round"></span>
+									<span className="slider round"></span>
 								</label>
 							</div>
 							<div className="content-create-plan-container">Cả ngày</div>
