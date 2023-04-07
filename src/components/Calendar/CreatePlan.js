@@ -5,13 +5,23 @@ import { BsFillPersonFill } from "react-icons/bs"
 import { FaRegClock, FaTags } from "react-icons/fa"
 import { AiOutlinePlus } from "react-icons/ai"
 import { useState } from "react"
+import Kindofplan from "../../layouts/Calendar/Kindofplan"
 const CreatePlan = ({ remove }) => {
 	const handleCancel = () => {
 		remove()
 	}
+	const [openfilekindofplan,setOpenFileKindOfPlan] =useState (true);
+	function showkindofplan () {
+		setOpenFileKindOfPlan (false);	
+        
+	}
+	const showCreatePlan = () => {
+		setOpenFileKindOfPlan(true);
+	}
 	return (
+
 		<div className="create-plan-container">
-			<div className="create-plan-box">
+			{ openfilekindofplan ?  <div className="create-plan-box">
 				<div className="create-plan-btn">Tạo kế hoạch</div>
 				<input
 					className="name-create-plan-input"
@@ -40,7 +50,7 @@ const CreatePlan = ({ remove }) => {
 							<div className="tag-type-create-plan"></div>
 							<div className="content-type-create-plan"> Sinh nhật</div>
 						</div>
-						<div
+						<div onClick={showkindofplan}
 							style={{
 								display: "flex",
 								justifyContent: "center",
@@ -110,7 +120,10 @@ const CreatePlan = ({ remove }) => {
 					<button>Tạo</button>
 				</div>
 			</div>
+			: <Kindofplan close={showCreatePlan}/>}
 		</div>
+		
+		
 	)
 }
 

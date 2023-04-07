@@ -1,0 +1,109 @@
+.kind-of-plan-container {
+    display: flex;
+}
+.kind-of-plan {
+    background-color: white;
+    height: 600px;
+    width: 500px;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}   
+.kind-of-plan-tittle {
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.kind-of-plan-tittle-info {
+    font-size: 30px;
+    font-weight: 600;
+}
+.kind-of-plan-option {
+    height: auto;
+}
+.kind-of-plan-option-color {
+    height: 40px;
+    width: 40px;
+}
+.kind-of-plan-option-container {
+    display: flex;
+    line-height: 60px;  
+    margin-left: 30px;
+    margin-top: 10px;
+}
+.kind-of-plan-option-color {
+    border-radius: 10px;
+}
+.kind-of-plan-option-info {
+    margin-left: 15px;
+    font-size: 25px;
+    margin-top: -10px;
+}
+.kind-of-plan-btn-add {
+    height:70px;
+}
+.form-btn-add {
+    height: 40px;
+    background-color: black;
+    color: white;
+    width: 90px;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-left: 30px;
+}
+.kind-of-plan-btn-add button{
+    cursor: pointer;
+}
+.kind-of-plan-btn-add button:hover {
+  background-color: white;
+  color: black;
+}
+.kind-of-plan-btn-bottom {
+    height: 70px;
+    display: flex;
+}
+.kind-of-plan-btn-cacel {
+    margin-left: auto;
+    margin-right: 10px;
+}
+.form-btn-cancel {
+    height: 40px;
+    background-color: white;
+    color: black;
+    width: 90px;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 15px;
+    border: 0px solid;
+}
+.kind-of-plan-btn-cacel button {
+    cursor: pointer;
+}
+.kind-of-plan-btn-cacel button:active {
+    background-color: black;
+    color: white;
+}
+.kind-of-plan-btn-create {
+    margin-right: 30px;
+}
+.form-btn-create {
+    height: 40px;
+    background-color: black;
+    color: white;
+    width: 90px;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 15px;
+}
+.kind-of-plan-btn-create button {
+    cursor: pointer;
+}
+.kind-of-plan-btn-create button:focus {
+    background-color: white;
+    color: black;
+}
