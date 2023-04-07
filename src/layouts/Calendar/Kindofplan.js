@@ -3,10 +3,8 @@ import "./Kindofplan.css"
 import CreatePlan from "../../components/Calendar/CreatePlan"
 import { typeofplan } from "../../data/typeofplan"
 import { useState } from "react"
-import Newtag from "./Newtag"
 import { flushSync } from "react-dom"
 import ColorPicker from "../../components/Business/ColorPicker"
-import "./Newtag.css"
 import { ChromePicker } from "react-color"
 
 
@@ -14,8 +12,8 @@ export default function Kindofplan({remove,close}) {
     const [showcolordisplay,setShowColorDisplay]=useState(false);
     const [addnewplan,setAddNewPlan]=useState()
     const [color, setColor] =  useState("green")
-    const displayColor = (c) => {
-        setColor(c)
+    const displayColor = (e) => {
+        setColor(e.hex)
     }
     function cancelnewtag () {
         remove()
@@ -42,9 +40,6 @@ export default function Kindofplan({remove,close}) {
         }])
         setNewPlan("");
     } 
-    const onPlanChange = (e) => {
-        setNewPlan(e.target.value);
-    }
   return (
     <>
     {cancelkindofplandisplay && <div className="kind-of-plan-container">
@@ -76,14 +71,14 @@ export default function Kindofplan({remove,close}) {
             <div className="new-tag-tittle-info">Tag mới</div>
         </div>
         <div className="new-tag-add-info">
-            <input value={newPlan} onChange={onPlanChange} type="text" placeholder="Cooking class" className="new-tag-input"></input>
+            <input value={newPlan} onChange={(e) =>setNewPlan(e.target.value)} type="text" placeholder="Cooking class" className="new-tag-input"></input>
         </div>
         <div className="new-tag-add-color">
             <div className="new-tag-name-color">Màu</div>
             <div onClick={showcolor} style={{backgroundColor: color}} className="new-tag-color-option">
                   {showcolordisplay && <div><ChromePicker
-      color={color}
-      onChange={displayColor}/></div>}
+                        color={color}
+                        onChange={displayColor}/></div>}
             </div>  
         </div>
         <div className="new-tag-btn-bottom">
