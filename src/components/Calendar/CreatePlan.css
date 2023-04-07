@@ -9,6 +9,7 @@
 	justify-content: center;
 	align-items: center;
 	z-index: 9999;
+	gap: 20px;
 }
 
 .create-plan-box {
@@ -131,6 +132,31 @@
 	align-items: center;
 	border-radius: 10px;
 	margin-left: auto;
+	position: relative;
+}
+
+.dropdown-time-detail-create-plan-container {
+	width: 160px;
+	height: 160px;
+	position: absolute;
+	z-index: 1;
+	background: rgba(255, 255, 255, 0.78);
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(6.2px);
+	-webkit-backdrop-filter: blur(6.2px);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	display: none;
+	overflow-y: auto;
+	padding-top: 10px;
+	padding-left: 24px;
+	top: 40px;
+}
+.dropdown-time-detail-create-plan-box {
+	margin-bottom: 10px;
+}
+.time-detail-create-plan-container:hover
+	.dropdown-time-detail-create-plan-container {
+	display: block;
 }
 /* toggle button */
 .switch {
