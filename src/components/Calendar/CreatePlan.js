@@ -4,6 +4,12 @@ import { IoLocationSharp } from "react-icons/io5"
 import { BsCurrencyEuro, BsFillPersonFill } from "react-icons/bs"
 import { FaRegClock, FaTags } from "react-icons/fa"
 import { AiOutlinePlus } from "react-icons/ai"
+<<<<<<< Updated upstream
+=======
+import { BiSearch } from "react-icons/bi"
+import { GrHistory } from "react-icons/gr"
+import { useState } from "react"
+>>>>>>> Stashed changes
 import Kindofplan from "../../layouts/Calendar/Kindofplan"
 import moment from "moment"
 const CreatePlan = ({ remove }) => {
@@ -45,12 +51,20 @@ const CreatePlan = ({ remove }) => {
 		remove()
 	}
 	const [openfilekindofplan, setOpenFileKindOfPlan] = useState(true)
+<<<<<<< Updated upstream
+=======
+	const [openfilegotoplace, setOpenFileGoToPlace] = useState(false)
+	function showfilegotoplace() {
+		setOpenFileGoToPlace(true)
+	}
+>>>>>>> Stashed changes
 	function showkindofplan() {
 		setOpenFileKindOfPlan(false)
 	}
 	const showCreatePlan = () => {
 		setOpenFileKindOfPlan(true)
 	}
+<<<<<<< Updated upstream
 
 	const [latitude, setLatitude] = useState(null)
 	const [longitude, setLongitude] = useState(null)
@@ -71,6 +85,8 @@ const CreatePlan = ({ remove }) => {
 			}
 		)
 	}, [])
+=======
+>>>>>>> Stashed changes
 	return (
 		<div className="create-plan-container">
 			{openfilekindofplan ? (
@@ -151,7 +167,15 @@ const CreatePlan = ({ remove }) => {
 							}}>
 							<BsFillPersonFill size={30} />
 						</div>
+<<<<<<< Updated upstream
 						<div className="go-together-create-plan-box">Đi cùng (Share)</div>
+=======
+						<div
+							onClick={showfilegotoplace}
+							className="go-together-create-plan-box">
+							Đi cùng (Share)
+						</div>
+>>>>>>> Stashed changes
 					</div>
 					<div className="location-create-plan-container">
 						<div
@@ -177,6 +201,48 @@ const CreatePlan = ({ remove }) => {
 			) : (
 				<Kindofplan close={showCreatePlan} />
 			)}
+<<<<<<< Updated upstream
+=======
+			{openfilegotoplace && (
+				<div className="go-to-palace-container">
+					<div className="go-to-palace-tittle">
+						<div className="go-to-palace-tittle-info">Đi cùng</div>
+					</div>
+					<div className="go-to-palace-search-bar">
+						<div className="go-to-palace-search-all">
+							<div className="go-to-palace-search-icon">
+								<BiSearch size={20} />
+							</div>
+							<input
+								type="text"
+								placeholder="Tìm bạn"
+								className="go-to-palace-search-input"></input>
+						</div>
+					</div>
+					<div className="go-to-palace-result">
+						<div className="go-to-palace-result-icon">
+							<GrHistory size={18} />
+						</div>
+						<div className="go-to-palace-result-info"> Gần nhất</div>
+					</div>
+					<div className="go-to-palace-result-name">
+						<div className="go-to-palace-result-name-img"></div>
+						<div className="go-to-palace-result-name-info"></div>
+					</div>
+					<div className="go-to-palace-btn-bottom">
+						<div className="go-to-palace-btn-cacel">
+							<button className="form-btn-cancel">Hủy</button>
+						</div>
+						<div className="go-to-palace-btn-create">
+							<button className="go-to-palace-form-btn-create">Tạo Tên</button>
+						</div>
+						<div className="go-to-palace-btn-add">
+							<button className="form-btn-add">Thêm</button>
+						</div>
+					</div>
+				</div>
+			)}
+>>>>>>> Stashed changes
 		</div>
 	)
 }
