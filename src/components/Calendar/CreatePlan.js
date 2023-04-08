@@ -4,13 +4,13 @@ import { IoLocationSharp } from "react-icons/io5"
 import { BsCurrencyEuro, BsFillPersonFill } from "react-icons/bs"
 import { FaRegClock, FaTags } from "react-icons/fa"
 import { AiOutlinePlus } from "react-icons/ai"
-
 import { BiSearch } from "react-icons/bi"
 import { GrHistory } from "react-icons/gr"
 import BasicCalendar from "./BasicCalendar"
 import Kindofplan from "../../layouts/Calendar/Kindofplan"
 import moment from "moment"
 import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
+
 const CreatePlan = ({ remove }) => {
 	const [displayDayPicker, setDisplayDayPicker] = useState(false)
 	const [dayPicker, setDayPicker] = useState(new Date())
@@ -61,10 +61,14 @@ const CreatePlan = ({ remove }) => {
 		remove()
 	}
 	const [openfilekindofplan, setOpenFileKindOfPlan] = useState(true)
-
 	const [openfilegotoplace, setOpenFileGoToPlace] = useState(false)
-	function showfilegotoplace() {
+	const [opencreatename, setOpenCreateName] = useState(false)
+	function transferdata() {
 		setOpenFileGoToPlace(true)
+		setOpenCreateName(false)
+	}
+	function showfilegotoplace() {
+		setOpenFileGoToPlace(!openfilegotoplace)
 	}
 
 	function showkindofplan() {
@@ -324,13 +328,14 @@ const CreatePlan = ({ remove }) => {
 					</div>
 					<div className="go-to-palace-btn-bottom">
 						<div className="go-to-palace-btn-cacel">
-							<button className="form-btn-cancel">Hủy</button>
-						</div>
-						<div className="go-to-palace-btn-create">
-							<button className="go-to-palace-form-btn-create">Tạo Tên</button>
+							<button
+								onClick={() => setOpenFileGoToPlace(false)}
+								className="go-to-palace-form-btn-cancel">
+								Hủy
+							</button>
 						</div>
 						<div className="go-to-palace-btn-add">
-							<button className="form-btn-add">Thêm</button>
+							<button className="go-to-palace-form-btn-add">Thêm</button>
 						</div>
 					</div>
 				</div>
