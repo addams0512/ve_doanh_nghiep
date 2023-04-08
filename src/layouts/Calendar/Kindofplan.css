@@ -20,25 +20,28 @@
     font-weight: 600;
 }
 .kind-of-plan-option {
-    height: auto;
+    overflow-y:auto ;
+    overflow-x: auto;
+    height: 350px;
+    width: 450px;
 }
 .kind-of-plan-option-color {
     height: 40px;
     width: 40px;
+    border-radius: 10px;
 }
 .kind-of-plan-option-container {
     display: flex;
+    gap:20px;
     line-height: 60px;  
     margin-left: 30px;
     margin-top: 10px;
 }
-.kind-of-plan-option-color {
-    border-radius: 10px;
-}
 .kind-of-plan-option-info {
-    margin-left: 15px;
     font-size: 25px;
     margin-top: -10px;
+    width: 90%;
+    word-break: break-all;
 }
 .kind-of-plan-btn-add {
     height:70px;
