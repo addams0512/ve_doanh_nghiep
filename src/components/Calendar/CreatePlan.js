@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import "./CreatePlan.css"
 import { IoLocationSharp } from "react-icons/io5"
 import { BsCurrencyEuro, BsFillPersonFill } from "react-icons/bs"
@@ -45,6 +45,7 @@ const CreatePlan = ({ remove }) => {
 	const handleCancel = () => {
 		remove()
 	}
+
 	const [openfilekindofplan, setOpenFileKindOfPlan] = useState(true)
 	function showkindofplan() {
 		setOpenFileKindOfPlan(false)
@@ -52,6 +53,26 @@ const CreatePlan = ({ remove }) => {
 	const showCreatePlan = () => {
 		setOpenFileKindOfPlan(true)
 	}
+
+	const [latitude, setLatitude] = useState(null)
+	const [longitude, setLongitude] = useState(null)
+
+	const [city, setCity] = useState(null)
+
+	useEffect(() => {
+		navigator.geolocation.getCurrentPosition(
+			(position) => {
+				const { latitude, longitude } = position.coords
+				const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
+				fetch(url)
+					.then((response) => response.json())
+					.then((data) => setCity(data.address.city))
+			},
+			(error) => {
+				console.error(error)
+			}
+		)
+	}, [])
 	return (
 		<div className="create-plan-container">
 			<div className="calendar-picker-container">
@@ -164,7 +185,7 @@ const CreatePlan = ({ remove }) => {
 								}}>
 								<IoLocationSharp size={30} />
 							</div>
-							<div className="location-create-plan-box">Regent Phú Quốc</div>
+							<div className="location-create-plan-box">{city}</div>
 						</div>
 						<div className="notice-create-plan-container">
 							<textarea
