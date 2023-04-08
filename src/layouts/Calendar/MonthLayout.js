@@ -8,7 +8,6 @@ const MonthLayout = () => {
 			day: i + 1,
 		}
 	})
-	console.log(planMonthAPI)
 	return (
 		<div className="month-layout-container">
 			<div className="month-layout-overflow-container">
@@ -16,10 +15,11 @@ const MonthLayout = () => {
 					const matchingPlan = planMonthAPI.find(
 						(plan) => elements.day === plan.dateInMonth
 					)
-					console.log(matchingPlan)
 					if (matchingPlan) {
 						return (
-							<div className="month-layout-box1">
+							<div
+								key={elements.id}
+								className="month-layout-box1">
 								<div className="month-plan-container">
 									<div
 										style={{

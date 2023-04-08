@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
 import "./CreatePlan.css"
 import { IoLocationSharp } from "react-icons/io5"
 import { BsCurrencyEuro, BsFillPersonFill } from "react-icons/bs"
@@ -7,18 +7,30 @@ import { AiOutlinePlus } from "react-icons/ai"
 
 import { BiSearch } from "react-icons/bi"
 import { GrHistory } from "react-icons/gr"
-
+import BasicCalendar from "./BasicCalendar"
 import Kindofplan from "../../layouts/Calendar/Kindofplan"
 import moment from "moment"
+import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
 const CreatePlan = ({ remove }) => {
 	const [displayDayPicker, setDisplayDayPicker] = useState(false)
 	const [dayPicker, setDayPicker] = useState(new Date())
+	const { tagPlan, setTagPlan } = useContext(PlanContext)
+	const [displayAllPlan, setDisplayAllPlan] = useState(true)
+	const [showTime, setShowTime] = useState(false)
+	const [location, setLocation] = useState({ lat: 0, lng: 0 })
+	const [showMap, setShowMap] = useState(false)
+
+	const showAllTime = () => {
+		setShowTime(!showTime)
+	}
+	const seeAllPlan = () => {
+		setDisplayAllPlan(!displayAllPlan)
+	}
 	const [timePicker, setTimePicker] = useState("00:00 - 01:00")
 	const nowDay = moment(dayPicker).format("YYYY/MM/DD")
 	const showDayPicker = () => {
 		setDisplayDayPicker(!displayDayPicker)
 	}
-
 	const arrayTime = Array.from({ length: 24 }, (v, i) => {
 		const startTime = new Date()
 		startTime.setHours(i, 0, 0)
@@ -62,27 +74,51 @@ const CreatePlan = ({ remove }) => {
 		setOpenFileKindOfPlan(true)
 	}
 
-	const [latitude, setLatitude] = useState(null)
-	const [longitude, setLongitude] = useState(null)
+	const [typeOfPlan, setTypeOfPlan] = useState(false)
+	const displayTagPlan = () => {
+		setTypeOfPlan(true)
+		setOpenFileKindOfPlan(true)
+	}
 
-	const [city, setCity] = useState(null)
+	const tagPlanRender = tagPlan.filter((item) => {
+		if (typeOfPlan) {
+			return item.choose
+		}
+		return item
+	})
 
 	useEffect(() => {
-		navigator.geolocation.getCurrentPosition(
-			(position) => {
-				const { latitude, longitude } = position.coords
-				const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
-				fetch(url)
-					.then((response) => response.json())
-					.then((data) => setCity(data.address.city))
-			},
-			(error) => {
-				console.error(error)
-			}
-		)
+		// Load the Google Maps API script
+		const script = document.createElement("script")
+		script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places`
+		script.onload = () => {
+			// Initialize the Places API and create an Autocomplete object
+			const autocomplete = new window.google.maps.places.Autocomplete(
+				document.getElementById("autocomplete")
+			)
+
+			// Listen for the 'place_changed' event and update the location state
+			autocomplete.addListener("place_changed", () => {
+				const place = autocomplete.getPlace()
+				setLocation({
+					lat: place.geometry.location.lat(),
+					lng: place.geometry.location.lng(),
+				})
+			})
+		}
+		document.head.appendChild(script)
 	}, [])
+
 	return (
 		<div className="create-plan-container">
+			<div className="calendar-picker-container">
+				{displayDayPicker && (
+					<BasicCalendar
+						onChange={setDayPicker}
+						value={dayPicker}
+					/>
+				)}
+			</div>
 			{openfilekindofplan ? (
 				<div className="create-plan-box">
 					<div className="create-plan-btn">Tạo kế hoạch</div>
@@ -97,21 +133,49 @@ const CreatePlan = ({ remove }) => {
 							<div className="title-type-create-plan">Loại kế hoạch</div>
 						</div>
 						<div className="tag-type-create-plan-container">
-							<div className="tag-type-create-plan__box">
-								<div className="tag-type-create-plan"></div>
-								<div className="content-type-create-plan"> Công việc</div>
+							<div
+								style={displayAllPlan ? { height: "30px" } : { height: "70px" }}
+								className="tag-type-create-plan-box-4">
+								{displayAllPlan
+									? tagPlanRender?.slice(0, 4).map((item) => {
+											return (
+												<div key={item.id}>
+													<div className="tag-type-create-plan__box">
+														<div
+															style={{ backgroundColor: item.color }}
+															className="tag-type-create-plan"></div>
+														<div className="content-type-create-plan">
+															{" "}
+															{item.type}
+														</div>
+													</div>
+												</div>
+											)
+									  })
+									: tagPlanRender?.map((item) => {
+											return (
+												<div key={item.id}>
+													<div className="tag-type-create-plan__box">
+														<div
+															style={{ backgroundColor: item.color }}
+															className="tag-type-create-plan"></div>
+														<div className="content-type-create-plan">
+															{" "}
+															{item.type}
+														</div>
+													</div>
+												</div>
+											)
+									  })}
 							</div>
-							<div className="tag-type-create-plan__box">
-								<div className="tag-type-create-plan"></div>
-								<div className="content-type-create-plan"> Vợ</div>
-							</div>
-							<div className="tag-type-create-plan__box">
-								<div className="tag-type-create-plan"></div>
-								<div className="content-type-create-plan"> Sinh nhật</div>
-							</div>
-							<div className="tag-type-create-plan__box">
-								<div className="tag-type-create-plan"></div>
-								<div className="content-type-create-plan"> Sinh nhật</div>
+							<div
+								onClick={seeAllPlan}
+								style={{
+									marginTop: "7px",
+									fontSize: "14px",
+									fontStyle: "italic",
+								}}>
+								See all
 							</div>
 							<div
 								onClick={showkindofplan}
@@ -133,21 +197,39 @@ const CreatePlan = ({ remove }) => {
 							<FaRegClock size={30} />
 						</div>
 						<div className="date-detail-create-plan-box">
-							<div className="date-detail-create-plan-container">
-								Chủ nhật, 7 tháng 8{" "}
+							<div
+								onClick={showDayPicker}
+								className="date-detail-create-plan-container">
+								{getDayName()}, {day} tháng {month}{" "}
 							</div>
 							<div className="toggle-date-create-plan-container">
 								<div>
-									<label class="switch">
+									<label className="switch">
 										<input type="checkbox" />
-										<span class="slider round"></span>
+										<span className="slider round"></span>
 									</label>
 								</div>
 								<div className="content-create-plan-container">Cả ngày</div>
 							</div>
-							<div className="time-detail-create-plan-container">
+							<div
+								onClick={showAllTime}
+								className="time-detail-create-plan-container">
 								{" "}
-								19:00 - 21:00
+								<p>{timePicker}</p>
+								{showTime && (
+									<div className="dropdown-time-detail-create-plan-container">
+										{arrayTime.map((time) => {
+											return (
+												<div
+													onClick={() => setTimePicker(time.time)}
+													key={time.id}
+													className="dropdown-time-detail-create-plan-box">
+													{time.time}
+												</div>
+											)
+										})}
+									</div>
+								)}
 							</div>
 
 							<div className="repeat-create-plan-container"> Lặp lại</div>
@@ -161,8 +243,6 @@ const CreatePlan = ({ remove }) => {
 							}}>
 							<BsFillPersonFill size={30} />
 						</div>
-						//{" "}
-						<div className="go-together-create-plan-box">Đi cùng (Share)</div>
 						<div
 							onClick={showfilegotoplace}
 							className="go-together-create-plan-box">
@@ -177,7 +257,27 @@ const CreatePlan = ({ remove }) => {
 							}}>
 							<IoLocationSharp size={30} />
 						</div>
-						<div className="location-create-plan-box">Regent Phú Quốc</div>
+						<div
+							onClick={() => setShowMap(!showMap)}
+							className="location-create-plan-box">
+							{showMap && (
+								<div>
+									<input
+										id="autocomplete"
+										type="text"
+										placeholder="Enter a location"
+									/>
+									{location && (
+										<p>
+											Selected location: {location.lat}, {location.lng}
+										</p>
+									)}
+									<div
+										id="map"
+										style={{ height: "400px", width: "100%" }}></div>
+								</div>
+							)}
+						</div>
 					</div>
 					<div className="notice-create-plan-container">
 						<textarea
@@ -191,7 +291,10 @@ const CreatePlan = ({ remove }) => {
 					</div>
 				</div>
 			) : (
-				<Kindofplan close={showCreatePlan} />
+				<Kindofplan
+					filteringPlan={displayTagPlan}
+					close={showCreatePlan}
+				/>
 			)}
 			{openfilegotoplace && (
 				<div className="go-to-palace-container">

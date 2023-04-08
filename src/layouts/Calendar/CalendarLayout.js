@@ -16,12 +16,15 @@ const CalendarLayout = () => {
 	const [displayYear, setDisplayYear] = useState(false)
 	const [displayPlanCreate, setDisplayPlanCreate] = useState(false)
 	const [currentDay, setDay] = useState(new Date())
+	const [tagPlan, setTagPlan] = useState([])
 	const handleClickAddPlan = () => {
 		setDisplayPlanCreate(!displayPlanCreate)
 	}
 	const value = {
 		setDisplayPlanCreate,
 		displayPlanCreate,
+		tagPlan,
+		setTagPlan,
 	}
 
 	return (

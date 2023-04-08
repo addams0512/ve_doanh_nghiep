@@ -1,209 +1,224 @@
 .kind-of-plan-container {
-    display: flex;
+	display: flex;
 }
 .kind-of-plan {
-    background-color: white;
-    height: 600px;
-    width: 500px;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}   
+	background-color: white;
+	height: 600px;
+	width: 500px;
+	border-radius: 20px;
+	padding: 20px;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 .kind-of-plan-tittle {
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	height: 70px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .kind-of-plan-tittle-info {
-    font-size: 30px;
-    font-weight: 600;
+	font-size: 30px;
+	font-weight: 600;
 }
 .kind-of-plan-option {
-    overflow-y:auto ;
-    overflow-x: auto;
-    height: 350px;
-    width: 450px;
+	overflow-y: auto;
+	overflow-x: auto;
+	height: 350px;
+	width: 450px;
 }
 .kind-of-plan-option-color {
-    height: 40px;
-    width: 40px;
-    border-radius: 10px;
+	height: 40px;
+	width: 40px;
+	border-radius: 10px;
 }
 .kind-of-plan-option-container {
-    display: flex;
-    gap:20px;
-    line-height: 60px;  
-    margin-left: 30px;
-    margin-top: 10px;
+	display: flex;
+	gap: 20px;
+	line-height: 60px;
+	margin-left: 30px;
+	margin-top: 10px;
 }
+
 .kind-of-plan-option-info {
-    font-size: 25px;
-    margin-top: -10px;
-    width: 90%;
-    word-break: break-all;
+	padding-left: 20px;
+	border-radius: 10px;
+	font-size: 25px;
+	margin-top: -10px;
+	width: 90%;
+	margin-bottom: 10px;
+	word-break: break-all;
+}
+.kind-of-plan-option-info-choose {
+	padding-left: 20px;
+	border-radius: 10px;
+	font-size: 25px;
+	margin-top: -10px;
+	width: 90%;
+	margin-bottom: 10px;
+	word-break: break-all;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+		rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 .kind-of-plan-btn-add {
-    height:70px;
+	height: 70px;
 }
 .form-btn-add {
-    height: 40px;
-    background-color: black;
-    color: white;
-    width: 90px;
-    border-radius: 20px;
-    font-size: 18px;
-    font-weight: 600;
-    margin-top: 15px;
-    margin-left: 30px;
+	height: 40px;
+	background-color: black;
+	color: white;
+	width: 90px;
+	border-radius: 20px;
+	font-size: 18px;
+	font-weight: 600;
+	margin-top: 15px;
+	margin-left: 30px;
 }
-.kind-of-plan-btn-add button{
-    cursor: pointer;
+.kind-of-plan-btn-add button {
+	cursor: pointer;
 }
 .kind-of-plan-btn-add button:hover {
-  background-color: white;
-  color: black;
+	background-color: white;
+	color: black;
 }
 .kind-of-plan-btn-bottom {
-    height: 70px;
-    display: flex;
+	height: 70px;
+	display: flex;
 }
 .kind-of-plan-btn-cacel {
-    margin-left: auto;
-    margin-right: 10px;
+	margin-left: auto;
+	margin-right: 10px;
 }
 .form-btn-cancel {
-    height: 40px;
-    background-color: white;
-    color: black;
-    width: 90px;
-    border-radius: 20px;
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 15px;
-    border: 0px solid;
+	height: 40px;
+	background-color: white;
+	color: black;
+	width: 90px;
+	border-radius: 20px;
+	font-size: 20px;
+	font-weight: 600;
+	margin-top: 15px;
+	border: 0px solid;
 }
 .kind-of-plan-btn-cacel button {
-    cursor: pointer;
+	cursor: pointer;
 }
 .kind-of-plan-btn-cacel button:active {
-    background-color: black;
-    color: white;
+	background-color: black;
+	color: white;
 }
 .kind-of-plan-btn-create {
-    margin-right: 30px;
+	margin-right: 30px;
 }
 .form-btn-create {
-    height: 40px;
-    background-color: black;
-    color: white;
-    width: 90px;
-    border-radius: 20px;
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 15px;
+	height: 40px;
+	background-color: black;
+	color: white;
+	width: 90px;
+	border-radius: 20px;
+	font-size: 20px;
+	font-weight: 600;
+	margin-top: 15px;
 }
 .kind-of-plan-btn-create button {
-    cursor: pointer;
+	cursor: pointer;
 }
 .kind-of-plan-btn-create button:focus {
-    background-color: white;
-    color: black;
+	background-color: white;
+	color: black;
 }
 .new-tag-container {
-    height: 300px;
-    width: 500px;
-    border: 1px solid;
-    background-color: white;
-    margin-left: 30px;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border: none;
+	height: 300px;
+	width: 500px;
+	border: 1px solid;
+	background-color: white;
+	margin-left: 30px;
+	border-radius: 20px;
+	padding: 20px;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	border: none;
 }
 .new-tag-tittle {
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	height: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .new-tag-tittle-info {
-    font-size: 30px;
-    font-weight: 600;
+	font-size: 30px;
+	font-weight: 600;
 }
 .new-tag-add-info {
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .new-tag-input {
-    width: 90%;
-    padding: 10px;
-    background-color: rgb(245, 245, 245);
-    border-radius: 10px;
-    border: none; 
+	width: 90%;
+	padding: 10px;
+	background-color: rgb(245, 245, 245);
+	border-radius: 10px;
+	border: none;
 }
 .new-tag-add-color {
-    display: flex;
-    height: 60px;
-    padding: 10px;
+	display: flex;
+	height: 60px;
+	padding: 10px;
 }
 .new-tag-name-color {
-    margin-top: 10px;
-    margin-left: 20px;
-    font-size: 15px;
-    font-weight: 550;
+	margin-top: 10px;
+	margin-left: 20px;
+	font-size: 15px;
+	font-weight: 550;
 }
 .new-tag-color-option {
-    margin-left: 20px;
-    height: 30px;
-    width: 30px;
-    border: 1px solid;
+	margin-left: 20px;
+	height: 30px;
+	width: 30px;
+	border: 1px solid;
 }
 .new-tag-btn-bottom {
-    height: 70px;
-    display: flex;
+	height: 70px;
+	display: flex;
 }
 .new-tag-btn-cacel {
-    margin-left: auto;
-    margin-right: 10px;
+	margin-left: auto;
+	margin-right: 10px;
 }
 .form-btn-cancel {
-    height: 40px;
-    background-color: white;
-    color: black;
-    width: 90px;
-    border-radius: 20px;
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 15px;
-    border: 0px solid;
+	height: 40px;
+	background-color: white;
+	color: black;
+	width: 90px;
+	border-radius: 20px;
+	font-size: 20px;
+	font-weight: 600;
+	margin-top: 15px;
+	border: 0px solid;
 }
 .new-tag-btn-cacel button {
-    cursor: pointer;
+	cursor: pointer;
 }
 .new-tag-btn-cacel button:active {
-    background-color: black;
-    color: white;
+	background-color: black;
+	color: white;
 }
 .new-tag-btn-create {
-    margin-right: 30px;
+	margin-right: 30px;
 }
 .form-btn-create {
-    height: 40px;
-    background-color: black;
-    color: white;
-    width: 90px;
-    border-radius: 20px;
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 15px;
+	height: 40px;
+	background-color: black;
+	color: white;
+	width: 90px;
+	border-radius: 20px;
+	font-size: 20px;
+	font-weight: 600;
+	margin-top: 15px;
 }
 .new-tag-btn-create button {
-    cursor: pointer;
+	cursor: pointer;
 }
 .new-tag-btn-create button:focus {
-    background-color: white;
-    color: black;
+	background-color: white;
+	color: black;
 }

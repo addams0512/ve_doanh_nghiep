@@ -16,7 +16,7 @@
 	background-color: white;
 	border-radius: 16px;
 	width: 700px;
-	height: 710px;
+	height: 750px;
 }
 
 .create-plan-btn {
@@ -85,6 +85,13 @@
 	gap: 10px;
 	align-items: center;
 }
+.tag-type-create-plan-box-4 {
+	display: flex;
+	gap: 10px;
+	width: 400px;
+	overflow-y: scroll;
+	flex-wrap: wrap;
+}
 
 .tag-type-create-plan {
 	border-radius: 8px;
@@ -145,7 +152,6 @@
 	backdrop-filter: blur(6.2px);
 	-webkit-backdrop-filter: blur(6.2px);
 	border: 1px solid rgba(255, 255, 255, 0.3);
-	display: none;
 	overflow-y: auto;
 	padding-top: 10px;
 	padding-left: 24px;
@@ -154,16 +160,16 @@
 .dropdown-time-detail-create-plan-box {
 	margin-bottom: 10px;
 }
-.time-detail-create-plan-container:hover
-	.dropdown-time-detail-create-plan-container {
-	display: block;
-}
 /* toggle button */
 .switch {
 	position: relative;
 	display: inline-block;
 	width: 42px;
 	height: 24px;
+}
+#map {
+	display: block;
+	margin-top: 10px;
 }
 
 .switch input {
@@ -337,38 +343,38 @@ input:checked + .slider:before {
 }
 .go-to-palace-container {
 	height: 500px;
-    width: 500px;
-    border: 1px solid;
-    background-color: white;
-    margin-left: 30px;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border: none;
+	width: 500px;
+	border: 1px solid;
+	background-color: white;
+	margin-left: 30px;
+	border-radius: 20px;
+	padding: 20px;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	border: none;
 }
 .go-to-palace-tittle {
 	height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .go-to-palace-tittle-info {
 	font-size: 30px;
-    font-weight: 600;
+	font-weight: 600;
 }
 .go-to-palace-search-bar {
 	height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	border: 1px solid;
 }
 .go-to-palace-search-all {
 	height: 30px;
 	width: 80%;
 	display: flex;
-    justify-content: center;
-    align-items: center;
+	justify-content: center;
+	align-items: center;
 	border: none;
 	background-color: rgb(237, 237, 237);
 	border-radius: 10px;
@@ -378,7 +384,6 @@ input:checked + .slider:before {
 	width: 90%;
 	background-color: rgb(237, 237, 237);
 	border: none;
-	
 }
 .go-to-palace-search-icon {
 	margin-top: 3px;
@@ -412,69 +417,68 @@ input:checked + .slider:before {
 	border-radius: 100%;
 	margin-left: 40px;
 	margin-top: 10px;
-	
 }
 .go-to-palace-btn-bottom {
 	height: 70px;
-    display: flex;
+	display: flex;
 }
- .go-to-palace-btn-cacel {
-    margin-left: auto;
-    margin-right: 10px;
+.go-to-palace-btn-cacel {
+	margin-left: auto;
+	margin-right: 10px;
 }
 .form-btn-cancel {
-    height: 40px;
-    background-color: white;
-    color: black;
-    width: 90px;
-    border-radius: 20px;
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 15px;
-    border: 0px solid;
+	height: 40px;
+	background-color: white;
+	color: black;
+	width: 90px;
+	border-radius: 20px;
+	font-size: 20px;
+	font-weight: 600;
+	margin-top: 15px;
+	border: 0px solid;
 }
 .go-to-palace-btn-cacel button {
-    cursor: pointer;
+	cursor: pointer;
 }
 .go-to-palace-btn-cacel button:active {
-    background-color: black;
-    color: white;
+	background-color: black;
+	color: white;
 }
 .go-to-palace-form-btn-create {
-    height: 40px;
-    background-color: black;
-    color: white;
-    width: 110px;
-    border-radius: 20px;
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 14px;
+	height: 40px;
+	background-color: black;
+	color: white;
+	width: 110px;
+	border-radius: 20px;
+	font-size: 20px;
+	font-weight: 600;
+	margin-top: 14px;
 }
 .go-to-palace-btn-create button {
-    cursor: pointer;
+	cursor: pointer;
 }
 .go-to-palace-btn-create button:focus {
-    background-color: white;
-    color: black;
+	background-color: white;
+	color: black;
 }
 .go-to-palace-btn-add {
-    height:70px;
+	height: 70px;
 }
 .form-btn-add {
-    height: 40px;
-    background-color: black;
-    color: white;
-    width: 90px;
-    border-radius: 20px;
-    font-size: 18px;
-    font-weight: 600;
-    margin-top: 15px;
-    margin-left: 30px;
+	height: 40px;
+	background-color: black;
+	color: white;
+	width: 90px;
+	border-radius: 20px;
+	font-size: 18px;
+	font-weight: 600;
+	margin-top: 15px;
+	margin-left: 30px;
 }
-.go-to-palace-btn-add button{
-    cursor: pointer;
+.go-to-palace-btn-add button {
+	cursor: pointer;
 }
 .go-to-palace-btn-add button:hover {
-  background-color: white;
-  color: black;
+	background-color: white;
+	color: black;
 }

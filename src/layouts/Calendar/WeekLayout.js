@@ -56,7 +56,6 @@ const WeekLayout = () => {
 									item.id % 7 === plan.planWeekDate &&
 									Math.floor(item.id / 7) === plan.planTime
 							)
-							console.log(matchingPlan)
 							if (matchingPlan) {
 								return (
 									<div
