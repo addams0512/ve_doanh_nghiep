@@ -11,20 +11,11 @@ import { ChromePicker } from "react-color"
 export default function Kindofplan({remove,close}) {
     const [showcolordisplay,setShowColorDisplay]=useState(false);
     const [addnewplan,setAddNewPlan]=useState()
-    const [color, setColor] =  useState("green")
-    const displayColor = (e) => {
-        setColor(e.hex)
-    }
-    function cancelnewtag () {
-        remove()
-    }
-    function showcolor () {
-        setShowColorDisplay(!showcolordisplay)
-    }  
     const [newtagdisplay,setNewTagDisplay] = useState (false);
     const [cancelkindofplandisplay,setCancelKindOfPlanDisplay] =useState (true);
     const [mockData,setMockData] = useState(typeofplan);
     const [newPlan,setNewPlan] = useState("");
+    const [color, setColor] =  useState("green")
     function shownewtag () {
         setNewTagDisplay (!newtagdisplay)
     }
@@ -35,11 +26,17 @@ export default function Kindofplan({remove,close}) {
     const onAddData = () => {
         setMockData([...mockData,{
             id: 4 ,
-            color : "",
+            color : color,  
             type: newPlan,
         }])
         setNewPlan("");
     } 
+    function cancelnewtag () {
+        remove()
+    }
+    function showcolor () {
+        setShowColorDisplay(!showcolordisplay)
+    }  
   return (
     <>
     {cancelkindofplandisplay && <div className="kind-of-plan-container">
@@ -78,7 +75,7 @@ export default function Kindofplan({remove,close}) {
             <div onClick={showcolor} style={{backgroundColor: color}} className="new-tag-color-option">
                   {showcolordisplay && <div><ChromePicker
                         color={color}
-                        onChange={displayColor}/></div>}
+                        onChange={(e) =>setColor(e.hex)}/></div>}
             </div>  
         </div>
         <div className="new-tag-btn-bottom">
