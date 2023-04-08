@@ -69,7 +69,7 @@ export default function Kindofplan({remove,close}) {
         </div>
         <div className="new-tag-add-info">
             <input value={newPlan} onChange={(e) =>setNewPlan(e.target.value)} type="text" placeholder="Cooking class" className="new-tag-input"></input>
-        </div>
+        </div> 
         <div className="new-tag-add-color">
             <div className="new-tag-name-color">Màu</div>
             <div onClick={showcolor} style={{backgroundColor: color}} className="new-tag-color-option">

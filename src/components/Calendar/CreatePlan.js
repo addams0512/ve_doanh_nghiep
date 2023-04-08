@@ -10,6 +10,7 @@ import { GrHistory } from "react-icons/gr"
 
 import Kindofplan from "../../layouts/Calendar/Kindofplan"
 import moment from "moment"
+import { FunctionsRounded } from "@material-ui/icons"
 const CreatePlan = ({ remove }) => {
 	const [displayDayPicker, setDisplayDayPicker] = useState(false)
 	const [dayPicker, setDayPicker] = useState(new Date())
@@ -49,10 +50,14 @@ const CreatePlan = ({ remove }) => {
 		remove()
 	}
 	const [openfilekindofplan, setOpenFileKindOfPlan] = useState(true)
-
 	const [openfilegotoplace, setOpenFileGoToPlace] = useState(false)
+	const [opencreatename,setOpenCreateName] = useState (false)
+	function transferdata () {
+		setOpenFileGoToPlace (true) 
+		setOpenCreateName (false)
+	}
 	function showfilegotoplace() {
-		setOpenFileGoToPlace(true)
+		setOpenFileGoToPlace(!openfilegotoplace);	
 	}
 
 	function showkindofplan() {
@@ -194,7 +199,7 @@ const CreatePlan = ({ remove }) => {
 				<Kindofplan close={showCreatePlan} />
 			)}
 			{openfilegotoplace && (
-				<div className="go-to-palace-container">
+				 <div className="go-to-palace-container">
 					<div className="go-to-palace-tittle">
 						<div className="go-to-palace-tittle-info">Đi cùng</div>
 					</div>
@@ -214,23 +219,20 @@ const CreatePlan = ({ remove }) => {
 							<GrHistory size={18} />
 						</div>
 						<div className="go-to-palace-result-info"> Gần nhất</div>
-					</div>
+					</div>	
 					<div className="go-to-palace-result-name">
-						<div className="go-to-palace-result-name-img"></div>
-						<div className="go-to-palace-result-name-info"></div>
+					    <div className="go-to-palace-result-name-img"></div>
+					    <div className="go-to-palace-result-name-info"></div>
 					</div>
 					<div className="go-to-palace-btn-bottom">
 						<div className="go-to-palace-btn-cacel">
-							<button className="form-btn-cancel">Hủy</button>
-						</div>
-						<div className="go-to-palace-btn-create">
-							<button className="go-to-palace-form-btn-create">Tạo Tên</button>
+							<button onClick={() => setOpenFileGoToPlace(false)} className="go-to-palace-form-btn-cancel">Hủy</button>
 						</div>
 						<div className="go-to-palace-btn-add">
-							<button className="form-btn-add">Thêm</button>
+							<button className="go-to-palace-form-btn-add">Thêm</button>
 						</div>
 					</div>
-				</div>
+				</div>		
 			)}
 		</div>
 	)
