@@ -4,10 +4,11 @@ import "./BasicCalendar.css"
 
 export const CalendarDay = createContext()
 
-export default function BasicCalendar({ onChange, value, month }) {
+export default function BasicCalendar({ view, onChange, value, month }) {
 	return (
 		<>
 			<Calendar
+				view={view}
 				onChange={onChange}
 				value={value}
 				month={month}

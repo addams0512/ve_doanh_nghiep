@@ -6,45 +6,37 @@ import { PlanContext } from "./CalendarLayout"
 const YearLayout = () => {
 	const value = useContext(PlanContext)
 	const date = new Date()
-	const year = date.getFullYear()
-	const day = date.getDay()
-	console.log(year)
-	console.log(day)
-
-	const displayPlan = () => {
-		value.setDisplayPlanCreate(!value.displayPlanCreate)
-	}
-
+	const currentMonth = date.getMonth() // get the current month (0-11)
+	const currentYear = date.getFullYear() // get the current year
+	const currentDay = date.getDate() // get the current day of the month
 	const months = [
-		{ id: 1, name: 0 },
-		{ id: 2, name: 1 },
-		{ id: 3, name: 2 },
-		{ id: 4, name: 3 },
-		{ id: 5, name: 4 },
-		{ id: 6, name: 5 },
-		{ id: 7, name: 6 },
-		{ id: 8, name: 7 },
-		{ id: 9, name: 8 },
-		{ id: 10, name: 9 },
-		{ id: 11, name: 10 },
-		{ id: 12, name: 11 },
+		{ id: 1, name: "January" },
+		{ id: 2, name: "February" },
+		{ id: 3, name: "March" },
+		{ id: 4, name: "April" },
+		{ id: 5, name: "May" },
+		{ id: 6, name: "June" },
+		{ id: 7, name: "July" },
+		{ id: 8, name: "August" },
+		{ id: 9, name: "September" },
+		{ id: 10, name: "October" },
+		{ id: 11, name: "November" },
+		{ id: 12, name: "December" },
 	]
 
 	return (
 		<div className="year-layout-container">
-			<div className="btn-year-layout-container">
-				<button
-					onClick={displayPlan}
-					className="btn-year-layout">
-					Thêm kế hoạch
-				</button>
-			</div>
 			<div className="calendar-year-layout-container">
 				{months.map((month) => (
 					<div
 						className="calendar-year-detail-layout-container"
 						key={month.id}>
-						<BasicCalendar value={`${month.id}-${day}-${year}`} />
+						<BasicCalendar
+							value={`${month.id}-${currentDay}-${currentYear}`}
+							disabledDays={(day) =>
+								day.getDate() !== currentDay || day.getMonth() !== currentMonth
+							}
+						/>
 					</div>
 				))}
 			</div>
