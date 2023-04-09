@@ -17,9 +17,9 @@ const CreatePlan = ({ remove }) => {
 	const { tagPlan, setTagPlan } = useContext(PlanContext)
 	const [displayAllPlan, setDisplayAllPlan] = useState(true)
 	const [showTime, setShowTime] = useState(false)
-	const [location, setLocation] = useState({ lat: 0, lng: 0 })
 	const [showMap, setShowMap] = useState(false)
-
+	const [chosenTagPlan, setChosenTagPlan] = useState([])
+	const [content, setContent] = useState()
 	const showAllTime = () => {
 		setShowTime(!showTime)
 	}
@@ -27,7 +27,7 @@ const CreatePlan = ({ remove }) => {
 		setDisplayAllPlan(!displayAllPlan)
 	}
 	const [timePicker, setTimePicker] = useState("00:00 - 01:00")
-	const nowDay = moment(dayPicker).format("YYYY/MM/DD")
+	const nowDay = moment(dayPicker).format("YYYY-MM-DD")
 	const showDayPicker = () => {
 		setDisplayDayPicker(!displayDayPicker)
 	}
@@ -55,8 +55,6 @@ const CreatePlan = ({ remove }) => {
 		return date.toLocaleDateString(locale, { weekday: "long" })
 	}
 
-	const day = dayPicker.getDate()
-	const month = dayPicker.getMonth()
 	const handleCancel = () => {
 		remove()
 	}
@@ -91,28 +89,27 @@ const CreatePlan = ({ remove }) => {
 		return item
 	})
 
-	useEffect(() => {
-		// Load the Google Maps API script
-		const script = document.createElement("script")
-		script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places`
-		script.onload = () => {
-			// Initialize the Places API and create an Autocomplete object
-			const autocomplete = new window.google.maps.places.Autocomplete(
-				document.getElementById("autocomplete")
-			)
+	const chooseThePlan = (item) => {
+		setChosenTagPlan(item)
+	}
 
-			// Listen for the 'place_changed' event and update the location state
-			autocomplete.addListener("place_changed", () => {
-				const place = autocomplete.getPlace()
-				setLocation({
-					lat: place.geometry.location.lat(),
-					lng: place.geometry.location.lng(),
-				})
-			})
-		}
-		document.head.appendChild(script)
-	}, [])
+	const day = dayPicker.getDate()
+	const month = dayPicker.getMonth()
 
+	const [data, setData] = useState([])
+
+	const createPlan = () => {
+		setData([
+			...data,
+			{
+				content: content,
+				tagPlan: chosenTagPlan,
+				date: nowDay,
+				timePicker: timePicker.slice(0, 5),
+			},
+		])
+	}
+	console.log(data)
 	return (
 		<div className="create-plan-container">
 			<div className="calendar-picker-container">
@@ -127,6 +124,7 @@ const CreatePlan = ({ remove }) => {
 				<div className="create-plan-box">
 					<div className="create-plan-btn">Tạo kế hoạch</div>
 					<input
+						onChange={(e) => setContent(e.target.value)}
 						className="name-create-plan-input"
 						type="text"
 						placeholder="Đi ăn cùng vợ"
@@ -143,15 +141,18 @@ const CreatePlan = ({ remove }) => {
 								{displayAllPlan
 									? tagPlanRender?.slice(0, 4).map((item) => {
 											return (
-												<div key={item.id}>
-													<div className="tag-type-create-plan__box">
-														<div
-															style={{ backgroundColor: item.color }}
-															className="tag-type-create-plan"></div>
-														<div className="content-type-create-plan">
-															{" "}
-															{item.type}
-														</div>
+												<div
+													onClick={() => {
+														chooseThePlan(item)
+													}}
+													key={item.id}
+													className="tag-type-create-plan__box">
+													<div
+														style={{ backgroundColor: item.color }}
+														className="tag-type-create-plan"></div>
+													<div className="content-type-create-plan">
+														{" "}
+														{item.type}
 													</div>
 												</div>
 											)
@@ -179,7 +180,7 @@ const CreatePlan = ({ remove }) => {
 									fontSize: "14px",
 									fontStyle: "italic",
 								}}>
-								See all
+								Xem tất cả
 							</div>
 							<div
 								onClick={showkindofplan}
@@ -200,21 +201,14 @@ const CreatePlan = ({ remove }) => {
 							}}>
 							<FaRegClock size={30} />
 						</div>
+
 						<div className="date-detail-create-plan-box">
 							<div
 								onClick={showDayPicker}
 								className="date-detail-create-plan-container">
-								{getDayName()}, {day} tháng {month}{" "}
+								{getDayName()}, {day} tháng {month + 1}{" "}
 							</div>
-							<div className="toggle-date-create-plan-container">
-								<div>
-									<label className="switch">
-										<input type="checkbox" />
-										<span className="slider round"></span>
-									</label>
-								</div>
-								<div className="content-create-plan-container">Cả ngày</div>
-							</div>
+							<div className="repeat-create-plan-container"> Lặp lại</div>
 							<div
 								onClick={showAllTime}
 								className="time-detail-create-plan-container">
@@ -235,8 +229,6 @@ const CreatePlan = ({ remove }) => {
 									</div>
 								)}
 							</div>
-
-							<div className="repeat-create-plan-container"> Lặp lại</div>
 						</div>
 					</div>
 					<div className="go-together-create-plan-container">
@@ -263,25 +255,7 @@ const CreatePlan = ({ remove }) => {
 						</div>
 						<div
 							onClick={() => setShowMap(!showMap)}
-							className="location-create-plan-box">
-							{showMap && (
-								<div>
-									<input
-										id="autocomplete"
-										type="text"
-										placeholder="Enter a location"
-									/>
-									{location && (
-										<p>
-											Selected location: {location.lat}, {location.lng}
-										</p>
-									)}
-									<div
-										id="map"
-										style={{ height: "400px", width: "100%" }}></div>
-								</div>
-							)}
-						</div>
+							className="location-create-plan-box"></div>
 					</div>
 					<div className="notice-create-plan-container">
 						<textarea
@@ -291,7 +265,7 @@ const CreatePlan = ({ remove }) => {
 					</div>
 					<div className="button-delete-create-plan-container">
 						<button onClick={handleCancel}>Hủy</button>
-						<button>Tạo</button>
+						<button onClick={createPlan}>Tạo</button>
 					</div>
 				</div>
 			) : (

@@ -115,6 +115,7 @@
 	flex-direction: column;
 	width: 440px;
 	padding-left: 18px;
+	height: 100px;
 }
 
 .date-detail-create-plan-container {
@@ -153,8 +154,6 @@
 	-webkit-backdrop-filter: blur(6.2px);
 	border: 1px solid rgba(255, 255, 255, 0.3);
 	overflow-y: auto;
-	padding-top: 10px;
-	padding-left: 24px;
 	top: 40px;
 }
 .dropdown-time-detail-create-plan-box {
@@ -247,8 +246,7 @@ input:checked + .slider:before {
 	justify-content: center;
 	align-items: center;
 	border-radius: 10px;
-	margin-left: auto;
-	margin-top: auto;
+	margin-top: 16px;
 }
 
 /* go-together */
