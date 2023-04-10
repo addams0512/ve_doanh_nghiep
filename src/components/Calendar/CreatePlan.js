@@ -93,19 +93,6 @@ const CreatePlan = ({ remove }) => {
 	const day = dayPicker.getDate()
 	const month = dayPicker.getMonth()
 
-	const [data, setData] = useState([])
-
-	const createPlan = () => {
-		setData([
-			...data,
-			{
-				content: content,
-				tagPlan: chosenTagPlan,
-				date: nowDay,
-				timePicker: timePicker.slice(0, 5),
-			},
-		])
-	}
 	// get User API
 	const [userData, setUserData] = useState("")
 	const [loading, setLoading] = useState(true)
@@ -156,6 +143,23 @@ const CreatePlan = ({ remove }) => {
 
 			return [...selectedUsers, newUser]
 		})
+	}
+
+	// final data
+	const [data, setData] = useState([])
+
+	const createPlan = () => {
+		setData([
+			...data,
+			{
+				content: content,
+				tagPlan: chosenTagPlan,
+				date: nowDay,
+				timePicker: timePicker.slice(0, 5),
+				partner: selectedUsers,
+			},
+		])
+		console.log(data)
 	}
 
 	return (
@@ -309,7 +313,9 @@ const CreatePlan = ({ remove }) => {
 								  })
 								: selectedUsers.slice(0, 4).map((user) => {
 										return (
-											<div className="partner-together-item">
+											<div
+												key={user.id}
+												className="partner-together-item">
 												{user.username},
 											</div>
 										)
