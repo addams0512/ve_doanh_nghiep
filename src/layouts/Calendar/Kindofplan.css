@@ -32,35 +32,32 @@
 }
 .kind-of-plan-option-container {
 	display: flex;
-	gap: 20px;
+	gap: 10px;
 	line-height: 60px;
-	margin-left: 30px;
-	margin-top: 10px;
+	align-items: center;
+	margin: 10px 0 10px 30px;
 }
 
 .kind-of-plan-option-info {
-	padding-left: 20px;
+	padding-left: 10px;
 	border-radius: 10px;
-	font-size: 25px;
-	margin-top: -10px;
-	width: 90%;
-	margin-bottom: 10px;
+	font-size: 22px;
+	width: 80%;
 	word-break: break-all;
+	line-height: 1.6;
+	cursor: pointer;
 }
 .kind-of-plan-option-info-choose {
-	padding-left: 20px;
+	padding-left: 10px;
 	border-radius: 10px;
-	font-size: 25px;
-	margin-top: -10px;
-	width: 90%;
-	margin-bottom: 10px;
+	font-size: 24px;
+	width: 80%;
 	word-break: break-all;
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
-		rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+	font-weight: bolder;
+	line-height: 1.6;
+	cursor: pointer;
 }
-.kind-of-plan-btn-add {
-	height: 70px;
-}
+
 .form-btn-add {
 	height: 40px;
 	background-color: black;
@@ -106,7 +103,9 @@
 	color: white;
 }
 .kind-of-plan-btn-create {
-	margin-right: 30px;
+	display: flex;
+	justify-content: end;
+	margin-right: 20px;
 }
 .form-btn-create {
 	height: 40px;
@@ -154,10 +153,11 @@
 }
 .new-tag-input {
 	width: 90%;
+	font-size: 1rem;
 	padding: 10px;
 	background-color: rgb(245, 245, 245);
 	border-radius: 10px;
-	border: none;
+	border: 1px solid;
 }
 .new-tag-add-color {
 	display: flex;
@@ -217,8 +217,4 @@
 }
 .new-tag-btn-create button {
 	cursor: pointer;
-}
-.new-tag-btn-create button:focus {
-	background-color: white;
-	color: black;
 }

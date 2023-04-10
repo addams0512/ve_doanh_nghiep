@@ -66,8 +66,8 @@
 	height: 40px;
 	font-size: 1.2rem;
 	display: flex;
-	justify-content: center;
 	align-items: center;
+	justify-content: center;
 	border-radius: 10px;
 }
 
@@ -78,6 +78,7 @@
 	margin-left: 50px;
 	margin-top: 20px;
 	width: fit-content;
+	align-items: center;
 }
 .tag-type-create-plan__box {
 	display: flex;
@@ -89,7 +90,7 @@
 	display: flex;
 	gap: 10px;
 	width: 400px;
-	overflow-y: scroll;
+	overflow-y: auto;
 	flex-wrap: wrap;
 }
 
@@ -158,6 +159,8 @@
 }
 .dropdown-time-detail-create-plan-box {
 	margin-bottom: 10px;
+	margin-left: 20px;
+	margin-top: 10px;
 }
 /* toggle button */
 .switch {

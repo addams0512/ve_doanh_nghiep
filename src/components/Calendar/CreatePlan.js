@@ -109,7 +109,6 @@ const CreatePlan = ({ remove }) => {
 			},
 		])
 	}
-	console.log(data)
 	return (
 		<div className="create-plan-container">
 			<div className="calendar-picker-container">
@@ -127,7 +126,7 @@ const CreatePlan = ({ remove }) => {
 						onChange={(e) => setContent(e.target.value)}
 						className="name-create-plan-input"
 						type="text"
-						placeholder="Đi ăn cùng vợ"
+						placeholder="Kế hoạch của bạn"
 					/>
 					<div className="type-create-plan-container">
 						<div className="title-type-create-plan-container">
@@ -179,12 +178,14 @@ const CreatePlan = ({ remove }) => {
 									marginTop: "7px",
 									fontSize: "14px",
 									fontStyle: "italic",
+									cursor: "pointer",
 								}}>
 								Xem tất cả
 							</div>
 							<div
 								onClick={showkindofplan}
 								style={{
+									cursor: "pointer",
 									display: "flex",
 									justifyContent: "center",
 									alignItems: "center",
@@ -210,6 +211,7 @@ const CreatePlan = ({ remove }) => {
 							</div>
 							<div className="repeat-create-plan-container"> Lặp lại</div>
 							<div
+								style={{ cursor: "pointer" }}
 								onClick={showAllTime}
 								className="time-detail-create-plan-container">
 								{" "}
