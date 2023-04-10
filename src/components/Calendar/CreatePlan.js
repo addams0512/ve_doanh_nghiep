@@ -10,6 +10,7 @@ import BasicCalendar from "./BasicCalendar"
 import Kindofplan from "../../layouts/Calendar/Kindofplan"
 import moment from "moment"
 import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
+import instance from "../../data/instance"
 
 const CreatePlan = ({ remove }) => {
 	const [displayDayPicker, setDisplayDayPicker] = useState(false)
@@ -20,6 +21,7 @@ const CreatePlan = ({ remove }) => {
 	const [showMap, setShowMap] = useState(false)
 	const [chosenTagPlan, setChosenTagPlan] = useState([])
 	const [content, setContent] = useState()
+	const [displayMorePartner, setDisplayMorePartner] = useState(false)
 	const showAllTime = () => {
 		setShowTime(!showTime)
 	}
@@ -60,11 +62,6 @@ const CreatePlan = ({ remove }) => {
 	}
 	const [openfilekindofplan, setOpenFileKindOfPlan] = useState(true)
 	const [openfilegotoplace, setOpenFileGoToPlace] = useState(false)
-	const [opencreatename, setOpenCreateName] = useState(false)
-	function transferdata() {
-		setOpenFileGoToPlace(true)
-		setOpenCreateName(false)
-	}
 	function showfilegotoplace() {
 		setOpenFileGoToPlace(!openfilegotoplace)
 	}
@@ -109,6 +106,58 @@ const CreatePlan = ({ remove }) => {
 			},
 		])
 	}
+	// get User API
+	const [userData, setUserData] = useState("")
+	const [loading, setLoading] = useState(true)
+	const [filteringData, setFilteringData] = useState([])
+	useEffect(() => {
+		instance
+			.get("/users")
+			.then((res) => {
+				setUserData(res.data)
+				setLoading(false)
+			})
+			.catch((e) => {
+				console.log("hello")
+			})
+	}, [])
+
+	// searchbar function
+	const filterData = (value) => {
+		if (!value) {
+			setFilteringData([])
+			return
+		}
+		const querry = value.toLowerCase()
+		const dataFilter = userData.filter((item) => {
+			return item.username.toLowerCase().includes(querry)
+		})
+		setFilteringData(dataFilter)
+	}
+
+	// partnerChoices
+	const [selectedUsers, setSelectedUsers] = useState([])
+	const toggleUserSelection = (id) => {
+		setUserData(
+			userData.map((user) => {
+				if (user.id === id) {
+					user.chosen = !user.chosen
+				}
+				return user
+			})
+		)
+
+		setSelectedUsers((selectedUsers) => {
+			const existingUser = selectedUsers.find((user) => user.id === id)
+			if (existingUser) {
+				return selectedUsers.filter((user) => user.id !== id)
+			}
+			const newUser = userData.find((user) => user.id === id)
+
+			return [...selectedUsers, newUser]
+		})
+	}
+
 	return (
 		<div className="create-plan-container">
 			<div className="calendar-picker-container">
@@ -197,6 +246,7 @@ const CreatePlan = ({ remove }) => {
 					<div className="time-create-plan-container">
 						<div
 							style={{
+								marginTop: "6px",
 								display: "flex",
 								justifyContent: "center",
 							}}>
@@ -242,9 +292,37 @@ const CreatePlan = ({ remove }) => {
 							<BsFillPersonFill size={30} />
 						</div>
 						<div
+							style={
+								displayMorePartner ? { height: "100px" } : { height: "70px" }
+							}
 							onClick={showfilegotoplace}
 							className="go-together-create-plan-box">
-							Đi cùng (Share)
+							{selectedUsers.length > 5 && displayMorePartner
+								? selectedUsers.map((user) => {
+										return (
+											<div
+												key={user.id}
+												className="partner-together-item">
+												{user.username},
+											</div>
+										)
+								  })
+								: selectedUsers.slice(0, 4).map((user) => {
+										return (
+											<div className="partner-together-item">
+												{user.username},
+											</div>
+										)
+								  })}
+						</div>
+						<div
+							onClick={() => setDisplayMorePartner(!displayMorePartner)}
+							style={{
+								cursor: "pointer",
+								fontStyle: "italic",
+								fontSize: "1rem	",
+							}}>
+							+ {selectedUsers.length > 4 ? selectedUsers.length - 4 : 0}
 						</div>
 					</div>
 					<div className="location-create-plan-container">
@@ -287,6 +365,7 @@ const CreatePlan = ({ remove }) => {
 								<BiSearch size={20} />
 							</div>
 							<input
+								onChange={(e) => filterData(e.target.value)}
 								type="text"
 								placeholder="Tìm bạn"
 								className="go-to-palace-search-input"></input>
@@ -298,9 +377,38 @@ const CreatePlan = ({ remove }) => {
 						</div>
 						<div className="go-to-palace-result-info"> Gần nhất</div>
 					</div>
-					<div className="go-to-palace-result-name">
-						<div className="go-to-palace-result-name-img"></div>
-						<div className="go-to-palace-result-name-info"></div>
+					<div className="go-together-user-container">
+						{filteringData.length === 0
+							? selectedUsers.slice(0, 5).map((user) => {
+									return (
+										<div
+											onClick={() => {
+												toggleUserSelection(user.id)
+											}}
+											key={user.id}
+											className="go-to-palace-result-name">
+											<div className="go-to-palace-result-name-img"></div>
+											<div className="go-to-palace-result-name-info">
+												{user.username}
+											</div>
+										</div>
+									)
+							  })
+							: filteringData.map((user) => {
+									return (
+										<div
+											onClick={() => {
+												toggleUserSelection(user.id)
+											}}
+											key={user.id}
+											className="go-to-palace-result-name">
+											<div className="go-to-palace-result-name-img"></div>
+											<div className="go-to-palace-result-name-info">
+												{user.username}
+											</div>
+										</div>
+									)
+							  })}
 					</div>
 					<div className="go-to-palace-btn-bottom">
 						<div className="go-to-palace-btn-cacel">

@@ -263,15 +263,18 @@ input:checked + .slider:before {
 
 .go-together-create-plan-box {
 	background-color: #f0f0f0;
-	width: 200px;
-	height: 40px;
+	width: 64%;
 	font-size: 1.2rem;
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-wrap: wrap;
 	border-radius: 10px;
+	padding: 10px;
+	overflow-y: auto;
+	gap: 10px;
 }
-
+.go-together-create-plan-box::-webkit-scrollbar {
+	display: none;
+}
 /* location */
 .location-create-plan-container {
 	margin-top: 20px;
@@ -364,24 +367,23 @@ input:checked + .slider:before {
 }
 .go-to-palace-search-bar {
 	height: 50px;
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: 1px solid;
 }
 
 .go-to-palace-search-all {
-	height: 30px;
-	width: 80%;
+	height: 50px;
+	width: 90%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	border: none;
 	background-color: rgb(237, 237, 237);
-	border-radius: 10px;
+	border-radius: 12px;
 }
 .go-to-palace-search-input {
+	font-size: 1rem;
 	padding: 5px;
 	width: 90%;
 	background-color: rgb(237, 237, 237);
@@ -394,33 +396,45 @@ input:checked + .slider:before {
 	outline: none;
 }
 .go-to-palace-result {
+	margin-top: 20px;
 	display: flex;
-	height: 40px;
+	align-items: center;
+	gap: 10px;
 }
 .go-to-palace-result-icon {
-	margin-top: 10px;
-	margin-left: 55px;
+	margin-left: 30px;
+	display: flex;
+	align-items: center;
 }
 .go-to-palace-result-info {
-	margin-left: 10px;
-	margin-top: 10px;
 	font-size: 14px;
+	display: flex;
+	align-items: center;
+}
+.go-together-user-container {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	height: 240px;
+	overflow-y: auto;
+	gap: 20px;
+	padding-left: 40px;
+	padding-bottom: 10px;
 }
 .go-to-palace-result-name {
-	height: 250px;
-	line-height: 20px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 20px;
 }
 .go-to-palace-result-name-img {
 	height: 40px;
 	width: 40px;
 	border: 1px solid;
 	border-radius: 100%;
-	margin-left: 40px;
-	margin-top: 10px;
 }
 .go-to-palace-btn-bottom {
 	height: 70px;
-
 	display: flex;
 	margin-top: 10px;
 }

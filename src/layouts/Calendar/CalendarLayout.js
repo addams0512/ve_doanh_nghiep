@@ -34,7 +34,7 @@ const CalendarLayout = () => {
 					<div className="header-container-calendar">
 						<div className="date-calendar">
 							<h1>{currentDay.getDate()}</h1>
-							<p>tháng {currentDay.getMonth()}</p>
+							<p>tháng {currentDay.getMonth() + 1}</p>
 							<p>{currentDay.getFullYear()}</p>
 						</div>
 						<div className="time-search-type-calendar">
