@@ -6,30 +6,31 @@ import { ChromePicker } from "react-color"
 import { PlanContext } from "./CalendarLayout"
 import { AiOutlinePlus } from "react-icons/ai"
 import { VscTrash } from "react-icons/vsc"
+import { RxCheckbox } from "react-icons/rx"
 
-export default function Kindofplan({ filteringPlan, remove, close }) {
+export default function Kindofplan({ filteringPlan }) {
 	const { tagPlan, setTagPlan } = useContext(PlanContext)
 	const [showcolordisplay, setShowColorDisplay] = useState(false)
 	const [newtagdisplay, setNewTagDisplay] = useState(false)
 	const [cancelkindofplandisplay, setCancelKindOfPlanDisplay] = useState(true)
-	const [mockData, setMockData] = useState(typeofplan)
 	const [newPlan, setNewPlan] = useState("")
 	const [color, setColor] = useState("green")
-	const [onChoicesTypeOfplan, setChoicesTypeOfPlan] = useState(false)
 	const [chosenTypeOfPlan, setChosenTypeOfPlan] = useState()
-	const [tagAfterDelete, setTagAfterDelete] = useState(tagPlan)
+
 	const filteringTagPlan = () => {
 		filteringPlan()
 	}
+
 	function shownewtag() {
 		setNewTagDisplay(!newtagdisplay)
 	}
+
 	const onAddData = () => {
-		const lastTagId = tagPlan.length > 0 ? tagPlan[tagPlan.length - 1].id : 0
+		const lastTagId = tagPlan.length > 0 ? tagPlan.at(-1).id + 1 : 0
 		setTagPlan([
 			...tagPlan,
 			{
-				id: lastTagId + 1,
+				id: lastTagId,
 				color: color,
 				type: newPlan,
 				choose: false,
@@ -37,11 +38,14 @@ export default function Kindofplan({ filteringPlan, remove, close }) {
 		])
 		setNewPlan("")
 	}
-	function cancelnewtag() {
-		remove()
-	}
 	function showcolor() {
 		setShowColorDisplay(!showcolordisplay)
+	}
+
+	const handleAddTag = (e) => {
+		if (e.key === "Enter") {
+			onAddData()
+		}
 	}
 	const chooseTypeOfPlan = (id) => {
 		setChosenTypeOfPlan(
@@ -76,22 +80,24 @@ export default function Kindofplan({ filteringPlan, remove, close }) {
 										<div
 											style={{ backgroundColor: element.color }}
 											className="kind-of-plan-option-color"></div>
-										<div
+										<div className="kind-of-plan-option-info">
+											{element.type}
+										</div>
+										<input
 											onClick={() => {
 												chooseTypeOfPlan(element.id)
 											}}
-											className={
-												element.choose
-													? "kind-of-plan-option-info-choose"
-													: "kind-of-plan-option-info"
-											}>
-											{element.type}
-										</div>
+											type="checkbox"
+											className="input-kind-of-plan-option"
+										/>
 										<VscTrash
 											onClick={() => {
 												deleteTagPlan(element.id)
 											}}
-											style={{ marginRight: "30px", cursor: "pointer" }}
+											style={{
+												marginRight: "10px",
+												cursor: "pointer",
+											}}
 											size={30}
 										/>
 									</div>
@@ -128,6 +134,7 @@ export default function Kindofplan({ filteringPlan, remove, close }) {
 							</div>
 							<div className="new-tag-add-info">
 								<input
+									onKeyUp={handleAddTag}
 									value={newPlan}
 									onChange={(e) => setNewPlan(e.target.value)}
 									type="text"

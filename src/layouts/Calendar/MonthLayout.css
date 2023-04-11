@@ -4,7 +4,7 @@
 	margin-top: 20px;
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 	width: 900px;
-	height: 800px;
+	height: fit-content;
 	overflow: auto;
 	margin-bottom: 20px;
 	display: flex;
@@ -19,9 +19,11 @@
 	width: calc(900px / 6);
 	height: calc(800px / 5);
 	display: flex;
+	flex-direction: column;
 	border-right: 0.8px solid #ccc;
 	border-bottom: 0.8px solid #ccc;
 	padding: 10px 10px 4px 10px;
+	gap: 6px;
 }
 
 .month-layout-box2 {
@@ -43,6 +45,7 @@
 
 .month-layout-description {
 	margin-top: auto;
+	margin-left: auto;
 }
 .content-month-plan-container {
 	width: 70px;

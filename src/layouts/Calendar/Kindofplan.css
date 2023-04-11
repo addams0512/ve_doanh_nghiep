@@ -25,11 +25,13 @@
 	height: 350px;
 	width: 450px;
 }
+
 .kind-of-plan-option-color {
-	height: 40px;
-	width: 40px;
+	height: 40px !important;
+	width: 40px !important;
 	border-radius: 10px;
 }
+
 .kind-of-plan-option-container {
 	display: flex;
 	gap: 10px;
@@ -47,6 +49,13 @@
 	line-height: 1.6;
 	cursor: pointer;
 }
+
+/* custom checkbox */
+input.input-kind-of-plan-option {
+	height: 24px;
+	width: 24px;
+}
+
 .kind-of-plan-option-info-choose {
 	padding-left: 10px;
 	border-radius: 10px;

@@ -1,7 +1,10 @@
-import React from "react"
+import React, { useContext, useState } from "react"
 import "./MonthLayout.css"
 import { planMonthAPI } from "../../data/planAPI"
+import { PlanContext } from "./CalendarLayout"
 const MonthLayout = () => {
+	const { finalData } = useContext(PlanContext)
+	const [planData, setPlanData] = useState()
 	const month = Array.from({ length: 31 }, (v, i) => {
 		return {
 			id: i + 1,
@@ -12,37 +15,42 @@ const MonthLayout = () => {
 		<div className="month-layout-container">
 			<div className="month-layout-overflow-container">
 				{month.map((elements) => {
-					const matchingPlan = planMonthAPI.find(
-						(plan) => elements.day === plan.dateInMonth
+					const matchingPlan = finalData.filter(
+						(plan) => elements.day === plan.planWeekDate
 					)
-					if (matchingPlan) {
+					if (matchingPlan.length > 0) {
 						return (
-							<div
-								key={elements.id}
-								className="month-layout-box1">
-								<div className="month-plan-container">
-									<div
-										style={{
-											backgroundColor: matchingPlan.type.colorType,
-											width: "20px",
-											height: "20px",
-											borderRadius: "4px",
-										}}></div>
-									<div className="content-month-plan-container">
-										{matchingPlan.type.contentType}
-									</div>
-								</div>
+							<div className="month-layout-box1">
+								{matchingPlan.slice(0, 3).map((plan) => {
+									return (
+										<div
+											key={plan.id}
+											className="month-plan-container">
+											<div
+												style={{
+													backgroundColor: plan.tagPlan.color,
+													width: "20px",
+													height: "20px",
+													borderRadius: "4px",
+												}}></div>
+											<div className="content-month-plan-container">
+												{plan.content}
+											</div>
+										</div>
+									)
+								})}
 								<div className="month-layout-description">{elements.day}</div>
 							</div>
 						)
+					} else {
+						return (
+							<div
+								key={elements.id}
+								className="month-layout-box2">
+								{elements.day}
+							</div>
+						)
 					}
-					return (
-						<div
-							key={elements.id}
-							className="month-layout-box2">
-							{elements.day}
-						</div>
-					)
 				})}
 			</div>
 		</div>

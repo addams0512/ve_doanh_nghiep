@@ -78,7 +78,7 @@
 
 /* type-calendar  */
 .type-plan-calendar-container {
-	padding: 10px;
+	padding: 14px 10px 20px 10px;
 	width: 360px;
 	border-radius: 58px;
 	background-color: #f6f6f6;
@@ -86,7 +86,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
-	justify-content: center;
+	height: fit-content;
 }
 .type-plan-calendar {
 	display: flex;
@@ -109,10 +109,15 @@
 	display: flex;
 	flex-wrap: wrap;
 	width: 360px;
-	height: fit-content;
+	height: 80px;
 	font-size: 0.9rem;
 	justify-content: center;
 	align-items: center;
+	overflow-y: auto;
+	padding-right: 10px;
+}
+.description-type-plan-calendar::-webkit-scrollbar {
+	display: none;
 }
 
 .description-type-plan-container {
@@ -143,11 +148,12 @@
 }
 
 .next-plan-calendar-container {
+	margin-top: 60px;
+	padding-top: 20px;
 	display: flex;
-	justify-content: center;
 	flex-direction: column;
 	gap: 10px;
-	height: 180px;
+	height: fit-content;
 	background-color: #f6f6f6;
 	width: 360px;
 	border-radius: 40px;
@@ -158,12 +164,13 @@
 	text-align: center;
 }
 .detail-next-plan-calendar-container {
-	margin-top: 8px;
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+	height: 200px;
 	justify-content: flex-start;
 	padding-left: 20px;
+	overflow-y: auto;
 }
 .detail-next-plan-calendar {
 	font-size: 1rem;

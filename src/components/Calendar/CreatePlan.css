@@ -16,7 +16,9 @@
 	background-color: white;
 	border-radius: 16px;
 	width: 700px;
-	height: 750px;
+	height: 800px;
+	display: flex;
+	flex-direction: column;
 }
 
 .create-plan-btn {
@@ -286,15 +288,19 @@ input:checked + .slider:before {
 
 .location-create-plan-box {
 	background-color: #f0f0f0;
-	width: 200px;
+	width: 260px;
 	height: 40px;
 	font-size: 1.2rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	border-radius: 10px;
+	border: none;
+	padding: 10px;
 }
-
+.location-create-plan-box:focus {
+	outline: none;
+}
 .notice-create-plan-container {
 	margin-top: 20px;
 	display: flex;
@@ -325,8 +331,10 @@ input:checked + .slider:before {
 
 .button-delete-create-plan-container {
 	justify-content: flex-end;
-	margin: 20px 20px 10px 0px;
+	margin-top: auto;
 	display: flex;
+	margin-right: 40px;
+	margin-bottom: 20px;
 	gap: 20px;
 }
 

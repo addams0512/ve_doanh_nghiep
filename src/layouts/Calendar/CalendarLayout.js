@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react"
+import React, { createContext, useState } from "react"
 import "./CalendarLayout.css"
 import BasicCalendar from "../../components/Calendar/BasicCalendar"
 import { AiOutlineSearch } from "react-icons/ai"
@@ -16,15 +16,13 @@ const CalendarLayout = () => {
 	const [displayYear, setDisplayYear] = useState(false)
 	const [displayPlanCreate, setDisplayPlanCreate] = useState(false)
 	const [currentDay, setDay] = useState(new Date())
-	const [tagPlan, setTagPlan] = useState([])
+	const [finalData, setFinalData] = useState([])
 	const handleClickAddPlan = () => {
 		setDisplayPlanCreate(!displayPlanCreate)
 	}
 	const value = {
-		setDisplayPlanCreate,
-		displayPlanCreate,
-		tagPlan,
-		setTagPlan,
+		finalData,
+		setFinalData,
 	}
 
 	return (
@@ -139,26 +137,21 @@ const CalendarLayout = () => {
 											<p> Loại kế hoạch</p>
 										</div>
 										<div className="description-type-plan-calendar">
-											<div className="description-type-plan-container">
-												<div className="color-descrtiption-type-plan"></div>
-												<div className="description-type-plan">Công việc</div>
-											</div>
-											<div className="description-type-plan-container">
-												<div className="color-descrtiption-type-plan"></div>
-												<div className="description-type-plan">Vợ</div>
-											</div>
-											<div className="description-type-plan-container">
-												<div className="color-descrtiption-type-plan"></div>
-												<div className="description-type-plan">Công việc</div>
-											</div>
-											<div className="description-type-plan-container">
-												<div className="color-descrtiption-type-plan"></div>
-												<div className="description-type-plan">Công việc</div>
-											</div>
-											<div className="description-type-plan-container">
-												<div className="color-descrtiption-type-plan"></div>
-												<div className="description-type-plan">Công việc</div>
-											</div>
+											{finalData.length > 0 &&
+												finalData.tagPlan.map((item) => {
+													return (
+														<div
+															key={item.id}
+															className="description-type-plan-container">
+															<div
+																style={{ backgroundColor: item.color }}
+																className="color-descrtiption-type-plan"></div>
+															<div className="description-type-plan">
+																{item.type}
+															</div>
+														</div>
+													)
+												})}
 										</div>
 									</div>
 								</div>
@@ -168,62 +161,28 @@ const CalendarLayout = () => {
 											Kế hoạch sắp tới
 										</div>
 										<div className="detail-next-plan-calendar-container">
-											<div className="detail-next-plan-calendar">
-												<input
-													type="checkbox"
-													className="checkbox-next-plan-calendar"
-												/>
-												<div className="date-next-plan-calendar">
-													{" "}
-													16/07 : 9.00 - 9.30 : Họp cùng Sales
-												</div>
-											</div>
-											<div className="detail-next-plan-calendar">
-												<input
-													type="checkbox"
-													className="checkbox-next-plan-calendar"
-												/>
-												<div className="date-next-plan-calendar">
-													{" "}
-													16/07 : 9.00 - 9.30 : Họp cùng Sales
-												</div>
-											</div>
-											<div className="detail-next-plan-calendar">
-												<input
-													type="checkbox"
-													className="checkbox-next-plan-calendar"
-												/>
-												<div className="date-next-plan-calendar">
-													{" "}
-													16/07 : 9.00 - 9.30 : Họp cùng Sales
-												</div>
-											</div>
-											<div className="detail-next-plan-calendar">
-												<input
-													type="checkbox"
-													className="checkbox-next-plan-calendar"
-												/>
-												<div className="date-next-plan-calendar">
-													{" "}
-													16/07 : 9.00 - 9.30 : Họp cùng Sales
-												</div>
-											</div>
+											{finalData.map((plan) => {
+												return (
+													<div
+														key={plan.id}
+														className="detail-next-plan-calendar">
+														<input
+															type="checkbox"
+															className="checkbox-next-plan-calendar"
+														/>
+														<div className="date-next-plan-calendar">
+															{" "}
+															{plan.day}/{plan.month + 1} : {plan.intervalTime}{" "}
+															: {plan.content}
+														</div>
+													</div>
+												)
+											})}
 										</div>
 									</div>
 								</div>
 							</div>
 							<div className="box2-calendar">
-								{displayDay && (
-									<div className="btn-date-calendar">
-										<button>CN</button>
-										<button>T2</button>
-										<button>T3</button>
-										<button>T4</button>
-										<button>T5</button>
-										<button>T6</button>
-										<button>T7</button>
-									</div>
-								)}
 								{displayDay && <DayLayout />}
 								{displayWeek && <WeekLayout />}
 								{displayMonth && <MonthLayout />}

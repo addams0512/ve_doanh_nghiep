@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
 import "./WeekLayout.css"
 import { planAPI } from "../../data/planAPI"
+import { PlanContext } from "./CalendarLayout"
 const WeekLayout = () => {
+	const { finalData } = useContext(PlanContext)
 	const day = [1, 2, 3, 4, 5, 6, 7]
 	const plan = Array.from({ length: 25 * 7 }, (v, i) => {
 		return {
@@ -51,7 +53,7 @@ const WeekLayout = () => {
 					</div>
 					<div className="plan-week__layout-container">
 						{plan.map((item) => {
-							const matchingPlan = planAPI.find(
+							const matchingPlan = finalData.find(
 								(plan) =>
 									item.id % 7 === plan.planWeekDate &&
 									Math.floor(item.id / 7) === plan.planTime
@@ -59,24 +61,32 @@ const WeekLayout = () => {
 							if (matchingPlan) {
 								return (
 									<div
-										key={item.id}
+										key={matchingPlan.id}
 										className="specific-plan-week__container">
 										<div className="box-specific-plan-week__container">
 											<div
-												style={{ backgroundColor: matchingPlan.color }}
+												style={{ backgroundColor: matchingPlan.tagPlan.color }}
 												className="tag-specific-plan-week__container"></div>
 											<div
-												style={{ color: matchingPlan.color }}
+												style={{ color: matchingPlan.tagPlan.color }}
 												className="title-specific-plan-week__container">
-												<div
-													style={{ fontSize: "1rem" }}
-													className="heading-specific-plan-week__container">
-													{matchingPlan.planPartner} {matchingPlan.planName}{" "}
+												<div className="content-specific-plan-week__container">
+													{matchingPlan.content} đi cùng
 												</div>
+												{matchingPlan.partner.map((partner, index) => {
+													return (
+														<div
+															key={index}
+															style={{ fontSize: "1rem" }}
+															className="heading-specific-plan-week__container">
+															{partner.username}
+														</div>
+													)
+												})}
 												<div
 													style={{ fontSize: "0.8rem" }}
 													className="content-specific-plan-week__container">
-													{matchingPlan.planDate}
+													{matchingPlan.intervalTime}
 												</div>
 											</div>
 										</div>

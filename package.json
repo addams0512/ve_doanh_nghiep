@@ -3,7 +3,6 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
-		"@daypilot/daypilot-lite-react": "^3.12.1",
 		"@emotion/react": "^11.10.6",
 		"@emotion/styled": "^11.10.6",
 		"@material-ui/core": "^5.0.0-beta.5",
@@ -21,10 +20,8 @@
 		"react-color": "^2.19.3",
 		"react-dom": "^18.2.0",
 		"react-icons": "^4.8.0",
-		"react-redux": "^8.0.5",
 		"react-router-dom": "^6.10.0",
 		"react-scripts": "5.0.1",
-		"redux": "^4.2.1",
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
