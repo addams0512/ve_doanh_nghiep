@@ -134,7 +134,7 @@ const CreatePlan = ({ remove }) => {
 		const tagChosen = tagPlan.find((tag) => tag.id === id)
 		setTagPlanChoice(tagChosen)
 	}
-	console.log(tagPlanChoice)
+
 	// get User API
 	const [userData, setUserData] = useState("")
 	const [loading, setLoading] = useState(true)

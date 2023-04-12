@@ -1,32 +1,14 @@
-import React, { useContext, useState } from "react"
-import "./YearLayout.css"
-import BasicCalendar from "../../components/Calendar/BasicCalendar"
-import { PlanContext } from "./CalendarLayout"
-const YearLayout = () => {
-	const { finalData } = useContext(PlanContext)
+import React from "react"
+import YearlyCalendar from "../../components/Calendar/YearlyCalendar"
+import YearlyCalendar2 from "../../components/Calendar/YearlyCalendar2"
+
+function App() {
 	return (
-		<div className="year-layout-container">
-			<div className="calendar-year-layout-container">
-				{finalData.map((plan) => {
-					return (
-						<div
-							className="calendar-year-detail-layout-container"
-							key={plan.id}>
-							<BasicCalendar
-								defaultActiveStartDate={
-									new Date(plan.year, plan.month, plan.day)
-								}
-								value={new Date(plan.year, plan.month, plan.day)}
-								disabledDays={(day) =>
-									day.getMonth() !== plan.month && day.getDate() !== plan.day
-								}
-							/>
-						</div>
-					)
-				})}
-			</div>
+		<div>
+			{/* <YearlyCalendar /> */}
+			<YearlyCalendar2 />
 		</div>
 	)
 }
 
-export default YearLayout
+export default App
