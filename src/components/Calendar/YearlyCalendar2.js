@@ -4,7 +4,32 @@ import { TbPlayerTrackNextFilled } from "react-icons/tb"
 const YearlyCalendar2 = () => {
 	const currentDate = new Date()
 	const currentYear = currentDate.getFullYear()
+	const currentMonth = currentDate.getMonth()
+
+	// generate day of week
 	const dayInWeek = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
+
+	// get the last date of the previous month
+	const lastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate()
+
+	// get the first day of next month
+	const firstDateOfMonth = new Date(currentYear, currentMonth, 1)
+	const currentDay = currentDate.getDay()
+	const firstDayOfMonthString =
+		dayInWeek[currentDay] +
+		"," +
+		firstDateOfMonth.toLocaleDateString("en-us", {
+			year: "numeric",
+			month: "numeric",
+			day: "numeric",
+		}) // parse to string
+	const paddingDay = dayInWeek.indexOf(firstDayOfMonthString.split(",")[0]) // get padding by index of dayInWeek
+	const loopDayOfCurrentMonth = paddingDay + lastDayOfMonth
+	const arrayLoopDay = Array.from({ length: loopDayOfCurrentMonth }, (v, i) => {
+		return {
+			id: i + 1,
+		}
+	})
 
 	const arrayDate31 = Array.from({ length: 31 }, (v, i) => {
 		return {
@@ -21,7 +46,7 @@ const YearlyCalendar2 = () => {
 			id: i + 1,
 		}
 	})
-	const arrayDat28 = Array.from({ length: 28 }, (v, i) => {
+	const arrayDate28 = Array.from({ length: 28 }, (v, i) => {
 		return {
 			id: i + 1,
 		}
@@ -32,68 +57,57 @@ const YearlyCalendar2 = () => {
 		{
 			id: 2,
 			name: "February",
-			date: currentYear % 4 === 0 ? arrayDate29 : arrayDat28,
-			paddingDay: 4,
+			date: currentYear % 4 === 0 ? arrayDate29 : arrayDate28,
 		},
 		{
 			id: 3,
 			name: "March",
 			date: arrayDate31,
-			paddingDay: currentYear % 4 === 0 ? 6 : 7,
 		},
 		{
 			id: 4,
 			name: "April",
 			date: arrayDate30,
-			paddingDay: currentYear % 4 === 0 ? 5 : 4,
 		},
 		{
 			id: 5,
 			name: "May",
 			date: arrayDate31,
-			paddingDay: currentYear % 4 === 0 ? 3 : 2,
 		},
 		{
 			id: 6,
 			name: "June",
 			date: arrayDate30,
-			paddingDay: currentYear % 4 === 0 ? 6 : 5,
 		},
 		{
 			id: 7,
 			name: "July",
 			date: arrayDate31,
-			paddingDay: currentYear % 4 === 0 ? 0 : 1,
 		},
 		{
 			id: 8,
 			name: "August",
 			date: arrayDate30,
-			paddingDay: currentYear % 4 === 0 ? 4 : 3,
 		},
 		{
 			id: 9,
 			name: "September",
 			date: arrayDate31,
-			paddingDay: currentYear % 4 === 0 ? 7 : 6,
 		},
 		{
 			id: 10,
 			name: "October",
 			date: arrayDate30,
-			paddingDay: currentYear % 4 === 0 ? 2 : 1,
 		},
 		{
 			id: 11,
 			name: "November",
 			date: arrayDate31,
-			paddingDay: currentYear % 4 === 0 ? 5 : 4,
 		},
 		{
 			id: 12,
 			name: "December",
 			date: arrayDate30,
-			paddingDay: currentYear % 4 === 0 ? 7 : 6,
 		},
 	]
 
@@ -135,13 +149,13 @@ const YearlyCalendar2 = () => {
 								})}
 							</div>
 							<div className="date-calendar__yearly__container">
-								{calendar.date.map((date) => {
-									if (date.id > calendar.paddingDay) {
+								{arrayLoopDay.map((date) => {
+									if (date.id > paddingDay) {
 										return (
 											<button
 												key={date.id}
 												className="date__yearly">
-												{`${date.id - months.paddingDay}`}
+												{date.id - paddingDay}
 											</button>
 										)
 									}
