@@ -3,33 +3,49 @@ import { IoCaretBackOutline } from "react-icons/io5"
 import { TbPlayerTrackNextFilled } from "react-icons/tb"
 const YearlyCalendar2 = () => {
 	const currentDate = new Date()
-	const currentYear = currentDate.getFullYear()
-	const currentMonth = currentDate.getMonth()
-
+	let currentYear = currentDate.getFullYear()
+	let currentMonth = currentDate.getMonth() + 12
+	const nextMonth = 0
 	// generate day of week
 	const dayInWeek = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
 
 	// get the last date of the previous month
-	const lastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate()
+	const lastDateOfMonth = new Date(currentYear, currentMonth, 0).getDate()
 
 	// get the first day of next month
 	const firstDateOfMonth = new Date(currentYear, currentMonth, 1)
-	const currentDay = currentDate.getDay()
+	const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay()
+
 	const firstDayOfMonthString =
-		dayInWeek[currentDay] +
+		dayInWeek[firstDayOfMonth] +
 		"," +
 		firstDateOfMonth.toLocaleDateString("en-us", {
 			year: "numeric",
 			month: "numeric",
 			day: "numeric",
 		}) // parse to string
+
 	const paddingDay = dayInWeek.indexOf(firstDayOfMonthString.split(",")[0]) // get padding by index of dayInWeek
-	const loopDayOfCurrentMonth = paddingDay + lastDayOfMonth
+
+	const loopDayOfCurrentMonth = paddingDay + lastDateOfMonth
+
 	const arrayLoopDay = Array.from({ length: loopDayOfCurrentMonth }, (v, i) => {
 		return {
 			id: i + 1,
 		}
 	})
+
+	const test = () => {
+		for (let i = currentMonth; i > 0; i--) {
+			console.log(currentMonth--)
+		}
+	}
+
+	const test2 = () => {
+		for (let i = currentMonth; i < 12; i++) {
+			console.log(currentMonth++)
+		}
+	}
 
 	const arrayDate31 = Array.from({ length: 31 }, (v, i) => {
 		return {
@@ -121,7 +137,7 @@ const YearlyCalendar2 = () => {
 				<button>
 					<IoCaretBackOutline />
 				</button>
-				<p></p>
+				<p>{currentYear}</p>
 				<button>
 					<IoCaretBackOutline style={{ transform: "rotate(180deg)" }} />
 				</button>
