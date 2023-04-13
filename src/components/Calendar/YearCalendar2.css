@@ -1,8 +1,10 @@
 .calendar-yearly__container {
+	padding: 0 20px;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	overflow-y: scroll;
+	height: 1000px;
 }
 
 /* header */
@@ -16,12 +18,14 @@
 	background-color: #373737;
 	color: white;
 	margin-bottom: 26px;
+	position: sticky;
+	top: 0;
 }
 
 .header-calendar-yearly__container button {
 	color: white;
 	width: 100px;
-	height: 80px;
+	height: 70px;
 	border: none;
 	background-color: transparent;
 	display: flex;
@@ -42,26 +46,35 @@
 .each-calendar__yearly__container {
 	display: flex;
 	flex-direction: column;
+	border-radius: 40px;
 	width: calc(900px / 3);
-	height: fit-content;
+	height: 350px;
+	background-color: #f6f6f6;
+	margin-bottom: 26px;
+	gap: 10px;
+	padding: 10px;
 }
 
 /* month */
 .month-calendar__yearly {
 	font-size: 2rem;
+	text-align: center;
+	color: #808080;
 }
 
 /* day of week */
 .week-of-day__yearly__container {
 	font-size: 1.4rem;
 	display: flex;
+	height: fit-content;
 }
 
 .day__yearly {
 	width: 40px;
-	height: 40px;
+	height: fit-content;
 	font-size: 1.4rem;
 	text-align: center;
+	color: #808080;
 }
 
 /* date of week  */
@@ -76,9 +89,11 @@
 	font-size: 1.2rem;
 }
 .date__yearly {
-	background-color: red;
+	background-color: transparent;
+	border: none;
 }
 
 .padding-date__yearly {
-	background-color: blue;
+	background-color: transparent;
+	border: none;
 }
