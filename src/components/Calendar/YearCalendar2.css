@@ -41,25 +41,24 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .each-calendar__yearly__container {
-	display: flex;
-	flex-direction: column;
-	border-radius: 40px;
+	border-radius: 30px;
 	width: calc(900px / 3);
 	height: 350px;
 	background-color: #f6f6f6;
 	margin-bottom: 26px;
-	gap: 10px;
 	padding: 10px;
 }
 
 /* month */
 .month-calendar__yearly {
-	font-size: 2rem;
+	font-size: 1.8rem;
 	text-align: center;
 	color: #808080;
+	margin-bottom: 10px;
 }
 
 /* day of week */
@@ -88,9 +87,15 @@
 	height: 40px;
 	font-size: 1.2rem;
 }
+
 .date__yearly {
 	background-color: transparent;
 	border: none;
+	border-radius: 20px;
+}
+.date__yearly:hover {
+	background-color: #373737;
+	color: white;
 }
 
 .padding-date__yearly {
