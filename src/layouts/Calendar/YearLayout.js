@@ -1,14 +1,11 @@
 import React from "react"
-import YearlyCalendar from "../../components/Calendar/YearlyCalendar"
-import YearlyCalendar2 from "../../components/Calendar/YearlyCalendar2"
-
-function App() {
+import { Calendar, CalendarControls } from "react-yearly-calendar"
+import "./YearLayout.css"
+export default function YearLayout() {
+	const date = new Date().getFullYear()
 	return (
-		<div>
-			{/* <YearlyCalendar /> */}
-			<YearlyCalendar2 />
+		<div className="yearly__calendar__container">
+			<Calendar year={date} />,
 		</div>
 	)
 }
-
-export default App

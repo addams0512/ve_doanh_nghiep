@@ -136,6 +136,7 @@ const YearlyCalendar2 = () => {
 
 	// this function generate an array dates of each month
 	const paddingDates = findPaddingDate()
+
 	const arrayDateOfMonth = paddingDates.map((paddingDay) => {
 		const dateInMonth = paddingDay + lastDateOfMonth
 		return Array.from({ length: dateInMonth }, (v, i) => {

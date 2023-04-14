@@ -38,10 +38,12 @@
 .date-calendar h1 {
 	font-weight: normal;
 	font-size: 60px;
+	color: #5a5a5a;
 }
 
 .date-calendar p {
 	font-size: 40px;
+	color: #5a5a5a;
 }
 
 /* btn-add-plan */
