@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { IoCaretBackOutline } from "react-icons/io5"
 import { TbPlayerTrackNextFilled } from "react-icons/tb"
 import "./YearlyCalendar.css"
@@ -6,32 +6,50 @@ import Calendar from "react-calendar"
 const YearlyCalendar = () => {
 	const date = new Date()
 	const year = date.getFullYear()
-	const month = date.getMonth() + 6
+	const month = date.getMonth()
+	const [currentMonth, setCurrentMonth] = useState(month)
+
+	const nextMonth = () => {
+		setCurrentMonth(new Date().getMonth() - 4)
+	}
+
 	// generate day of week
-	const dayInWeek = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
+	const dayInWeek = [
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+	]
+	// get the last date of prev month 30,31,29,28
+	const lastDateOfMonth = new Date(year, currentMonth + 1, 0).getDate()
 
-	// get the last date of the previous month
-	const lastDayOfMonth = new Date(year, month, 0).getDate()
-
-	// get padding day of the week by using the firstDay of the next month
-	const firstDayOfMonth = new Date(year, month, 1)
-	const day = new Date(year, month, 0).getDay() + 1
-	const firstDateOfMonthString =
-		dayInWeek[day] +
-		"," +
-		firstDayOfMonth.toLocaleDateString("en-us", {
+	// get the first day of month
+	const firstDayOfMonth = new Date(year, currentMonth, 1)
+	const paddingDateOfCurrentMonth = firstDayOfMonth.toLocaleDateString(
+		"en-us",
+		{
+			weekday: "long",
 			year: "numeric",
 			month: "numeric",
 			day: "numeric",
-		})
+		}
+	)
 
-	const paddingDay = dayInWeek.indexOf(firstDateOfMonthString.split(",")[0])
+	const paddingDate = dayInWeek.indexOf(paddingDateOfCurrentMonth.split(",")[0])
 
-	const loopDay = paddingDay + lastDayOfMonth
+	console.log(
+		"🚀 ~ file: YearlyCalendar.js:49 ~ YearlyCalendar ~ paddingDate:",
+		paddingDate
+	)
 
-	const arrayOfDate = Array.from({ length: loopDay }, (v, i) => {
+	const numberDateOfMonth = paddingDate + lastDateOfMonth
+	const arrayDateOfMonth = Array.from({ length: numberDateOfMonth }, (_, i) => {
 		return {
 			id: i + 1,
+			date: i + 1,
 		}
 	})
 
@@ -65,7 +83,7 @@ const YearlyCalendar = () => {
 				<button>
 					<IoCaretBackOutline style={{ transform: "rotate(180deg)" }} />
 				</button>
-				<button>
+				<button onClick={nextMonth}>
 					<TbPlayerTrackNextFilled />
 				</button>
 			</div>
@@ -89,23 +107,12 @@ const YearlyCalendar = () => {
 								})}
 							</div>
 							<div className="date-calendar__yearly__container">
-								{arrayOfDate.map((date) => {
-									if (date.id > paddingDay) {
-										return (
-											<button
-												key={date.id}
-												className="date__yearly">
-												{date.id - paddingDay}
-											</button>
-										)
+								{arrayDateOfMonth.map((date) => {
+									if (date.id > paddingDate) {
+										return <div>{date.date - paddingDate}</div>
+									} else {
+										return <div>hello</div>
 									}
-									return (
-										<button
-											key={date.id}
-											className="padding-date__yearly">
-											none
-										</button>
-									)
 								})}
 							</div>
 						</div>

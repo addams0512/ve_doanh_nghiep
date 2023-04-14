@@ -4,6 +4,7 @@ import "./YearLayout.css"
 import { PlanContext } from "./CalendarLayout"
 import { IoCaretBackOutline } from "react-icons/io5"
 import YearlyCalendar2 from "../../components/Calendar/YearlyCalendar2"
+import YearlyCalendar from "../../components/Calendar/YearlyCalendar"
 
 export default function YearLayout() {
 	const currentYear = new Date().getFullYear()
@@ -27,7 +28,7 @@ export default function YearLayout() {
 
 	return (
 		<div className="yearly__calendar__container">
-			<div className="btn-nav__yearly__container">
+			{/* <div className="btn-nav__yearly__container">
 				<button onClick={handlePrevYear}>
 					<IoCaretBackOutline />
 				</button>
@@ -35,12 +36,13 @@ export default function YearLayout() {
 				<button onClick={handleNextYear}>
 					<IoCaretBackOutline style={{ transform: "rotate(180deg)" }} />
 				</button>
-			</div>
+			</div> */}
 			{/* <Calendar
 				year={year}
 				selectedDay={date}
 			/> */}
 			<YearlyCalendar2 />
+			{/* <YearlyCalendar /> */}
 		</div>
 	)
 }
