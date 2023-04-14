@@ -9,10 +9,18 @@ const YearlyCalendar2 = () => {
 	const [month, setMonth] = useState(currentMonth)
 
 	// generate day of week
-	const dayInWeek = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
+	const dayInWeek = [
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+	]
 
 	// get the last date of the previous month
-	const lastDateOfMonth = new Date(year, month, 0).getDate()
+	const lastDateOfMonth = new Date(year, month + 1, 0).getDate()
 
 	const arrayDate31 = Array.from({ length: 31 }, (v, i) => {
 		return {
@@ -97,25 +105,19 @@ const YearlyCalendar2 = () => {
 	// function calculate padding Date
 	const calcPaddingDay = (monthOfDate) => {
 		// get the first day of next month
-		const firstDateOfMonth = new Date(year, monthOfDate, 1)
-		const firstDayOfMonth = new Date(year, monthOfDate, 1).getDay()
-
-		// parse to string
-		const firstDayOfMonthString =
-			dayInWeek[firstDayOfMonth] +
-			"," +
-			firstDateOfMonth.toLocaleDateString("en-us", {
-				year: "numeric",
-				month: "numeric",
-				day: "numeric",
-			})
+		const firstDayOfMonth = new Date(year, monthOfDate, 1)
+		const firstDayOfMonthString = firstDayOfMonth.toLocaleDateString("en-us", {
+			weekday: "long",
+			year: "numeric",
+			month: "numeric",
+			day: "numeric",
+		})
 
 		// get padding by index of dayInWeek
 		const paddingDay = dayInWeek.indexOf(firstDayOfMonthString.split(",")[0])
 
 		return paddingDay
 	}
-
 	// function find padding day of each month and push it into array
 	const findPaddingDate = () => {
 		const arrayOfPaddingDate = []
