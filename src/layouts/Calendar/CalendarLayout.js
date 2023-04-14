@@ -138,20 +138,24 @@ const CalendarLayout = () => {
 										</div>
 										<div className="description-type-plan-calendar">
 											{finalData.length > 0 &&
-												finalData.tagPlan.map((item) => {
-													return (
-														<div
-															key={item.id}
-															className="description-type-plan-container">
+												finalData.map((item, index) => (
+													<div
+														key={item.id}
+														className="description-type-plan-container">
+														{item.tagPlan.map((tagplan) => (
 															<div
-																style={{ backgroundColor: item.color }}
-																className="color-descrtiption-type-plan"></div>
-															<div className="description-type-plan">
-																{item.type}
+																key={tagplan.id}
+																className="description-type-plan-container">
+																<div
+																	style={{ backgroundColor: tagplan.color }}
+																	className="color-descrtiption-type-plan"></div>
+																<div className="description-type-plan">
+																	{tagplan.type}
+																</div>
 															</div>
-														</div>
-													)
-												})}
+														))}
+													</div>
+												))}
 										</div>
 									</div>
 								</div>

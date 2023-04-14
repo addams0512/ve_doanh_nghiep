@@ -31,7 +31,6 @@ const CreatePlan = ({ remove }) => {
 	const [color, setColor] = useState("black")
 	const [showcolordisplay, setShowColorDisplay] = useState(false)
 	const [newPlan, setNewPlan] = useState("")
-	const [tagPlanChoice, setTagPlanChoice] = useState()
 	// get day - month - year
 	const day = dayPicker.getDate()
 	const month = dayPicker.getMonth()
@@ -129,12 +128,6 @@ const CreatePlan = ({ remove }) => {
 		}
 	}
 
-	// choose tagPlan
-	const chosenTagPlan = (id) => {
-		const tagChosen = tagPlan.find((tag) => tag.id === id)
-		setTagPlanChoice(tagChosen)
-	}
-
 	// get User API
 	const [userData, setUserData] = useState("")
 	const [loading, setLoading] = useState(true)
@@ -192,45 +185,36 @@ const CreatePlan = ({ remove }) => {
 	}
 
 	// create plan
-	const createPlan = () => {
+	const createPlan = (item) => {
 		const nextId = finalData.length > 0 ? finalData.at(-1).id + 1 : 0
-		setFinalData((item) => {
-			const existingPlan = finalData.find((plan) => plan.id === item.id)
-			if (existingPlan) {
-				return finalData.filter((plan) => plan.id !== item.id)
-			}
-			return [
-				...finalData,
-				{
-					id: nextId,
-					content: content,
-					tagPlan: tagPlan, // array of object of tagPlan
-					date: date, // full date format YYYY-MM-DD
-					timePicker: timePicker.slice(0, 5), // time format HH:MM
-					intervalTime: timePicker, // time format HH:MM - HH:MM
-					partner: selectedUsers, // array of partner
-					note: dataNotice,
-					planWeekDate: dayOfWeek, // day of week in format 1,2,3,4,5,6,7
-					planTime: Number(timePicker.slice(0, 2)), // time format HH
-					day: day, // day in format DD with dayPicker
-					month: month, // month of dayPicker
-					year: year, // year of dayPicker
-				},
-			]
-		})
-		console.log(finalData)
+		const existingPlan = finalData.find((plan) => plan.id === item.id)
+		if (existingPlan) {
+			return finalData.filter((plan) => plan.id !== item.id)
+		}
+		let dataArray = [
+			...finalData,
+			{
+				id: nextId,
+				content: content,
+				tagPlan: tagPlan, // array of object of tagPlan
+				date: date, // full date format YYYY-MM-DD
+				timePicker: timePicker.slice(0, 5), // time format HH:MM
+				intervalTime: timePicker, // time format HH:MM - HH:MM
+				partner: selectedUsers, // array of partner
+				note: dataNotice,
+				planWeekDate: dayOfWeek, // day of week in format 1,2,3,4,5,6,7
+				planTime: Number(timePicker.slice(0, 2)), // time format HH
+				day: day, // day in format DD with dayPicker
+				month: month, // month of dayPicker
+				year: year, // year of dayPicker
+			},
+		]
+		setFinalData(dataArray)
+		console.log(dataArray)
 	}
 
 	return (
 		<div className="create-plan-container">
-			<div className="calendar-picker-container">
-				{displayDayPicker && (
-					<BasicCalendar
-						onChange={setDayPicker}
-						value={dayPicker}
-					/>
-				)}
-			</div>
 			{openKindOfplan ? (
 				<Kindofplan filteringPlan={displayTagPlan} />
 			) : (
@@ -247,34 +231,21 @@ const CreatePlan = ({ remove }) => {
 							<FaTags size={30} />
 							<div className="title-type-create-plan">Loại kế hoạch</div>
 							<div className="new-tag-add-info">
-								{tagPlanChoice === undefined ? (
-									<input
-										onKeyUp={handleAddTag}
-										value={newPlan}
-										onChange={(e) => setNewPlan(e.target.value)}
-										type="text"
-										placeholder="Tên tag"
-										className="new-tag-input"></input>
-								) : (
-									<div>
-										<div
-											style={{ backgroundColor: tagPlanChoice.color }}
-											className="tag-type-create-plan"></div>
-										<div className="content-type-create-plan">
-											{" "}
-											{tagPlanChoice.type}
-										</div>
-									</div>
-								)}
+								<input
+									onKeyUp={handleAddTag}
+									value={newPlan}
+									onChange={(e) => setNewPlan(e.target.value)}
+									type="text"
+									placeholder="Nhập loại kế hoạch"
+									className="new-tag-input"></input>
 							</div>
 							<div className="new-tag-add-color">
-								<div className="new-tag-name-color">Chọn màu</div>
 								<div
 									onClick={showcolor}
 									style={{ backgroundColor: color }}
 									className="new-tag-color-option">
 									{showcolordisplay && (
-										<div>
+										<div className="tag-color-option">
 											<ChromePicker
 												color={color}
 												onChange={(e) => setColor(e.hex)}
@@ -292,9 +263,6 @@ const CreatePlan = ({ remove }) => {
 									? tagPlan?.slice(0, 4).map((item) => {
 											return (
 												<div
-													onClick={() => {
-														chosenTagPlan(item.id)
-													}}
 													key={item.id}
 													style={{ cursor: "pointer" }}
 													className="tag-type-create-plan__box">
@@ -311,11 +279,7 @@ const CreatePlan = ({ remove }) => {
 									: tagPlan?.map((item) => {
 											return (
 												<div key={item.id}>
-													<div
-														onClick={() => {
-															chosenTagPlan(item.id)
-														}}
-														className="tag-type-create-plan__box">
+													<div className="tag-type-create-plan__box">
 														<div
 															style={{ backgroundColor: item.color }}
 															className="tag-type-create-plan"></div>
@@ -331,10 +295,11 @@ const CreatePlan = ({ remove }) => {
 							<div
 								onClick={seeAllPlan}
 								style={{
-									marginTop: "7px",
 									fontSize: "14px",
 									fontStyle: "italic",
 									cursor: "pointer",
+									display: "flex",
+									alignContent: "center",
 								}}>
 								Xem tất cả
 							</div>
@@ -362,10 +327,20 @@ const CreatePlan = ({ remove }) => {
 
 						<div className="date-detail-create-plan-box">
 							<div
+								style={{ cursor: "pointer" }}
 								onClick={showDayPicker}
 								className="date-detail-create-plan-container">
-								{getDayName()}, {day} tháng {month + 1}{" "}
+								{getDayName()}, {day} tháng {month + 1} , {year}
 							</div>
+							{displayDayPicker && (
+								<div className="calendar-picker-container">
+									<BasicCalendar
+										onChange={setDayPicker}
+										value={dayPicker}
+									/>
+								</div>
+							)}
+
 							<div className="repeat-create-plan-container"> Lặp lại</div>
 							<div
 								style={{ cursor: "pointer" }}

@@ -53,6 +53,7 @@
 .type-create-plan-container {
 	display: flex;
 	flex-direction: column;
+
 	margin-left: 40px;
 }
 
@@ -78,9 +79,10 @@
 	gap: 20px;
 	font-size: 1.2rem;
 	margin-left: 50px;
-	margin-top: 20px;
+	margin-top: 10px;
 	width: fit-content;
 	align-items: center;
+	justify-content: center;
 }
 .tag-type-create-plan__box {
 	display: flex;
@@ -116,14 +118,15 @@
 	flex-wrap: wrap;
 	display: flex;
 	flex-direction: column;
-	width: 440px;
+	width: 100%;
 	padding-left: 18px;
 	height: 100px;
+	position: relative;
 }
 
 .date-detail-create-plan-container {
 	background-color: #f0f0f0;
-	width: 200px;
+	width: 300px;
 	height: 40px;
 	font-size: 1.2rem;
 	display: flex;
@@ -131,6 +134,14 @@
 	align-items: center;
 	border-radius: 10px;
 	flex-wrap: wrap;
+	margin-right: 30px;
+}
+.calendar-picker-container {
+	position: absolute;
+	top: 40px;
+	left: 14px;
+	width: 380px;
+	height: 340px;
 }
 
 .time-detail-create-plan-container {
