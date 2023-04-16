@@ -43,6 +43,7 @@ const DayLayout = () => {
 		const planInDate = finalData.filter((plan) => id === plan.planWeekDate)
 		setPlanInDate(planInDate)
 	}
+	console.log(planInDate)
 	return (
 		<div>
 			<div className="btn-date-calendar">
@@ -67,16 +68,16 @@ const DayLayout = () => {
 									key={item.id}
 									className="detail-plan-calendar-container">
 									<div
-										style={{ color: item.tagPlan.color }}
+										style={{ color: item.tagChoice[0].color }}
 										className="specific-time-plan-calendar">
 										{item.timePicker}
 									</div>
 									<div className="content-detail-plan-calendar">
 										<div
-											style={{ backgroundColor: item.tagPlan.color }}
+											style={{ backgroundColor: item.tagChoice[0].color }}
 											className="tag-detail-plan-calendar"></div>
 										<div
-											style={{ color: item.tagPlan.color }}
+											style={{ color: item.tagChoice[0].color }}
 											className="detail-description-plan-calendar">
 											<div className="title-detail-plan-calendar">
 												{item.content}

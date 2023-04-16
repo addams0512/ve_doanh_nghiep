@@ -11,11 +11,15 @@ import Kindofplan from "../../layouts/Calendar/Kindofplan"
 import moment from "moment"
 import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
 import instance from "../../data/instance"
-import { ChromePicker } from "react-color"
+import { RiDeleteBack2Line, RiChatDeleteLine } from "react-icons/ri"
+import { FcCheckmark } from "react-icons/fc"
+import { ChromePicker, SketchPicker } from "react-color"
+import { HiPlusSmall } from "react-icons/hi2"
 
 const CreatePlan = ({ remove }) => {
 	const { finalData, setFinalData } = useContext(PlanContext)
 	const [tagPlan, setTagPlan] = useState([])
+	const [tagChoice, setTagChoice] = useState([])
 	const [displayDayPicker, setDisplayDayPicker] = useState(false)
 	const [dayPicker, setDayPicker] = useState(new Date())
 	const [displayAllPlan, setDisplayAllPlan] = useState(true)
@@ -23,14 +27,13 @@ const CreatePlan = ({ remove }) => {
 	const [content, setContent] = useState()
 	const [displayMorePartner, setDisplayMorePartner] = useState(false)
 	const [timePicker, setTimePicker] = useState("00:00 - 01:00")
-	const [openKindOfplan, setOpenFileKindOfPlan] = useState(false)
 	const [openGoToPlace, setOpenFileGoToPlace] = useState(false)
-	const [typeOfPlan, setTypeOfPlan] = useState(false)
 	const [dataNotice, setDataNotice] = useState()
 	const [selectedUsers, setSelectedUsers] = useState([])
 	const [color, setColor] = useState("black")
 	const [showcolordisplay, setShowColorDisplay] = useState(false)
 	const [newPlan, setNewPlan] = useState("")
+	const [location, setLocation] = useState()
 	// get day - month - year
 	const day = dayPicker.getDate()
 	const month = dayPicker.getMonth()
@@ -90,16 +93,9 @@ const CreatePlan = ({ remove }) => {
 		setOpenFileGoToPlace(!openGoToPlace)
 	}
 
-	// Kind of plan
-	function showKindOfPlan() {
-		setOpenFileKindOfPlan(true)
-		setOpenFileGoToPlace(false)
-	}
-
-	// Display tagPlan
-	const displayTagPlan = () => {
-		setTypeOfPlan(true)
-		setOpenFileKindOfPlan(false)
+	const deleteTag = (id) => {
+		const tagOnDelete = tagPlan.filter((tag) => tag.id !== id)
+		setTagPlan(tagOnDelete)
 	}
 
 	// remove createPlan form
@@ -110,6 +106,9 @@ const CreatePlan = ({ remove }) => {
 	// colorPicker
 	function showcolor() {
 		setShowColorDisplay(!showcolordisplay)
+	}
+	const closeColorPicker = () => {
+		setShowColorDisplay(false)
 	}
 
 	// handle add tag plan
@@ -126,6 +125,11 @@ const CreatePlan = ({ remove }) => {
 			setTagPlan([...tagPlan, newTag])
 			setNewPlan("")
 		}
+	}
+
+	// choose Tag
+	const tagChosen = (id) => {
+		setTagChoice(tagPlan.filter((tag) => id === tag.id))
 	}
 
 	// get User API
@@ -179,11 +183,15 @@ const CreatePlan = ({ remove }) => {
 		})
 	}
 
-	// Notices data
+	// get Notices data
 	const noticeData = (e) => {
 		setDataNotice(e.target.value)
 	}
 
+	// get Location data
+	const onChangeLocation = (e) => {
+		setLocation(e.target.value)
+	}
 	// create plan
 	const createPlan = (item) => {
 		const nextId = finalData.length > 0 ? finalData.at(-1).id + 1 : 0
@@ -197,13 +205,15 @@ const CreatePlan = ({ remove }) => {
 				id: nextId,
 				content: content,
 				tagPlan: tagPlan, // array of object of tagPlan
+				tagChoice: tagChoice, // tag chosen
 				date: date, // full date format YYYY-MM-DD
-				timePicker: timePicker.slice(0, 5), // time format HH:MM
 				intervalTime: timePicker, // time format HH:MM - HH:MM
 				partner: selectedUsers, // array of partner
+				location: location,
 				note: dataNotice,
 				planWeekDate: dayOfWeek, // day of week in format 1,2,3,4,5,6,7
 				planTime: Number(timePicker.slice(0, 2)), // time format HH
+				timePicker: timePicker.slice(0, 5), // time format HH:MM
 				day: day, // day in format DD with dayPicker
 				month: month, // month of dayPicker
 				year: year, // year of dayPicker
@@ -215,140 +225,188 @@ const CreatePlan = ({ remove }) => {
 
 	return (
 		<div className="create-plan-container">
-			{openKindOfplan ? (
-				<Kindofplan filteringPlan={displayTagPlan} />
-			) : (
-				<div className="create-plan-box">
-					<div className="create-plan-btn">Tạo kế hoạch</div>
-					<input
-						onChange={(e) => setContent(e.target.value)}
-						className="name-create-plan-input"
-						type="text"
-						placeholder="Kế hoạch của bạn"
-					/>
-					<div className="type-create-plan-container">
-						<div className="title-type-create-plan-container">
-							<FaTags size={30} />
-							<div className="title-type-create-plan">Loại kế hoạch</div>
-							<div className="new-tag-add-info">
-								<input
-									onKeyUp={handleAddTag}
-									value={newPlan}
-									onChange={(e) => setNewPlan(e.target.value)}
-									type="text"
-									placeholder="Nhập loại kế hoạch"
-									className="new-tag-input"></input>
-							</div>
-							<div className="new-tag-add-color">
-								<div
-									onClick={showcolor}
-									style={{ backgroundColor: color }}
-									className="new-tag-color-option">
-									{showcolordisplay && (
-										<div className="tag-color-option">
-											<ChromePicker
-												color={color}
-												onChange={(e) => setColor(e.hex)}
-											/>
-										</div>
-									)}
+			<div className="create-plan-box">
+				<div className="create-plan-btn">Tạo kế hoạch</div>
+				<input
+					onChange={(e) => setContent(e.target.value)}
+					className="name-create-plan-input"
+					type="text"
+					placeholder="Kế hoạch của bạn"
+				/>
+				<div className="type-create-plan-container">
+					<div className="title-type-create-plan-container">
+						<FaTags size={30} />
+						<div className="title-type-create-plan">Loại kế hoạch</div>
+						<div className="new-tag-add-info">
+							{tagChoice.length === 1 ? (
+								<div className="tag-type-create-plan__box">
+									<div
+										style={{
+											cursor: "pointer",
+											backgroundColor: tagChoice[0].color,
+										}}
+										className="tag-type-create-plan"></div>
+									<div className="content-type-create-plan">
+										{" "}
+										{tagChoice[0].type}
+									</div>
+									<RiChatDeleteLine
+										onClick={() => setTagChoice([])}
+										color="red"
+										size={20}
+										style={{ cursor: "pointer", marginBottom: "20px" }}
+									/>
 								</div>
-							</div>
-						</div>
-						<div className="tag-type-create-plan-container">
-							<div
-								style={displayAllPlan ? { height: "30px" } : { height: "70px" }}
-								className="tag-type-create-plan-box-4">
-								{displayAllPlan
-									? tagPlan?.slice(0, 4).map((item) => {
-											return (
+							) : (
+								<div className="add-new-tag-plan">
+									<input
+										onKeyUp={handleAddTag}
+										value={newPlan}
+										onChange={(e) => setNewPlan(e.target.value)}
+										type="text"
+										placeholder="Tạo tag"
+										className="new-tag-input"
+									/>
+
+									<div className="new-tag-add-color">
+										<div
+											onClick={showcolor}
+											style={{ backgroundColor: color }}
+											className="new-tag-color-option"></div>
+										{showcolordisplay && (
+											<div className="tag-color-option">
 												<div
-													key={item.id}
-													style={{ cursor: "pointer" }}
-													className="tag-type-create-plan__box">
+													onClick={closeColorPicker}
+													className="tag-color-option-cover"
+												/>
+												<ChromePicker
+													color={color}
+													onChange={(e) => setColor(e.hex)}
+												/>
+											</div>
+										)}
+									</div>
+								</div>
+							)}
+						</div>
+					</div>
+					<div className="tag-type-create-plan-container">
+						<div
+							style={displayAllPlan ? { height: "30px" } : { height: "70px" }}
+							className="tag-type-create-plan-box-4">
+							{displayAllPlan
+								? tagPlan?.slice(0, 4).map((item) => {
+										return (
+											<div
+												key={item.id}
+												className="array-of-tag-plan">
+												<div className="tag-type-create-plan__box">
 													<div
-														style={{ backgroundColor: item.color }}
+														style={{
+															cursor: "pointer",
+															backgroundColor: item.color,
+														}}
+														onClick={() => tagChosen(item.id)}
 														className="tag-type-create-plan"></div>
 													<div className="content-type-create-plan">
 														{" "}
 														{item.type}
 													</div>
 												</div>
-											)
-									  })
-									: tagPlan?.map((item) => {
-											return (
-												<div key={item.id}>
-													<div className="tag-type-create-plan__box">
-														<div
-															style={{ backgroundColor: item.color }}
-															className="tag-type-create-plan"></div>
-														<div className="content-type-create-plan">
-															{" "}
-															{item.type}
-														</div>
+												<RiDeleteBack2Line
+													style={{ cursor: "pointer" }}
+													onClick={() => deleteTag(item.id)}
+													color="red"
+												/>
+											</div>
+										)
+								  })
+								: tagPlan?.map((item) => {
+										return (
+											<div key={item.id}>
+												<div className="tag-type-create-plan__box">
+													<div
+														onClick={() => tagChosen(item.id)}
+														style={{
+															cursor: "pointer",
+															backgroundColor: item.color,
+														}}
+														className="tag-type-create-plan"></div>
+													<div className="content-type-create-plan">
+														{" "}
+														{item.type}
 													</div>
+													<RiDeleteBack2Line
+														style={{ cursor: "pointer" }}
+														onClick={() => deleteTag(item.id)}
+														color="red"
+													/>
 												</div>
-											)
-									  })}
-							</div>
-							<div
-								onClick={seeAllPlan}
-								style={{
-									fontSize: "14px",
-									fontStyle: "italic",
-									cursor: "pointer",
-									display: "flex",
-									alignContent: "center",
-								}}>
-								Xem tất cả
-							</div>
-							<div
-								onClick={showKindOfPlan}
-								style={{
-									cursor: "pointer",
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-								}}>
-								<AiOutlinePlus size={26} />
-							</div>
+											</div>
+										)
+								  })}
+						</div>
+						<div
+							onClick={seeAllPlan}
+							style={{
+								fontSize: "14px",
+								fontStyle: "italic",
+								cursor: "pointer",
+								display: "flex",
+								alignContent: "center",
+							}}>
+							Xem tất cả
 						</div>
 					</div>
-					<div className="time-create-plan-container">
-						<div
-							style={{
-								marginTop: "6px",
-								display: "flex",
-								justifyContent: "center",
-							}}>
-							<FaRegClock size={30} />
-						</div>
+				</div>
+				<div className="time-create-plan-container">
+					<div
+						style={{
+							marginTop: "6px",
+							display: "flex",
+							justifyContent: "center",
+						}}>
+						<FaRegClock size={30} />
+					</div>
 
-						<div className="date-detail-create-plan-box">
-							<div
-								style={{ cursor: "pointer" }}
-								onClick={showDayPicker}
-								className="date-detail-create-plan-container">
-								{getDayName()}, {day} tháng {month + 1} , {year}
-							</div>
-							{displayDayPicker && (
-								<div className="calendar-picker-container">
+					<div className="date-detail-create-plan-box">
+						<div
+							style={{ cursor: "pointer" }}
+							onClick={showDayPicker}
+							className="date-detail-create-plan-container">
+							{getDayName()}, {day} tháng {month + 1} , {year}
+						</div>
+						{displayDayPicker && (
+							<div className="calendar-picker-container">
+								<div
+									onClick={() => setDisplayDayPicker(false)}
+									className="calendar-picker-cover"
+								/>
+								<div className="calendar-for-pickerDate">
 									<BasicCalendar
-										onChange={setDayPicker}
+										onChange={(e) => {
+											setDayPicker(e)
+											setDisplayDayPicker(false)
+										}}
 										value={dayPicker}
 									/>
 								</div>
-							)}
+							</div>
+						)}
 
-							<div className="repeat-create-plan-container"> Lặp lại</div>
-							<div
-								style={{ cursor: "pointer" }}
-								onClick={showAllTime}
-								className="time-detail-create-plan-container">
-								{" "}
-								<p>{timePicker}</p>
-								{showTime && (
+						<div className="repeat-create-plan-container"> Lặp lại</div>
+						<div
+							style={{ cursor: "pointer" }}
+							onClick={showAllTime}
+							className="time-detail-create-plan-container">
+							{" "}
+							<p>{timePicker}</p>
+							{showTime && (
+								<div>
+									<div
+										onClick={() => setShowTime(false)}
+										className="time-detail-create-plan-cover"
+									/>
 									<div className="dropdown-time-detail-create-plan-container">
 										{arrayTime.map((time) => {
 											return (
@@ -361,147 +419,162 @@ const CreatePlan = ({ remove }) => {
 											)
 										})}
 									</div>
-								)}
-							</div>
+								</div>
+							)}
 						</div>
-					</div>
-					<div className="go-together-create-plan-container">
-						<div
-							style={{
-								display: "flex",
-								justifyContent: "center",
-							}}>
-							<BsFillPersonFill size={30} />
-						</div>
-						<div
-							style={
-								displayMorePartner ? { height: "100px" } : { height: "70px" }
-							}
-							onClick={showfilegotoplace}
-							className="go-together-create-plan-box">
-							{selectedUsers.length > 5 && displayMorePartner
-								? selectedUsers.map((user) => {
-										return (
-											<div
-												key={user.id}
-												className="partner-together-item">
-												{user.username},
-											</div>
-										)
-								  })
-								: selectedUsers.slice(0, 4).map((user) => {
-										return (
-											<div
-												key={user.id}
-												className="partner-together-item">
-												{user.username},
-											</div>
-										)
-								  })}
-						</div>
-						<div
-							onClick={() => setDisplayMorePartner(!displayMorePartner)}
-							style={{
-								cursor: "pointer",
-								fontStyle: "italic",
-								fontSize: "1rem	",
-							}}>
-							+ {selectedUsers.length > 4 ? selectedUsers.length - 4 : 0}
-						</div>
-					</div>
-					<div className="location-create-plan-container">
-						<div
-							style={{
-								display: "flex",
-								justifyContent: "center",
-							}}>
-							<IoLocationSharp size={30} />
-						</div>
-						<input
-							placeholder="Vị trí"
-							className="location-create-plan-box"></input>
-					</div>
-					<div className="notice-create-plan-container">
-						<textarea
-							onChange={noticeData}
-							placeholder="Chú thích"></textarea>
-					</div>
-					<div className="button-delete-create-plan-container">
-						<button onClick={handleCancel}>Hủy</button>
-						<button onClick={createPlan}>Tạo</button>
 					</div>
 				</div>
-			)}
-			{openGoToPlace && (
-				<div className="go-to-palace-container">
-					<div className="go-to-palace-tittle">
-						<div className="go-to-palace-tittle-info">Đi cùng</div>
+				<div className="go-together-create-plan-container">
+					<div
+						style={{
+							display: "flex",
+							justifyContent: "center",
+						}}>
+						<BsFillPersonFill size={30} />
 					</div>
-					<div className="go-to-palace-search-bar">
-						<div className="go-to-palace-search-all">
-							<div className="go-to-palace-search-icon">
-								<BiSearch size={20} />
-							</div>
-							<input
-								onChange={(e) => filterData(e.target.value)}
-								type="text"
-								placeholder="Tìm bạn"
-								className="go-to-palace-search-input"></input>
-						</div>
-					</div>
-					<div className="go-to-palace-result">
-						<div className="go-to-palace-result-icon">
-							<GrHistory size={18} />
-						</div>
-						<div className="go-to-palace-result-info"> Gần nhất</div>
-					</div>
-					<div className="go-together-user-container">
-						{filteringData.length === 0
-							? selectedUsers.slice(0, 5).map((user) => {
+					<div
+						style={
+							displayMorePartner ? { height: "100px" } : { height: "70px" }
+						}
+						className="go-together-create-plan-box">
+						{selectedUsers.length > 5 && displayMorePartner
+							? selectedUsers.map((user) => {
 									return (
 										<div
-											onClick={() => {
-												toggleUserSelection(user.id)
-											}}
 											key={user.id}
-											className="go-to-palace-result-name">
-											<div className="go-to-palace-result-name-img"></div>
-											<div className="go-to-palace-result-name-info">
-												{user.username}
-											</div>
+											className="partner-together-item">
+											{user.username},
 										</div>
 									)
 							  })
-							: filteringData.map((user) => {
+							: selectedUsers.slice(0, 4).map((user) => {
 									return (
 										<div
-											onClick={() => {
-												toggleUserSelection(user.id)
-											}}
 											key={user.id}
-											className="go-to-palace-result-name">
-											<div className="go-to-palace-result-name-img"></div>
-											<div className="go-to-palace-result-name-info">
-												{user.username}
-											</div>
+											className="partner-together-item">
+											{user.username},
 										</div>
 									)
 							  })}
 					</div>
-					<div className="go-to-palace-btn-bottom">
-						<div className="go-to-palace-btn-cacel">
-							<button
-								onClick={() => setOpenFileGoToPlace(false)}
-								className="go-to-palace-form-btn-cancel">
-								Hủy
-							</button>
-						</div>
-						<div className="go-to-palace-btn-add">
-							<button className="go-to-palace-form-btn-add">Thêm</button>
-						</div>
-					</div>
+					<HiPlusSmall
+						color="gray"
+						style={{ cursor: "pointer" }}
+						onClick={showfilegotoplace}
+						size={36}
+					/>
 				</div>
-			)}
+				{selectedUsers.length > 4 ? (
+					<div
+						className="show-more-partner"
+						onClick={() => setDisplayMorePartner(!displayMorePartner)}
+						style={{
+							marginTop: "10px",
+							cursor: "pointer",
+							fontStyle: "italic",
+							fontSize: "1rem	",
+						}}>
+						+ {selectedUsers.length > 4 ? selectedUsers.length - 4 : 0}
+					</div>
+				) : (
+					<div className="show-more-partner"></div>
+				)}
+				<div className="location-create-plan-container">
+					<div
+						style={{
+							display: "flex",
+							justifyContent: "center",
+						}}>
+						<IoLocationSharp size={30} />
+					</div>
+					<input
+						onChange={onChangeLocation}
+						placeholder="Vị trí"
+						className="location-create-plan-box"></input>
+				</div>
+				<div className="notice-create-plan-container">
+					<textarea
+						onChange={noticeData}
+						placeholder="Chú thích"></textarea>
+				</div>
+				<div className="button-delete-create-plan-container">
+					<button onClick={handleCancel}>Hủy</button>
+					<button onClick={createPlan}>Tạo</button>
+				</div>
+				{/* partner  */}
+				<div className="go-together-background">
+					{openGoToPlace && (
+						<div className="go-to-palace-container">
+							<div className="go-to-palace-tittle">
+								<div className="go-to-palace-tittle-info">Đi cùng</div>
+							</div>
+							<div className="go-to-palace-search-bar">
+								<div className="go-to-palace-search-all">
+									<div className="go-to-palace-search-icon">
+										<BiSearch size={20} />
+									</div>
+									<input
+										onChange={(e) => filterData(e.target.value)}
+										type="text"
+										placeholder="Tìm bạn"
+										className="go-to-palace-search-input"></input>
+								</div>
+							</div>
+							<div className="go-to-palace-result">
+								<div className="go-to-palace-result-icon">
+									<GrHistory size={18} />
+								</div>
+								<div className="go-to-palace-result-info"> Gần nhất</div>
+							</div>
+							<div className="go-together-user-container">
+								{filteringData.length === 0
+									? selectedUsers.slice(0, 5).map((user) => {
+											return (
+												<div
+													onClick={() => {
+														toggleUserSelection(user.id)
+													}}
+													key={user.id}
+													className="go-to-palace-result-name">
+													<div className="go-to-palace-result-name-img"></div>
+													<div className="go-to-palace-result-name-info">
+														{user.username}
+													</div>
+												</div>
+											)
+									  })
+									: filteringData.map((user) => {
+											return (
+												<div
+													onClick={() => {
+														toggleUserSelection(user.id)
+													}}
+													key={user.id}
+													className="go-to-palace-result-name">
+													<div className="go-to-palace-result-name-img"></div>
+													<div className="go-to-palace-result-name-info">
+														{user.username}
+													</div>
+												</div>
+											)
+									  })}
+							</div>
+							<div className="go-to-palace-btn-bottom">
+								<div className="go-to-palace-btn-cacel">
+									<button
+										onClick={() => setOpenFileGoToPlace(false)}
+										className="go-to-palace-form-btn-cancel">
+										Hủy
+									</button>
+								</div>
+								<div className="go-to-palace-btn-add">
+									<button className="go-to-palace-form-btn-add">Thêm</button>
+								</div>
+							</div>
+						</div>
+					)}
+				</div>
+			</div>
 		</div>
 	)
 }

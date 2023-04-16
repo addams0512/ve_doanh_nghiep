@@ -65,7 +65,9 @@ const WeekLayout = () => {
 										className="specific-plan-week__container">
 										<div className="box-specific-plan-week__container">
 											<div
-												style={{ backgroundColor: matchingPlan.tagPlan.color }}
+												style={{
+													backgroundColor: matchingPlan.tagPlan.color,
+												}}
 												className="tag-specific-plan-week__container"></div>
 											<div
 												style={{ color: matchingPlan.tagPlan.color }}

@@ -18,6 +18,7 @@
 	width: 700px;
 	height: 800px;
 	display: flex;
+	position: relative;
 	flex-direction: column;
 }
 
@@ -53,8 +54,8 @@
 .type-create-plan-container {
 	display: flex;
 	flex-direction: column;
-
 	margin-left: 40px;
+	gap: 10px;
 }
 
 .title-type-create-plan-container {
@@ -66,7 +67,7 @@
 .title-type-create-plan {
 	background-color: #f0f0f0;
 	width: 200px;
-	height: 40px;
+	height: 44px;
 	font-size: 1.2rem;
 	display: flex;
 	align-items: center;
@@ -87,15 +88,23 @@
 .tag-type-create-plan__box {
 	display: flex;
 	justify-content: center;
-	gap: 10px;
+	gap: 6px;
 	align-items: center;
 }
+
 .tag-type-create-plan-box-4 {
 	display: flex;
 	gap: 10px;
 	width: 400px;
 	overflow-y: auto;
 	flex-wrap: wrap;
+}
+
+.array-of-tag-plan {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	margin-right: 10px;
 }
 
 .tag-type-create-plan {
@@ -124,6 +133,14 @@
 	position: relative;
 }
 
+.calendar-picker-cover {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+}
+
 .date-detail-create-plan-container {
 	background-color: #f0f0f0;
 	width: 300px;
@@ -136,9 +153,10 @@
 	flex-wrap: wrap;
 	margin-right: 30px;
 }
-.calendar-picker-container {
+
+.calendar-for-pickerDate {
 	position: absolute;
-	top: 40px;
+	top: 42px;
 	left: 14px;
 	width: 380px;
 	height: 340px;
@@ -156,7 +174,13 @@
 	margin-left: auto;
 	position: relative;
 }
-
+.time-detail-create-plan-cover {
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	position: fixed;
+}
 .dropdown-time-detail-create-plan-container {
 	width: 160px;
 	height: 160px;
@@ -169,68 +193,13 @@
 	border: 1px solid rgba(255, 255, 255, 0.3);
 	overflow-y: auto;
 	top: 40px;
+	right: 0;
 }
 .dropdown-time-detail-create-plan-box {
 	margin-bottom: 10px;
 	margin-left: 20px;
 	margin-top: 10px;
 }
-/* toggle button */
-.switch {
-	position: relative;
-	display: inline-block;
-	width: 42px;
-	height: 24px;
-}
-#map {
-	display: block;
-	margin-top: 10px;
-}
-
-.switch input {
-	opacity: 0;
-	width: 0;
-	height: 0;
-}
-
-.slider {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #ccc;
-	-webkit-transition: 0.4s;
-	transition: 0.4s;
-}
-
-.slider:before {
-	position: absolute;
-	content: "";
-	height: 22px;
-	width: 22px;
-	left: 4px;
-	bottom: 1px;
-	background-color: white;
-	-webkit-transition: 0.4s;
-	transition: 0.4s;
-}
-
-input:checked + .slider {
-	background-color: rgb(97, 203, 115);
-}
-
-input:focus + .slider {
-	box-shadow: 0 0 1px rgb(97, 203, 115);
-}
-
-input:checked + .slider:before {
-	-webkit-transform: translateX(20px);
-	-ms-transform: translateX(20px);
-	transform: translateX(16px);
-}
-
 /* Rounded sliders */
 .slider.round {
 	border-radius: 34px;
@@ -290,7 +259,6 @@ input:checked + .slider:before {
 }
 /* location */
 .location-create-plan-container {
-	margin-top: 20px;
 	display: flex;
 	margin-left: 40px;
 	gap: 18px;
@@ -364,6 +332,10 @@ input:checked + .slider:before {
 	color: white;
 	box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
 }
+.go-together-background {
+	position: absolute;
+	left: 700px;
+}
 .go-to-palace-container {
 	height: 500px;
 	width: 500px;
@@ -419,6 +391,10 @@ input:checked + .slider:before {
 	display: flex;
 	align-items: center;
 	gap: 10px;
+}
+.show-more-partner {
+	margin-top: 20px;
+	margin-left: 480px;
 }
 .go-to-palace-result-icon {
 	margin-left: 30px;
@@ -634,4 +610,9 @@ input:checked + .slider:before {
 .create-name-btn-create button:focus {
 	background-color: white;
 	color: black;
+}
+
+.new-tag-add-color {
+	display: flex;
+	align-items: center;
 }

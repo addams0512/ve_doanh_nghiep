@@ -17,18 +17,10 @@ export default function YearLayout() {
 	const handleNextYear = () => {
 		setYear((year) => year + 1)
 	}
-	const handleDatePick = (selectedDay, dayClasses) => {
-		// handle date pick in the parent component
-		// for example, fetch data for the selected date from an API
-		console.log(selectedDay, dayClasses)
-	}
-	// const currentData = finalData.filter((s) => {
-	// 	return s.date?.slice(0, 3) === currentYear;
-	// })
 
 	return (
 		<div className="yearly__calendar__container">
-			{/* <div className="btn-nav__yearly__container">
+			<div className="btn-nav__yearly__container">
 				<button onClick={handlePrevYear}>
 					<IoCaretBackOutline />
 				</button>
@@ -36,13 +28,11 @@ export default function YearLayout() {
 				<button onClick={handleNextYear}>
 					<IoCaretBackOutline style={{ transform: "rotate(180deg)" }} />
 				</button>
-			</div> */}
-			{/* <Calendar
+			</div>
+			<Calendar
 				year={year}
 				selectedDay={date}
-			/> */}
-			<YearlyCalendar2 />
-			{/* <YearlyCalendar /> */}
+			/>
 		</div>
 	)
 }

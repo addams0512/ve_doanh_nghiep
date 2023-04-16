@@ -148,7 +148,7 @@ export default function Kindofplan({ filteringPlan }) {
 									style={{ backgroundColor: color }}
 									className="new-tag-color-option">
 									{showcolordisplay && (
-										<div>
+										<div className="tag-color-option">
 											<ChromePicker
 												color={color}
 												onChange={(e) => setColor(e.hex)}
