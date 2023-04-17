@@ -58,37 +58,41 @@ const WeekLayout = () => {
 									item.id % 7 === plan.planWeekDate &&
 									Math.floor(item.id / 7) === plan.planTime
 							)
+
 							if (matchingPlan) {
 								return (
 									<div
 										key={matchingPlan.id}
 										className="specific-plan-week__container">
-										<div className="box-specific-plan-week__container">
-											<div
-												style={{
-													backgroundColor: matchingPlan.tagPlan.color,
-												}}
-												className="tag-specific-plan-week__container"></div>
-											<div
-												style={{ color: matchingPlan.tagPlan.color }}
-												className="title-specific-plan-week__container">
-												<div className="content-specific-plan-week__container">
-													{matchingPlan.content} đi cùng
-												</div>
-												{matchingPlan.partner.map((partner, index) => {
-													return (
-														<div
-															key={index}
-															style={{ fontSize: "1rem" }}
-															className="heading-specific-plan-week__container">
-															{partner.username}
-														</div>
-													)
-												})}
+										<div className="overflow-box-specigic-plan-week">
+											<div className="box-specific-plan-week__container">
 												<div
-													style={{ fontSize: "0.8rem" }}
-													className="content-specific-plan-week__container">
-													{matchingPlan.intervalTime}
+													style={{
+														backgroundColor: matchingPlan.tagChoice?.color,
+													}}
+													className="tag-specific-plan-week__container"></div>
+												<div
+													style={{ color: matchingPlan.tagChoice?.color }}
+													className="title-specific-plan-week__container">
+													<div className="content-specific-plan-week__container">
+														{matchingPlan.content} đi cùng
+													</div>
+													{matchingPlan.partner.map((partner, index) => {
+														return (
+															<div
+																key={index}
+																style={{ fontSize: "1rem" }}
+																className="heading-specific-plan-week__container">
+																{partner.username}
+															</div>
+														)
+													})}
+													<div
+														key={item.id}
+														style={{ fontSize: "0.8rem" }}
+														className="content-specific-plan-week__container">
+														{matchingPlan.intervalTime}
+													</div>
 												</div>
 											</div>
 										</div>

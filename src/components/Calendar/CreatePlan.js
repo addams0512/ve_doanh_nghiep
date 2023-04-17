@@ -3,23 +3,20 @@ import "./CreatePlan.css"
 import { IoLocationSharp } from "react-icons/io5"
 import { BsFillPersonFill } from "react-icons/bs"
 import { FaRegClock, FaTags } from "react-icons/fa"
-import { AiOutlinePlus } from "react-icons/ai"
 import { BiSearch } from "react-icons/bi"
 import { GrHistory } from "react-icons/gr"
 import BasicCalendar from "./BasicCalendar"
-import Kindofplan from "../../layouts/Calendar/Kindofplan"
 import moment from "moment"
 import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
 import instance from "../../data/instance"
 import { RiDeleteBack2Line, RiChatDeleteLine } from "react-icons/ri"
-import { FcCheckmark } from "react-icons/fc"
-import { ChromePicker, SketchPicker } from "react-color"
+import { ChromePicker } from "react-color"
 import { HiPlusSmall } from "react-icons/hi2"
 
 const CreatePlan = ({ remove }) => {
 	const { finalData, setFinalData } = useContext(PlanContext)
-	const [tagPlan, setTagPlan] = useState([])
-	const [tagChoice, setTagChoice] = useState([])
+	const { tagPlan, setTagPlan } = useContext(PlanContext)
+	const [tagChoice, setTagChoice] = useState()
 	const [displayDayPicker, setDisplayDayPicker] = useState(false)
 	const [dayPicker, setDayPicker] = useState(new Date())
 	const [displayAllPlan, setDisplayAllPlan] = useState(true)
@@ -34,6 +31,7 @@ const CreatePlan = ({ remove }) => {
 	const [showcolordisplay, setShowColorDisplay] = useState(false)
 	const [newPlan, setNewPlan] = useState("")
 	const [location, setLocation] = useState()
+	const [isTagChoice, setIsTagChoice] = useState(false)
 	// get day - month - year
 	const day = dayPicker.getDate()
 	const month = dayPicker.getMonth()
@@ -107,6 +105,7 @@ const CreatePlan = ({ remove }) => {
 	function showcolor() {
 		setShowColorDisplay(!showcolordisplay)
 	}
+
 	const closeColorPicker = () => {
 		setShowColorDisplay(false)
 	}
@@ -120,7 +119,6 @@ const CreatePlan = ({ remove }) => {
 				id: lastTagId,
 				color: color,
 				type: newPlan,
-				choose: false,
 			}
 			setTagPlan([...tagPlan, newTag])
 			setNewPlan("")
@@ -129,7 +127,9 @@ const CreatePlan = ({ remove }) => {
 
 	// choose Tag
 	const tagChosen = (id) => {
-		setTagChoice(tagPlan.filter((tag) => id === tag.id))
+		const tagChosen = tagPlan.find((tag) => id === tag.id)
+		setIsTagChoice(true)
+		setTagChoice(tagChosen)
 	}
 
 	// get User API
@@ -137,17 +137,18 @@ const CreatePlan = ({ remove }) => {
 	const [loading, setLoading] = useState(true)
 	const [filteringData, setFilteringData] = useState([])
 	useEffect(() => {
-		instance
-			.get("/users")
-			.then((res) => {
+		const getUserData = async () => {
+			try {
+				const res = await instance.get("/users")
 				setUserData(res.data)
+			} catch (error) {
+				console.log(error)
+			} finally {
 				setLoading(false)
-			})
-			.catch((e) => {
-				console.log("hello")
-			})
+			}
+		}
+		getUserData()
 	}, [])
-
 	// searchbar function
 	const filterData = (value) => {
 		if (!value) {
@@ -192,6 +193,7 @@ const CreatePlan = ({ remove }) => {
 	const onChangeLocation = (e) => {
 		setLocation(e.target.value)
 	}
+
 	// create plan
 	const createPlan = (item) => {
 		const nextId = finalData.length > 0 ? finalData.at(-1).id + 1 : 0
@@ -204,7 +206,6 @@ const CreatePlan = ({ remove }) => {
 			{
 				id: nextId,
 				content: content,
-				tagPlan: tagPlan, // array of object of tagPlan
 				tagChoice: tagChoice, // tag chosen
 				date: date, // full date format YYYY-MM-DD
 				intervalTime: timePicker, // time format HH:MM - HH:MM
@@ -238,20 +239,23 @@ const CreatePlan = ({ remove }) => {
 						<FaTags size={30} />
 						<div className="title-type-create-plan">Loại kế hoạch</div>
 						<div className="new-tag-add-info">
-							{tagChoice.length === 1 ? (
+							{isTagChoice ? (
 								<div className="tag-type-create-plan__box">
 									<div
 										style={{
 											cursor: "pointer",
-											backgroundColor: tagChoice[0].color,
+											backgroundColor: tagChoice.color,
 										}}
 										className="tag-type-create-plan"></div>
 									<div className="content-type-create-plan">
 										{" "}
-										{tagChoice[0].type}
+										{tagChoice.type}
 									</div>
 									<RiChatDeleteLine
-										onClick={() => setTagChoice([])}
+										onClick={() => {
+											setTagChoice([])
+											setIsTagChoice(false)
+										}}
 										color="red"
 										size={20}
 										style={{ cursor: "pointer", marginBottom: "20px" }}

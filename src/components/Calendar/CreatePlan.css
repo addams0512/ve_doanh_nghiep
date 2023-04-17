@@ -612,7 +612,49 @@
 	color: black;
 }
 
+.new-tag-input {
+	width: 60%;
+	font-size: 1.2rem;
+	background-color: rgb(245, 245, 245);
+	border: none;
+	height: 42px;
+	padding-left: 10px;
+}
 .new-tag-add-color {
 	display: flex;
 	align-items: center;
+}
+.add-new-tag-plan {
+	display: flex;
+	margin-left: 50px;
+	gap: 20px;
+}
+.new-tag-name-color {
+	margin-top: 10px;
+	margin-left: 20px;
+	font-size: 15px;
+	font-weight: 550;
+}
+
+.new-tag-color-option {
+	height: 34px;
+	width: 34px;
+	border: 1px solid;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.tag-color-option {
+	position: absolute;
+	z-index: 2;
+	top: 198px;
+	left: 576px;
+}
+
+.tag-color-option-cover {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
 }

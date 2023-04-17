@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react"
+import React, { createContext, useEffect, useState } from "react"
 import "./CalendarLayout.css"
 import BasicCalendar from "../../components/Calendar/BasicCalendar"
 import { AiOutlineSearch } from "react-icons/ai"
@@ -7,6 +7,8 @@ import MonthLayout from "./MonthLayout"
 import WeekLayout from "./WeekLayout"
 import YearLayout from "./YearLayout"
 import CreatePlan from "../../components/Calendar/CreatePlan"
+import { planAPI, tagPlanAPI } from "../../data/planAPI"
+
 export const DayContext = createContext()
 export const PlanContext = createContext()
 const CalendarLayout = () => {
@@ -16,14 +18,21 @@ const CalendarLayout = () => {
 	const [displayYear, setDisplayYear] = useState(false)
 	const [displayPlanCreate, setDisplayPlanCreate] = useState(false)
 	const [currentDay, setDay] = useState(new Date())
-	const [finalData, setFinalData] = useState([])
+	const [currentTime, setCurrentTime] = useState(currentDay.getHours())
+	const [finalData, setFinalData] = useState(planAPI)
+	const [tagPlan, setTagPlan] = useState(tagPlanAPI)
 	const handleClickAddPlan = () => {
 		setDisplayPlanCreate(!displayPlanCreate)
 	}
 	const value = {
+		setTagPlan,
+		tagPlan,
 		finalData,
 		setFinalData,
 	}
+	// handle next plan
+
+	const nextPlan = finalData.filter((plan) => plan.day > currentDay.getDate())
 
 	return (
 		<DayContext.Provider value={currentDay}>
@@ -137,25 +146,18 @@ const CalendarLayout = () => {
 											<p> Loại kế hoạch</p>
 										</div>
 										<div className="description-type-plan-calendar">
-											{finalData.length > 0 &&
-												finalData.map((item, index) => (
+											{tagPlan.map((tagplan) => (
+												<div
+													key={tagplan.id}
+													className="description-type-plan-container">
 													<div
-														key={item.id}
-														className="description-type-plan-container">
-														{item.tagPlan.map((tagplan) => (
-															<div
-																key={tagplan.id}
-																className="description-type-plan-container">
-																<div
-																	style={{ backgroundColor: tagplan.color }}
-																	className="color-descrtiption-type-plan"></div>
-																<div className="description-type-plan">
-																	{tagplan.type}
-																</div>
-															</div>
-														))}
+														style={{ backgroundColor: tagplan.color }}
+														className="color-descrtiption-type-plan"></div>
+													<div className="description-type-plan">
+														{tagplan.type}
 													</div>
-												))}
+												</div>
+											))}
 										</div>
 									</div>
 								</div>
@@ -165,7 +167,7 @@ const CalendarLayout = () => {
 											Kế hoạch sắp tới
 										</div>
 										<div className="detail-next-plan-calendar-container">
-											{finalData.map((plan) => {
+											{nextPlan.map((plan) => {
 												return (
 													<div
 														key={plan.id}
@@ -173,11 +175,17 @@ const CalendarLayout = () => {
 														<input
 															type="checkbox"
 															className="checkbox-next-plan-calendar"
+															style={{ height: "20px", width: "20px" }}
 														/>
 														<div className="date-next-plan-calendar">
 															{" "}
-															{plan.day}/{plan.month + 1} : {plan.intervalTime}{" "}
-															: {plan.content}
+															<b>
+																{plan.day}/{plan.month + 1} :{" "}
+																{plan.intervalTime}
+															</b>
+															<p style={{ color: plan.tagChoice.color }}>
+																{plan.content}
+															</p>
 														</div>
 													</div>
 												)

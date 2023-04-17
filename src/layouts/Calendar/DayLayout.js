@@ -43,7 +43,7 @@ const DayLayout = () => {
 		const planInDate = finalData.filter((plan) => id === plan.planWeekDate)
 		setPlanInDate(planInDate)
 	}
-	console.log(planInDate)
+
 	return (
 		<div>
 			<div className="btn-date-calendar">
@@ -61,40 +61,73 @@ const DayLayout = () => {
 			</div>
 			<div className="plan-calendar">
 				<div className="plan-calendar-container">
-					{showPlan &&
-						planInDate.map((item) => {
-							return (
-								<div
-									key={item.id}
-									className="detail-plan-calendar-container">
+					{showPlan
+						? planInDate.map((item) => {
+								return (
 									<div
-										style={{ color: item.tagChoice[0].color }}
-										className="specific-time-plan-calendar">
-										{item.timePicker}
-									</div>
-									<div className="content-detail-plan-calendar">
+										key={item.id}
+										className="detail-plan-calendar-container">
 										<div
-											style={{ backgroundColor: item.tagChoice[0].color }}
-											className="tag-detail-plan-calendar"></div>
-										<div
-											style={{ color: item.tagChoice[0].color }}
-											className="detail-description-plan-calendar">
-											<div className="title-detail-plan-calendar">
-												{item.content}
-											</div>
-											<div className="time-detail-plan-calendar">
-												{item.intervalTime}
-											</div>
-											<div className="avatar-detail-plan-caledar">
-												<RxAvatar size={40} />
-												<RxAvatar size={40} />
-												<RxAvatar size={40} />
+											style={{ color: item.tagChoice.color }}
+											className="specific-time-plan-calendar">
+											{item.timePicker}
+										</div>
+										<div className="content-detail-plan-calendar">
+											<div
+												style={{ backgroundColor: item.tagChoice.color }}
+												className="tag-detail-plan-calendar"></div>
+											<div
+												style={{ color: item.tagChoice.color }}
+												className="detail-description-plan-calendar">
+												<div className="title-detail-plan-calendar">
+													{item.content}
+												</div>
+												<div className="time-detail-plan-calendar">
+													{item.intervalTime}
+												</div>
+												<div className="avatar-detail-plan-caledar">
+													<RxAvatar size={40} />
+													<RxAvatar size={40} />
+													<RxAvatar size={40} />
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							)
-						})}
+								)
+						  })
+						: finalData.map((plan) => {
+								return (
+									<div
+										key={plan.id}
+										className="detail-plan-calendar-container">
+										<div
+											style={{ color: plan.tagChoice.color }}
+											className="specific-time-plan-calendar">
+											{plan.timePicker}
+										</div>
+										<div className="content-detail-plan-calendar">
+											<div
+												style={{ backgroundColor: plan.tagChoice.color }}
+												className="tag-detail-plan-calendar"></div>
+											<div
+												style={{ color: plan.tagChoice.color }}
+												className="detail-description-plan-calendar">
+												<div className="title-detail-plan-calendar">
+													{plan.content}
+												</div>
+												<div className="time-detail-plan-calendar">
+													{plan.intervalTime}
+												</div>
+												<div className="avatar-detail-plan-caledar">
+													<RxAvatar size={40} />
+													<RxAvatar size={40} />
+													<RxAvatar size={40} />
+												</div>
+											</div>
+										</div>
+									</div>
+								)
+						  })}
 				</div>
 			</div>
 		</div>
