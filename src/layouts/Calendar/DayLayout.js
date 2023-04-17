@@ -7,6 +7,7 @@ const DayLayout = () => {
 	const { finalData } = useContext(PlanContext)
 	const [planInDate, setPlanInDate] = useState()
 	const [showPlan, setShowPlan] = useState(false)
+	const currentDay = (new Date().getDay() + 1) % 7 || 7
 	const dayInWeek = [
 		{
 			id: 1,
@@ -43,6 +44,10 @@ const DayLayout = () => {
 		const planInDate = finalData.filter((plan) => id === plan.planWeekDate)
 		setPlanInDate(planInDate)
 	}
+
+	const planInCurrentDate = finalData.filter(
+		(plan) => plan.planWeekDate === currentDay
+	)
 
 	return (
 		<div>
@@ -95,7 +100,7 @@ const DayLayout = () => {
 									</div>
 								)
 						  })
-						: finalData.map((plan) => {
+						: planInCurrentDate.map((plan) => {
 								return (
 									<div
 										key={plan.id}

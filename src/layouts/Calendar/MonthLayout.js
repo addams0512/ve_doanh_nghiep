@@ -15,11 +15,13 @@ const MonthLayout = () => {
 			<div className="month-layout-overflow-container">
 				{month.map((elements) => {
 					const matchingPlan = finalData.filter(
-						(plan) => elements.day === plan.planWeekDate
+						(plan) => elements.day === plan.day
 					)
 					if (matchingPlan.length > 0) {
 						return (
-							<div className="month-layout-box1">
+							<div
+								key={elements.id}
+								className="month-layout-box1">
 								{matchingPlan.slice(0, 3).map((plan) => {
 									return (
 										<div
@@ -27,7 +29,7 @@ const MonthLayout = () => {
 											className="month-plan-container">
 											<div
 												style={{
-													backgroundColor: plan.tagPlan.color,
+													backgroundColor: plan.tagChoice?.color,
 													width: "20px",
 													height: "20px",
 													borderRadius: "4px",

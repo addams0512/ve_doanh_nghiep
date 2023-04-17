@@ -175,17 +175,24 @@ const CalendarLayout = () => {
 														<input
 															type="checkbox"
 															className="checkbox-next-plan-calendar"
-															style={{ height: "20px", width: "20px" }}
+															style={{
+																height: "20px",
+																width: "20px",
+																marginTop: "0px",
+															}}
 														/>
 														<div className="date-next-plan-calendar">
 															{" "}
-															<b>
+															<p
+																style={{
+																	marginBottom: "4px",
+																	fontSize: "1.2rem",
+																	color: plan.tagChoice.color,
+																}}>
 																{plan.day}/{plan.month + 1} :{" "}
 																{plan.intervalTime}
-															</b>
-															<p style={{ color: plan.tagChoice.color }}>
-																{plan.content}
 															</p>
+															<b>{plan.content}</b>
 														</div>
 													</div>
 												)

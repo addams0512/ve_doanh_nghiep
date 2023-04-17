@@ -4,7 +4,7 @@ import { PlanContext } from "./CalendarLayout"
 import { RxAvatar } from "react-icons/rx"
 const WeekLayout = () => {
 	const { finalData } = useContext(PlanContext)
-	const day = [1, 2, 3, 4, 5, 6, 7]
+	const day = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
 	const plan = Array.from({ length: 25 * 7 }, (v, i) => {
 		return {
 			id: i + 1,
@@ -60,7 +60,7 @@ const WeekLayout = () => {
 							if (matchingPlan) {
 								return (
 									<div
-										key={matchingPlan.id}
+										key={item.id}
 										className="specific-plan-week__container">
 										<div
 											style={{
