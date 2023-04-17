@@ -68,16 +68,16 @@ const DayLayout = () => {
 										key={item.id}
 										className="detail-plan-calendar-container">
 										<div
-											style={{ color: item.tagChoice.color }}
+											style={{ color: item.tagChoice?.color }}
 											className="specific-time-plan-calendar">
 											{item.timePicker}
 										</div>
 										<div className="content-detail-plan-calendar">
 											<div
-												style={{ backgroundColor: item.tagChoice.color }}
+												style={{ backgroundColor: item.tagChoice?.color }}
 												className="tag-detail-plan-calendar"></div>
 											<div
-												style={{ color: item.tagChoice.color }}
+												style={{ color: item.tagChoice?.color }}
 												className="detail-description-plan-calendar">
 												<div className="title-detail-plan-calendar">
 													{item.content}
@@ -101,16 +101,16 @@ const DayLayout = () => {
 										key={plan.id}
 										className="detail-plan-calendar-container">
 										<div
-											style={{ color: plan.tagChoice.color }}
+											style={{ color: plan.tagChoice?.color }}
 											className="specific-time-plan-calendar">
 											{plan.timePicker}
 										</div>
 										<div className="content-detail-plan-calendar">
 											<div
-												style={{ backgroundColor: plan.tagChoice.color }}
+												style={{ backgroundColor: plan.tagChoice?.color }}
 												className="tag-detail-plan-calendar"></div>
 											<div
-												style={{ color: plan.tagChoice.color }}
+												style={{ color: plan.tagChoice?.color }}
 												className="detail-description-plan-calendar">
 												<div className="title-detail-plan-calendar">
 													{plan.content}

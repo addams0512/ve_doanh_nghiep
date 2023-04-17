@@ -1,5 +1,4 @@
 .week-layout-container {
-	background-color: white;
 	border-radius: 40px;
 	margin-top: 20px;
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -9,10 +8,10 @@
 	margin-bottom: 20px;
 	display: flex;
 	position: relative;
+	background-color: #f6f6f6;
 }
 
 .time-week__layout-container {
-	border: 2px solid red;
 	margin-top: 60px;
 	margin-left: 10px;
 	display: flex;
@@ -75,29 +74,34 @@
 	padding: 10px;
 	height: 200px;
 }
-.overflow-box-specigic-plan-week {
-	height: 500px;
-	overflow-y: scroll;
+.content-specific-plan-week__container {
+	margin-left: 4px;
 }
+.avatar-plan-week__container {
+	margin-top: auto;
+	margin-left: auto;
+}
+
 .box-specific-plan-week__container {
-	padding: 10px;
-	background: rgba(255, 255, 255, 0);
-	border-radius: 16px;
-	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-	backdrop-filter: blur(3px);
-	-webkit-backdrop-filter: blur(3px);
-	border: 1px solid rgba(255, 255, 255, 0.03);
+	display: flex;
+	flex-direction: column;
+	padding: 8px 8px 10px 8px;
 	height: 100%;
+	background-color: #f6f6f6;
+	border-radius: 10px;
+	box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+		rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
 .tag-specific-plan-week__container {
-	height: 8px;
+	height: 6px;
 	width: 100%;
 	border-radius: 20px;
 }
 
 .title-specific-plan-week__container {
-	margin-top: 20px;
-	line-height: 1.2;
+	margin-top: 10px;
+	line-height: 1.4;
+	font-size: 0.9rem;
 }
 
 .heading-specific-plan-week__container {

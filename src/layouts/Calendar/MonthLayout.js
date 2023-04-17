@@ -4,7 +4,6 @@ import { planMonthAPI } from "../../data/planAPI"
 import { PlanContext } from "./CalendarLayout"
 const MonthLayout = () => {
 	const { finalData } = useContext(PlanContext)
-	const [planData, setPlanData] = useState()
 	const month = Array.from({ length: 31 }, (v, i) => {
 		return {
 			id: i + 1,

@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import "./WeekLayout.css"
-import { planAPI } from "../../data/planAPI"
 import { PlanContext } from "./CalendarLayout"
+import { RxAvatar } from "react-icons/rx"
 const WeekLayout = () => {
 	const { finalData } = useContext(PlanContext)
 	const day = [1, 2, 3, 4, 5, 6, 7]
@@ -23,7 +23,6 @@ const WeekLayout = () => {
 					style={{
 						position: "sticky",
 						left: 0,
-						background: "white",
 						zIndex: 9999,
 					}}>
 					<div
@@ -58,42 +57,30 @@ const WeekLayout = () => {
 									item.id % 7 === plan.planWeekDate &&
 									Math.floor(item.id / 7) === plan.planTime
 							)
-
 							if (matchingPlan) {
 								return (
 									<div
 										key={matchingPlan.id}
 										className="specific-plan-week__container">
-										<div className="overflow-box-specigic-plan-week">
-											<div className="box-specific-plan-week__container">
-												<div
-													style={{
-														backgroundColor: matchingPlan.tagChoice?.color,
-													}}
-													className="tag-specific-plan-week__container"></div>
-												<div
-													style={{ color: matchingPlan.tagChoice?.color }}
-													className="title-specific-plan-week__container">
-													<div className="content-specific-plan-week__container">
-														{matchingPlan.content} đi cùng
-													</div>
-													{matchingPlan.partner.map((partner, index) => {
-														return (
-															<div
-																key={index}
-																style={{ fontSize: "1rem" }}
-																className="heading-specific-plan-week__container">
-																{partner.username}
-															</div>
-														)
-													})}
-													<div
-														key={item.id}
-														style={{ fontSize: "0.8rem" }}
-														className="content-specific-plan-week__container">
-														{matchingPlan.intervalTime}
-													</div>
+										<div
+											style={{
+												boxShadow: `${matchingPlan.tagChoice.color} 0px 4px 8px -2px, ${matchingPlan.tagChoice.color} 0px 0px 0px 1px `,
+											}}
+											className="box-specific-plan-week__container">
+											<div
+												style={{
+													backgroundColor: matchingPlan.tagChoice?.color,
+												}}
+												className="tag-specific-plan-week__container"></div>
+											<div
+												// style={{ color: matchingPlan.tagChoice?.color }}
+												className="title-specific-plan-week__container">
+												<div className="content-specific-plan-week__container">
+													{matchingPlan.content}
 												</div>
+											</div>
+											<div className="avatar-plan-week__container">
+												<RxAvatar size={26} />
 											</div>
 										</div>
 									</div>
