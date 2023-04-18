@@ -239,6 +239,7 @@ const ShowPlan = ({ remove, props }) => {
 		setFinalData(updateData)
 		console.log(updateData)
 	}
+	console.log(planEdit.tagChoice.color)
 
 	return (
 		<div className="create-plan-container">

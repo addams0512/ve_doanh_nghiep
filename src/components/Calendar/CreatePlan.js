@@ -207,7 +207,7 @@ const CreatePlan = ({ remove, props }) => {
 			{
 				id: nextId,
 				content: content,
-				tagChoice: tagChoice, // tag chosen
+				tagChoice: tagChoice || { color: "black", name: "" }, // tag chosen
 				date: date, // full date format YYYY-MM-DD
 				intervalTime: timePicker, // time format HH:MM - HH:MM
 				partner: selectedUsers, // array of partner
@@ -224,6 +224,7 @@ const CreatePlan = ({ remove, props }) => {
 		setFinalData(dataArray)
 		console.log(dataArray)
 	}
+
 	return (
 		<div className="create-plan-container">
 			<div className="create-plan-box">
