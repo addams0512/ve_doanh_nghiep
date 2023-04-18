@@ -25,7 +25,6 @@ const planAPI = [
 		month: 3,
 		note: "Nhớ mua quà",
 		partner: [{ username: "Bồ", id: 12, chosen: "true" }],
-
 		planTime: 2,
 		planWeekDate: 6,
 		tagChoice: { id: 4, color: "#4E49F5", type: "Người yêu" },
@@ -39,7 +38,7 @@ const planAPI = [
 		id: 2,
 		intervalTime: "01:00 - 02:00",
 		location: "Hồ Chí Minh",
-		month: 3,
+		month: 4,
 		note: "Nhớ mua nhẫn cưới",
 		partner: [{ username: "Bạn thân lắm", id: 13, chosen: "true" }],
 
@@ -74,7 +73,7 @@ const planAPI = [
 		location: "Hồ Chí Minh",
 		month: 3,
 		note: "Congratulation!",
-		partner: [{ username: "Ngọc Hiệp", id: 15, chosen: "true" }],
+		partner: [{ username: "Bạn đời", id: 15, chosen: "true" }],
 		planTime: 9,
 		planWeekDate: 1,
 		tagChoice: {

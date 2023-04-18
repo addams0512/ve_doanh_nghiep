@@ -167,9 +167,9 @@
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
-	height: 200px;
+	height: 236px;
 	justify-content: flex-start;
-	padding: 0 0 20px 30px;
+	padding: 10px 0 20px 30px;
 	overflow-y: auto;
 }
 .detail-next-plan-calendar {

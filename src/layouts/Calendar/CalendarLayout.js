@@ -8,6 +8,7 @@ import WeekLayout from "./WeekLayout"
 import YearLayout from "./YearLayout"
 import CreatePlan from "../../components/Calendar/CreatePlan"
 import { planAPI, tagPlanAPI } from "../../data/planAPI"
+import ShowPlan from "../../components/Calendar/ShowPlan"
 
 export const DayContext = createContext()
 export const PlanContext = createContext()
@@ -18,21 +19,35 @@ const CalendarLayout = () => {
 	const [displayYear, setDisplayYear] = useState(false)
 	const [displayPlanCreate, setDisplayPlanCreate] = useState(false)
 	const [currentDay, setDay] = useState(new Date())
-	const [currentTime, setCurrentTime] = useState(currentDay.getHours())
 	const [finalData, setFinalData] = useState(planAPI)
 	const [tagPlan, setTagPlan] = useState(tagPlanAPI)
+	const [idEditPlan, setIdEditPlan] = useState()
+	const [displayPlan, setDisplayPlan] = useState(false)
 	const handleClickAddPlan = () => {
 		setDisplayPlanCreate(!displayPlanCreate)
 	}
 	const value = {
+		// id for edit Plan
+		idEditPlan,
+		// display plan create to edit
+		displayPlan,
+		setDisplayPlan,
+		// array of tag plan
 		setTagPlan,
 		tagPlan,
+		// handle final data
 		finalData,
 		setFinalData,
 	}
-	// handle next plan
 
+	// handle next plan
 	const nextPlan = finalData.filter((plan) => plan.day > currentDay.getDate())
+
+	// handle edit plan
+	const handleEditPlan = (id) => {
+		setDisplayPlan(true)
+		setIdEditPlan(id)
+	}
 
 	return (
 		<DayContext.Provider value={currentDay}>
@@ -202,8 +217,12 @@ const CalendarLayout = () => {
 								</div>
 							</div>
 							<div className="box2-calendar">
-								{displayDay && <DayLayout />}
-								{displayWeek && <WeekLayout />}
+								{displayDay && (
+									<DayLayout editPlan={(id) => handleEditPlan(id)} />
+								)}
+								{displayWeek && (
+									<WeekLayout editPlan={(id) => handleEditPlan(id)} />
+								)}
 								{displayMonth && <MonthLayout />}
 								{displayYear && <YearLayout />}
 							</div>
@@ -213,6 +232,7 @@ const CalendarLayout = () => {
 					{displayPlanCreate && (
 						<CreatePlan remove={() => setDisplayPlanCreate(false)} />
 					)}
+					{displayPlan && <ShowPlan remove={() => setDisplayPlan(false)} />}
 				</div>
 			</PlanContext.Provider>
 		</DayContext.Provider>

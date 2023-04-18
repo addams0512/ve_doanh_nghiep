@@ -7,36 +7,57 @@ import { BiSearch } from "react-icons/bi"
 import { GrHistory } from "react-icons/gr"
 import BasicCalendar from "./BasicCalendar"
 import moment from "moment"
-import { DayContext, PlanContext } from "../../layouts/Calendar/CalendarLayout"
+import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
 import instance from "../../data/instance"
 import { RiDeleteBack2Line, RiChatDeleteLine } from "react-icons/ri"
 import { ChromePicker } from "react-color"
 import { HiPlusSmall } from "react-icons/hi2"
 
-const CreatePlan = ({ remove, props }) => {
-	const { finalData, setFinalData, tagPlan, setTagPlan } =
+const ShowPlan = ({ remove, props }) => {
+	const { finalData, setFinalData, tagPlan, setTagPlan, idEditPlan } =
 		useContext(PlanContext)
+
+	// plan edited
+	const planEdit = finalData.find((plan) => plan.id === idEditPlan)
+	const formatDatePlanEdit = new Date(planEdit.date)
 	const [tagChoice, setTagChoice] = useState()
 	const [displayDayPicker, setDisplayDayPicker] = useState(false)
-	const [dayPicker, setDayPicker] = useState(new Date())
+	const [dayPicker, setDayPicker] = useState(formatDatePlanEdit)
 	const [displayAllPlan, setDisplayAllPlan] = useState(true)
 	const [showTime, setShowTime] = useState(false)
 	const [content, setContent] = useState()
 	const [displayMorePartner, setDisplayMorePartner] = useState(false)
-	const [timePicker, setTimePicker] = useState("00:00 - 01:00")
+	const [timePicker, setTimePicker] = useState(planEdit.intervalTime)
 	const [openGoToPlace, setOpenFileGoToPlace] = useState(false)
 	const [dataNotice, setDataNotice] = useState()
-	const [selectedUsers, setSelectedUsers] = useState([])
+	const [selectedUsers, setSelectedUsers] = useState(planEdit.partner)
 	const [color, setColor] = useState("black")
 	const [showcolordisplay, setShowColorDisplay] = useState(false)
 	const [newPlan, setNewPlan] = useState("")
 	const [location, setLocation] = useState()
-	const [isTagChoice, setIsTagChoice] = useState(false)
+	const [isTagChoice, setIsTagChoice] = useState(true)
+	const [isDayChoice, setIsDayChoice] = useState(true)
+	const [isTimeChoice, setIsTimeChoice] = useState(true)
+	const [isLocation, setIsLocation] = useState(true)
+	const [isNoticeData, setIsNoticeData] = useState(true)
+	const [isContent, setIsContent] = useState(true)
 
 	// get day - month - year
 	const day = dayPicker.getDate()
 	const month = dayPicker.getMonth()
 	const year = dayPicker.getFullYear()
+
+	// day of week of planEdit
+	const weekDay = [
+		"Chủ nhật",
+		"Thứ 2",
+		"Thứ 3",
+		"Thứ 4",
+		"Thứ 5",
+		"Thứ 6",
+		"Thứ 7",
+	]
+	const pickWeekday = weekDay[planEdit.planWeekDate - 1]
 
 	// format currentDay
 	const date = moment(dayPicker).format("YYYY-MM-DD")
@@ -71,7 +92,6 @@ const CreatePlan = ({ remove, props }) => {
 	})
 
 	// fucntion display
-
 	//Type Of Plan
 	const seeAllPlan = () => {
 		setDisplayAllPlan(!displayAllPlan)
@@ -112,7 +132,6 @@ const CreatePlan = ({ remove, props }) => {
 	}
 
 	// handle add tag plan
-
 	const handleAddTag = (e) => {
 		if (e.key === "Enter") {
 			const lastTagId = tagPlan.length > 0 ? tagPlan.at(-1).id + 1 : 0
@@ -186,52 +205,53 @@ const CreatePlan = ({ remove, props }) => {
 	}
 
 	// get Notices data
-	const noticeData = (e) => {
+	const handleNoticeData = (e) => {
+		setIsNoticeData(false)
 		setDataNotice(e.target.value)
 	}
 
 	// get Location data
 	const onChangeLocation = (e) => {
+		setIsLocation(false)
 		setLocation(e.target.value)
 	}
 
 	// create plan
-	const createPlan = (item) => {
-		const nextId = finalData.length > 0 ? finalData.at(-1).id + 1 : 0
-		const existingPlan = finalData.find((plan) => plan.id === item.id)
-		if (existingPlan) {
-			return finalData.filter((plan) => plan.id !== item.id)
+	const editPlan = (item) => {
+		const updateData = [...finalData]
+		console.log(planEdit.intervalTime)
+		updateData[planEdit.id] = {
+			id: planEdit.id,
+			content: content || planEdit.content,
+			tagChoice: tagChoice || planEdit.tagChoice, // tag chosen
+			date: date || planEdit.date, // full date format YYYY-MM-DD
+			intervalTime: timePicker || planEdit.intervalTime, // time format HH:MM - HH:MM
+			partner: selectedUsers || planEdit.partner, // array of partner
+			location: location || planEdit.location,
+			note: dataNotice || planEdit.note,
+			planWeekDate: dayOfWeek || planEdit.planWeekDate, // day of week in format 1,2,3,4,5,6,7
+			planTime: Number(timePicker.slice(0, 2)) || planEdit.planTime, // time format HH
+			timePicker: timePicker.slice(0, 5) || planEdit.timePicker, // time format HH:MM
+			day: day || planEdit.day, // day in format DD with dayPicker
+			month: month || planEdit.month, // month of dayPicker
+			year: year || planEdit.year, // year of dayPicker
 		}
-		let dataArray = [
-			...finalData,
-			{
-				id: nextId,
-				content: content,
-				tagChoice: tagChoice, // tag chosen
-				date: date, // full date format YYYY-MM-DD
-				intervalTime: timePicker, // time format HH:MM - HH:MM
-				partner: selectedUsers, // array of partner
-				location: location,
-				note: dataNotice,
-				planWeekDate: dayOfWeek, // day of week in format 1,2,3,4,5,6,7
-				planTime: Number(timePicker.slice(0, 2)), // time format HH
-				timePicker: timePicker.slice(0, 5), // time format HH:MM
-				day: day, // day in format DD with dayPicker
-				month: month, // month of dayPicker
-				year: year, // year of dayPicker
-			},
-		]
-		setFinalData(dataArray)
-		console.log(dataArray)
+		setFinalData(updateData)
+		console.log(updateData)
 	}
+
 	return (
 		<div className="create-plan-container">
 			<div className="create-plan-box">
 				<div className="create-plan-btn">Tạo kế hoạch</div>
 				<input
-					onChange={(e) => setContent(e.target.value)}
+					onChange={(e) => {
+						setContent(e.target.value)
+						setIsContent(false)
+					}}
 					className="name-create-plan-input"
 					type="text"
+					value={isContent ? planEdit.content : content}
 					placeholder="Kế hoạch của bạn"
 				/>
 				<div className="type-create-plan-container">
@@ -242,18 +262,14 @@ const CreatePlan = ({ remove, props }) => {
 							{isTagChoice ? (
 								<div className="tag-type-create-plan__box">
 									<div
-										style={
-											isTagChoice
-												? {
-														cursor: "pointer",
-														backgroundColor: tagChoice.color,
-												  }
-												: { cursor: "pointer", backgroundColor: "black" }
-										}
+										style={{
+											cursor: "pointer",
+											backgroundColor: planEdit.tagChoice.color,
+										}}
 										className="tag-type-create-plan"></div>
 									<div className="content-type-create-plan">
 										{" "}
-										{tagChoice.type}
+										{planEdit.tagChoice.type}
 									</div>
 									<RiChatDeleteLine
 										onClick={() => {
@@ -351,14 +367,23 @@ const CreatePlan = ({ remove, props }) => {
 						}}>
 						<FaRegClock size={30} />
 					</div>
-
 					<div className="date-detail-create-plan-box">
-						<div
-							style={{ cursor: "pointer" }}
-							onClick={showDayPicker}
-							className="date-detail-create-plan-container">
-							{getDayName()}, {day} tháng {month + 1} , {year}
-						</div>
+						{isDayChoice ? (
+							<div
+								style={{ cursor: "pointer" }}
+								onClick={showDayPicker}
+								className="date-detail-create-plan-container">
+								{pickWeekday}, {planEdit.day} tháng {planEdit.month + 1} ,{" "}
+								{planEdit.year}
+							</div>
+						) : (
+							<div
+								style={{ cursor: "pointer" }}
+								onClick={showDayPicker}
+								className="date-detail-create-plan-container">
+								{getDayName()}, {day} tháng {month + 1} , {year}
+							</div>
+						)}
 						{displayDayPicker && (
 							<div className="calendar-picker-container">
 								<div
@@ -368,6 +393,7 @@ const CreatePlan = ({ remove, props }) => {
 								<div className="calendar-for-pickerDate">
 									<BasicCalendar
 										onChange={(e) => {
+											setIsDayChoice(false)
 											setDayPicker(e)
 											setDisplayDayPicker(false)
 										}}
@@ -383,7 +409,7 @@ const CreatePlan = ({ remove, props }) => {
 							onClick={showAllTime}
 							className="time-detail-create-plan-container">
 							{" "}
-							<p>{timePicker}</p>
+							<p>{isTimeChoice ? planEdit.intervalTime : timePicker}</p>
 							{showTime && (
 								<div>
 									<div
@@ -394,7 +420,10 @@ const CreatePlan = ({ remove, props }) => {
 										{arrayTime.map((time) => {
 											return (
 												<div
-													onClick={() => setTimePicker(time.time)}
+													onClick={() => {
+														setTimePicker(time.time)
+														setIsTimeChoice(false)
+													}}
 													key={time.id}
 													className="dropdown-time-detail-create-plan-box">
 													{time.time}
@@ -420,25 +449,18 @@ const CreatePlan = ({ remove, props }) => {
 							displayMorePartner ? { height: "100px" } : { height: "70px" }
 						}
 						className="go-together-create-plan-box">
-						{selectedUsers.length > 5 && displayMorePartner
-							? selectedUsers.map((user) => {
-									return (
-										<div
-											key={user.id}
-											className="partner-together-item">
-											{user.username},
-										</div>
-									)
-							  })
-							: selectedUsers.slice(0, 4).map((user) => {
-									return (
-										<div
-											key={user.id}
-											className="partner-together-item">
-											{user.username},
-										</div>
-									)
-							  })}
+						{(selectedUsers.length > 5 && displayMorePartner
+							? selectedUsers
+							: selectedUsers.slice(0, 4)
+						).map((user) => {
+							return (
+								<div
+									key={user.id}
+									className="partner-together-item">
+									{user.username},
+								</div>
+							)
+						})}
 					</div>
 					<HiPlusSmall
 						color="gray"
@@ -471,18 +493,20 @@ const CreatePlan = ({ remove, props }) => {
 						<IoLocationSharp size={30} />
 					</div>
 					<input
+						value={isLocation ? planEdit.location : location}
 						onChange={onChangeLocation}
-						placeholder="Vị trí"
+						placeholder="Địa điểm"
 						className="location-create-plan-box"></input>
 				</div>
 				<div className="notice-create-plan-container">
 					<textarea
-						onChange={noticeData}
+						onChange={handleNoticeData}
+						value={isNoticeData ? planEdit.note : dataNotice}
 						placeholder="Chú thích"></textarea>
 				</div>
 				<div className="button-delete-create-plan-container">
 					<button onClick={handleCancel}>Hủy</button>
-					<button onClick={createPlan}>Tạo</button>
+					<button onClick={editPlan}>Lưu</button>
 				</div>
 				{/* partner  */}
 				<div className="go-together-background">
@@ -510,37 +534,24 @@ const CreatePlan = ({ remove, props }) => {
 								<div className="go-to-palace-result-info"> Gần nhất</div>
 							</div>
 							<div className="go-together-user-container">
-								{filteringData.length === 0
-									? selectedUsers.slice(0, 5).map((user) => {
-											return (
-												<div
-													onClick={() => {
-														toggleUserSelection(user.id)
-													}}
-													key={user.id}
-													className="go-to-palace-result-name">
-													<div className="go-to-palace-result-name-img"></div>
-													<div className="go-to-palace-result-name-info">
-														{user.username}
-													</div>
-												</div>
-											)
-									  })
-									: filteringData.map((user) => {
-											return (
-												<div
-													onClick={() => {
-														toggleUserSelection(user.id)
-													}}
-													key={user.id}
-													className="go-to-palace-result-name">
-													<div className="go-to-palace-result-name-img"></div>
-													<div className="go-to-palace-result-name-info">
-														{user.username}
-													</div>
-												</div>
-											)
-									  })}
+								{(filteringData.length === 0
+									? selectedUsers.slice(0, 5)
+									: filteringData
+								).map((user) => {
+									return (
+										<div
+											onClick={() => {
+												toggleUserSelection(user.id)
+											}}
+											key={user.id}
+											className="go-to-palace-result-name">
+											<div className="go-to-palace-result-name-img"></div>
+											<div className="go-to-palace-result-name-info">
+												{user.username}
+											</div>
+										</div>
+									)
+								})}
 							</div>
 							<div className="go-to-palace-btn-bottom">
 								<div className="go-to-palace-btn-cacel">
@@ -563,4 +574,4 @@ const CreatePlan = ({ remove, props }) => {
 	)
 }
 
-export default CreatePlan
+export default ShowPlan
