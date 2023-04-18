@@ -41,6 +41,7 @@ const ShowPlan = ({ remove, props }) => {
 	const [isLocation, setIsLocation] = useState(true)
 	const [isNoticeData, setIsNoticeData] = useState(true)
 	const [isContent, setIsContent] = useState(true)
+	const [isEditTag, setIsEditTag] = useState(true)
 
 	// get day - month - year
 	const day = dayPicker.getDate()
@@ -150,6 +151,7 @@ const ShowPlan = ({ remove, props }) => {
 		const tagChosen = tagPlan.find((tag) => id === tag.id)
 		setIsTagChoice(true)
 		setTagChoice(tagChosen)
+		setIsEditTag(false)
 	}
 
 	// get User API
@@ -239,7 +241,6 @@ const ShowPlan = ({ remove, props }) => {
 		setFinalData(updateData)
 		console.log(updateData)
 	}
-	console.log(planEdit.tagChoice.color)
 
 	return (
 		<div className="create-plan-container">
@@ -263,19 +264,27 @@ const ShowPlan = ({ remove, props }) => {
 							{isTagChoice ? (
 								<div className="tag-type-create-plan__box">
 									<div
-										style={{
-											cursor: "pointer",
-											backgroundColor: planEdit.tagChoice.color,
-										}}
+										style={
+											isEditTag
+												? {
+														backgroundColor: planEdit.tagChoice.color,
+														cursor: "pointer",
+												  }
+												: {
+														cursor: "pointer",
+														backgroundColor: tagChoice.color,
+												  }
+										}
 										className="tag-type-create-plan"></div>
 									<div className="content-type-create-plan">
 										{" "}
-										{planEdit.tagChoice.type}
+										{isEditTag ? planEdit.tagChoice.type : tagChoice.type}
 									</div>
 									<RiChatDeleteLine
 										onClick={() => {
 											setTagChoice([])
 											setIsTagChoice(false)
+											setIsEditTag(true)
 										}}
 										color="red"
 										size={20}

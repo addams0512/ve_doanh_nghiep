@@ -227,6 +227,7 @@
 	justify-content: center;
 	align-items: center;
 }
+
 .btn-search-calendar input:focus {
 	outline: none;
 }
@@ -234,22 +235,4 @@
 	margin-left: 30px;
 	display: flex;
 	gap: 10px;
-}
-.btn-date-calendar button {
-	width: 110px;
-	border: none;
-	background-color: #f6f6f6;
-	height: 50px;
-	font-size: 1.4rem;
-	border-radius: 20px;
-}
-
-.btn-date-calendar button:hover {
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
-		rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-}
-
-.btn-active-date-calendar {
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
-		rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }

@@ -4,7 +4,7 @@ import { RxAvatar } from "react-icons/rx"
 import { PlanContext } from "./CalendarLayout"
 
 const DayLayout = ({ editPlan }) => {
-	const { finalData, displayPlan, setDisplayPlan } = useContext(PlanContext)
+	const { finalData } = useContext(PlanContext)
 	const [planInDate, setPlanInDate] = useState()
 	const [showPlan, setShowPlan] = useState(false)
 	const currentDay = (new Date().getDay() + 1) % 7 || 7
@@ -12,35 +12,51 @@ const DayLayout = ({ editPlan }) => {
 		{
 			id: 1,
 			name: "CN",
+			filter: false,
 		},
 		{
 			id: 2,
 			name: "T2",
+			filter: false,
 		},
 		{
 			id: 3,
 			name: "T3",
+			filter: false,
 		},
 		{
 			id: 4,
 			name: "T4",
+			filter: false,
 		},
 		{
 			id: 5,
 			name: "T5",
+			filter: false,
 		},
 		{
 			id: 6,
 			name: "T6",
+			filter: false,
 		},
 		{
 			id: 7,
 			name: "T7",
+			filter: false,
 		},
 	]
+	const [weekSelected, setWeekSelected] = useState(dayInWeek)
 
 	// handle day in week plan
 	const filterPlanDate = (id) => {
+		setWeekSelected(
+			dayInWeek.map((day) => {
+				if (id === day.id) {
+					day.filter = !day.filter
+				}
+				return day
+			})
+		)
 		setShowPlan(true)
 		const planInDate = finalData.filter((plan) => id === plan.planWeekDate)
 		setPlanInDate(planInDate)
@@ -59,9 +75,12 @@ const DayLayout = ({ editPlan }) => {
 	return (
 		<div>
 			<div className="btn-date-calendar">
-				{dayInWeek.map((item) => {
+				{weekSelected.map((item) => {
 					return (
 						<button
+							style={
+								item.filter ? { backgroundColor: "black", color: "white" } : {}
+							}
 							onClick={() => {
 								filterPlanDate(item.id)
 							}}
