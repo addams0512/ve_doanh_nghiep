@@ -413,8 +413,8 @@
 	flex-direction: column;
 	height: 240px;
 	overflow-y: auto;
-	gap: 20px;
-	padding-left: 40px;
+	gap: 10px;
+	padding-left: 30px;
 	padding-bottom: 10px;
 }
 .go-to-palace-result-name {
@@ -422,7 +422,11 @@
 	display: flex;
 	align-items: center;
 	gap: 20px;
+	width: 94%;
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	padding: 10px;
 }
+
 .go-to-palace-result-name-img {
 	height: 40px;
 	width: 40px;
@@ -433,10 +437,8 @@
 	height: 70px;
 	display: flex;
 	margin-top: 10px;
-}
-.go-to-palace-btn-cacel {
-	margin-left: auto;
-	margin-right: 10px;
+	justify-content: end;
+	margin-right: 20px;
 }
 
 .form-btn-cancel {
@@ -450,34 +452,25 @@
 	margin-top: 15px;
 	border: 0px solid;
 }
+
 .go-to-palace-form-btn-cancel {
 	height: 40px;
-	background-color: white;
+	background-color: #f6f6f6;
 	color: black;
 	width: 90px;
 	border-radius: 20px;
 	font-size: 18px;
-	font-weight: 600;
 	margin-top: 15px;
-	border: 1px solid;
+	border: none;
+	margin-left: auto;
 }
-.go-to-palace-btn-cacel button {
+.go-to-palace-btn-cancel button {
 	cursor: pointer;
 }
-.go-to-palace-btn-cacel button:hover {
+.go-to-palace-btn-cancel button:hover {
 	background-color: black;
 	color: white;
 }
-/* .go-to-palace-form-btn-create {
-	height: 40px;
-	background-color: black;
-	color: white;
-	width: 110px;
-	border-radius: 20px;
-	font-size: 18px;
-	font-weight: 600;
-	margin-top: 14px;
-} */
 .go-to-palace-btn-create button {
 	cursor: pointer;
 }
@@ -485,39 +478,7 @@
 	background-color: white;
 	color: black;
 }
-.go-to-palace-btn-add {
-	height: 70px;
-}
 
-.form-btn-add {
-	height: 40px;
-	background-color: black;
-	color: white;
-	width: 90px;
-	border-radius: 20px;
-	font-size: 18px;
-	font-weight: 600;
-	margin-top: 15px;
-	margin-left: 30px;
-}
-.go-to-palace-form-btn-add {
-	height: 40px;
-	background-color: black;
-	color: white;
-	width: 90px;
-	border-radius: 20px;
-	font-size: 18px;
-	font-weight: 600;
-	margin-top: 15px;
-	margin-left: 16px;
-}
-.go-to-palace-btn-add button {
-	cursor: pointer;
-}
-.go-to-palace-btn-add button:hover {
-	background-color: white;
-	color: black;
-}
 .create-name-search-name-bar {
 	height: auto;
 	display: flex;

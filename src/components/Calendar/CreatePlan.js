@@ -32,6 +32,7 @@ const CreatePlan = ({ remove, props }) => {
 	const [location, setLocation] = useState()
 	const [isTagChoice, setIsTagChoice] = useState(false)
 	const [isUserData, setIsUserData] = useState(false)
+	const [selectedIndex, setSelectedIndex] = useState(0)
 
 	// get day - month - year
 	const day = dayPicker.getDate()
@@ -181,6 +182,31 @@ const CreatePlan = ({ remove, props }) => {
 		})
 	}
 
+	// partnerChoices with key
+	function handleKeyDown(event) {
+		if (event.keyCode === 38) {
+			// up arrow
+			setSelectedIndex((prevIndex) => {
+				if (prevIndex === 0) {
+					return 0
+				} else {
+					return prevIndex - 1
+				}
+			})
+		} else if (event.keyCode === 40) {
+			// down arrow
+			setSelectedIndex((prevIndex) => {
+				if (prevIndex === filteringData.length - 1) {
+					return 0
+				} else {
+					return prevIndex + 1
+				}
+			})
+		} else if (event.keyCode === 13) {
+			toggleUserSelection(selectedIndex)
+		}
+	}
+
 	// get Notices data
 	const noticeData = (e) => {
 		setDataNotice(e.target.value)
@@ -304,13 +330,14 @@ const CreatePlan = ({ remove, props }) => {
 									<div
 										key={item.id}
 										className="array-of-tag-plan">
-										<div className="tag-type-create-plan__box">
+										<div
+											style={{ cursor: "pointer" }}
+											onClick={() => tagChosen(item.id)}
+											className="tag-type-create-plan__box">
 											<div
 												style={{
-													cursor: "pointer",
 													backgroundColor: item.color,
 												}}
-												onClick={() => tagChosen(item.id)}
 												className="tag-type-create-plan"></div>
 											<div className="content-type-create-plan">
 												{" "}
@@ -483,6 +510,7 @@ const CreatePlan = ({ remove, props }) => {
 										<BiSearch size={20} />
 									</div>
 									<input
+										onKeyDown={handleKeyDown}
 										onChange={(e) => filterData(e.target.value)}
 										type="text"
 										placeholder="Tìm bạn"
@@ -512,9 +540,18 @@ const CreatePlan = ({ remove, props }) => {
 												</div>
 											)
 									  })
-									: filteringData.map((user) => {
+									: filteringData.map((user, index) => {
 											return (
 												<div
+													onMouseDown={handleKeyDown}
+													style={
+														user.chosen || selectedIndex === index
+															? {
+																	transform: "scale(1.1)",
+																	backgroundColor: "#ccc",
+															  }
+															: {}
+													}
 													onClick={() => {
 														toggleUserSelection(user.id)
 													}}
@@ -529,15 +566,12 @@ const CreatePlan = ({ remove, props }) => {
 									  })}
 							</div>
 							<div className="go-to-palace-btn-bottom">
-								<div className="go-to-palace-btn-cacel">
+								<div className="go-to-palace-btn-cancel">
 									<button
 										onClick={() => setOpenFileGoToPlace(false)}
 										className="go-to-palace-form-btn-cancel">
 										Hủy
 									</button>
-								</div>
-								<div className="go-to-palace-btn-add">
-									<button className="go-to-palace-form-btn-add">Thêm</button>
 								</div>
 							</div>
 						</div>

@@ -7,6 +7,8 @@ const FindPlan = ({ showChoicePlan }) => {
 	const { finalData, setFinalData } = useContext(PlanContext)
 	const [filterData, setFilterData] = useState([])
 	const [isShowPlan, setIsShowPlan] = useState(false)
+	const [selectedIndex, setSelectedIndex] = useState(0)
+
 	const showPlan = (e) => {
 		setIsShowPlan(true)
 		if (!e) {
@@ -25,25 +27,67 @@ const FindPlan = ({ showChoicePlan }) => {
 		setIsShowPlan(false)
 		showChoicePlan(id)
 	}
+
+	const handleChoicePlan = (e) => {
+		// keydown
+		if (e.keyCode === 40) {
+			setSelectedIndex((prevIndex) => {
+				if (prevIndex === filterData.length - 1) {
+					return 0
+				}
+				return prevIndex + 1
+			})
+		}
+		// key up
+		if (e.keyCode === 38) {
+			setSelectedIndex((prevIndex) => {
+				if (prevIndex === 0) {
+					return 0
+				}
+				return prevIndex - 1
+			})
+		}
+	}
+
+	const handleOutsideClick = () => {
+		setIsShowPlan(false)
+	}
+
 	return (
 		<div className="btn-search-calendar">
 			<AiOutlineSearch size={20} />
 			<input
+				onKeyDown={handleChoicePlan}
 				onChange={(e) => showPlan(e.target.value)}
 				type="text"
 				placeholder="Tìm sự kiện"
 			/>
 			{isShowPlan && (
-				<div className="result-search-plan">
-					{(filterData || finalData).map((plan) => (
-						<div
-							onClick={() => planChoice(plan.id)}
-							style={{ cursor: "pointer" }}
-							className="result-item-search-plan"
-							key={plan.id}>
-							{plan.content}
-						</div>
-					))}
+				<div>
+					<div
+						onClick={handleOutsideClick}
+						className="result-outside-click-search-plan"
+					/>
+					<div className="result-search-plan">
+						{(filterData || finalData).map((plan, index) => (
+							<div
+								onClick={() => planChoice(plan.id)}
+								style={
+									index === selectedIndex
+										? {
+												cursor: "pointer",
+												backgroundColor: "#ccc",
+												transform: "scale(1.1)",
+												paddingLeft: "40px",
+										  }
+										: {}
+								}
+								className="result-item-search-plan"
+								key={plan.id}>
+								{plan.content}
+							</div>
+						))}
+					</div>
 				</div>
 			)}
 		</div>
