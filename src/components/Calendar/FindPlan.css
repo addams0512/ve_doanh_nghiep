@@ -8,8 +8,9 @@
 	gap: 10px;
 	justify-content: center;
 	align-items: center;
-	border-radius: 20px;
 	position: relative;
+}
+.btn-search-calendar:focus {
 }
 
 .btn-search-calendar input {
@@ -28,15 +29,13 @@
 }
 
 .result-search-plan {
-	padding: 16px 0 0 0;
 	background-color: #f6f6f6;
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
 	position: absolute;
 	top: 41px;
-	width: 400px;
-	height: 220px;
+	width: 100%;
+	height: fit-content;
 	overflow-y: scroll;
 	left: 0;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -48,12 +47,19 @@
 	display: flex;
 	justify-content: start;
 	padding-left: 20px;
-	width: 100%;
+	width: 300px;
+	height: fit-content;
+	padding: 10px 10px 10px 20px;
+	align-items: center;
 }
 
 .result-item-search-plan:hover {
 	background-color: #ccc;
-	height: 60px;
-	transform: scale(1.2);
-	padding-left: 40px;
+	transform: scale(1.1);
+	display: flex;
+	justify-content: start;
+	padding: 0 10px 0 40px;
+	width: 100%;
+	height: 50px;
+	align-items: center;
 }

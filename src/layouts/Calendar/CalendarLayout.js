@@ -145,7 +145,7 @@ const CalendarLayout = () => {
 								</button>
 							</div>
 							<div className="container-box2-plan">
-								<FindPlan />
+								<FindPlan showChoicePlan={(id) => handleEditPlan(id)} />
 							</div>
 						</div>
 					</div>

@@ -257,7 +257,7 @@ const YourBusiness = ({ createBusinessPage }) => {
 	}
 
 	// convertRGBA
-	function hexToRgbA(hex) {
+	function hexToRgbA(hex, opacity) {
 		var c
 		if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
 			c = hex.substring(1).split("")
@@ -266,11 +266,12 @@ const YourBusiness = ({ createBusinessPage }) => {
 			}
 			c = "0x" + c.join("")
 			return (
-				"rgba(" + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(",") + ",0.2)"
+				"rgba(" +
+				[(c >> 16) & 255, (c >> 8) & 255, c & 255].join(",") +
+				`,${opacity})`
 			)
 		}
 	}
-
 	// confirmColor
 	const confirmColor = () => {
 		color.forEach((item) => {
@@ -461,7 +462,7 @@ const YourBusiness = ({ createBusinessPage }) => {
 									</div>
 									<div
 										style={{
-											backgroundColor: hexToRgbA(element?.color),
+											backgroundColor: hexToRgbA(element?.color, 0.2),
 										}}
 										className="main-your-business-container-item">
 										<div

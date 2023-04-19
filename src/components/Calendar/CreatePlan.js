@@ -531,7 +531,6 @@ const CreatePlan = ({ remove, props }) => {
 							<div className="go-to-palace-btn-bottom">
 								<div className="go-to-palace-btn-cacel">
 									<button
-										ton
 										onClick={() => setOpenFileGoToPlace(false)}
 										className="go-to-palace-form-btn-cancel">
 										Hủy
