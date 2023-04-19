@@ -65,14 +65,14 @@
 }
 
 .title-type-create-plan {
-	background-color: #f0f0f0;
 	width: 200px;
 	height: 44px;
-	font-size: 1.2rem;
+	font-size: 1.4rem;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	font-weight: bold;
 	border-radius: 10px;
+	justify-content: center;
 }
 
 .tag-type-create-plan-container {
@@ -96,8 +96,9 @@
 	display: flex;
 	gap: 10px;
 	width: 400px;
-	overflow-y: auto;
+	overflow-y: scroll;
 	flex-wrap: wrap;
+	height: 70px;
 }
 
 .array-of-tag-plan {
@@ -619,6 +620,7 @@
 	border: none;
 	height: 42px;
 	padding-left: 10px;
+	border-radius: 10px;
 }
 .new-tag-add-color {
 	display: flex;

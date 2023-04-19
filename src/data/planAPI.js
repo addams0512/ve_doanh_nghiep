@@ -14,6 +14,8 @@ const planAPI = [
 		tagChoice: { id: 5, color: "black", type: "Vợ" },
 		timePicker: "05:00",
 		year: 2023,
+		completed: false,
+		expirePlan: false,
 	},
 	{
 		content: "Đi chơi với người yêu",
@@ -30,6 +32,8 @@ const planAPI = [
 		tagChoice: { id: 4, color: "#4E49F5", type: "Người yêu" },
 		timePicker: "02:00",
 		year: 2023,
+		completed: false,
+		expirePlan: false,
 	},
 	{
 		content: "Đi chơi với bạn thân",
@@ -47,6 +51,8 @@ const planAPI = [
 		tagChoice: { id: 3, color: "#05AD92", type: "Bạn thân" },
 		timePicker: "01:00",
 		year: 2023,
+		completed: false,
+		expirePlan: false,
 	},
 	{
 		content: "Đi chơi với bạn xém thân",
@@ -63,6 +69,8 @@ const planAPI = [
 		tagChoice: { id: 1, color: "#d80ac8", type: "Bạn xém thân" },
 		timePicker: "12:00",
 		year: 2023,
+		completed: false,
+		expirePlan: false,
 	},
 	{
 		content: "Đi dự lễ tốt nghiệp của cậu ấy",
@@ -83,6 +91,8 @@ const planAPI = [
 		},
 		timePicker: "9:00",
 		year: 2023,
+		completed: false,
+		expirePlan: false,
 	},
 	{
 		content: "Đi chơi với bạn gần thân",
@@ -99,6 +109,8 @@ const planAPI = [
 		tagChoice: { id: 0, color: "#EF4714", type: "Bạn gần thân" },
 		timePicker: "18:00",
 		year: 2023,
+		completed: false,
+		expirePlan: false,
 	},
 ]
 

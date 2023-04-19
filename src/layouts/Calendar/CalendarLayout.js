@@ -9,6 +9,7 @@ import YearLayout from "./YearLayout"
 import CreatePlan from "../../components/Calendar/CreatePlan"
 import { planAPI, tagPlanAPI } from "../../data/planAPI"
 import ShowPlan from "../../components/Calendar/ShowPlan"
+import FindPlan from "../../components/Calendar/FindPlan"
 
 export const DayContext = createContext()
 export const PlanContext = createContext()
@@ -41,12 +42,25 @@ const CalendarLayout = () => {
 	}
 
 	// handle next plan
-	const nextPlan = finalData.filter((plan) => plan.day > currentDay.getDate())
+	const nextPlan = finalData.filter((plan) => plan.day >= currentDay.getDate())
+	const [planCompleted, setPlanCompleted] = useState(nextPlan)
 
 	// handle edit plan
 	const handleEditPlan = (id) => {
 		setDisplayPlan(true)
 		setIdEditPlan(id)
+	}
+
+	// handelCompleted
+	const handleCompleted = (id) => {
+		setPlanCompleted(
+			nextPlan.map((plan) => {
+				if (id === plan.id) {
+					plan.completed = !plan.completed
+				}
+				return plan
+			})
+		)
 	}
 
 	return (
@@ -131,13 +145,7 @@ const CalendarLayout = () => {
 								</button>
 							</div>
 							<div className="container-box2-plan">
-								<div className="btn-search-calendar">
-									<AiOutlineSearch size={20} />
-									<input
-										type="text"
-										placeholder="Tìm sự kiện"
-									/>
-								</div>
+								<FindPlan />
 							</div>
 						</div>
 					</div>
@@ -185,9 +193,15 @@ const CalendarLayout = () => {
 											{nextPlan.map((plan) => {
 												return (
 													<div
+														style={
+															plan.expirePlan
+																? { backgroundColor: "#F24242" }
+																: {}
+														}
 														key={plan.id}
 														className="detail-next-plan-calendar">
 														<input
+															onClick={() => handleCompleted(plan.id)}
 															type="checkbox"
 															className="checkbox-next-plan-calendar"
 															style={{
@@ -196,7 +210,13 @@ const CalendarLayout = () => {
 																marginTop: "0px",
 															}}
 														/>
-														<div className="date-next-plan-calendar">
+														<div
+															style={
+																plan.completed
+																	? { backgroundColor: "#80E042" }
+																	: {}
+															}
+															className="date-next-plan-calendar">
 															{" "}
 															<p
 																style={{

@@ -23,7 +23,7 @@ const ShowPlan = ({ remove, props }) => {
 	const [tagChoice, setTagChoice] = useState()
 	const [displayDayPicker, setDisplayDayPicker] = useState(false)
 	const [dayPicker, setDayPicker] = useState(formatDatePlanEdit)
-	const [displayAllPlan, setDisplayAllPlan] = useState(true)
+
 	const [showTime, setShowTime] = useState(false)
 	const [content, setContent] = useState()
 	const [displayMorePartner, setDisplayMorePartner] = useState(false)
@@ -93,11 +93,6 @@ const ShowPlan = ({ remove, props }) => {
 	})
 
 	// fucntion display
-	//Type Of Plan
-	const seeAllPlan = () => {
-		setDisplayAllPlan(!displayAllPlan)
-	}
-
 	// Calendar for dayPicker
 	const showDayPicker = () => {
 		setDisplayDayPicker(!displayDayPicker)
@@ -237,6 +232,8 @@ const ShowPlan = ({ remove, props }) => {
 			day: day || planEdit.day, // day in format DD with dayPicker
 			month: month || planEdit.month, // month of dayPicker
 			year: year || planEdit.year, // year of dayPicker
+			expirePlan: false,
+			completed: false,
 		}
 		setFinalData(updateData)
 		console.log(updateData)
@@ -325,10 +322,8 @@ const ShowPlan = ({ remove, props }) => {
 						</div>
 					</div>
 					<div className="tag-type-create-plan-container">
-						<div
-							style={displayAllPlan ? { height: "30px" } : { height: "70px" }}
-							className="tag-type-create-plan-box-4">
-							{(displayAllPlan ? tagPlan?.slice(0, 4) : tagPlan).map((item) => {
+						<div className="tag-type-create-plan-box-4">
+							{tagPlan.map((item) => {
 								return (
 									<div
 										key={item.id}
@@ -354,17 +349,6 @@ const ShowPlan = ({ remove, props }) => {
 									</div>
 								)
 							})}
-						</div>
-						<div
-							onClick={seeAllPlan}
-							style={{
-								fontSize: "14px",
-								fontStyle: "italic",
-								cursor: "pointer",
-								display: "flex",
-								alignContent: "center",
-							}}>
-							Xem tất cả
 						</div>
 					</div>
 				</div>

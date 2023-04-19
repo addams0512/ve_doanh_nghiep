@@ -19,7 +19,6 @@ const CreatePlan = ({ remove, props }) => {
 	const [tagChoice, setTagChoice] = useState()
 	const [displayDayPicker, setDisplayDayPicker] = useState(false)
 	const [dayPicker, setDayPicker] = useState(new Date())
-	const [displayAllPlan, setDisplayAllPlan] = useState(true)
 	const [showTime, setShowTime] = useState(false)
 	const [content, setContent] = useState()
 	const [displayMorePartner, setDisplayMorePartner] = useState(false)
@@ -32,6 +31,7 @@ const CreatePlan = ({ remove, props }) => {
 	const [newPlan, setNewPlan] = useState("")
 	const [location, setLocation] = useState()
 	const [isTagChoice, setIsTagChoice] = useState(false)
+	const [isUserData, setIsUserData] = useState(false)
 
 	// get day - month - year
 	const day = dayPicker.getDate()
@@ -71,11 +71,6 @@ const CreatePlan = ({ remove, props }) => {
 	})
 
 	// fucntion display
-
-	//Type Of Plan
-	const seeAllPlan = () => {
-		setDisplayAllPlan(!displayAllPlan)
-	}
 
 	// Calendar for dayPicker
 	const showDayPicker = () => {
@@ -152,6 +147,7 @@ const CreatePlan = ({ remove, props }) => {
 	}, [])
 	// searchbar function
 	const filterData = (value) => {
+		setIsUserData(true)
 		if (!value) {
 			setFilteringData([])
 			return
@@ -219,6 +215,8 @@ const CreatePlan = ({ remove, props }) => {
 				day: day, // day in format DD with dayPicker
 				month: month, // month of dayPicker
 				year: year, // year of dayPicker
+				completed: false,
+				expirePlan: false,
 			},
 		]
 		setFinalData(dataArray)
@@ -300,10 +298,8 @@ const CreatePlan = ({ remove, props }) => {
 						</div>
 					</div>
 					<div className="tag-type-create-plan-container">
-						<div
-							style={displayAllPlan ? { height: "30px" } : { height: "70px" }}
-							className="tag-type-create-plan-box-4">
-							{(displayAllPlan ? tagPlan?.slice(0, 4) : tagPlan).map((item) => {
+						<div className="tag-type-create-plan-box-4">
+							{tagPlan.map((item) => {
 								return (
 									<div
 										key={item.id}
@@ -329,17 +325,6 @@ const CreatePlan = ({ remove, props }) => {
 									</div>
 								)
 							})}
-						</div>
-						<div
-							onClick={seeAllPlan}
-							style={{
-								fontSize: "14px",
-								fontStyle: "italic",
-								cursor: "pointer",
-								display: "flex",
-								alignContent: "center",
-							}}>
-							Xem tất cả
 						</div>
 					</div>
 				</div>
