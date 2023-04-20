@@ -47,6 +47,14 @@ const FindPlan = ({ showChoicePlan }) => {
 				return prevIndex - 1
 			})
 		}
+		// Enter key
+		if (e.keyCode === 13) {
+			if (filterData.length > 0 && selectedIndex >= 0) {
+				const selectedPlan = filterData[selectedIndex]
+				setIsShowPlan(false)
+				showChoicePlan(selectedPlan.id)
+			}
+		}
 	}
 
 	const handleOutsideClick = () => {
@@ -76,9 +84,9 @@ const FindPlan = ({ showChoicePlan }) => {
 									index === selectedIndex
 										? {
 												cursor: "pointer",
-												backgroundColor: "#ccc",
 												transform: "scale(1.1)",
-												paddingLeft: "40px",
+												paddingLeft: "30px",
+												fontWeight: "bold",
 										  }
 										: {}
 								}

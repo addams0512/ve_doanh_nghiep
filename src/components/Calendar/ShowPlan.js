@@ -42,6 +42,7 @@ const ShowPlan = ({ remove, props }) => {
 	const [isNoticeData, setIsNoticeData] = useState(true)
 	const [isContent, setIsContent] = useState(true)
 	const [isEditTag, setIsEditTag] = useState(true)
+	const [selectedIndex, setSelectedIndex] = useState(0)
 
 	// get day - month - year
 	const day = dayPicker.getDate()
@@ -166,6 +167,7 @@ const ShowPlan = ({ remove, props }) => {
 		}
 		getUserData()
 	}, [])
+
 	// searchbar function
 	const filterData = (value) => {
 		if (!value) {
@@ -179,6 +181,53 @@ const ShowPlan = ({ remove, props }) => {
 		setFilteringData(dataFilter)
 	}
 
+	// partnerChoices with key
+	function handleKeyDown(event) {
+		if (event.keyCode === 38) {
+			console.log("hello")
+			// up arrow
+			setSelectedIndex((prevIndex) => {
+				if (prevIndex === 0) {
+					return 0
+				} else {
+					return prevIndex - 1
+				}
+			})
+		} else if (event.keyCode === 40) {
+			// down arrow
+			setSelectedIndex((prevIndex) => {
+				if (prevIndex === filteringData.length - 1) {
+					return 0
+				} else {
+					return prevIndex + 1
+				}
+			})
+		} else if (event.keyCode === 13) {
+			setUserData(
+				filteringData.map((user, index) => {
+					if (index === selectedIndex) {
+						user.chosen = !user.chosen
+					}
+					return user
+				})
+			)
+			const existingUser = selectedUsers.find(
+				(user, index) => selectedIndex === index
+			)
+			if (existingUser) {
+				return selectedUsers.filter(
+					(user, index) => user.id !== existingUser.id
+				)
+			}
+			const newUser = filteringData.find(
+				(user, index) => index === selectedIndex
+			)
+			selectedUsers.push(newUser)
+		}
+	}
+	const selected = selectedUsers.filter((s) => {
+		return s.chosen
+	})
 	// partnerChoices
 	const toggleUserSelection = (id) => {
 		setUserData(
@@ -236,7 +285,7 @@ const ShowPlan = ({ remove, props }) => {
 			completed: false,
 		}
 		setFinalData(updateData)
-		console.log(updateData)
+		remove()
 	}
 
 	return (
@@ -443,9 +492,9 @@ const ShowPlan = ({ remove, props }) => {
 							displayMorePartner ? { height: "100px" } : { height: "70px" }
 						}
 						className="go-together-create-plan-box">
-						{(selectedUsers.length > 5 && displayMorePartner
-							? selectedUsers
-							: selectedUsers.slice(0, 4)
+						{(selected.length > 5 && displayMorePartner
+							? selected
+							: selected.slice(0, 4)
 						).map((user) => {
 							return (
 								<div
@@ -463,7 +512,7 @@ const ShowPlan = ({ remove, props }) => {
 						size={36}
 					/>
 				</div>
-				{selectedUsers.length > 4 ? (
+				{selected.length > 4 ? (
 					<div
 						className="show-more-partner"
 						onClick={() => setDisplayMorePartner(!displayMorePartner)}
@@ -473,7 +522,7 @@ const ShowPlan = ({ remove, props }) => {
 							fontStyle: "italic",
 							fontSize: "1rem	",
 						}}>
-						+ {selectedUsers.length > 4 ? selectedUsers.length - 4 : 0}
+						+ {selected.length > 4 ? selected.length - 4 : 0}
 					</div>
 				) : (
 					<div className="show-more-partner"></div>
@@ -515,6 +564,7 @@ const ShowPlan = ({ remove, props }) => {
 										<BiSearch size={20} />
 									</div>
 									<input
+										onKeyDown={handleKeyDown}
 										onChange={(e) => filterData(e.target.value)}
 										type="text"
 										placeholder="Tìm bạn"
@@ -528,36 +578,56 @@ const ShowPlan = ({ remove, props }) => {
 								<div className="go-to-palace-result-info"> Gần nhất</div>
 							</div>
 							<div className="go-together-user-container">
-								{(filteringData.length === 0
-									? selectedUsers.slice(0, 5)
-									: filteringData
-								).map((user) => {
-									return (
-										<div
-											onClick={() => {
-												toggleUserSelection(user.id)
-											}}
-											key={user.id}
-											className="go-to-palace-result-name">
-											<div className="go-to-palace-result-name-img"></div>
-											<div className="go-to-palace-result-name-info">
-												{user.username}
-											</div>
-										</div>
-									)
-								})}
+								{filteringData.length === 0
+									? selected.slice(0, 5).map((user) => {
+											return (
+												<div
+													onClick={() => {
+														toggleUserSelection(user.id)
+													}}
+													key={user.id}
+													className="go-to-palace-result-name">
+													<div className="go-to-palace-result-name-img"></div>
+													<div className="go-to-palace-result-name-info">
+														{user.username}
+													</div>
+												</div>
+											)
+									  })
+									: filteringData.map((user, index) => {
+											return (
+												<div
+													style={
+														selectedIndex === index
+															? {
+																	transform: "scale(1.1)",
+															  }
+															: {}
+													}
+													onClick={() => {
+														toggleUserSelection(user.id)
+													}}
+													key={user.id}
+													className={
+														user.chosen
+															? "go-to-palace-result-name-choice"
+															: "go-to-palace-result-name"
+													}>
+													<div className="go-to-palace-result-name-img"></div>
+													<div className="go-to-palace-result-name-info">
+														{user.username}
+													</div>
+												</div>
+											)
+									  })}
 							</div>
 							<div className="go-to-palace-btn-bottom">
 								<div className="go-to-palace-btn-cacel">
 									<button
-										ton
 										onClick={() => setOpenFileGoToPlace(false)}
 										className="go-to-palace-form-btn-cancel">
 										Hủy
 									</button>
-								</div>
-								<div className="go-to-palace-btn-add">
-									<button className="go-to-palace-form-btn-add">Thêm</button>
 								</div>
 							</div>
 						</div>

@@ -4,6 +4,10 @@ import { planMonthAPI } from "../../data/planAPI"
 import { PlanContext } from "./CalendarLayout"
 const MonthLayout = () => {
 	const { finalData } = useContext(PlanContext)
+	const [isMorePlan, setIsMorePlan] = useState(false)
+	const showMorePlan = () => {
+		setIsMorePlan(!isMorePlan)
+	}
 	const month = Array.from({ length: 31 }, (v, i) => {
 		return {
 			id: i + 1,
@@ -22,25 +26,47 @@ const MonthLayout = () => {
 							<div
 								key={elements.id}
 								className="month-layout-box1">
-								{matchingPlan.slice(0, 3).map((plan) => {
-									return (
-										<div
-											key={plan.id}
-											className="month-plan-container">
+								{(isMorePlan ? matchingPlan.slice(0, 4) : matchingPlan).map(
+									(plan) => {
+										return (
 											<div
-												style={{
-													backgroundColor: plan.tagChoice?.color,
-													width: "20px",
-													height: "20px",
-													borderRadius: "4px",
-												}}></div>
-											<div className="content-month-plan-container">
-												{plan.content}
+												key={plan.id}
+												className="month-plan-container">
+												<div
+													style={{
+														backgroundColor: plan.tagChoice?.color,
+														width: "20px",
+														height: "20px",
+														borderRadius: "4px",
+													}}></div>
+												<div className="content-month-plan-container">
+													{plan.content}
+												</div>
 											</div>
+										)
+									}
+								)}
+								<div className="month-layout-description">
+									{matchingPlan.length > 4 ? (
+										<div
+											onClick={showMorePlan}
+											style={{
+												marginTop: "10px",
+												cursor: "pointer",
+												fontStyle: "italic",
+												fontSize: "1rem	",
+												marginRight: "auto",
+											}}
+											className="show-more-plan-month__layouts">
+											+ {matchingPlan.length > 4 ? matchingPlan.length - 4 : 0}
 										</div>
-									)
-								})}
-								<div className="month-layout-description">{elements.day}</div>
+									) : (
+										<div className="show-more-plan-month__layouts"></div>
+									)}
+									<div className="month-day-layout-description">
+										{elements.day}
+									</div>
+								</div>
 							</div>
 						)
 					} else {

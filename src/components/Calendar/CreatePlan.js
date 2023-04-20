@@ -146,6 +146,7 @@ const CreatePlan = ({ remove, props }) => {
 		}
 		getUserData()
 	}, [])
+
 	// searchbar function
 	const filterData = (value) => {
 		setIsUserData(true)
@@ -203,9 +204,31 @@ const CreatePlan = ({ remove, props }) => {
 				}
 			})
 		} else if (event.keyCode === 13) {
-			toggleUserSelection(selectedIndex)
+			setUserData(
+				filteringData.map((user, index) => {
+					if (index === selectedIndex) {
+						user.chosen = !user.chosen
+					}
+					return user
+				})
+			)
+			const existingUser = selectedUsers.find(
+				(user, index) => selectedIndex === index
+			)
+			if (existingUser) {
+				return selectedUsers.filter(
+					(user, index) => user.id !== existingUser.id
+				)
+			}
+			const newUser = filteringData.find(
+				(user, index) => index === selectedIndex
+			)
+			selectedUsers.push(newUser)
 		}
 	}
+	const selected = selectedUsers.filter((s) => {
+		return s.chosen
+	})
 
 	// get Notices data
 	const noticeData = (e) => {
@@ -246,7 +269,7 @@ const CreatePlan = ({ remove, props }) => {
 			},
 		]
 		setFinalData(dataArray)
-		console.log(dataArray)
+		remove()
 	}
 
 	return (
@@ -433,25 +456,18 @@ const CreatePlan = ({ remove, props }) => {
 							displayMorePartner ? { height: "100px" } : { height: "70px" }
 						}
 						className="go-together-create-plan-box">
-						{selectedUsers.length > 5 && displayMorePartner
-							? selectedUsers.map((user) => {
-									return (
-										<div
-											key={user.id}
-											className="partner-together-item">
-											{user.username},
-										</div>
-									)
-							  })
-							: selectedUsers.slice(0, 4).map((user) => {
-									return (
-										<div
-											key={user.id}
-											className="partner-together-item">
-											{user.username},
-										</div>
-									)
-							  })}
+						{(selected.length > 5 && displayMorePartner
+							? selected
+							: selected.slice(0, 4)
+						).map((user) => {
+							return (
+								<div
+									key={user.id}
+									className="partner-together-item">
+									{user.username},
+								</div>
+							)
+						})}
 					</div>
 					<HiPlusSmall
 						color="gray"
@@ -460,7 +476,7 @@ const CreatePlan = ({ remove, props }) => {
 						size={36}
 					/>
 				</div>
-				{selectedUsers.length > 4 ? (
+				{selected.length > 4 ? (
 					<div
 						className="show-more-partner"
 						onClick={() => setDisplayMorePartner(!displayMorePartner)}
@@ -470,7 +486,7 @@ const CreatePlan = ({ remove, props }) => {
 							fontStyle: "italic",
 							fontSize: "1rem	",
 						}}>
-						+ {selectedUsers.length > 4 ? selectedUsers.length - 4 : 0}
+						+ {selected.length > 4 ? selected.length - 4 : 0}
 					</div>
 				) : (
 					<div className="show-more-partner"></div>
@@ -525,7 +541,7 @@ const CreatePlan = ({ remove, props }) => {
 							</div>
 							<div className="go-together-user-container">
 								{filteringData.length === 0
-									? selectedUsers.slice(0, 5).map((user) => {
+									? selected.slice(0, 5).map((user) => {
 											return (
 												<div
 													onClick={() => {
@@ -543,12 +559,10 @@ const CreatePlan = ({ remove, props }) => {
 									: filteringData.map((user, index) => {
 											return (
 												<div
-													onMouseDown={handleKeyDown}
 													style={
-														user.chosen || selectedIndex === index
+														selectedIndex === index
 															? {
 																	transform: "scale(1.1)",
-																	backgroundColor: "#ccc",
 															  }
 															: {}
 													}
@@ -556,7 +570,11 @@ const CreatePlan = ({ remove, props }) => {
 														toggleUserSelection(user.id)
 													}}
 													key={user.id}
-													className="go-to-palace-result-name">
+													className={
+														user.chosen
+															? "go-to-palace-result-name-choice"
+															: "go-to-palace-result-name"
+													}>
 													<div className="go-to-palace-result-name-img"></div>
 													<div className="go-to-palace-result-name-info">
 														{user.username}

@@ -65,14 +65,13 @@
 }
 
 .title-type-create-plan {
-	width: 200px;
 	height: 44px;
 	font-size: 1.4rem;
 	display: flex;
 	align-items: center;
 	font-weight: bold;
 	border-radius: 10px;
-	justify-content: center;
+	justify-content: start;
 }
 
 .tag-type-create-plan-container {
@@ -426,6 +425,19 @@
 	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 	padding: 10px;
 }
+.go-to-palace-result-name:hover {
+	transform: scale(1.1);
+}
+.go-to-palace-result-name-choice {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	width: 94%;
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	padding: 10px;
+	background-color: #ccc;
+}
 
 .go-to-palace-result-name-img {
 	height: 40px;
@@ -589,7 +601,6 @@
 }
 .add-new-tag-plan {
 	display: flex;
-	margin-left: 50px;
 	gap: 20px;
 }
 .new-tag-name-color {
