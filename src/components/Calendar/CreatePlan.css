@@ -99,7 +99,14 @@
 	flex-wrap: wrap;
 	height: 70px;
 }
-
+.tag-type-create-plan-box-4::-webkit-scrollbar {
+	width: 8px;
+}
+.tag-type-create-plan-box-4::-webkit-scrollbar-thumb {
+	background-color: #9e9b9b;
+	width: 8px;
+	border-radius: 10px;
+}
 .array-of-tag-plan {
 	display: flex;
 	gap: 10px;
