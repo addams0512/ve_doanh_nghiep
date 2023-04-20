@@ -172,6 +172,14 @@
 	padding: 10px 20px 20px 30px;
 	overflow-y: auto;
 }
+.detail-next-plan-calendar-container::-webkit-scrollbar {
+	width: 10px;
+}
+.detail-next-plan-calendar-container::-webkit-scrollbar-thumb {
+	background-color: #5a5a5a;
+	width: 8px;
+	border-radius: 8px;
+}
 .detail-next-plan-calendar {
 	font-size: 1rem;
 	display: flex;

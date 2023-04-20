@@ -78,21 +78,26 @@ const FindPlan = ({ showChoicePlan }) => {
 					/>
 					<div className="result-search-plan">
 						{(filterData || finalData).map((plan, index) => (
-							<div
-								onClick={() => planChoice(plan.id)}
-								style={
-									index === selectedIndex
-										? {
-												cursor: "pointer",
-												transform: "scale(1.1)",
-												paddingLeft: "30px",
-												fontWeight: "bold",
-										  }
-										: {}
-								}
-								className="result-item-search-plan"
-								key={plan.id}>
-								{plan.content}
+							<div className="result-search-plan-container">
+								<div
+									style={{ backgroundColor: plan.tagChoice.color }}
+									className="result-search-plan-tag"></div>
+								<div
+									onClick={() => planChoice(plan.id)}
+									style={
+										index === selectedIndex
+											? {
+													cursor: "pointer",
+													transform: "scale(1.1)",
+													paddingLeft: "30px",
+													fontWeight: "bold",
+											  }
+											: {}
+									}
+									className="result-item-search-plan"
+									key={plan.id}>
+									{plan.content}
+								</div>
 							</div>
 						))}
 					</div>

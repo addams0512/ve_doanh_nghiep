@@ -22,11 +22,24 @@
 	flex-direction: column;
 	border-right: 0.8px solid #ccc;
 	border-bottom: 0.8px solid #ccc;
-	padding: 10px 10px 4px 10px;
+	padding: 10px 10px 0 10px;
 	gap: 6px;
-	overflow-y: auto;
 }
 
+.month-layout-plan__container {
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	gap: 6px;
+}
+.month-layout-plan__container::-webkit-scrollbar {
+	width: 10px;
+}
+.month-layout-plan__container::-webkit-scrollbar-thumb {
+	background-color: #9e9e9e;
+	width: 8px;
+	border-radius: 10px;
+}
 .month-layout-box2 {
 	width: calc(900px / 6);
 	height: calc(800px / 5);
@@ -48,6 +61,10 @@
 .month-layout-description {
 	margin-top: auto;
 	display: flex;
+	position: sticky;
+	bottom: 0;
+	background-color: white;
+	padding-bottom: 4px;
 }
 .content-month-plan-container {
 	width: 70px;

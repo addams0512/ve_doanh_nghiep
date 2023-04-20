@@ -26,26 +26,28 @@ const MonthLayout = () => {
 							<div
 								key={elements.id}
 								className="month-layout-box1">
-								{(isMorePlan ? matchingPlan.slice(0, 4) : matchingPlan).map(
-									(plan) => {
-										return (
-											<div
-												key={plan.id}
-												className="month-plan-container">
+								<div className="month-layout-plan__container">
+									{(isMorePlan ? matchingPlan.slice(0, 4) : matchingPlan).map(
+										(plan) => {
+											return (
 												<div
-													style={{
-														backgroundColor: plan.tagChoice?.color,
-														width: "20px",
-														height: "20px",
-														borderRadius: "4px",
-													}}></div>
-												<div className="content-month-plan-container">
-													{plan.content}
+													key={plan.id}
+													className="month-plan-container">
+													<div
+														style={{
+															backgroundColor: plan.tagChoice?.color,
+															width: "20px",
+															height: "20px",
+															borderRadius: "4px",
+														}}></div>
+													<div className="content-month-plan-container">
+														{plan.content}
+													</div>
 												</div>
-											</div>
-										)
-									}
-								)}
+											)
+										}
+									)}
+								</div>
 								<div className="month-layout-description">
 									{matchingPlan.length > 4 ? (
 										<div

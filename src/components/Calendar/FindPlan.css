@@ -22,8 +22,6 @@
 
 .btn-search-calendar input:focus-within {
 	outline: none;
-	transform: scale(1.2);
-	margin-right: 40px;
 }
 
 .result-search-plan {
@@ -36,13 +34,20 @@
 	height: 200px;
 	overflow-y: scroll;
 	left: 0;
-	gap: 10px;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 	font-size: 1.2rem;
-	padding-top: 10px;
 	padding-bottom: 10px;
 }
-
+.result-search-plan-tag {
+	height: 18px;
+	width: 20px;
+	border-radius: 3px;
+}
+.result-search-plan-container {
+	display: flex;
+	align-items: center;
+	padding-left: 10px;
+}
 .result-item-search-plan {
 	background-color: transparent;
 	display: flex;
