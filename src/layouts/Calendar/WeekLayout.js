@@ -56,8 +56,10 @@ const WeekLayout = ({ editPlan }) => {
 						{plan.map((item) => {
 							const matchingPlan = finalData.find(
 								(plan) =>
-									item.id % 7 === plan.planWeekDate &&
-									Math.floor(item.id / 7) === plan.planTime
+									(item.id % 7 === 0 ? 7 : item.id % 7) === plan.planWeekDate &&
+									(item.id % 7 === 0
+										? Math.floor(item.id / 7) - 1
+										: Math.floor(item.id / 7)) === plan.planTime
 							)
 							if (matchingPlan) {
 								return (
@@ -65,7 +67,7 @@ const WeekLayout = ({ editPlan }) => {
 										key={item.id}
 										className="specific-plan-week__container">
 										<div
-											onDoubleClick={() => showEditPlan(matchingPlan.id)}
+											onClick={() => showEditPlan(matchingPlan.id)}
 											style={{
 												boxShadow: `${matchingPlan.tagChoice?.color} 0px 4px 8px -2px, ${matchingPlan.tagChoice?.color} 0px 0px 0px 1px `,
 											}}
