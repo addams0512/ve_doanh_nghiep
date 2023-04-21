@@ -8,12 +8,19 @@ export const CalendarDay = createContext()
 
 export default function BasicCalendar({ year, view, onChange, value, month }) {
 	const { finalData, setFinalData } = useContext(PlanContext)
-	const arrayOfDatePlan = finalData.map((s) => {
-		return s.date
-	})
-	console.log({ arrayOfDatePlan })
 	const startDate = new Date(year, month - 1, 1)
 	const endDate = new Date(year, month - 1, startDate.getDate() + 41)
+
+	function tileClassName({ date }) {
+		const arrayOfDatePlan = finalData.map((s) => {
+			return new Date(s.date)
+		})
+
+		const test = arrayOfDatePlan.find((plan) => plan === date)
+
+		return "highlight"
+	}
+
 	return (
 		<>
 			<Calendar
@@ -24,20 +31,7 @@ export default function BasicCalendar({ year, view, onChange, value, month }) {
 				onChange={onChange}
 				value={value}
 				month={month}
-				tileClassName={({ date }) => {
-					let day = date.getDate()
-					let month = date.getMonth() + 1
-					if (date.getMonth() < 10) {
-						month = "0" + month
-					}
-					if (date.getDate() < 10) {
-						day = "0" + day
-					}
-					const realDate = date.getFullYear() + "-" + month + "-" + day
-					if (arrayOfDatePlan.find((s) => s === realDate)) {
-						return "highlight"
-					}
-				}}
+				tileClassName={tileClassName}
 			/>
 		</>
 	)

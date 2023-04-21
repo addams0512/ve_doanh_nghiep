@@ -119,16 +119,38 @@ const tagPlanAPI = [
 		id: 0,
 		color: "#EF4714",
 		type: "Bạn gần thân",
+		delete: false,
 	},
-	{ id: 1, color: "#d80ac8", type: "Bạn xém thân" },
+	{
+		id: 1,
+		color: "#d80ac8",
+		type: "Bạn xém thân",
+		delete: false,
+	},
 	{
 		id: 2,
 		color: "red",
 		type: "Bạn rất thân",
+		delete: false,
 	},
-	{ id: 3, color: "#05AD92", type: "Bạn thân" },
-	{ id: 4, color: "#4E49F5", type: "Người yêu" },
-	{ id: 5, color: "black", type: "Vợ" },
+	{
+		id: 3,
+		color: "#05AD92",
+		type: "Bạn thân",
+		delete: false,
+	},
+	{
+		id: 4,
+		color: "#4E49F5",
+		type: "Người yêu",
+		delete: false,
+	},
+	{
+		id: 5,
+		color: "black",
+		type: "Vợ",
+		delete: false,
+	},
 ]
 
 export { tagPlanAPI, planAPI }

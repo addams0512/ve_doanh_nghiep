@@ -578,48 +578,35 @@ const ShowPlan = ({ remove, props }) => {
 								<div className="go-to-palace-result-info"> Gần nhất</div>
 							</div>
 							<div className="go-together-user-container">
-								{filteringData.length === 0
-									? selected.slice(0, 5).map((user) => {
-											return (
-												<div
-													onClick={() => {
-														toggleUserSelection(user.id)
-													}}
-													key={user.id}
-													className="go-to-palace-result-name">
-													<div className="go-to-palace-result-name-img"></div>
-													<div className="go-to-palace-result-name-info">
-														{user.username}
-													</div>
-												</div>
-											)
-									  })
-									: filteringData.map((user, index) => {
-											return (
-												<div
-													style={
-														selectedIndex === index
-															? {
-																	transform: "scale(1.1)",
-															  }
-															: {}
-													}
-													onClick={() => {
-														toggleUserSelection(user.id)
-													}}
-													key={user.id}
-													className={
-														user.chosen
-															? "go-to-palace-result-name-choice"
-															: "go-to-palace-result-name"
-													}>
-													<div className="go-to-palace-result-name-img"></div>
-													<div className="go-to-palace-result-name-info">
-														{user.username}
-													</div>
-												</div>
-											)
-									  })}
+								{(filteringData.length === 0
+									? selected.slice(0, 5)
+									: filteringData
+								).map((user, index) => {
+									return (
+										<div
+											style={
+												selectedIndex === index
+													? {
+															transform: "scale(1.1)",
+													  }
+													: {}
+											}
+											onClick={() => {
+												toggleUserSelection(user.id)
+											}}
+											key={user.id}
+											className={
+												user.chosen
+													? "go-to-palace-result-name-choice"
+													: "go-to-palace-result-name"
+											}>
+											<div className="go-to-palace-result-name-img"></div>
+											<div className="go-to-palace-result-name-info">
+												{user.username}
+											</div>
+										</div>
+									)
+								})}
 							</div>
 							<div className="go-to-palace-btn-bottom">
 								<div className="go-to-palace-btn-cacel">

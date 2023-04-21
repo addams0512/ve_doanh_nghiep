@@ -78,7 +78,9 @@ const FindPlan = ({ showChoicePlan }) => {
 					/>
 					<div className="result-search-plan">
 						{(filterData || finalData).map((plan, index) => (
-							<div className="result-search-plan-container">
+							<div
+								key={plan.id}
+								className="result-search-plan-container">
 								<div
 									style={{ backgroundColor: plan.tagChoice.color }}
 									className="result-search-plan-tag"></div>

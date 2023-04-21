@@ -38,7 +38,6 @@ const YourBusiness = ({ createBusinessPage }) => {
 			setLoading(false)
 		})
 	}, [])
-	console.log(data)
 
 	// handleColorPicker
 	const handleColorPicker = (id) => {

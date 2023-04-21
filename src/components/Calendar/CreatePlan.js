@@ -139,8 +139,30 @@ const CreatePlan = ({ remove }) => {
 	}
 
 	const deleteTag = (id) => {
-		const tagOnDelete = tagPlan.filter((tag) => tag.id !== id)
-		setTagPlan(tagOnDelete)
+		setTagPlan(tagPlan.filter((plan) => !plan.delete))
+	}
+
+	//handle show deleteTag
+	const handleDeleteTag = (id) => {
+		setTagPlan(
+			tagPlan.map((plan) => {
+				if (plan.id === id) {
+					plan.delete = true
+				}
+				return plan
+			})
+		)
+	}
+
+	const cancelDeleteTag = (id) => {
+		setTagPlan(
+			tagPlan.map((plan) => {
+				if (plan.id === id) {
+					plan.delete = false
+				}
+				return plan
+			})
+		)
 	}
 
 	// remove createPlan form
@@ -166,6 +188,7 @@ const CreatePlan = ({ remove }) => {
 				id: lastTagId,
 				color: color,
 				type: newPlan,
+				delete: false,
 			}
 			setTagPlan([...tagPlan, newTag])
 			setNewPlan("")
@@ -196,7 +219,7 @@ const CreatePlan = ({ remove }) => {
 			}
 		}
 		getUserData()
-	}, [])
+	}, [openGoToPlace])
 
 	// searchbar function
 	const filterData = (value) => {
@@ -277,6 +300,7 @@ const CreatePlan = ({ remove }) => {
 			selectedUsers.push(newUser)
 		}
 	}
+
 	const selected = selectedUsers.filter((s) => {
 		return s.chosen
 	})
@@ -428,9 +452,27 @@ const CreatePlan = ({ remove }) => {
 											</div>
 											<RiDeleteBack2Line
 												style={{ cursor: "pointer" }}
-												onClick={() => deleteTag(item.id)}
+												onClick={() => handleDeleteTag(item.id)}
 												color="red"
 											/>
+											{item.delete && (
+												<div className="accept-delete-tag-container">
+													<div className="accept-delete-tag-box">
+														<div className="title-delete-tag__pop-up">
+															Bạn có chắc muốn hủy tag này?
+														</div>
+														<div className="btn-delete-tag__pop-up">
+															<button onClick={() => cancelDeleteTag(item.id)}>
+																Hủy
+															</button>
+															<button onClick={() => deleteTag(item.id)}>
+																{" "}
+																Xác nhận
+															</button>
+														</div>
+													</div>
+												</div>
+											)}
 										</div>
 									)
 								})}
@@ -599,48 +641,35 @@ const CreatePlan = ({ remove }) => {
 									<div className="go-to-palace-result-info"> Gần nhất</div>
 								</div>
 								<div className="go-together-user-container">
-									{filteringData.length === 0
-										? selected.slice(0, 5).map((user) => {
-												return (
-													<div
-														onClick={() => {
-															toggleUserSelection(user.id)
-														}}
-														key={user.id}
-														className="go-to-palace-result-name">
-														<div className="go-to-palace-result-name-img"></div>
-														<div className="go-to-palace-result-name-info">
-															{user.username}
-														</div>
-													</div>
-												)
-										  })
-										: filteringData.map((user, index) => {
-												return (
-													<div
-														style={
-															selectedIndex === index
-																? {
-																		transform: "scale(1.1)",
-																  }
-																: {}
-														}
-														onClick={() => {
-															toggleUserSelection(user.id)
-														}}
-														key={user.id}
-														className={
-															user.chosen
-																? "go-to-palace-result-name-choice"
-																: "go-to-palace-result-name"
-														}>
-														<div className="go-to-palace-result-name-img"></div>
-														<div className="go-to-palace-result-name-info">
-															{user.username}
-														</div>
-													</div>
-												)
-										  })}
+									{(filteringData.length === 0
+										? selected.slice(0, 5)
+										: filteringData
+									).map((user, index) => {
+										return (
+											<div
+												style={
+													selectedIndex === index
+														? {
+																transform: "scale(1.1)",
+														  }
+														: {}
+												}
+												onClick={() => {
+													toggleUserSelection(user.id)
+												}}
+												key={user.id}
+												className={
+													user.chosen
+														? "go-to-palace-result-name-choice"
+														: "go-to-palace-result-name"
+												}>
+												<div className="go-to-palace-result-name-img"></div>
+												<div className="go-to-palace-result-name-info">
+													{user.username}
+												</div>
+											</div>
+										)
+									})}
 								</div>
 								<div className="go-to-palace-btn-bottom">
 									<div className="go-to-palace-btn-cancel">

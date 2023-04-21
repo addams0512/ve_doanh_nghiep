@@ -138,5 +138,5 @@ button.react-calendar__tile.react-calendar__month-view__days__day {
 }
 
 .hightlight {
-	color: red !important;
+	background-color: red !important;
 }

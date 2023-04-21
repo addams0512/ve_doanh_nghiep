@@ -9,7 +9,6 @@ const DayLayout = ({ editPlan }) => {
 	const [showPlan, setShowPlan] = useState(false)
 	const currentDay = (new Date().getDay() + 1) % 7 || 7
 	const [isShowDay, setIsShowDay] = useState(false)
-	console.log({ currentDay })
 	const dayInWeek = [
 		{
 			id: 1,
