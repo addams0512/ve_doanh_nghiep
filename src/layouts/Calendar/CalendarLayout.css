@@ -171,6 +171,7 @@
 	justify-content: flex-start;
 	padding: 10px 20px 20px 30px;
 	overflow-y: auto;
+	overflow-x: hidden;
 }
 .detail-next-plan-calendar-container::-webkit-scrollbar {
 	width: 10px;
@@ -187,9 +188,24 @@
 	align-items: center;
 }
 .date-next-plan-calendar {
+	display: flex;
 	width: 260px;
 	padding: 2px 0 2px 10px;
 	border-radius: 6px;
+	align-items: center;
+}
+
+.date-next-plan-calendar-completed {
+	align-items: center;
+	display: flex;
+	width: 260px;
+	padding: 2px 0 2px 10px;
+	border-radius: 6px;
+	text-decoration: line-through;
+}
+
+.delete-next-plan-calendar {
+	margin-left: auto;
 }
 /* box2 */
 .box2-calendar {
@@ -223,4 +239,63 @@
 	margin-left: 30px;
 	display: flex;
 	gap: 10px;
+}
+
+.accept-delete-plan-container {
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	position: fixed;
+	z-index: 9999;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+@keyframes topToBottom {
+	0% {
+		transform: translateY(-400px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+.accept-delete-plan-box {
+	animation-duration: 1s;
+	animation-name: topToBottom;
+	background-color: white;
+	width: 440px;
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 30px;
+	border-radius: 20px;
+	font-size: 1.2rem;
+}
+
+.title-delete-plan__pop-up {
+	line-height: 1.4;
+	text-align: center;
+}
+
+.btn-delete-plan__pop-up {
+	width: 60%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.btn-delete-plan__pop-up button {
+	width: 120px;
+	height: 40px;
+	border: none;
+	border-radius: 10px;
+	font-size: 1.2rem;
+}
+
+.btn-delete-plan__pop-up button:hover {
+	background-color: #373737;
+	color: white;
 }

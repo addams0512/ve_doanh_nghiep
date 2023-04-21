@@ -107,8 +107,9 @@ const DayLayout = ({ editPlan }) => {
 					{(showPlan ? planInDate : planInCurrentDate).map((item) => {
 						return (
 							<div
-								onDoubleClick={() => handleEditPlan(item.id)}
+								title="Double click để xem chi tiết về kế hoạch này"
 								key={item.id}
+								onClick={() => handleEditPlan(item.id)}
 								className="detail-plan-calendar-container">
 								<div
 									style={{ color: item.tagChoice?.color }}

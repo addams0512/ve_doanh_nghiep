@@ -12,10 +12,18 @@ import instance from "../../data/instance"
 import { RiDeleteBack2Line, RiChatDeleteLine } from "react-icons/ri"
 import { ChromePicker } from "react-color"
 import { HiPlusSmall } from "react-icons/hi2"
+import "./ShowPlan.css"
 
-const ShowPlan = ({ remove, props }) => {
-	const { finalData, setFinalData, tagPlan, setTagPlan, idEditPlan } =
-		useContext(PlanContext)
+const ShowPlan = ({ remove }) => {
+	const {
+		finalData,
+		setFinalData,
+		tagPlan,
+		setTagPlan,
+		idEditPlan,
+		idDeletePlan,
+		setIdDeletePlan,
+	} = useContext(PlanContext)
 
 	// plan edited
 	const planEdit = finalData.find((plan) => plan.id === idEditPlan)
@@ -43,6 +51,7 @@ const ShowPlan = ({ remove, props }) => {
 	const [isContent, setIsContent] = useState(true)
 	const [isEditTag, setIsEditTag] = useState(true)
 	const [selectedIndex, setSelectedIndex] = useState(0)
+	const [confirmDeletePlan, setIsConfirmDeletePlan] = useState(false)
 
 	// get day - month - year
 	const day = dayPicker.getDate()
@@ -265,7 +274,6 @@ const ShowPlan = ({ remove, props }) => {
 	// create plan
 	const editPlan = (item) => {
 		const updateData = [...finalData]
-		console.log(planEdit.intervalTime)
 		updateData[planEdit.id] = {
 			id: planEdit.id,
 			content: content || planEdit.content,
@@ -286,6 +294,17 @@ const ShowPlan = ({ remove, props }) => {
 		}
 		setFinalData(updateData)
 		remove()
+	}
+
+	// delete plan
+	const deleteCurrentPlan = () => {
+		// const deletePlan = finalData.filter((plan) => plan.id !== idDeletePlan)
+		// setFinalData(deletePlan)
+		setFinalData(
+			finalData.filter((plan) => {
+				return plan.id !== idDeletePlan
+			})
+		)
 	}
 
 	return (
@@ -550,6 +569,33 @@ const ShowPlan = ({ remove, props }) => {
 				<div className="button-delete-create-plan-container">
 					<button onClick={handleCancel}>Hủy</button>
 					<button onClick={editPlan}>Lưu</button>
+					<button onClick={() => setIsConfirmDeletePlan(true)}>Xóa</button>
+					{confirmDeletePlan && (
+						<div className="accept-delete-plan-container">
+							<div className="accept-delete-plan-box">
+								<div className="title-delete-plan__pop-up">
+									Bạn có chắc muốn hủy kế hoạch này?
+								</div>
+								<div className="btn-delete-plan__pop-up">
+									<button
+										onClick={() => {
+											setIsConfirmDeletePlan(false)
+										}}>
+										Hủy
+									</button>
+									<button
+										onClick={() => {
+											deleteCurrentPlan()
+											setIsConfirmDeletePlan(false)
+											remove()
+										}}>
+										{" "}
+										Xác nhận
+									</button>
+								</div>
+							</div>
+						</div>
+					)}
 				</div>
 				{/* partner  */}
 				<div className="go-together-background">

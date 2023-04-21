@@ -10,17 +10,6 @@ export default function BasicCalendar({ year, view, onChange, value, month }) {
 	const { finalData, setFinalData } = useContext(PlanContext)
 	const startDate = new Date(year, month - 1, 1)
 	const endDate = new Date(year, month - 1, startDate.getDate() + 41)
-
-	function tileClassName({ date }) {
-		const arrayOfDatePlan = finalData.map((s) => {
-			return new Date(s.date)
-		})
-
-		const test = arrayOfDatePlan.find((plan) => plan === date)
-
-		return "highlight"
-	}
-
 	return (
 		<>
 			<Calendar
@@ -31,7 +20,6 @@ export default function BasicCalendar({ year, view, onChange, value, month }) {
 				onChange={onChange}
 				value={value}
 				month={month}
-				tileClassName={tileClassName}
 			/>
 		</>
 	)

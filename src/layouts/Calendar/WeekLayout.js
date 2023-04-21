@@ -25,7 +25,7 @@ const WeekLayout = ({ editPlan }) => {
 					style={{
 						position: "sticky",
 						left: 0,
-						zIndex: 9999,
+						zIndex: 8888,
 					}}>
 					<div
 						className="week-layout-edit-timeOption"

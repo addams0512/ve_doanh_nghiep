@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react"
 import { AiOutlineSearch } from "react-icons/ai"
 import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
 import "./FindPlan.css"
-import ShowPlan from "./ShowPlan"
+
 const FindPlan = ({ showChoicePlan }) => {
 	const { finalData, setFinalData } = useContext(PlanContext)
 	const [filterData, setFilterData] = useState([])

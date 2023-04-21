@@ -13,35 +13,7 @@ import { RiDeleteBack2Line, RiChatDeleteLine } from "react-icons/ri"
 import { ChromePicker } from "react-color"
 import { HiPlusSmall } from "react-icons/hi2"
 import { BiLoaderCircle } from "react-icons/bi"
-// const initState = {
-// 	loading: true,
-// 	data: [],
-// 	error: null,
-// }
 
-// const planReducer = (state, action) => {
-// 	switch (action.type) {
-// 		case "GET_PLAN_REQUEST":
-// 			return {
-// 				...state,
-// 				loading: false,
-// 			}
-// 		case "GET_PLAN_SUCCESS":
-// 			return {
-// 				...state,
-// 				loading: true,
-// 				data: action.data,
-// 			}
-// 		case "GET_PLAN_FAILED":
-// 			return {
-// 				...state,
-// 				error: action.data,
-// 				data: [],
-// 			}
-// 		default:
-// 			break
-// 	}
-// }
 const CreatePlan = ({ remove }) => {
 	const { finalData, setFinalData, tagPlan, setTagPlan } =
 		useContext(PlanContext)
@@ -62,9 +34,8 @@ const CreatePlan = ({ remove }) => {
 	const [isTagChoice, setIsTagChoice] = useState(false)
 	const [isUserData, setIsUserData] = useState(false)
 	const [selectedIndex, setSelectedIndex] = useState(0)
-	// loading
-	// const [plan, userDispatch] = useReducer(planReducer, initState)
-
+	const [idDelete, setIdDelete] = useState("")
+	const [confirmDeleteTag, setConfirmDeleteTag] = useState(false)
 	// get day - month - year
 	const day = dayPicker.getDate()
 	const month = dayPicker.getMonth()
@@ -139,30 +110,7 @@ const CreatePlan = ({ remove }) => {
 	}
 
 	const deleteTag = (id) => {
-		setTagPlan(tagPlan.filter((plan) => !plan.delete))
-	}
-
-	//handle show deleteTag
-	const handleDeleteTag = (id) => {
-		setTagPlan(
-			tagPlan.map((plan) => {
-				if (plan.id === id) {
-					plan.delete = true
-				}
-				return plan
-			})
-		)
-	}
-
-	const cancelDeleteTag = (id) => {
-		setTagPlan(
-			tagPlan.map((plan) => {
-				if (plan.id === id) {
-					plan.delete = false
-				}
-				return plan
-			})
-		)
+		setTagPlan(tagPlan.filter((plan) => plan.id !== idDelete))
 	}
 
 	// remove createPlan form
@@ -452,20 +400,30 @@ const CreatePlan = ({ remove }) => {
 											</div>
 											<RiDeleteBack2Line
 												style={{ cursor: "pointer" }}
-												onClick={() => handleDeleteTag(item.id)}
+												onClick={() => {
+													setIdDelete(item.id)
+													setConfirmDeleteTag(true)
+												}}
 												color="red"
 											/>
-											{item.delete && (
+											{confirmDeleteTag && (
 												<div className="accept-delete-tag-container">
 													<div className="accept-delete-tag-box">
 														<div className="title-delete-tag__pop-up">
 															Bạn có chắc muốn hủy tag này?
 														</div>
 														<div className="btn-delete-tag__pop-up">
-															<button onClick={() => cancelDeleteTag(item.id)}>
+															<button
+																onClick={() => {
+																	setConfirmDeleteTag(false)
+																}}>
 																Hủy
 															</button>
-															<button onClick={() => deleteTag(item.id)}>
+															<button
+																onClick={() => {
+																	deleteTag(item.id)
+																	setConfirmDeleteTag(false)
+																}}>
 																{" "}
 																Xác nhận
 															</button>

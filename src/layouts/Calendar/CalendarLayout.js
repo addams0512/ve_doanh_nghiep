@@ -10,6 +10,8 @@ import CreatePlan from "../../components/Calendar/CreatePlan"
 import { planAPI, tagPlanAPI } from "../../data/planAPI"
 import ShowPlan from "../../components/Calendar/ShowPlan"
 import FindPlan from "../../components/Calendar/FindPlan"
+import CheckBox from "../../components/CheckBox"
+import { RiDeleteBin5Line } from "react-icons/ri"
 
 export const DayContext = createContext()
 export const PlanContext = createContext()
@@ -25,12 +27,18 @@ const CalendarLayout = () => {
 	const [tagPlan, setTagPlan] = useState(tagPlanAPI)
 	const [idEditPlan, setIdEditPlan] = useState()
 	const [displayPlan, setDisplayPlan] = useState(false)
+	const [idDeletePlan, setIdDeletePlan] = useState("")
+	const [isConfirmDeletePlan, setIsConfirmDeletePlan] = useState(false)
 
+	// display create plan
 	const handleClickAddPlan = () => {
 		setDisplayPlanCreate(!displayPlanCreate)
 	}
 
 	const value = {
+		// id for delete Plan
+		idDeletePlan,
+		setIdDeletePlan,
 		// id for edit Plan
 		idEditPlan,
 		// display plan create to edit
@@ -44,17 +52,24 @@ const CalendarLayout = () => {
 		setFinalData,
 	}
 
-	// handle next plan
-	const nextPlan = finalData.filter((plan) => plan.day >= currentDay.getDate())
-	const [planCompleted, setPlanCompleted] = useState(nextPlan)
-
 	// handle edit plan
 	const handleEditPlan = (id) => {
 		setDisplayPlan(true)
 		setIdEditPlan(id)
+		setIdDeletePlan(id)
 	}
 
+	// handle delete Tag
+	const deleteCurrentPlan = () => {
+		const planDeleted = finalData.filter((plan) => plan.id !== idDeletePlan)
+		setFinalData(planDeleted)
+	}
+
+	// handle next plan
+	const nextPlan = finalData.filter((plan) => plan.day >= currentDay.getDate())
+
 	// handelCompleted
+	const [planCompleted, setPlanCompleted] = useState(nextPlan)
 	const handleCompleted = (id) => {
 		setPlanCompleted(
 			nextPlan.map((plan) => {
@@ -65,7 +80,6 @@ const CalendarLayout = () => {
 			})
 		)
 	}
-
 	return (
 		<DayContext.Provider value={currentDay}>
 			<PlanContext.Provider value={value}>
@@ -203,34 +217,65 @@ const CalendarLayout = () => {
 														}
 														key={plan.id}
 														className="detail-next-plan-calendar">
-														<input
-															onClick={() => handleCompleted(plan.id)}
-															type="checkbox"
-															className="checkbox-next-plan-calendar"
-															style={{
-																height: "20px",
-																width: "20px",
-																marginTop: "0px",
-															}}
+														<CheckBox
+															completePlan={() => handleCompleted(plan.id)}
+															id={plan.id}
 														/>
 														<div
-															style={
+															className={
 																plan.completed
-																	? { backgroundColor: "#80E042" }
-																	: {}
-															}
-															className="date-next-plan-calendar">
+																	? "date-next-plan-calendar-completed"
+																	: "date-next-plan-calendar"
+															}>
 															{" "}
-															<p
-																style={{
-																	marginBottom: "4px",
-																	fontSize: "1.2rem",
-																	color: plan.tagChoice.color,
-																}}>
-																{plan.day}/{plan.month + 1} :{" "}
-																{plan.intervalTime}
-															</p>
-															<b>{plan.content}</b>
+															<div>
+																<p
+																	style={{
+																		marginBottom: "4px",
+																		fontSize: "1.2rem",
+																		color: plan.tagChoice.color,
+																	}}>
+																	{plan.day}/{plan.month + 1} :{" "}
+																	{plan.intervalTime}
+																</p>
+																<b>{plan.content}</b>
+															</div>
+															<div className="delete-next-plan-calendar">
+																<RiDeleteBin5Line
+																	cursor={"pointer"}
+																	color={plan.tagChoice.color}
+																	size={26}
+																	onClick={() => {
+																		setIsConfirmDeletePlan(true)
+																		setIdDeletePlan(plan.id)
+																	}}
+																/>
+															</div>
+															{isConfirmDeletePlan && (
+																<div className="accept-delete-plan-container">
+																	<div className="accept-delete-plan-box">
+																		<div className="title-delete-plan__pop-up">
+																			Bạn có chắc muốn hủy kế hoạch này?
+																		</div>
+																		<div className="btn-delete-plan__pop-up">
+																			<button
+																				onClick={() => {
+																					setIsConfirmDeletePlan(false)
+																				}}>
+																				Hủy
+																			</button>
+																			<button
+																				onClick={() => {
+																					deleteCurrentPlan()
+																					setIsConfirmDeletePlan(false)
+																				}}>
+																				{" "}
+																				Xác nhận
+																			</button>
+																		</div>
+																	</div>
+																</div>
+															)}
 														</div>
 													</div>
 												)
