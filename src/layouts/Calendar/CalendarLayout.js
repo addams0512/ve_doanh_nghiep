@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react"
+import React, { createContext, useState, useReducer } from "react"
 import "./CalendarLayout.css"
 import BasicCalendar from "../../components/Calendar/BasicCalendar"
 import { AiOutlineSearch } from "react-icons/ai"
@@ -13,6 +13,7 @@ import FindPlan from "../../components/Calendar/FindPlan"
 
 export const DayContext = createContext()
 export const PlanContext = createContext()
+
 const CalendarLayout = () => {
 	const [displayDay, setDisplayDay] = useState(true)
 	const [displayWeek, setDisplayWeek] = useState(false)
@@ -24,6 +25,7 @@ const CalendarLayout = () => {
 	const [tagPlan, setTagPlan] = useState(tagPlanAPI)
 	const [idEditPlan, setIdEditPlan] = useState()
 	const [displayPlan, setDisplayPlan] = useState(false)
+
 	const handleClickAddPlan = () => {
 		setDisplayPlanCreate(!displayPlanCreate)
 	}

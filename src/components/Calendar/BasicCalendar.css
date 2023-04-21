@@ -93,7 +93,6 @@ abbr[title] {
 .react-calendar__tile--rangeEnd {
 	color: white;
 	background-color: #060606 !important;
-	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 /* custom */
@@ -136,4 +135,8 @@ button.react-calendar__tile.react-calendar__month-view__days__day {
 
 .react-calendar__navigation button[disabled] {
 	background-color: transparent;
+}
+
+.hightlight {
+	color: red !important;
 }
