@@ -8,6 +8,8 @@ const DayLayout = ({ editPlan }) => {
 	const [planInDate, setPlanInDate] = useState()
 	const [showPlan, setShowPlan] = useState(false)
 	const currentDay = (new Date().getDay() + 1) % 7 || 7
+	const [isShowDay, setIsShowDay] = useState(false)
+	console.log({ currentDay })
 	const dayInWeek = [
 		{
 			id: 1,
@@ -49,10 +51,13 @@ const DayLayout = ({ editPlan }) => {
 
 	// handle day in week plan
 	const filterPlanDate = (id) => {
+		setIsShowDay(true)
 		setWeekSelected(
 			dayInWeek.map((day) => {
 				if (id === day.id) {
 					day.filter = !day.filter
+				} else {
+					day.filter = false
 				}
 				return day
 			})
@@ -67,6 +72,14 @@ const DayLayout = ({ editPlan }) => {
 		(plan) => plan.planWeekDate === currentDay
 	)
 
+	//handle btn current day
+	const btnInCurrentDay = dayInWeek.map((btn) => {
+		if (btn.id === currentDay) {
+			btn.filter = !btn.filter
+		}
+		return btn
+	})
+
 	// edit plan
 	const handleEditPlan = (id) => {
 		editPlan(id)
@@ -75,7 +88,7 @@ const DayLayout = ({ editPlan }) => {
 	return (
 		<div>
 			<div className="btn-date-calendar">
-				{weekSelected.map((item) => {
+				{(isShowDay ? weekSelected : btnInCurrentDay).map((item) => {
 					return (
 						<button
 							style={

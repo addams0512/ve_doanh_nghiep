@@ -29,6 +29,7 @@ const CalendarLayout = () => {
 	const handleClickAddPlan = () => {
 		setDisplayPlanCreate(!displayPlanCreate)
 	}
+
 	const value = {
 		// id for edit Plan
 		idEditPlan,
