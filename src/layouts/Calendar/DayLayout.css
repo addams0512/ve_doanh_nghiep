@@ -26,7 +26,9 @@
 	gap: 40px;
 	height: 100px;
 }
-
+.detail-plan-calendar-container:hover {
+	transform: scale(1.2);
+}
 .specific-time-plan-calendar {
 	font-size: 1.8rem;
 	margin-bottom: 20px;

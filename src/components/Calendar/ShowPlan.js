@@ -191,51 +191,6 @@ const ShowPlan = ({ remove }) => {
 		})
 		setFilteringData(dataFilter)
 	}
-
-	// partnerChoices with key
-	function handleKeyDown(event) {
-		if (event.keyCode === 38) {
-			console.log("hello")
-			// up arrow
-			setSelectedIndex((prevIndex) => {
-				if (prevIndex === 0) {
-					return 0
-				} else {
-					return prevIndex - 1
-				}
-			})
-		} else if (event.keyCode === 40) {
-			// down arrow
-			setSelectedIndex((prevIndex) => {
-				if (prevIndex === filteringData.length - 1) {
-					return 0
-				} else {
-					return prevIndex + 1
-				}
-			})
-		} else if (event.keyCode === 13) {
-			setUserData(
-				filteringData.map((user, index) => {
-					if (index === selectedIndex) {
-						user.chosen = !user.chosen
-					}
-					return user
-				})
-			)
-			const existingUser = selectedUsers.find(
-				(user, index) => selectedIndex === index
-			)
-			if (existingUser) {
-				return selectedUsers.filter(
-					(user, index) => user.id !== existingUser.id
-				)
-			}
-			const newUser = filteringData.find(
-				(user, index) => index === selectedIndex
-			)
-			selectedUsers.push(newUser)
-		}
-	}
 	const selected = selectedUsers.filter((s) => {
 		return s.chosen
 	})
@@ -297,7 +252,6 @@ const ShowPlan = ({ remove }) => {
 		setFinalData(updateData)
 		remove()
 	}
-
 	// delete plan
 	const deleteCurrentPlan = () => {
 		// const deletePlan = finalData.filter((plan) => plan.id !== idDeletePlan)
@@ -310,7 +264,9 @@ const ShowPlan = ({ remove }) => {
 	}
 
 	return (
-		<div className="create-plan-container">
+		<div
+			onClick={() => remove()}
+			className="create-plan-container">
 			<div className="create-plan-box">
 				<div className="create-plan-btn">Tạo kế hoạch</div>
 				<input
@@ -651,7 +607,6 @@ const ShowPlan = ({ remove }) => {
 										<BiSearch size={20} />
 									</div>
 									<input
-										onKeyDown={handleKeyDown}
 										onChange={(e) => filterData(e.target.value)}
 										type="text"
 										placeholder="Tìm bạn"

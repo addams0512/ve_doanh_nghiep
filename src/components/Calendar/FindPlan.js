@@ -90,9 +90,10 @@ const FindPlan = ({ showChoicePlan }) => {
 										index === selectedIndex
 											? {
 													cursor: "pointer",
-													transform: "scale(1.1)",
-													paddingLeft: "30px",
+													overflowX: "hidden",
+													paddingLeft: "20px",
 													fontWeight: "bold",
+													wordBreak: "break-all",
 											  }
 											: {}
 									}

@@ -5,10 +5,11 @@ import { PlanContext } from "./CalendarLayout"
 
 const DayLayout = ({ editPlan }) => {
 	const { filterPlanInWeek } = useContext(PlanContext)
-	const [planInDate, setPlanInDate] = useState()
 	const [showPlan, setShowPlan] = useState(false)
 	const currentDay = (new Date().getDay() + 1) % 7 || 7
 	const [isShowDay, setIsShowDay] = useState(false)
+	const [planInDate, setPlanInDate] = useState()
+
 	const dayInWeek = [
 		{
 			id: 1,
@@ -62,10 +63,10 @@ const DayLayout = ({ editPlan }) => {
 			})
 		)
 		setShowPlan(true)
-		const planInDate = filterPlanInWeek.filter(
+		const planInDate2 = filterPlanInWeek.filter(
 			(plan) => id === plan.planWeekDate
 		)
-		setPlanInDate(planInDate)
+		setPlanInDate(planInDate2)
 	}
 
 	// handle current day
@@ -81,7 +82,7 @@ const DayLayout = ({ editPlan }) => {
 		return btn
 	})
 
-	// edit plan
+	// edit-delete plan
 	const handleEditPlan = (id) => {
 		editPlan(id)
 	}
@@ -109,7 +110,6 @@ const DayLayout = ({ editPlan }) => {
 					{(showPlan ? planInDate : planInCurrentDate).map((item) => {
 						return (
 							<div
-								title="Double click để xem chi tiết về kế hoạch này"
 								key={item.id}
 								onClick={() => handleEditPlan(item.id)}
 								className="detail-plan-calendar-container">

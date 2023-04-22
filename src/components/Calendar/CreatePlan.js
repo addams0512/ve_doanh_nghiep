@@ -298,7 +298,9 @@ const CreatePlan = ({ remove }) => {
 	}
 
 	return (
-		<div className="create-plan-container">
+		<div
+			onClick={() => remove()}
+			className="create-plan-container">
 			{loading ? (
 				<div className="loading">
 					<DotSpinner

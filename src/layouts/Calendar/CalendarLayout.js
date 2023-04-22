@@ -30,7 +30,6 @@ const CalendarLayout = () => {
 	const [displayPlan, setDisplayPlan] = useState(false)
 	const [idDeletePlan, setIdDeletePlan] = useState("")
 	const [isConfirmDeletePlan, setIsConfirmDeletePlan] = useState(false)
-
 	// sun is startDate and sat is the endDate
 	const startDate = new Date(
 		currentDay.getTime() - currentDay.getDay() * 24 * 60 * 60 * 1000
@@ -41,10 +40,17 @@ const CalendarLayout = () => {
 	const startDay = startDate.getDate() + 1
 	const endDay = endDate.getDate() + 1
 
+	// deletePlan from show Plan
+	// const deletePlan = () => {
+	// 	const planDeleted = finalData.filter((item) => item.id !== idDeletePlan)
+	// 	setFinalData(planDeleted)
+	// }
+
 	// filter date in week
 	const filterPlanInWeek = finalData.filter(
 		(plan) => plan.day >= startDay && plan.day <= endDay
 	)
+	// const [filterPlanInWeek, setFilterPlanInWeek] = useState(filterPlan)
 
 	// display create plan
 	const handleClickAddPlan = () => {
@@ -57,7 +63,7 @@ const CalendarLayout = () => {
 		// id for delete Plan
 		idDeletePlan,
 		setIdDeletePlan,
-		// id for edit Plan
+		// id for edit Pl an
 		idEditPlan,
 		// display plan create to edit
 		displayPlan,
@@ -318,7 +324,12 @@ const CalendarLayout = () => {
 					{displayPlanCreate && (
 						<CreatePlan remove={() => setDisplayPlanCreate(false)} />
 					)}
-					{displayPlan && <ShowPlan remove={() => setDisplayPlan(false)} />}
+					{displayPlan && (
+						<ShowPlan
+							remove={() => setDisplayPlan(false)}
+							// deletePlan={deletePlan}
+						/>
+					)}
 				</div>
 			</PlanContext.Provider>
 		</DayContext.Provider>
