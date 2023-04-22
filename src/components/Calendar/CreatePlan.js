@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useReducer } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import "./CreatePlan.css"
 import { IoLocationSharp } from "react-icons/io5"
 import { BsFillPersonFill } from "react-icons/bs"
@@ -7,12 +7,13 @@ import { BiSearch } from "react-icons/bi"
 import { GrHistory } from "react-icons/gr"
 import BasicCalendar from "./BasicCalendar"
 import moment from "moment"
-import { DayContext, PlanContext } from "../../layouts/Calendar/CalendarLayout"
+import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
 import instance from "../../data/instance"
 import { RiDeleteBack2Line, RiChatDeleteLine } from "react-icons/ri"
 import { ChromePicker } from "react-color"
 import { HiPlusSmall } from "react-icons/hi2"
-import { BiLoaderCircle } from "react-icons/bi"
+
+import { DotSpinner } from "@uiball/loaders"
 
 const CreatePlan = ({ remove }) => {
 	const { finalData, setFinalData, tagPlan, setTagPlan } =
@@ -36,6 +37,8 @@ const CreatePlan = ({ remove }) => {
 	const [selectedIndex, setSelectedIndex] = useState(0)
 	const [idDelete, setIdDelete] = useState("")
 	const [confirmDeleteTag, setConfirmDeleteTag] = useState(false)
+	// tag chosen for delete
+	const tagDelete = tagPlan[idDelete]
 	// get day - month - year
 	const day = dayPicker.getDate()
 	const month = dayPicker.getMonth()
@@ -299,9 +302,10 @@ const CreatePlan = ({ remove }) => {
 		<div className="create-plan-container">
 			{loading ? (
 				<div className="loading">
-					<BiLoaderCircle
+					<DotSpinner
 						size={100}
-						color="white"
+						speed={0.8}
+						color="#ccc"
 					/>
 				</div>
 			) : (
@@ -409,8 +413,19 @@ const CreatePlan = ({ remove }) => {
 											{confirmDeleteTag && (
 												<div className="accept-delete-tag-container">
 													<div className="accept-delete-tag-box">
-														<div className="title-delete-tag__pop-up">
-															Bạn có chắc muốn hủy tag này?
+														<b className="title-delete-tag__pop-up">
+															Bạn có chắc chắn muốn hủy tag này?
+														</b>
+														<div className="tag-delete__pop-up">
+															<div
+																style={{
+																	backgroundColor: tagDelete.color,
+																}}
+																className="tag-type-create-plan"></div>
+															<div className="content-type-create-plan">
+																{" "}
+																{tagDelete.type}
+															</div>
 														</div>
 														<div className="btn-delete-tag__pop-up">
 															<button

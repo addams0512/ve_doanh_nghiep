@@ -51,6 +51,9 @@ const ShowPlan = ({ remove }) => {
 	const [isEditTag, setIsEditTag] = useState(true)
 	const [selectedIndex, setSelectedIndex] = useState(0)
 	const [confirmDeletePlan, setIsConfirmDeletePlan] = useState(false)
+	const [confirmDeleteTag, setConfirmDeleteTag] = useState(false)
+	const [idDelete, setIdDelete] = useState("")
+	const tagDelete = tagPlan[idDelete]
 
 	// get day - month - year
 	const day = dayPicker.getDate()
@@ -410,9 +413,48 @@ const ShowPlan = ({ remove }) => {
 										</div>
 										<RiDeleteBack2Line
 											style={{ cursor: "pointer" }}
-											onClick={() => deleteTag(item.id)}
+											onClick={() => {
+												setIdDelete(item.id)
+												setConfirmDeleteTag(true)
+											}}
 											color="red"
 										/>
+										{confirmDeleteTag && (
+											<div className="accept-delete-tag-container">
+												<div className="accept-delete-tag-box">
+													<b className="title-delete-tag__pop-up">
+														Bạn có chắc chắn muốn hủy tag này?
+													</b>
+													<div className="tag-delete__pop-up">
+														<div
+															style={{
+																backgroundColor: tagDelete.color,
+															}}
+															className="tag-type-create-plan"></div>
+														<div className="content-type-create-plan">
+															{" "}
+															{tagDelete.type}
+														</div>
+													</div>
+													<div className="btn-delete-tag__pop-up">
+														<button
+															onClick={() => {
+																setConfirmDeleteTag(false)
+															}}>
+															Hủy
+														</button>
+														<button
+															onClick={() => {
+																deleteTag(item.id)
+																setConfirmDeleteTag(false)
+															}}>
+															{" "}
+															Xác nhận
+														</button>
+													</div>
+												</div>
+											</div>
+										)}
 									</div>
 								)
 							})}
@@ -654,7 +696,7 @@ const ShowPlan = ({ remove }) => {
 								})}
 							</div>
 							<div className="go-to-palace-btn-bottom">
-								<div className="go-to-palace-btn-cacel">
+								<div className="go-to-palace-btn-cancel">
 									<button
 										onClick={() => setOpenFileGoToPlace(false)}
 										className="go-to-palace-form-btn-cancel">
