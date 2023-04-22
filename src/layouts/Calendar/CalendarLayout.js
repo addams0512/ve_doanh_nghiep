@@ -12,6 +12,7 @@ import ShowPlan from "../../components/Calendar/ShowPlan"
 import FindPlan from "../../components/Calendar/FindPlan"
 import CheckBox from "../../components/CheckBox"
 import { RiDeleteBin5Line } from "react-icons/ri"
+import { CompareSharp } from "@material-ui/icons"
 
 export const DayContext = createContext()
 export const PlanContext = createContext()
@@ -30,12 +31,29 @@ const CalendarLayout = () => {
 	const [idDeletePlan, setIdDeletePlan] = useState("")
 	const [isConfirmDeletePlan, setIsConfirmDeletePlan] = useState(false)
 
+	// sun is startDate and sat is the endDate
+	const startDate = new Date(
+		currentDay.getTime() - currentDay.getDay() * 24 * 60 * 60 * 1000
+	)
+	const endDate = new Date(startDate.getTime() + 6 * 24 * 60 * 60 * 1000)
+
+	// mon is startDay and sun is endDay
+	const startDay = startDate.getDate() + 1
+	const endDay = endDate.getDate() + 1
+
+	// filter date in week
+	const filterPlanInWeek = finalData.filter(
+		(plan) => plan.day >= startDay && plan.day <= endDay
+	)
+
 	// display create plan
 	const handleClickAddPlan = () => {
 		setDisplayPlanCreate(!displayPlanCreate)
 	}
 
 	const value = {
+		// plan in week
+		filterPlanInWeek,
 		// id for delete Plan
 		idDeletePlan,
 		setIdDeletePlan,

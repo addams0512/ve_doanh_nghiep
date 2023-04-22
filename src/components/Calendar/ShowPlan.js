@@ -22,7 +22,6 @@ const ShowPlan = ({ remove }) => {
 		setTagPlan,
 		idEditPlan,
 		idDeletePlan,
-		setIdDeletePlan,
 	} = useContext(PlanContext)
 
 	// plan edited

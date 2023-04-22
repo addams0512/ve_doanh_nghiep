@@ -28,7 +28,7 @@ const planAPI = [
 		note: "Nhớ mua quà",
 		partner: [{ username: "Bồ", id: 12, chosen: "true" }],
 		planTime: 2,
-		planWeekDate: 6,
+		planWeekDate: 7,
 		tagChoice: { id: 4, color: "#4E49F5", type: "Người yêu" },
 		timePicker: "02:00",
 		year: 2023,

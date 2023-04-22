@@ -3,7 +3,7 @@ import "./WeekLayout.css"
 import { PlanContext } from "./CalendarLayout"
 import { RxAvatar } from "react-icons/rx"
 const WeekLayout = ({ editPlan }) => {
-	const { finalData } = useContext(PlanContext)
+	const { filterPlanInWeek } = useContext(PlanContext)
 	const day = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
 	const plan = Array.from({ length: 25 * 7 }, (v, i) => {
 		return {
@@ -54,7 +54,7 @@ const WeekLayout = ({ editPlan }) => {
 					</div>
 					<div className="plan-week__layout-container">
 						{plan.map((item) => {
-							const matchingPlan = finalData.find(
+							const matchingPlan = filterPlanInWeek.find(
 								(plan) =>
 									(item.id % 7 === 0 ? 7 : item.id % 7) === plan.planWeekDate &&
 									(item.id % 7 === 0
