@@ -207,54 +207,53 @@ const CreatePlan = ({ remove }) => {
 			return [...selectedUsers, newUser]
 		})
 	}
-
-	// partnerChoices with key
-	function handleKeyDown(event) {
-		if (event.keyCode === 38) {
-			// up arrow
-			setSelectedIndex((prevIndex) => {
-				if (prevIndex === 0) {
-					return 0
-				} else {
-					return prevIndex - 1
-				}
-			})
-		} else if (event.keyCode === 40) {
-			// down arrow
-			setSelectedIndex((prevIndex) => {
-				if (prevIndex === filteringData.length - 1) {
-					return 0
-				} else {
-					return prevIndex + 1
-				}
-			})
-		} else if (event.keyCode === 13) {
-			setUserData(
-				filteringData.map((user, index) => {
-					if (index === selectedIndex) {
-						user.chosen = !user.chosen
-					}
-					return user
-				})
-			)
-			const existingUser = selectedUsers.find(
-				(user, index) => selectedIndex === index
-			)
-			if (existingUser) {
-				return selectedUsers.filter(
-					(user, index) => user.id !== existingUser.id
-				)
-			}
-			const newUser = filteringData.find(
-				(user, index) => index === selectedIndex
-			)
-			selectedUsers.push(newUser)
-		}
-	}
-
 	const selected = selectedUsers.filter((s) => {
 		return s.chosen
 	})
+
+	// partnerChoices with key
+	// function handleKeyDown(event) {
+	// 	if (event.keyCode === 38) {
+	// 		// up arrow
+	// 		setSelectedIndex((prevIndex) => {
+	// 			if (prevIndex === 0) {
+	// 				return 0
+	// 			} else {
+	// 				return prevIndex - 1
+	// 			}
+	// 		})
+	// 	} else if (event.keyCode === 40) {
+	// 		// down arrow
+	// 		setSelectedIndex((prevIndex) => {
+	// 			if (prevIndex === filteringData.length - 1) {
+	// 				return 0
+	// 			} else {
+	// 				return prevIndex + 1
+	// 			}
+	// 		})
+	// 	} else if (event.keyCode === 13) {
+	// 		setUserData(
+	// 			filteringData.map((user, index) => {
+	// 				if (index === selectedIndex) {
+	// 					user.chosen = !user.chosen
+	// 				}
+	// 				return user
+	// 			})
+	// 		)
+	// 		const existingUser = selectedUsers.find(
+	// 			(user, index) => selectedIndex === index
+	// 		)
+	// 		if (existingUser) {
+	// 			return selectedUsers.filter(
+	// 				(user, index) => user.id !== existingUser.id
+	// 			)
+	// 		}
+	// 		const newUser = filteringData.find(
+	// 			(user, index) => index === selectedIndex
+	// 		)
+	// 		selectedUsers.push(newUser)
+	// 	}
+	// }
 
 	// get Notices data
 	const noticeData = (e) => {
@@ -600,7 +599,7 @@ const CreatePlan = ({ remove }) => {
 											<BiSearch size={20} />
 										</div>
 										<input
-											onKeyDown={handleKeyDown}
+											// onKeyDown={handleKeyDown}
 											onChange={(e) => filterData(e.target.value)}
 											type="text"
 											placeholder="Tìm bạn"
