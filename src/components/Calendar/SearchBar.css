@@ -1,0 +1,59 @@
+.btn-search-calendar {
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+	padding-left: 20px;
+	background-color: #f6f6f6;
+	height: 40px;
+	width: 320px;
+	gap: 10px;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.btn-search-calendar input {
+	font-size: 1.2rem;
+	width: 100%;
+	background-color: #f6f6f6;
+	border: none;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn-search-calendar input:focus-within {
+	outline: none;
+}
+
+.no-autocomplete {
+	color: #999;
+	padding: 8px;
+}
+
+.autocomplete {
+	font-size: 1.2rem;
+	position: absolute;
+	top: 42px;
+	left: 0;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	list-style: none;
+	max-height: 143px;
+	overflow-y: auto;
+	width: 320px;
+	z-index: 9999;
+	background-color: #f6f6f6;
+}
+
+.autocomplete li {
+	padding: 8px;
+}
+
+.autocomplete li:hover {
+	background-color: #ccc;
+	cursor: pointer;
+	font-weight: 700;
+}
+
+.isactive {
+	background-color: #ccc;
+}

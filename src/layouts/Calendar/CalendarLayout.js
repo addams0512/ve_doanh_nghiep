@@ -1,7 +1,6 @@
-import React, { createContext, useState, useReducer, useEffect } from "react"
+import React, { createContext, useState } from "react"
 import "./CalendarLayout.css"
 import BasicCalendar from "../../components/Calendar/BasicCalendar"
-import { AiOutlineSearch } from "react-icons/ai"
 import DayLayout from "./DayLayout"
 import MonthLayout from "./MonthLayout"
 import WeekLayout from "./WeekLayout"
@@ -9,10 +8,9 @@ import YearLayout from "./YearLayout"
 import CreatePlan from "../../components/Calendar/CreatePlan"
 import { planAPI, tagPlanAPI } from "../../data/planAPI"
 import ShowPlan from "../../components/Calendar/ShowPlan"
-import FindPlan from "../../components/Calendar/FindPlan"
+import SearchBar from "../../components/Calendar/SearchBar"
 import CheckBox from "../../components/CheckBox"
 import { RiDeleteBin5Line } from "react-icons/ri"
-import { CompareSharp } from "@material-ui/icons"
 
 export const DayContext = createContext()
 export const PlanContext = createContext()
@@ -40,17 +38,10 @@ const CalendarLayout = () => {
 	const startDay = startDate.getDate() + 1
 	const endDay = endDate.getDate() + 1
 
-	// deletePlan from show Plan
-	// const deletePlan = () => {
-	// 	const planDeleted = finalData.filter((item) => item.id !== idDeletePlan)
-	// 	setFinalData(planDeleted)
-	// }
-
 	// filter date in week
 	const filterPlanInWeek = finalData.filter(
 		(plan) => plan.day >= startDay && plan.day <= endDay
 	)
-	// const [filterPlanInWeek, setFilterPlanInWeek] = useState(filterPlan)
 
 	// display create plan
 	const handleClickAddPlan = () => {
@@ -89,10 +80,6 @@ const CalendarLayout = () => {
 		setFinalData(planDeleted)
 	}
 
-	// useEffect(() => {
-
-	// },[finalData])
-
 	// handle next plan
 	const nextPlan = finalData.filter((plan) => plan.day >= currentDay.getDate())
 
@@ -108,6 +95,13 @@ const CalendarLayout = () => {
 			})
 		)
 	}
+
+	// array to search
+	const searchArray = finalData.map((plan) => {
+		const { id, content } = plan
+		return { id, content }
+	})
+
 	return (
 		<DayContext.Provider value={currentDay}>
 			<PlanContext.Provider value={value}>
@@ -190,7 +184,13 @@ const CalendarLayout = () => {
 								</button>
 							</div>
 							<div className="container-box2-plan">
-								<FindPlan showChoicePlan={(id) => handleEditPlan(id)} />
+								<SearchBar
+									name="Tìm kế hoạch của bạn"
+									suggestions={searchArray}
+									showChoicePlan={(id) => {
+										handleEditPlan(id)
+									}}
+								/>
 							</div>
 						</div>
 					</div>
@@ -235,7 +235,7 @@ const CalendarLayout = () => {
 											Kế hoạch sắp tới
 										</div>
 										<div className="detail-next-plan-calendar-container">
-											{nextPlan.map((plan) => {
+											{planCompleted.map((plan) => {
 												return (
 													<div
 														style={

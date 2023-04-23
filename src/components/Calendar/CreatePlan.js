@@ -91,25 +91,6 @@ const CreatePlan = ({ remove }) => {
 	// Partner form
 	function showfilegotoplace() {
 		setOpenFileGoToPlace(!openGoToPlace)
-		// userDispatch({
-		// 	type: "GET_PLAN_REQUEST",
-		// })
-
-		// instance
-		// 	.get("/users")
-		// 	.then((res) => {
-		// 		userDispatch({
-		// 			type: "GET_PLAN_SUCCESS",
-		// 			data: res,
-		// 		})
-		// 	})
-		// 	.then((res) => console.log({ res }))
-		// 	.catch((e) => {
-		// 		userDispatch({
-		// 			type: "GET_PLAN_ERROR",
-		// 			data: e,
-		// 		})
-		// 	})
 	}
 
 	const deleteTag = (id) => {
@@ -212,48 +193,6 @@ const CreatePlan = ({ remove }) => {
 	})
 
 	// partnerChoices with key
-	// function handleKeyDown(event) {
-	// 	if (event.keyCode === 38) {
-	// 		// up arrow
-	// 		setSelectedIndex((prevIndex) => {
-	// 			if (prevIndex === 0) {
-	// 				return 0
-	// 			} else {
-	// 				return prevIndex - 1
-	// 			}
-	// 		})
-	// 	} else if (event.keyCode === 40) {
-	// 		// down arrow
-	// 		setSelectedIndex((prevIndex) => {
-	// 			if (prevIndex === filteringData.length - 1) {
-	// 				return 0
-	// 			} else {
-	// 				return prevIndex + 1
-	// 			}
-	// 		})
-	// 	} else if (event.keyCode === 13) {
-	// 		setUserData(
-	// 			filteringData.map((user, index) => {
-	// 				if (index === selectedIndex) {
-	// 					user.chosen = !user.chosen
-	// 				}
-	// 				return user
-	// 			})
-	// 		)
-	// 		const existingUser = selectedUsers.find(
-	// 			(user, index) => selectedIndex === index
-	// 		)
-	// 		if (existingUser) {
-	// 			return selectedUsers.filter(
-	// 				(user, index) => user.id !== existingUser.id
-	// 			)
-	// 		}
-	// 		const newUser = filteringData.find(
-	// 			(user, index) => index === selectedIndex
-	// 		)
-	// 		selectedUsers.push(newUser)
-	// 	}
-	// }
 
 	// get Notices data
 	const noticeData = (e) => {
@@ -306,7 +245,7 @@ const CreatePlan = ({ remove }) => {
 	}
 	useEffect(() => {
 		document.addEventListener("click", handleClickOutSide, true)
-	}, [])
+	})
 
 	return (
 		<div className="create-plan-container">
