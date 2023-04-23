@@ -20,6 +20,19 @@
 	display: flex;
 	position: relative;
 	flex-direction: column;
+	animation-name: rotate;
+	animation-duration: 0.6s;
+}
+
+@keyframes rotate {
+	0% {
+		transform: translateX(-200px);
+		opacity: 0.6;
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
 }
 
 .create-plan-btn {

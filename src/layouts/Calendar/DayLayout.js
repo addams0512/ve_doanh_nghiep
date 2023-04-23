@@ -7,6 +7,7 @@ const DayLayout = ({ editPlan }) => {
 	const { filterPlanInWeek } = useContext(PlanContext)
 	const [showPlan, setShowPlan] = useState(false)
 	const currentDay = (new Date().getDay() + 1) % 7 || 7
+	const [currentId, setCurrentId] = useState("")
 	const [isShowDay, setIsShowDay] = useState(false)
 	const [planInDate, setPlanInDate] = useState()
 
@@ -63,11 +64,11 @@ const DayLayout = ({ editPlan }) => {
 			})
 		)
 		setShowPlan(true)
-		const planInDate2 = filterPlanInWeek.filter(
-			(plan) => id === plan.planWeekDate
-		)
-		setPlanInDate(planInDate2)
 	}
+
+	const planInDate2 = filterPlanInWeek.filter(
+		(plan) => currentId === plan.planWeekDate
+	)
 
 	// handle current day
 	const planInCurrentDate = filterPlanInWeek.filter(
@@ -97,7 +98,8 @@ const DayLayout = ({ editPlan }) => {
 								item.filter ? { backgroundColor: "black", color: "white" } : {}
 							}
 							onClick={() => {
-								filterPlanDate(item.id)
+								filterPlanDate()
+								setCurrentId(item.id)
 							}}
 							key={item.id}>
 							{item.name}
@@ -107,7 +109,7 @@ const DayLayout = ({ editPlan }) => {
 			</div>
 			<div className="plan-calendar">
 				<div className="plan-calendar-container">
-					{(showPlan ? planInDate : planInCurrentDate).map((item) => {
+					{(showPlan ? planInDate2 : planInCurrentDate).map((item) => {
 						return (
 							<div
 								key={item.id}

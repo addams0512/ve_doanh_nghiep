@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import "./CreatePlan.css"
 import { IoLocationSharp } from "react-icons/io5"
 import { BsFillPersonFill } from "react-icons/bs"
@@ -263,11 +263,22 @@ const ShowPlan = ({ remove }) => {
 		)
 	}
 
+	// out side click
+	const refOne = useRef(null)
+	const handleClickOutSide = (e) => {
+		if (refOne.current && !refOne.current.contains(e.target)) {
+			remove()
+		}
+	}
+
+	useEffect(() => {
+		document.addEventListener("click", handleClickOutSide, true)
+	}, [])
 	return (
-		<div
-			onClick={() => remove()}
-			className="create-plan-container">
-			<div className="create-plan-box">
+		<div className="create-plan-container">
+			<div
+				ref={refOne}
+				className="create-plan-box">
 				<div className="create-plan-btn">Tạo kế hoạch</div>
 				<input
 					onChange={(e) => {

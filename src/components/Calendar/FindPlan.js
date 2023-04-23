@@ -1,13 +1,14 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import { AiOutlineSearch } from "react-icons/ai"
 import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
 import "./FindPlan.css"
 
 const FindPlan = ({ showChoicePlan }) => {
-	const { finalData, setFinalData } = useContext(PlanContext)
+	const { finalData } = useContext(PlanContext)
 	const [filterData, setFilterData] = useState([])
 	const [isShowPlan, setIsShowPlan] = useState(false)
 	const [selectedIndex, setSelectedIndex] = useState(0)
+	const findNext = useRef(null)
 
 	const showPlan = (e) => {
 		setIsShowPlan(true)
@@ -22,6 +23,12 @@ const FindPlan = ({ showChoicePlan }) => {
 		)
 		setFilterData(dataFilter)
 	}
+
+	useEffect(() => {
+		if (selectedIndex === 3) {
+			findNext.current?.scrollIntoView({ behavior: "smooth" })
+		}
+	}, [selectedIndex])
 
 	const planChoice = (id) => {
 		setIsShowPlan(false)
@@ -76,7 +83,9 @@ const FindPlan = ({ showChoicePlan }) => {
 						onClick={handleOutsideClick}
 						className="result-outside-click-search-plan"
 					/>
-					<div className="result-search-plan">
+					<div
+						ref={findNext}
+						className="result-search-plan">
 						{(filterData || finalData).map((plan, index) => (
 							<div
 								key={plan.id}

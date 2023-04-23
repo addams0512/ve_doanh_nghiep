@@ -1,4 +1,4 @@
-import React, { createContext, useState, useReducer } from "react"
+import React, { createContext, useState, useReducer, useEffect } from "react"
 import "./CalendarLayout.css"
 import BasicCalendar from "../../components/Calendar/BasicCalendar"
 import { AiOutlineSearch } from "react-icons/ai"
@@ -88,6 +88,10 @@ const CalendarLayout = () => {
 		const planDeleted = finalData.filter((plan) => plan.id !== idDeletePlan)
 		setFinalData(planDeleted)
 	}
+
+	// useEffect(() => {
+
+	// },[finalData])
 
 	// handle next plan
 	const nextPlan = finalData.filter((plan) => plan.day >= currentDay.getDate())
