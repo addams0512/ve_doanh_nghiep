@@ -26,6 +26,9 @@
 	background-color: white;
 	border: none;
 	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 .add-business-create-file-business-body-tittle {
 	height: 50px;
@@ -35,46 +38,32 @@
 .add-business-create-file-business-body-tittle-info {
 	font-size: 20px;
 	font-weight: 600;
+	display: flex;
+	align-items: center;
+	height: 50px;
 }
-.add-business-create-file-business-body-porfile-personal {
-	height: auto;
 
-	margin-top: 20px;
-}
-.add-business-create-file-business-body-profile {
+/* form */
+.form-business-information {
 	display: flex;
+	flex-direction: column;
+	gap: 20px;
 }
-.add-business-create-file-business-name-profile {
-	font-size: 17px;
-}
-.add-business-create-file-business-compulsory {
-	color: red;
-	margin-left: 3px;
-}
-.add-business-create-file-business-info {
-	padding: 5px;
-	margin-top: 5px;
-	width: 99%;
-	border-radius: 7px;
-	border: 1px solid rgb(200, 196, 196);
-	font-size: 15px;
-}
-.add-business-create-file-business-info:focus {
-	outline: none;
-}
-.add-business-create-file-business-body-porfile-address {
+.input-business-information {
 	display: flex;
+	flex-direction: column;
+	gap: 6px;
 }
-.add-business-create-file-business-address-info {
-	padding: 5px;
-	font-size: 15px;
-	border: 1px solid rgb(200, 196, 196);
-	border-radius: 7px;
-	width: 186px;
-	margin-top: 5px;
+.input-business-information input {
+	height: 30px;
+	border-radius: 10px;
+	padding-left: 10px;
+	border: 1px solid #ccc;
 }
-.add-business-create-file-business-address-info:focus {
-	outline: none;
+
+.district-ward-container {
+	display: flex;
+	justify-content: space-between;
 }
 .add-business-create-file-business-info-describe {
 	margin-top: 5px;
@@ -100,12 +89,6 @@
 	background: transparent;
 	border-radius: 10px;
 }
-.add-business-create-file-business-bottom {
-	height: auto;
-	margin-top: 20px;
-
-	display: flex;
-}
 .add-business-create-file-business-btn {
 	height: 30px;
 	width: 90px;
@@ -121,6 +104,7 @@
 	background-color: black;
 	color: white;
 }
+
 /* tạo doanh nghiệp page 2 */
 .add-business-create-file-business-page-2 {
 	width: 100%;

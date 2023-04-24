@@ -9,8 +9,8 @@ function UploadImage(props) {
 	let { containerName, imgContainer, editContainer, imgClassName } = props
 	const [img, setImg] = useState()
 	const presetKey = ""
-	const [showImage, setShowImage] = useState(true)
-	const [imageAlt, setImageAlt] = useState(false)
+	const [showImage, setShowImage] = useState(false)
+	const [imageAlt, setImageAlt] = useState(true)
 	const uploadImage = (e) => {
 		const file = e.target.files[0]
 		const server = ""

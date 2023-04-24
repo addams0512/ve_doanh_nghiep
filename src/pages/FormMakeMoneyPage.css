@@ -1,10 +1,10 @@
 .calendar-page {
-  display: grid;
-  grid-template-columns: 300px 1300px;
-  overflow: hidden;
+	display: grid;
+	grid-template-columns: 300px 1300px;
+	overflow: hidden;
 }
 .form-make-money-page {
-  display: grid;
-  grid-template-columns: 300px 1300px;
-  overflow: hidden;
+	display: grid;
+	grid-template-columns: 300px 1300px;
+	overflow: hidden;
 }
