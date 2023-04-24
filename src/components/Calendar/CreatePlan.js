@@ -14,12 +14,6 @@ import { RiDeleteBack2Line, RiChatDeleteLine } from "react-icons/ri";
 import { ChromePicker } from "react-color";
 import { HiPlusSmall } from "react-icons/hi2";
 
-<<<<<<< Updated upstream
-// import { DotSpinner } from "@uiball/loaders";
-=======
-// import { DotSpinner } from "@uiball/loaders"
->>>>>>> Stashed changes
-
 const CreatePlan = ({ remove }) => {
   const { finalData, setFinalData, tagPlan, setTagPlan } =
     useContext(PlanContext);
