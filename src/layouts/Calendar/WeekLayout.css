@@ -9,6 +9,7 @@
 	display: flex;
 	position: relative;
 	background-color: #f6f6f6;
+	overflow-x: auto;
 }
 
 .time-week__layout-container {
