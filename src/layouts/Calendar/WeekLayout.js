@@ -69,6 +69,7 @@ const WeekLayout = ({ editPlan }) => {
 										<div
 											onClick={() => showEditPlan(matchingPlan.id)}
 											style={{
+												cursor: "pointer",
 												boxShadow: `${matchingPlan.tagChoice?.color} 0px 4px 8px -2px, ${matchingPlan.tagChoice?.color} 0px 0px 0px 1px `,
 											}}
 											className="box-specific-plan-week__container">

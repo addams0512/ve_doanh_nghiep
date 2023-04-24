@@ -82,7 +82,7 @@ const CalendarLayout = () => {
 
 	// handle next plan
 	const nextPlan = finalData.filter((plan) => plan.day >= currentDay.getDate())
-
+	console.log({ nextPlan })
 	// handelCompleted
 	const [planCompleted, setPlanCompleted] = useState(nextPlan)
 	const handleCompleted = (id) => {
@@ -235,7 +235,7 @@ const CalendarLayout = () => {
 											Kế hoạch sắp tới
 										</div>
 										<div className="detail-next-plan-calendar-container">
-											{planCompleted.map((plan) => {
+											{nextPlan.map((plan) => {
 												return (
 													<div
 														style={

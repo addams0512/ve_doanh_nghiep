@@ -124,7 +124,7 @@ const DayLayout = ({ editPlan }) => {
 										style={{ backgroundColor: item.tagChoice?.color }}
 										className="tag-detail-plan-calendar"></div>
 									<div
-										style={{ color: item.tagChoice?.color }}
+										style={{ cursor: "pointer", color: item.tagChoice?.color }}
 										className="detail-description-plan-calendar">
 										<div className="title-detail-plan-calendar">
 											{item.content}

@@ -194,6 +194,7 @@ const ShowPlan = ({ remove }) => {
 	const selected = selectedUsers.filter((s) => {
 		return s.chosen
 	})
+
 	// partnerChoices
 	const toggleUserSelection = (id) => {
 		setUserData(
@@ -252,6 +253,7 @@ const ShowPlan = ({ remove }) => {
 		setFinalData(updateData)
 		remove()
 	}
+
 	// delete plan
 	const deleteCurrentPlan = () => {
 		// const deletePlan = finalData.filter((plan) => plan.id !== idDeletePlan)
