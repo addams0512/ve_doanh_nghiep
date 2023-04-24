@@ -2,7 +2,7 @@
 	border-radius: 40px;
 	margin-top: 20px;
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-	width: 1070px;
+	width: 900px;
 	height: 930px;
 	overflow: auto;
 	margin-bottom: 20px;
@@ -25,14 +25,18 @@
 }
 
 .week-layout-edit-timeColumn {
-	padding: 10px;
+	padding: 10px 10px 10px 0px;
 	font-size: 1.2rem;
 	height: fit-content;
 }
 
 .week-layout-edit-timeOption {
+	position: sticky;
+	left: 0;
+	z-index: 9999;
 	height: 200px;
 	padding: 6px 0 10px 10px;
+	background-color: #f6f6f6;
 }
 
 .plan-time-week__layout-container {
@@ -50,6 +54,7 @@
 	align-items: center;
 	font-size: 1.2rem;
 	border-right: 1px solid #ccc;
+
 	justify-content: center;
 }
 .plan-week__layout-container {
