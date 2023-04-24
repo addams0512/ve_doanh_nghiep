@@ -11,6 +11,8 @@
 
 .main-your-business {
 	overflow-x: auto;
+	height: 780px;
+	overflow-y: scroll;
 }
 
 .title-your-business-container {
@@ -37,6 +39,7 @@
 }
 
 .create-your-business-btn {
+	height: 46px;
 	width: 200px !important;
 	padding: 20px 6px 20px 6px;
 	display: flex;
@@ -45,6 +48,15 @@
 	margin: 20px 0 20px 0;
 	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 	border-radius: 28px;
+	border: none;
+	background-color: #f8a859;
+	color: white;
+	cursor: pointer;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+.create-your-business-btn:hover {
+	background-color: #373737;
 }
 
 .bell-icon {
@@ -426,5 +438,39 @@
 	width: 400px;
 	margin-right: 20px;
 	margin-top: 10px;
-	height: fit-content;
+	height: 558px;
+	overflow-y: auto;
+	animation-name: fade;
+	animation-duration: 0.8s;
+}
+
+@keyframes fade {
+	0% {
+		opacity: 0.4;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.btn-confirm-favorite {
+	margin-left: auto;
+	margin-bottom: 20px;
+	display: flex;
+	gap: 20px;
+}
+
+.btn-confirm-favorite button {
+	width: 140px;
+	height: 40px;
+	background-color: #f8a859;
+	border: none;
+	color: white;
+	font-weight: bold;
+	border-radius: 20px;
+}
+
+.btn-confirm-favorite button:hover {
+	background-color: #373737;
+	color: white;
 }
