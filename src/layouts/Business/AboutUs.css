@@ -1,31 +1,57 @@
 .about-us-container-box {
-	height: 400px;
-	display: grid;
-	grid-template-areas:
-		"menu right"
-		"menu footer";
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr 1fr;
-	gap: 10px;
-	padding: 10px;
-	background-color: rgb(242, 235, 235);
-	border-radius: 10px;
+  height: 400px;
+  display: grid;
+  grid-template-areas:
+    "menu right"
+    "menu footer";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  padding: 10px;
+  background-color: rgb(242, 235, 235);
+  border-radius: 10px;
 }
 .about-us-container-box div {
-	background-color: white;
-	text-align: left;
-	padding: 10px;
-	font-size: 1em !important;
-	border-radius: 10px;
-	font-weight: 600;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: white;
+  text-align: left;
+  padding: 10px;
+  font-size: 1em !important;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .about-us-container-box-left {
-	grid-area: menu;
+  grid-area: menu;
 }
 .about-us-container-box-right1 {
-	grid-area: right;
+  grid-area: right;
 }
 .about-us-container-box-right2 {
-	grid-area: footer;
+  grid-area: footer;
+}
+.about-us-container-box-describe {
+  height: 50px;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  border: none;
+  box-shadow: none !important;
+}
+.about-us-container-box-describe-content {
+  width: 100% !important;
+  height: 85% !important;
+  padding: 5px;
+  font-size: 17px;
+  border: none;
+  box-shadow: none !important;
+}
+.about-us-container-box-address-content {
+  box-shadow: none !important;
+  height: 75%;
+  padding: 10px;
+}
+.about-us-container-box-address-info {
+  box-shadow: none !important;
+  line-height: 10px;
+  border-radius: none !important;
 }

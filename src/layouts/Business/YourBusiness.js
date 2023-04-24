@@ -1,17 +1,15 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import "./YourBusiness.css"
 import { BsFillBellFill } from "react-icons/bs"
 import Rating from "../../components/Business/Rating"
 import { BiDotsHorizontalRounded } from "react-icons/bi"
 import { BsFlagFill, BsFlag } from "react-icons/bs"
-
 import { FaSortUp, FaSortDown } from "react-icons/fa"
 import ColorPicker from "../../components/Business/ColorPicker"
 import axios from "axios"
-import { useCallback } from "react"
 import instance from "../../data/instance"
 import Notification from "../../components/Business/Notification"
-const YourBusiness = ({ createBusinessPage }) => {
+const YourBusiness = ({ createBusinessPage, displayAddYourBusiness }) => {
 	const [data, setData] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [sortStatus, setSortStatus] = useState("")
@@ -30,7 +28,12 @@ const YourBusiness = ({ createBusinessPage }) => {
 	const [displayNotification, setDisplayNotification] = useState(false)
 	const [dataFavorite, setDataFavovrite] = useState(data)
 	const [onFiltering, setOnFiltering] = useState(false)
-
+	function openAddBusiness() {
+		displayAddYourBusiness()
+	}
+	function createBusiness() {
+		createBusinessPage()
+	}
 	// Get API
 	useEffect(() => {
 		instance.get("/DataYourBusiness").then((res) => {
@@ -256,6 +259,21 @@ const YourBusiness = ({ createBusinessPage }) => {
 	}
 
 	// convertRGBA
+	function hexToRgbA(hex) {
+		var c
+		if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+			c = hex.substring(1).split("")
+			if (c.length === 3) {
+				c = [c[0], c[0], c[1], c[1], c[2], c[2]]
+			}
+			c = "0x" + c.join("")
+			return (
+				"rgba(" + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(",") + ",0.2)"
+			)
+		}
+	}
+
+	// convertRGBA
 	function hexToRgbA(hex, opacity) {
 		var c
 		if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
@@ -292,9 +310,6 @@ const YourBusiness = ({ createBusinessPage }) => {
 					console.log(err)
 				})
 		})
-	}
-	const createBusiness = () => {
-		createBusinessPage()
 	}
 
 	const toggleNoti = () => {

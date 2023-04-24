@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
+
 import "./CreatePlan.css"
 import { IoLocationSharp } from "react-icons/io5"
 import { BsFillPersonFill } from "react-icons/bs"
@@ -98,6 +99,7 @@ const CreatePlan = ({ remove }) => {
 	}
 
 	// remove createPlan form
+
 	const handleCancel = () => {
 		remove()
 	}
