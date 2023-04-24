@@ -30,7 +30,6 @@ const ShowPlan = ({ remove }) => {
 	const [tagChoice, setTagChoice] = useState()
 	const [displayDayPicker, setDisplayDayPicker] = useState(false)
 	const [dayPicker, setDayPicker] = useState(formatDatePlanEdit)
-
 	const [showTime, setShowTime] = useState(false)
 	const [content, setContent] = useState()
 	const [displayMorePartner, setDisplayMorePartner] = useState(false)
@@ -70,13 +69,13 @@ const ShowPlan = ({ remove }) => {
 		"Thứ 6",
 		"Thứ 7",
 	]
-	const pickWeekday = weekDay[planEdit.planWeekDate - 1]
+	const pickWeekday = weekDay[planEdit.planWeekDate]
 
 	// format currentDay
 	const date = moment(dayPicker).format("YYYY-MM-DD")
 
 	// format CN-T2-T3-T4-T5-T6-T7 to 1-2-3-4-5-6-7
-	const dayOfWeek = (dayPicker.getDay() + 1) % 7 || 7
+	const dayOfWeek = dayPicker.getDay() % 7 || 7
 
 	// format day to Chủ nhật, Thứ 2, Thứ 3,...
 	const getDayName = (date = dayPicker, locale = "vi-VN") => {
@@ -256,8 +255,6 @@ const ShowPlan = ({ remove }) => {
 
 	// delete plan
 	const deleteCurrentPlan = () => {
-		// const deletePlan = finalData.filter((plan) => plan.id !== idDeletePlan)
-		// setFinalData(deletePlan)
 		setFinalData(
 			finalData.filter((plan) => {
 				return plan.id !== idDeletePlan
@@ -276,6 +273,7 @@ const ShowPlan = ({ remove }) => {
 	useEffect(() => {
 		document.addEventListener("click", handleClickOutSide, true)
 	}, [])
+
 	return (
 		<div className="create-plan-container">
 			<div

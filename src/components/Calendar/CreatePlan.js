@@ -48,8 +48,8 @@ const CreatePlan = ({ remove }) => {
 	// format currentDay
 	const date = moment(dayPicker).format("YYYY-MM-DD")
 
-	// format CN-T2-T3-T4-T5-T6-T7 to 1-2-3-4-5-6-7
-	const dayOfWeek = (dayPicker.getDay() + 1) % 7 || 7
+	// format T2-T3-T4-T5-T6-T7-CN to 1-2-3-4-5-6-7
+	const dayOfWeek = dayPicker.getDay() % 7 || 7
 
 	// format day to Chủ nhật, Thứ 2, Thứ 3,...
 	const getDayName = (date = dayPicker, locale = "vi-VN") => {

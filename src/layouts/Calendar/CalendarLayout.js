@@ -82,7 +82,7 @@ const CalendarLayout = () => {
 
 	// handle next plan
 	const nextPlan = finalData.filter((plan) => plan.day >= currentDay.getDate())
-	console.log({ nextPlan })
+
 	// handelCompleted
 	const [planCompleted, setPlanCompleted] = useState(nextPlan)
 	const handleCompleted = (id) => {

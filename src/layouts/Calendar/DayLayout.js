@@ -6,44 +6,45 @@ import { PlanContext } from "./CalendarLayout"
 const DayLayout = ({ editPlan }) => {
 	const { filterPlanInWeek } = useContext(PlanContext)
 	const [showPlan, setShowPlan] = useState(false)
-	const currentDay = (new Date().getDay() + 1) % 7 || 7
+	const currentDay = new Date().getDay() % 7 || 7
+
 	const [currentId, setCurrentId] = useState("")
 	const [isShowDay, setIsShowDay] = useState(false)
 
 	const dayInWeek = [
 		{
 			id: 1,
-			name: "CN",
-			filter: false,
-		},
-		{
-			id: 2,
 			name: "T2",
 			filter: false,
 		},
 		{
-			id: 3,
+			id: 2,
 			name: "T3",
 			filter: false,
 		},
 		{
-			id: 4,
+			id: 3,
 			name: "T4",
 			filter: false,
 		},
 		{
-			id: 5,
+			id: 4,
 			name: "T5",
 			filter: false,
 		},
 		{
-			id: 6,
+			id: 5,
 			name: "T6",
 			filter: false,
 		},
 		{
-			id: 7,
+			id: 6,
 			name: "T7",
+			filter: false,
+		},
+		{
+			id: 7,
+			name: "CN	",
 			filter: false,
 		},
 	]
