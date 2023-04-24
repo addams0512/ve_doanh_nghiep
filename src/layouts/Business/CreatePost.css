@@ -17,8 +17,8 @@
 .create-post-container {
   padding: 10px 20px;
   background-color: white;
-  width: 700px;
-  height: 820px;
+  width: 600px;
+  height: 700px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
@@ -64,9 +64,10 @@
   width: 100%;
   border-radius: 10px;
   border: 1px solid gray;
+  resize: none;
 }
-.create-post-body-info:hover {
-  border: 1px solid gray;
+.create-post-body-info:focus {
+  outline: none;
 }
 
 .create-post-bottom-info-1 {
@@ -120,12 +121,13 @@
   background-color: rgb(248, 168, 89);
   cursor: pointer;
   font-size: 12px;
-  height: 40px;
+  height: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
   border: none;
+  width: 100px;
 }
 .create-post-bottom-info-7 button:hover {
   background-color: rgb(55, 55, 55);
@@ -165,9 +167,9 @@
   justify-content: space-between;
 }
 .create-post-bottom-info4-option {
-  width: 150px;
+  width: 120px;
   border: 1px solid;
-  height: 200px;
+  height: 150px;
 }
 .create-post-bottom-info-6 {
   display: flex;
@@ -175,8 +177,8 @@
   margin-top: 5px;
 }
 .create-post-box-1 {
-  width: 180px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   border: 1px solid;
   display: grid;
   grid-template-areas:
@@ -198,8 +200,8 @@
   border: 1px solid;
 }
 .create-post-box-2 {
-  width: 180px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   border: 1px solid;
   display: grid;
   grid-template-areas:
@@ -209,8 +211,8 @@
   padding: 10px;
 }
 .create-post-box-3 {
-  width: 180px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   border: 1px solid;
   display: grid;
   grid-template-areas:
@@ -220,7 +222,7 @@
   padding: 10px;
 }
 .create-post-bottom-info-5 {
-  margin: 25px 10px 10px 10px;
+  margin: 15px 10px 10px 10px;
   font-size: 14px;
   font-weight: 600;
 }

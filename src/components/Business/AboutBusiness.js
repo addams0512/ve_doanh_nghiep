@@ -32,11 +32,11 @@ const AboutBusiness = () => {
           <img alt="img" className="img-wallpaper"></img>
           <div className="avatar">
             <div className="img-avatar"></div>
-            <h3 className="name">{value.companyName || "Tên Doanh Nghiệp"}</h3>
+            <h3 className="name">{"Tên Doanh Nghiệp"}</h3>
             <div className="star">
               <Rating />
             </div>
-            <p className="major">{value.field || "Lĩnh vực"}</p>
+            <p className="major">{"Lĩnh vực"}</p>
           </div>
         </div>
         <div className="actions">
