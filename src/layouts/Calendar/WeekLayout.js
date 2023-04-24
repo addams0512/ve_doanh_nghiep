@@ -4,7 +4,7 @@ import { PlanContext } from "./CalendarLayout"
 import { RxAvatar } from "react-icons/rx"
 const WeekLayout = ({ editPlan }) => {
 	const { filterPlanInWeek } = useContext(PlanContext)
-	const day = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
+	const day = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"]
 	const plan = Array.from({ length: 25 * 7 }, (v, i) => {
 		return {
 			id: i + 1,
