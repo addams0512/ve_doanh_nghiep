@@ -1,5 +1,5 @@
 .calendar-page {
-	display: grid;
-	grid-template-columns: 300px 1000px;
-	overflow: hidden;
+  display: grid;
+  grid-template-columns: 300px 2100px;
+  overflow: hidden;
 }
