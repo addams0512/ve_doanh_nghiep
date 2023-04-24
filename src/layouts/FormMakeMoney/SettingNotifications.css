@@ -1,0 +1,166 @@
+.cotainer-notifi {
+  width: 950px;
+  height: auto;
+  padding: 15px;
+  margin-left: 20px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 10px;
+  border: 1px solid rgb(236, 236, 246);
+}
+.notifi-heading {
+  height: 90px;
+  display: flex;
+}
+.tittle-notifi {
+  margin-top: 20px;
+}
+.tittle-notifi-1 {
+  font-size: 25px;
+  font-weight: 700;
+}
+.tittle-notifi-2 {
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 5px;
+  margin-left: 5px;
+  color: rgb(59, 152, 59);
+}
+.option-notifi {
+  margin-top: 30px;
+  margin-left: auto;
+  display: flex;
+}
+.notifi-search {
+  padding: 7px;
+  height: 30px;
+  font-size: 14px;
+  resize: none;
+  border: none;
+  background-color: rgb(236, 236, 246);
+}
+.notifi-search:focus {
+  outline: none;
+}
+.notifi-icon-search {
+  margin-top: 3px;
+}
+.notifi-search-bar {
+  display: flex;
+  width: 220px;
+  height: 35px;
+  margin-right: 10px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(236, 236, 246);
+}
+.notifi-change {
+  display: flex;
+  height: 35px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin-right: 30px;
+  background-color: rgb(236, 236, 246);
+}
+.notifi-change-info {
+  color: gray;
+}
+.notifi-change-info-1 {
+  color: black;
+  font-weight: 600;
+}
+.notifi-body-tittle {
+  height: 50px;
+  border-bottom: 1px solid rgb(221, 221, 221);
+  display: grid;
+  grid-template-columns: 140px 330px 220px 110px 120px;
+}
+.notifi-body-tittle-1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: grey;
+  font-size: 15px;
+}
+.notifi-body-content {
+  border-bottom: 1px solid rgb(221, 221, 221);
+  display: grid;
+  grid-template-columns: 140px 330px 220px 110px 120px;
+}
+.notifi-name-customer {
+  font-weight: 700;
+  font-size: 15px;
+  margin-top: 20px;
+}
+.notifi-subject {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 10px;
+}
+.notifi-subject-tittle {
+  font-size: 17px;
+}
+.notifi-subject-content {
+  margin-top: 10px;
+  color: gray;
+  word-break: break-all;
+  width: 300px;
+}
+.notifi-assigned {
+  display: flex;
+  margin-top: 20px;
+}
+.notifi-assigned-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  border: 1px solid;
+  margin-left: 10px;
+}
+.notifi-assigned-info {
+  margin-left: 10px;
+}
+.notifi-assigned-name {
+  font-size: 17px;
+  font-weight: 600;
+}
+.notifi-assigned-job {
+  color: gray;
+  font-size: 15px;
+  margin-top: 5px;
+}
+.notifi-Watting {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  font-size: 17px;
+}
+.notifi-status {
+  margin-top: 17px;
+  margin-left: 20px;
+  display: flex;
+}
+.notifi-status-option {
+  height: 30px;
+  width: 90px;
+  border: 1px solid rgb(234, 209, 50);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: rgb(255, 253, 200);
+  color: rgb(234, 209, 50);
+}
+.notifi-status-icon {
+  font-size: x-large;
+  color: grey;
+  margin-top: 3px;
+}
+.notifi-bottom {
+  margin-top: 20px;
+  color: gray;
+  font-size: 15px;
+}

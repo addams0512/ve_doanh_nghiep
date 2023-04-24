@@ -1,0 +1,318 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+/* .container-setting {
+  margin-left: 20px;
+  width: 650px;
+  padding: 10px 0 10px 20px;
+  border-radius: 10px;
+  border: 1px solid rgb(213, 201, 201);
+  border-right: none;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  box-shadow: 0 rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+} */
+.container-account {
+  margin-left: 20px;
+  width: 650px;
+  padding: 10px 0 10px 20px;
+  border-radius: 10px;
+  border: 1px solid rgb(213, 201, 201);
+  border-right: none;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  box-shadow: 0 rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+.title-account {
+  height: 50px;
+}
+.title-account-info {
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+.title-profile {
+  height: auto;
+  margin-top: 10px;
+}
+.title-profile-1 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.title-profile-2 {
+  font-size: 16px;
+  margin-top: 10px;
+  color: gray;
+}
+.title-name {
+  display: flex;
+  height: auto;
+
+  margin-top: 20px;
+}
+.title-firstname-1 {
+  font-size: 17px;
+}
+.title-firstname-2 {
+  padding: 7px;
+  margin-top: 10px;
+  border: 1px solid rgb(200, 195, 195);
+  border-radius: 5px;
+  height: 35px;
+  width: 250px;
+  font-size: 17px;
+}
+.title-firstname-2:focus {
+  outline: 1px solid rgb(129, 119, 255);
+}
+.title-lastname {
+  margin-left: 30px;
+}
+.title-lastname-1 {
+  font-size: 17px;
+}
+.title-lastname-2 {
+  padding: 7px;
+  margin-top: 10px;
+  border: 1px solid rgb(200, 195, 195);
+  border-radius: 5px;
+  height: 35px;
+  width: 250px;
+  font-size: 17px;
+}
+.title-lastname-2:focus {
+  outline: 1px solid rgb(129, 119, 255);
+}
+.title-username {
+  height: auto;
+  margin-top: 20px;
+}
+.title-username-1 {
+  font-size: 17px;
+}
+.title-username-2 {
+  display: flex;
+  margin-top: 10px;
+}
+.title-username-square {
+  height: 35px;
+  width: 130px;
+  border: 1px solid rgb(200, 195, 195);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  font-size: 17px;
+}
+.title-username-3 {
+  color: gray;
+  font-size: 15px;
+}
+.title-username-4 {
+  width: 350px;
+  height: 35px;
+  border: 1px solid rgb(200, 195, 195);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 7px;
+  font-size: 17px;
+}
+.title-username-4:focus {
+  outline: 1px solid rgb(129, 119, 255);
+}
+.title-photo {
+  height: auto;
+  margin-top: 20px;
+}
+.title-photo-1 {
+  margin-top: 10px;
+  font-size: 17px;
+}
+.title-photo-2 {
+  display: flex;
+  margin-top: 5px;
+}
+.photo-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 100%;
+  border: 1px solid rgb(200, 195, 195);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.change-img {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border: 0px solid;
+  font-size: large;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.title-about {
+  height: auto;
+  margin-top: 20px;
+}
+.title-about-1 {
+  font-size: 17px;
+}
+.about-content {
+  width: 100% !important ;
+  height: 100px;
+  margin-top: 10px;
+  resize: none;
+  border: 1px solid rgb(200, 195, 195);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+.about-content:focus {
+  outline: 1px solid rgb(129, 119, 255);
+}
+.title-about-2 {
+  margin-top: 10px;
+  color: gray;
+  font-size: 15px;
+}
+.title-url {
+  height: 100px;
+  border-bottom: 1px solid rgb(200, 195, 195);
+  margin-top: 20px;
+}
+.title-url-1 {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 17px;
+}
+.title-url-2 {
+  height: 40px;
+  width: 500px;
+  margin-top: 10px;
+  border: 1px solid rgb(200, 195, 195);
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16px;
+}
+.title-url-2:focus {
+  outline: 1px solid rgb(129, 119, 255);
+}
+.title-personal-information {
+  height: auto;
+
+  margin-top: 20px;
+}
+.title-personal-information-1 {
+  font-weight: 600;
+  font-size: 17px;
+}
+.title-personal-information-2 {
+  margin-top: 10px;
+  font-size: 15px;
+  color: gray;
+}
+.personal-data {
+  height: auto;
+  flex-wrap: wrap;
+  display: flex;
+  margin-top: 20px;
+}
+.data-email-1 {
+  font-weight: 600;
+  font-size: 16px;
+}
+.data-input {
+  padding: 7px;
+  margin-top: 10px;
+  border: 1px solid rgb(200, 195, 195);
+  border-radius: 5px;
+  height: 35px;
+  width: 295px;
+}
+.data-input:focus {
+  outline: 1px solid rgb(129, 119, 255);
+}
+.data-country {
+  margin-top: 20px;
+}
+.data-country-1 {
+  font-weight: 600;
+  font-size: 16px;
+}
+.data-language {
+  margin-left: 30px;
+  margin-top: 20px;
+}
+.data-language-1 {
+  font-weight: 600;
+  font-size: 16px;
+}
+.data-phone {
+  margin-left: 30px;
+}
+.data-phone-1 {
+  font-weight: 600;
+  font-size: 16px;
+}
+.time-create-account {
+  height: 40px;
+  border-bottom: 1px solid rgb(200, 195, 195);
+  margin-top: 20px;
+}
+.time-create-account-info {
+  font-size: 15px;
+  color: gray;
+}
+.account-button-end {
+  height: auto;
+  width: 100%;
+  display: flex;
+  margin-top: 20px;
+}
+.account-button-cancel {
+  margin-left: auto;
+}
+.account-button-cancel-1 {
+  font-weight: 600;
+  height: 35px;
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: 0.5px solid rgb(129, 119, 255);
+  border-radius: 7px;
+  margin-right: 10px;
+  font-size: 16px;
+  color: rgb(129, 119, 255);
+}
+.account-button-cancel-1:hover {
+  background-color: rgb(129, 119, 255);
+  color: white;
+}
+.account-button-save {
+  margin-right: 30px;
+}
+.account-button-save-1 {
+  font-weight: 600;
+  height: 35px;
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(129, 119, 255);
+  border: 0.5px solid rgb(129, 119, 255);
+  border-radius: 7px;
+  color: white;
+  font-size: 16px;
+}
+.account-button-save-1:hover {
+  background-color: white;
+  color: rgb(129, 119, 255);
+}

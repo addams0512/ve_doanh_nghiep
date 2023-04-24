@@ -1,0 +1,131 @@
+.setting-billing-container {
+  width: 800px;
+  height: auto;
+  padding: 10px;
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.setting-billing-heading-title {
+  font-size: 35px;
+  font-weight: 600;
+}
+.setting-billing-heading-content {
+  font-size: 17px;
+  margin-top: 10px;
+}
+.setting-billing-body {
+  margin-top: 20px;
+}
+.setting-billing-body-choose-service {
+  display: flex;
+  align-items: center;
+}
+.setting-billing-body-choose-service {
+  width: 750px;
+
+  border-radius: 20px;
+  height: 70px;
+  background-color: rgb(249, 249, 249);
+}
+.choose-service-icons {
+  margin-left: 10px;
+}
+.choose-service-price-name {
+  margin-left: 15px;
+  font-size: 16px;
+}
+.choose-service-price {
+  font-size: 20px;
+  margin-top: 5px;
+}
+.choose-service-icons-plus {
+  margin-left: auto;
+  margin-right: 10px;
+  height: 50px;
+  border-radius: 10px;
+  width: 50px;
+  background-color: rgb(241, 238, 238);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.choose-service-icons-plus:active {
+  background-color: white;
+  color: black;
+}
+.setting-billing-body-choose-service-option {
+  height: auto;
+  width: 750px;
+  border-radius: 10px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  position: absolute;
+  z-index: 9999;
+  padding: 10px;
+  background-color: #ffffff;
+}
+.setting-billing-body-choose-service-add-option {
+  font-size: 17px;
+  height: 40px;
+  border: 1px solid rgb(230, 230, 230);
+  display: flex;
+  border-radius: 7px;
+  align-items: center;
+  margin: 5px;
+  justify-content: space-between;
+  padding: 7px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.setting-billing-body-choose-service-add-option p {
+  font-size: 18px;
+  color: rgb(8, 96, 87);
+}
+.setting-billing-body-choose-service-add-option:hover {
+  background-color: #f6f6f6;
+}
+.setting-billing-body-change-service {
+  width: 750px;
+
+  border-radius: 20px;
+  height: 70px;
+  background-color: rgb(240, 252, 252);
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.setting-billing-body-change-service:hover {
+  background-color: rgb(137, 211, 204);
+}
+.change-service-accept {
+  font-size: 20px;
+  color: rgb(15, 96, 88);
+  font-weight: 600;
+  margin-left: 10px;
+}
+.setting-billing-body-cancel-service {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 750px;
+  cursor: pointer;
+  border-radius: 20px;
+  height: 70px;
+  background-color: rgb(249, 249, 249);
+}
+.choose-service-cancel {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(187, 72, 45);
+}
+.setting-billing-body-cancel-service:hover {
+  background-color: rgb(229, 175, 163);
+  color: black;
+}
