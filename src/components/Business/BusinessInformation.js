@@ -21,6 +21,7 @@ const inputs = [
 		nameData: "taxCode",
 		errorMessage: "(*) Trường này là bắt buộc",
 		placeholder: "MST",
+		required: false,
 	},
 	{
 		id: 4,
@@ -28,6 +29,7 @@ const inputs = [
 		nameData: "CIC",
 		placeholder: "CCCD/CMND",
 		errorMessage: "(*) Trường này là bắt buộc",
+		required: false,
 	},
 	{
 		id: 5,
@@ -78,8 +80,8 @@ function FormInput(props) {
 		name,
 		placeholder,
 		onChange,
-		required,
 		inputProps,
+		required,
 	} = props
 	return (
 		<div className="input-business-information">

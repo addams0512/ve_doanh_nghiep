@@ -69,7 +69,7 @@
 	display: none;
 }
 
-.input-business-information input:invalid span {
+.input-business-information input:invalid ~ span {
 	display: block;
 }
 

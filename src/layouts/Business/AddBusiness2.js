@@ -82,8 +82,8 @@ export default function AddBusiness({ showBusiness }) {
 														placeholder={input.placeholder}
 														nameData={input.nameData}
 														errorMessage={input.errorMessage}
-														required={input.required}
 														onChange={onBusinessData}
+														required={input.required}
 													/>
 												</div>
 											))}
