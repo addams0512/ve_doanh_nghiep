@@ -273,6 +273,7 @@
 	padding: 10px;
 	overflow-y: auto;
 	gap: 10px;
+	cursor: pointer;
 }
 .go-together-create-plan-box::-webkit-scrollbar {
 	display: none;

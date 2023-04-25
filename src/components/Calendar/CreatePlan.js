@@ -36,10 +36,10 @@ const CreatePlan = ({ remove }) => {
 	const [isTagChoice, setIsTagChoice] = useState(false)
 	const [isUserData, setIsUserData] = useState(false)
 	const [selectedIndex, setSelectedIndex] = useState(0)
-	const [idDelete, setIdDelete] = useState("")
+	const [idDelete, setIdDelete] = useState()
 	const [confirmDeleteTag, setConfirmDeleteTag] = useState(false)
-	// tag chosen for delete
-	const tagDelete = tagPlan[idDelete]
+	const [tagDelete, setTagDelete] = useState()
+
 	// get day - month - year
 	const day = dayPicker.getDate()
 	const month = dayPicker.getMonth()
@@ -117,7 +117,7 @@ const CreatePlan = ({ remove }) => {
 
 	const handleAddTag = (e) => {
 		if (e.key === "Enter") {
-			const lastTagId = tagPlan.length > 0 ? tagPlan.at(-1).id + 1 : 0
+			const lastTagId = tagPlan.length > 0 ? tagPlan.at(0).id + 1 : 0
 			const newTag = {
 				id: lastTagId,
 				color: color,
@@ -125,6 +125,8 @@ const CreatePlan = ({ remove }) => {
 				delete: false,
 			}
 			setTagPlan([...tagPlan, newTag])
+			setIsTagChoice(true)
+			setTagChoice(newTag)
 			setNewPlan("")
 		}
 	}
@@ -237,6 +239,14 @@ const CreatePlan = ({ remove }) => {
 		setFinalData(dataArray)
 		remove()
 	}
+	// delete Tag
+	const handleDeleteTag = (id) => {
+		const tagDelete = tagPlan.filter((item) => item.id === id)
+		console.log({ tagDelete })
+		setTagDelete(tagDelete)
+		setIdDelete(id)
+		setConfirmDeleteTag(true)
+	}
 
 	// outside click
 	const refOne = useRef(null)
@@ -336,72 +346,73 @@ const CreatePlan = ({ remove }) => {
 						</div>
 						<div className="tag-type-create-plan-container">
 							<div className="tag-type-create-plan-box-4">
-								{tagPlan.map((item) => {
-									return (
-										<div
-											key={item.id}
-											className="array-of-tag-plan">
+								{tagPlan
+									.sort((a, b) => b.id - a.id)
+									.map((item) => {
+										return (
 											<div
-												style={{ cursor: "pointer" }}
-												onClick={() => tagChosen(item.id)}
-												className="tag-type-create-plan__box">
+												key={item.id}
+												className="array-of-tag-plan">
 												<div
-													style={{
-														backgroundColor: item.color,
-													}}
-													className="tag-type-create-plan"></div>
-												<div className="content-type-create-plan">
-													{" "}
-													{item.type}
-												</div>
-											</div>
-											<RiDeleteBack2Line
-												style={{ cursor: "pointer" }}
-												onClick={() => {
-													setIdDelete(item.id)
-													setConfirmDeleteTag(true)
-												}}
-												color="red"
-											/>
-											{confirmDeleteTag && (
-												<div className="accept-delete-tag-container">
-													<div className="accept-delete-tag-box">
-														<b className="title-delete-tag__pop-up">
-															Bạn có chắc chắn muốn hủy tag này?
-														</b>
-														<div className="tag-delete__pop-up">
-															<div
-																style={{
-																	backgroundColor: tagDelete.color,
-																}}
-																className="tag-type-create-plan"></div>
-															<div className="content-type-create-plan">
-																{" "}
-																{tagDelete.type}
-															</div>
-														</div>
-														<div className="btn-delete-tag__pop-up">
-															<button
-																onClick={() => {
-																	setConfirmDeleteTag(false)
-																}}>
-																Hủy
-															</button>
-															<button
-																onClick={() => {
-																	deleteTag(item.id)
-																	setConfirmDeleteTag(false)
-																}}>
-																{" "}
-																Xác nhận
-															</button>
-														</div>
+													style={{ cursor: "pointer" }}
+													onClick={() => tagChosen(item.id)}
+													className="tag-type-create-plan__box">
+													<div
+														style={{
+															backgroundColor: item.color,
+														}}
+														className="tag-type-create-plan"></div>
+													<div className="content-type-create-plan">
+														{" "}
+														{item.type}
 													</div>
 												</div>
-											)}
-										</div>
-									)
-								})}
+												<RiDeleteBack2Line
+													style={{ cursor: "pointer" }}
+													onClick={() => {
+														handleDeleteTag(item.id)
+													}}
+													color="red"
+												/>
+												{confirmDeleteTag && (
+													<div className="accept-delete-tag-container">
+														<div className="accept-delete-tag-box">
+															<b className="title-delete-tag__pop-up">
+																Bạn có chắc chắn muốn hủy tag này?
+															</b>
+															<div className="tag-delete__pop-up">
+																<div
+																	style={{
+																		backgroundColor: tagDelete[0].color,
+																	}}
+																	className="tag-type-create-plan"></div>
+																<div className="content-type-create-plan">
+																	{" "}
+																	{tagDelete[0].type}
+																</div>
+															</div>
+															<div className="btn-delete-tag__pop-up">
+																<button
+																	onClick={() => {
+																		setConfirmDeleteTag(false)
+																	}}>
+																	Hủy
+																</button>
+																<button
+																	onClick={() => {
+																		deleteTag(item.id)
+																		setConfirmDeleteTag(false)
+																	}}>
+																	{" "}
+																	Xác nhận
+																</button>
+															</div>
+														</div>
+													</div>
+												)}
+											</div>
+										)
+									})}
 							</div>
 						</div>
 					</div>
@@ -479,6 +490,7 @@ const CreatePlan = ({ remove }) => {
 							<BsFillPersonFill size={30} />
 						</div>
 						<div
+							onClick={showfilegotoplace}
 							style={
 								displayMorePartner ? { height: "100px" } : { height: "70px" }
 							}
