@@ -1,11 +1,12 @@
 import React, { createContext, useState } from "react"
 import Sidebar from "../components/Sidebar"
 import YourBusiness from "../layouts/Business/YourBusiness"
-import "./DoanhNghiepPage.css"
+import "./BusinessPage.css"
 import CreateBusiness from "../layouts/Business/CreateBusiness"
 import AddBusiness from "../layouts/Business/AddBusiness"
-export const Business = createContext()
-const DoanhNghiepPage = () => {
+import AddBusiness2 from "../layouts/Business/AddBusiness2"
+export const BusinessContext = createContext()
+const BusinessPage = () => {
 	const [isCreateBusiness, setIsCreateBusiness] = useState(false)
 	const [isYourBusiness, setIsYourBusiness] = useState(true)
 	const [isAddBusiness, setIsAddBusiness] = useState(false)
@@ -17,7 +18,7 @@ const DoanhNghiepPage = () => {
 	return (
 		<div className="business-page">
 			<Sidebar />
-			<Business.Provider value={value}>
+			<BusinessContext.Provider value={value}>
 				{isYourBusiness && (
 					<YourBusiness
 						createBusinessPage={() => {
@@ -31,7 +32,7 @@ const DoanhNghiepPage = () => {
 					/>
 				)}
 				{isAddBusiness && (
-					<AddBusiness
+					<AddBusiness2
 						showBusiness={() => {
 							setIsAddBusiness(false)
 							setIsYourBusiness(true)
@@ -39,9 +40,9 @@ const DoanhNghiepPage = () => {
 					/>
 				)}
 				{isCreateBusiness && <CreateBusiness />}
-			</Business.Provider>
+			</BusinessContext.Provider>
 		</div>
 	)
 }
 
-export default DoanhNghiepPage
+export default BusinessPage

@@ -5,38 +5,28 @@ import "../../components/Business/UploadImage"
 import UploadImage from "../../components/Business/UploadImage"
 import { BusinessContext } from "../../pages/BusinessPage"
 import PreviewBusiness from "./PreviewBusiness"
-
-// input components
-function FormInput(props) {
-	const { errorMessage, nameData, name, placeholder, onchange, required } =
-		props
-	return (
-		<div className="input-business-information">
-			<label>{name}</label>
-			<input
-				type="text"
-				onChange={(e) => onchange(e.target.value)}
-				name={nameData}
-				placeholder={placeholder}
-				required={required}
-			/>
-			<span>{errorMessage}</span>
-		</div>
-	)
-}
-
+import {
+	FormInput,
+	inputs,
+} from "../../components/Business/BusinessInformation"
 export default function AddBusiness({ showBusiness }) {
 	const { businessData, setBusinessData } = useContext(BusinessContext)
 	const [openPageAfter, setOpenPageAfter] = useState(false)
 	const [closePageBefor, setClosePageBefor] = useState(true)
-	const [businessName, setBusinessName] = useState("")
-	const [major, setMajor] = useState("")
-	const [description, setDescription] = useState("")
-	const [address, setAddress] = useState("")
-	const [ward, setWard] = useState("")
-	const [district, setDistrict] = useState("")
-	const [city, setCity] = useState("")
+	const valueBusiness = {
+		businessName: "",
+		businessOwner: "",
+		taxCode: "",
+		CIC: "",
+		address: "",
+		ward: "",
+		district: "",
+		city: "",
+		major: "",
+		description: "",
+	}
 
+	const [businessInformation, setBusinessInformation] = useState(valueBusiness)
 	const showYourBusiness = () => {
 		showBusiness()
 	}
@@ -50,6 +40,14 @@ export default function AddBusiness({ showBusiness }) {
 		})
 		setOpenPageAfter(true)
 		setClosePageBefor(false)
+	}
+	useEffect(() => console.log({ businessData }), [businessData])
+	// onchange Business Data
+	const onBusinessData = (e) => {
+		setBusinessInformation({
+			...businessInformation,
+			[e.target.name]: e.target.value, // array of name of business
+		})
 	}
 
 	return (
@@ -77,79 +75,29 @@ export default function AddBusiness({ showBusiness }) {
 											onSubmit={submitBusiness}
 											className="form-business-information"
 											action="">
-											<FormInput
-												onchange={(e) => setBusinessName(e)}
-												nameData="businessName"
-												name="Tên doanh nghiệp"
-												placeholder="Deedword"
-												errorMessage="(*) Trường này là bắt buộc"
-												required={require}
-											/>
-											<FormInput
-												nameData="businessOwner"
-												name="Tên chủ doanh nghiệp"
-												placeholder="Họ và tên"
-												errorMessage="(*) Trường này là bắt buộc"
-											/>
-
-											<FormInput
-												nameData="taxCode"
-												name="MST"
-												placeholder="MST"
-											/>
-
-											<FormInput
-												nameData="CIC"
-												name="CCCD/CMND chủ doanh nghiệp"
-												placeholder="CCCD/CMND"
-											/>
-
-											<FormInput
-												onchange={(e) => setAddress(e)}
-												nameData="address"
-												name="Địa chỉ"
-												placeholder="Số nhà, tên đường"
-												errorMessage="(*) Trường này là bắt buộc"
-											/>
-											<div className="district-ward-container">
-												<FormInput
-													onchange={(e) => setWard(e)}
-													nameData="ward"
-													name="Phường"
-													placeholder="Phường"
-													errorMessage="(*) Trường này là bắt buộc"
-												/>
-
-												<FormInput
-													onchange={(e) => setDistrict(e)}
-													nameData="district"
-													name="Quận"
-													placeholder="Quận"
-													errorMessage="(*) Trường này là bắt buộc"
-												/>
-											</div>
-
-											<FormInput
-												onchange={(e) => setCity(e)}
-												nameData="city"
-												name="Thành phố"
-												placeholder="Thành phố"
-												errorMessage="(*) Trường này là bắt buộc"
-											/>
-
-											<FormInput
-												onchange={(e) => setMajor(e)}
-												nameData="major"
-												name="Lĩnh vực"
-												placeholder="Lĩnh vực"
-												errorMessage="(*) Trường này là bắt buộc"
-											/>
+											{inputs.map((input) => (
+												<div key={input.id}>
+													<FormInput
+														name={input.name}
+														placeholder={input.placeholder}
+														nameData={input.nameData}
+														errorMessage={input.errorMessage}
+														required={input.required}
+														onChange={onBusinessData}
+													/>
+												</div>
+											))}
 											<div className="add-business-create-file-business-body-porfile-personal">
 												<div className="add-business-create-file-business-name-profile">
 													Mô tả
 												</div>
 												<textarea
-													onChange={(e) => setDescription(e.target.value)}
+													onChange={(e) => {
+														setBusinessInformation({
+															...businessInformation,
+															description: e.target.value,
+														})
+													}}
 													name="description"
 													className="add-business-create-file-business-info-describe"
 												/>
@@ -216,13 +164,13 @@ export default function AddBusiness({ showBusiness }) {
 
 					{/* trang doanh nghiệp */}
 					<PreviewBusiness
-						description={description}
-						address={address}
-						ward={ward}
-						district={district}
-						city={city}
-						businessName={businessName}
-						major={major}
+						description={businessInformation.description}
+						address={businessInformation.address}
+						ward={businessInformation.ward}
+						district={businessInformation.district}
+						city={businessInformation.city}
+						businessName={businessInformation.businessName}
+						major={businessInformation.major}
 					/>
 				</div>
 			</div>

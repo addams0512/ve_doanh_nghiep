@@ -4,7 +4,7 @@
 }
 .add-business-container {
 	display: grid;
-	grid-template-columns: 420px 900px;
+	grid-template-columns: 450px 900px;
 }
 .add-business-create-file-business-container {
 	width: 100%;
@@ -17,8 +17,9 @@
 	align-items: center;
 }
 .add-business-create-file-business-heading-tittle {
-	font-size: 27px;
+	font-size: 18px;
 	font-weight: 600;
+	padding-left: 10px;
 }
 .add-business-create-file-business-body {
 	padding: 10px;
@@ -61,10 +62,26 @@
 	border: 1px solid #ccc;
 }
 
+.input-business-information span {
+	color: red;
+	font-size: 0.9rem;
+	font-style: italic;
+	display: none;
+}
+
+.input-business-information input:invalid span {
+	display: block;
+}
+
 .district-ward-container {
 	display: flex;
 	justify-content: space-between;
 }
+
+.district-ward-container input {
+	width: 200px;
+}
+
 .add-business-create-file-business-info-describe {
 	margin-top: 5px;
 	resize: none;
@@ -161,8 +178,8 @@
 
 /* imgContainer */
 .add-business-create-file-business-profile-logo-circles {
-	height: 200px;
-	width: 200px;
+	height: 160px;
+	width: 160px;
 	border-radius: 50%;
 	border: 1px solid rgb(200, 196, 196);
 	margin-top: 20px;
