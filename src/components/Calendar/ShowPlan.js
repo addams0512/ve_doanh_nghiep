@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react"
+import React, {
+	createContext,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from "react"
 import "./CreatePlan.css"
 import { IoLocationSharp } from "react-icons/io5"
 import { BsFillPersonFill } from "react-icons/bs"
@@ -13,6 +19,8 @@ import { RiDeleteBack2Line, RiChatDeleteLine } from "react-icons/ri"
 import { ChromePicker } from "react-color"
 import { HiPlusSmall } from "react-icons/hi2"
 import "./ShowPlan.css"
+import BasicTimePicker from "./TimePicker"
+import { TimeContext } from "./CreatePlan"
 
 const ShowPlan = ({ remove }) => {
 	const {
@@ -23,6 +31,7 @@ const ShowPlan = ({ remove }) => {
 		idEditPlan,
 		idDeletePlan,
 	} = useContext(PlanContext)
+	const { timePicker, setDatePicker } = useContext(TimeContext)
 
 	// plan edited
 	const planEdit = finalData.find((plan) => plan.id === idEditPlan)
@@ -30,10 +39,8 @@ const ShowPlan = ({ remove }) => {
 	const [tagChoice, setTagChoice] = useState()
 	const [displayDayPicker, setDisplayDayPicker] = useState(false)
 	const [dayPicker, setDayPicker] = useState(formatDatePlanEdit)
-	const [showTime, setShowTime] = useState(false)
 	const [content, setContent] = useState()
 	const [displayMorePartner, setDisplayMorePartner] = useState(false)
-	const [timePicker, setTimePicker] = useState(planEdit.intervalTime)
 	const [openGoToPlace, setOpenFileGoToPlace] = useState(false)
 	const [dataNotice, setDataNotice] = useState()
 	const [selectedUsers, setSelectedUsers] = useState(planEdit.partner)
@@ -43,7 +50,6 @@ const ShowPlan = ({ remove }) => {
 	const [location, setLocation] = useState()
 	const [isTagChoice, setIsTagChoice] = useState(true)
 	const [isDayChoice, setIsDayChoice] = useState(true)
-	const [isTimeChoice, setIsTimeChoice] = useState(true)
 	const [isLocation, setIsLocation] = useState(true)
 	const [isNoticeData, setIsNoticeData] = useState(true)
 	const [isContent, setIsContent] = useState(true)
@@ -82,36 +88,10 @@ const ShowPlan = ({ remove }) => {
 		return date.toLocaleDateString(locale, { weekday: "long" })
 	}
 
-	// generate timePicker
-	const arrayTime = Array.from({ length: 24 }, (v, i) => {
-		const startTime = new Date()
-		startTime.setHours(i, 0, 0)
-		const endTime = new Date(startTime)
-		endTime.setHours(endTime.getHours() + 1)
-		const formattedStartTime =
-			startTime.getHours().toString().padStart(2, "0") +
-			":" +
-			startTime.getMinutes().toString().padStart(2, "0")
-		const formattedEndTime =
-			endTime.getHours().toString().padStart(2, "0") +
-			":" +
-			endTime.getMinutes().toString().padStart(2, "0")
-		const intervalTime = formattedStartTime + " - " + formattedEndTime
-		return {
-			id: i + 1,
-			time: intervalTime,
-		}
-	})
-
 	// fucntion display
 	// Calendar for dayPicker
 	const showDayPicker = () => {
 		setDisplayDayPicker(!displayDayPicker)
-	}
-
-	//timePicker
-	const showAllTime = () => {
-		setShowTime(!showTime)
 	}
 
 	// Partner form
@@ -246,7 +226,6 @@ const ShowPlan = ({ remove }) => {
 			day: day || planEdit.day, // day in format DD with dayPicker
 			month: month || planEdit.month, // month of dayPicker
 			year: year || planEdit.year, // year of dayPicker
-			expirePlan: false,
 			completed: false,
 		}
 		setFinalData(updateData)
@@ -474,36 +453,7 @@ const ShowPlan = ({ remove }) => {
 						)}
 
 						<div className="repeat-create-plan-container"> Lặp lại</div>
-						<div
-							style={{ cursor: "pointer" }}
-							onClick={showAllTime}
-							className="time-detail-create-plan-container">
-							{" "}
-							<p>{isTimeChoice ? planEdit.intervalTime : timePicker}</p>
-							{showTime && (
-								<div>
-									<div
-										onClick={() => setShowTime(false)}
-										className="time-detail-create-plan-cover"
-									/>
-									<div className="dropdown-time-detail-create-plan-container">
-										{arrayTime.map((time) => {
-											return (
-												<div
-													onClick={() => {
-														setTimePicker(time.time)
-														setIsTimeChoice(false)
-													}}
-													key={time.id}
-													className="dropdown-time-detail-create-plan-box">
-													{time.time}
-												</div>
-											)
-										})}
-									</div>
-								</div>
-							)}
-						</div>
+						<BasicTimePicker />
 					</div>
 				</div>
 				<div className="go-together-create-plan-container">

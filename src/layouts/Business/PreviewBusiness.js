@@ -150,7 +150,7 @@ const PreviewPost = (props) => {
 					{displayCreatePost && (
 						<CreatePost
 							post={() => {
-								setDisplayPreviewPost(true)
+								// setDisplayPreviewPost(true)
 								setDisplayCreatePost(false)
 							}}
 						/>

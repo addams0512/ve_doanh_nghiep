@@ -4,9 +4,11 @@ import { RxAvatar } from "react-icons/rx"
 import { PlanContext } from "./CalendarLayout"
 
 const DayLayout = ({ editPlan }) => {
-	const { filterPlanInWeek } = useContext(PlanContext)
+	const { filterPlanInWeek, dayChosen } = useContext(PlanContext)
 	const [showPlan, setShowPlan] = useState(false)
-	const currentDay = new Date().getDay() % 7 || 7
+
+	// day in week chosen
+	const dayWeekChosen = dayChosen.getDay() % 7 || 7
 
 	const [currentId, setCurrentId] = useState("")
 	const [isShowDay, setIsShowDay] = useState(false)
@@ -55,7 +57,7 @@ const DayLayout = ({ editPlan }) => {
 		setIsShowDay(true)
 		setWeekSelected(
 			weekSelected.map((day) => {
-				if (id === day.id) {
+				if (id === dayWeekChosen) {
 					day.filter = !day.filter
 				} else {
 					day.filter = false
@@ -72,12 +74,12 @@ const DayLayout = ({ editPlan }) => {
 
 	// handle current day
 	const planInCurrentDate = filterPlanInWeek.filter(
-		(plan) => plan.planWeekDate === currentDay
+		(plan) => plan.planWeekDate === dayWeekChosen
 	)
 
 	//handle btn current day
 	const btnInCurrentDay = dayInWeek.map((btn) => {
-		if (btn.id === currentDay) {
+		if (btn.id === dayWeekChosen) {
 			btn.filter = !btn.filter
 		}
 		return btn

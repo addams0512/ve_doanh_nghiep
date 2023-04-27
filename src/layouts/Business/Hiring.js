@@ -12,7 +12,7 @@ const Hiring = (props) => {
 			<div className="about-business-hiring-container ">
 				<div className="hiring-container-heading">
 					<div className="hiring-heading-1">
-						<h3>ỨNG TUYỂN</h3>
+						<h3>Ứng tuyển</h3>
 					</div>
 
 					<div className="hiring-heading-2">
@@ -45,14 +45,18 @@ const Hiring = (props) => {
 									</div>
 								</div>
 								<div className="hiring-bottom-info-3">
-									<button>
-										<AiOutlinePaperClip size={15} /> Thêm hồ sơ đính kèm
-									</button>
+									<label htmlFor="hiring-document">
+										<AiOutlinePaperClip size={20} /> Thêm hồ sơ đính kèm
+									</label>
+									<input
+										type="file"
+										id="hiring-document"
+									/>
 								</div>
 							</div>
 						</div>
 						<div className="hiring-bottom-info-4">
-							<button onClick={handleclick}>HOÀN THÀNH</button>
+							<button onClick={handleclick}>Hoàn thành</button>
 						</div>
 					</div>
 				</div>

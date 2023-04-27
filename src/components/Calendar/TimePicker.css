@@ -1,0 +1,51 @@
+.time-detail-create-plan-container {
+	width: 200px;
+	height: 40px;
+	font-size: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: auto;
+	background-color: #f0f0f0;
+}
+
+.start-time__create-plan-container {
+	width: fit-content;
+	height: 100%;
+	display: flex;
+}
+.end-time__create-plan-container {
+	width: fit-content;
+	height: 100%;
+	display: flex;
+}
+.time_container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.time_container input {
+	cursor: pointer;
+	text-align: center;
+	width: 30px;
+	height: 100%;
+	border: none;
+	font-size: 1.2rem;
+	background-color: transparent;
+}
+
+.time_container input:focus {
+	outline: none;
+}
+
+.time_container p {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.time_container input[type="number"]::-webkit-inner-spin-button,
+.time_container input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}

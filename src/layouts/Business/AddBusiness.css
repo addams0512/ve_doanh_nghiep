@@ -4,7 +4,7 @@
 }
 .add-business-container {
 	display: grid;
-	grid-template-columns: 450px 900px;
+	grid-template-columns: 400px 900px;
 }
 .add-business-create-file-business-container {
 	width: 100%;

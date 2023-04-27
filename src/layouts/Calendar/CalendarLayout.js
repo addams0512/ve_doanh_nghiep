@@ -21,16 +21,17 @@ const CalendarLayout = () => {
 	const [displayMonth, setDisplayMonth] = useState(false)
 	const [displayYear, setDisplayYear] = useState(false)
 	const [displayPlanCreate, setDisplayPlanCreate] = useState(false)
-	const [currentDay, setDay] = useState(new Date())
+	const [dayChosen, setDayChosen] = useState(new Date())
 	const [finalData, setFinalData] = useState(planAPI)
 	const [tagPlan, setTagPlan] = useState(tagPlanAPI)
 	const [idEditPlan, setIdEditPlan] = useState()
 	const [displayPlan, setDisplayPlan] = useState(false)
 	const [idDeletePlan, setIdDeletePlan] = useState("")
 	const [isConfirmDeletePlan, setIsConfirmDeletePlan] = useState(false)
+	const currentDay = new Date().getDate()
 	// sun is startDate and sat is the endDate
 	const startDate = new Date(
-		currentDay.getTime() - currentDay.getDay() * 24 * 60 * 60 * 1000
+		dayChosen.getTime() - dayChosen.getDay() * 24 * 60 * 60 * 1000
 	)
 	const endDate = new Date(startDate.getTime() + 6 * 24 * 60 * 60 * 1000)
 
@@ -65,6 +66,8 @@ const CalendarLayout = () => {
 		// handle final data
 		finalData,
 		setFinalData,
+		// day pick in
+		dayChosen,
 	}
 
 	// handle edit plan
@@ -81,7 +84,7 @@ const CalendarLayout = () => {
 	}
 
 	// handle next plan
-	const nextPlan = finalData.filter((plan) => plan.day >= currentDay.getDate())
+	const nextPlan = finalData.filter((plan) => plan.day >= currentDay)
 
 	// handelCompleted
 	const [planCompleted, setPlanCompleted] = useState(nextPlan)
@@ -103,14 +106,14 @@ const CalendarLayout = () => {
 	})
 
 	return (
-		<DayContext.Provider value={currentDay}>
+		<DayContext.Provider value={dayChosen}>
 			<PlanContext.Provider value={value}>
 				<div className="container-calendar">
 					<div className="header-container-calendar">
 						<div className="date-calendar">
-							<h1>{currentDay.getDate()}</h1>
-							<p>tháng {currentDay.getMonth() + 1}</p>
-							<p>{currentDay.getFullYear()}</p>
+							<h1>{dayChosen.getDate()}</h1>
+							<p>tháng {dayChosen.getMonth() + 1}</p>
+							<p>{dayChosen.getFullYear()}</p>
 						</div>
 						<div className="time-search-type-calendar">
 							<div className="time-type-calendar">
@@ -204,8 +207,8 @@ const CalendarLayout = () => {
 								</div>
 								<div className="display-calendar">
 									<BasicCalendar
-										onChange={setDay}
-										value={currentDay}
+										onChange={setDayChosen}
+										value={dayChosen}
 									/>
 								</div>
 								<div className="type-plan-calendar">
@@ -235,7 +238,7 @@ const CalendarLayout = () => {
 											Kế hoạch sắp tới
 										</div>
 										<div className="detail-next-plan-calendar-container">
-											{nextPlan.map((plan) => {
+											{nextPlan.reverse().map((plan) => {
 												return (
 													<div
 														style={
@@ -316,9 +319,9 @@ const CalendarLayout = () => {
 								{displayDay && (
 									<DayLayout editPlan={(id) => handleEditPlan(id)} />
 								)}
-								{displayWeek && (
+								{/* {displayWeek && (
 									<WeekLayout editPlan={(id) => handleEditPlan(id)} />
-								)}
+								)} */}
 								{displayMonth && <MonthLayout />}
 								{displayYear && <YearLayout />}
 							</div>

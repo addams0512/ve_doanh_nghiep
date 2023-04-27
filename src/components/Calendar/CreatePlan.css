@@ -16,7 +16,7 @@
 	background-color: white;
 	border-radius: 16px;
 	width: 700px;
-	height: 800px;
+	height: 820px;
 	display: flex;
 	position: relative;
 	flex-direction: column;
@@ -139,21 +139,22 @@
 	margin-left: 40px;
 	font-size: 1.2rem;
 	display: flex;
-	width: 471px;
-	height: 93px;
+	width: 600px;
+	height: 140px;
 }
 
 .date-detail-create-plan-box {
-	flex-wrap: wrap;
-	display: flex;
-	flex-direction: column;
 	width: 100%;
 	padding-left: 18px;
-	height: 100px;
+	height: 100%;
 	position: relative;
+	gap: 20px;
+	display: flex;
+	flex-direction: column;
 }
 
 .calendar-picker-cover {
+	cursor: pointer;
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -164,62 +165,46 @@
 .date-detail-create-plan-container {
 	background-color: #f0f0f0;
 	width: 300px;
-	height: 40px;
+	height: 50px;
 	font-size: 1.2rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	border-radius: 10px;
-	flex-wrap: wrap;
 	margin-right: 30px;
 }
 
-.calendar-for-pickerDate {
+.calendar-picker-container {
+	z-index: 9998;
 	position: absolute;
-	top: 42px;
+	top: 50px;
 	left: 14px;
 	width: 380px;
 	height: 340px;
+	animation-name: zoom-in;
+	animation-duration: 0.5s;
+}
+.calendar-for-pickerDate {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 380px;
+	height: 340px;
+}
+@keyframes zoom-in {
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
 }
 
-.time-detail-create-plan-container {
-	background-color: #f0f0f0;
-	width: 160px;
-	height: 40px;
-	font-size: 1.2rem;
+.calendar-time-picker__container {
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 10px;
-	margin-left: auto;
-	position: relative;
+	gap: 10px;
 }
-.time-detail-create-plan-cover {
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	position: fixed;
-}
-.dropdown-time-detail-create-plan-container {
-	width: 160px;
-	height: 160px;
-	position: absolute;
-	z-index: 1;
-	background: rgba(255, 255, 255, 0.78);
-	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-	backdrop-filter: blur(6.2px);
-	-webkit-backdrop-filter: blur(6.2px);
-	border: 1px solid rgba(255, 255, 255, 0.3);
-	overflow-y: auto;
-	top: 40px;
-	right: 0;
-}
-.dropdown-time-detail-create-plan-box {
-	margin-bottom: 10px;
-	margin-left: 20px;
-	margin-top: 10px;
-}
+
 /* Rounded sliders */
 .slider.round {
 	border-radius: 34px;
@@ -240,18 +225,6 @@
 	border-radius: 10px;
 	gap: 10px;
 	margin-top: auto;
-}
-
-.repeat-create-plan-container {
-	background-color: #f0f0f0;
-	width: 100px;
-	height: 40px;
-	font-size: 1.2rem;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 10px;
-	margin-top: 16px;
 }
 
 /* go-together */
@@ -334,7 +307,7 @@
 	margin-top: auto;
 	display: flex;
 	margin-right: 40px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	gap: 20px;
 }
 

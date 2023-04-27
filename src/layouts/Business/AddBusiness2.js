@@ -41,7 +41,6 @@ export default function AddBusiness({ showBusiness }) {
 		setOpenPageAfter(true)
 		setClosePageBefor(false)
 	}
-	useEffect(() => console.log({ businessData }), [businessData])
 	// onchange Business Data
 	const onBusinessData = (e) => {
 		setBusinessInformation({

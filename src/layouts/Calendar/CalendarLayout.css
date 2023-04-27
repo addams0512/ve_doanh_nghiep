@@ -83,7 +83,6 @@
 .type-plan-calendar-container {
 	padding: 14px 10px 20px 10px;
 	width: 380px;
-	border-radius: 58px;
 	background-color: #f6f6f6;
 	height: fit-content;
 	display: flex;
@@ -118,7 +117,6 @@
 	flex-wrap: wrap;
 	overflow-y: auto;
 	gap: 10px;
-	padding: 0 20px;
 }
 .description-type-plan-container {
 	display: flex;
