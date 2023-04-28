@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import AboutUs from "../../layouts/Business/AboutUs"
 import Hiring from "../../layouts/Business/Hiring"
 import Services from "../../layouts/Business/Services"
@@ -8,7 +8,9 @@ import Post from "../../layouts/Business/Post"
 import CreatePost from "../../layouts/Business/CreatePost"
 import PreviewPost from "../../layouts/Business/PreviewPost"
 import Cart from "../../layouts/Business/Cart"
+import { BusinessContext } from "../../pages/BusinessPage"
 const AboutBusiness = () => {
+	const { businessData } = useContext(BusinessContext)
 	const [aboutUsDisplay, setAboutUsDisplay] = useState(false)
 	const [displayPost, setDisplayPost] = useState(true)
 	const [displayServices, setDisplayServices] = useState(false)
@@ -16,7 +18,6 @@ const AboutBusiness = () => {
 	const [displayPreviewPost, setDisplayPreviewPost] = useState(false)
 	const [displayCart, setDisplayCart] = useState(false)
 	const [HiringDisplay, setHiringDisplay] = useState(false)
-
 	const Showme = () => {
 		setHiringDisplay(true)
 	}

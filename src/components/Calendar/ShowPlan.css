@@ -56,3 +56,38 @@
 	background-color: #373737;
 	color: white;
 }
+
+.date-picker-box__show-plan {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.date-picker-container {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.date-detail-show-plan-box {
+	display: flex;
+}
+
+.time-show-plan-box {
+	display: flex;
+	gap: 20px;
+	margin-top: 10px;
+	align-items: center;
+}
+
+.time-show-plan-container {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-left: 40px;
+}
+
+.tag-type-create-plan-box-4 {
+	margin-left: 40px;
+}

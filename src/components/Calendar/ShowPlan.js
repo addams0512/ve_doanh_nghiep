@@ -1,26 +1,25 @@
-import React, {
-	createContext,
-	useContext,
-	useEffect,
-	useRef,
-	useState,
-} from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import "./CreatePlan.css"
 import { IoLocationSharp } from "react-icons/io5"
-import { BsFillPersonFill } from "react-icons/bs"
-import { FaRegClock, FaTags } from "react-icons/fa"
+import { BsFillPersonFill, BsClockFill } from "react-icons/bs"
+import { FaTags } from "react-icons/fa"
 import { BiSearch } from "react-icons/bi"
 import { GrHistory } from "react-icons/gr"
 import BasicCalendar from "./BasicCalendar"
-import moment from "moment"
 import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
 import instance from "../../data/instance"
 import { RiDeleteBack2Line, RiChatDeleteLine } from "react-icons/ri"
+import moment from "moment"
 import { ChromePicker } from "react-color"
 import { HiPlusSmall } from "react-icons/hi2"
+import { FaCalendarAlt } from "react-icons/fa"
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo"
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
+import { TimePicker } from "@mui/x-date-pickers/TimePicker"
+import dayjs from "dayjs"
+
 import "./ShowPlan.css"
-import BasicTimePicker from "./TimePicker"
-import { TimeContext } from "./CreatePlan"
 
 const ShowPlan = ({ remove }) => {
 	const {
@@ -31,11 +30,12 @@ const ShowPlan = ({ remove }) => {
 		idEditPlan,
 		idDeletePlan,
 	} = useContext(PlanContext)
-	const { timePicker, setDatePicker } = useContext(TimeContext)
 
 	// plan edited
 	const planEdit = finalData.find((plan) => plan.id === idEditPlan)
 	const formatDatePlanEdit = new Date(planEdit.date)
+
+	// tag choice
 	const [tagChoice, setTagChoice] = useState()
 	const [displayDayPicker, setDisplayDayPicker] = useState(false)
 	const [dayPicker, setDayPicker] = useState(formatDatePlanEdit)
@@ -58,7 +58,23 @@ const ShowPlan = ({ remove }) => {
 	const [confirmDeletePlan, setIsConfirmDeletePlan] = useState(false)
 	const [confirmDeleteTag, setConfirmDeleteTag] = useState(false)
 	const [idDelete, setIdDelete] = useState("")
-	const tagDelete = tagPlan[idDelete]
+	const [tagDelete, setTagDelete] = useState()
+
+	const [startTime, setStartTime] = useState(dayjs("2022-04-17T15:30"))
+	const [endTime, setEndTime] = useState(dayjs("2022-04-17T15:30"))
+
+	const formatTime = (time) => {
+		if (1 <= time <= 9) {
+			return (time = time.toString().padStart(2, "0"))
+		}
+		return time
+	}
+	const startHour = formatTime(startTime.$H)
+	const startMinute = formatTime(startTime.$m)
+	const endHour = formatTime(endTime.$H)
+	const endMinute = formatTime(endTime.$m)
+	const interValTime = `${startHour}:${startMinute} - ${endHour}:${endMinute}`
+	const [timePicker, setTimePicker] = useState(interValTime)
 
 	// get day - month - year
 	const day = dayPicker.getDate()
@@ -100,7 +116,7 @@ const ShowPlan = ({ remove }) => {
 	}
 
 	const deleteTag = (id) => {
-		const tagOnDelete = tagPlan.filter((tag) => tag.id !== id)
+		const tagOnDelete = tagPlan.filter((tag) => tag.id !== idDelete)
 		setTagPlan(tagOnDelete)
 	}
 
@@ -121,11 +137,12 @@ const ShowPlan = ({ remove }) => {
 	// handle add tag plan
 	const handleAddTag = (e) => {
 		if (e.key === "Enter") {
-			const lastTagId = tagPlan.length > 0 ? tagPlan.at(-1).id + 1 : 0
+			const lastTagId = tagPlan.length > 0 ? tagPlan.at(0).id + 1 : 0
 			const newTag = {
 				id: lastTagId,
 				color: color,
 				type: newPlan,
+				delete: false,
 			}
 			setTagPlan([...tagPlan, newTag])
 			setNewPlan("")
@@ -208,6 +225,14 @@ const ShowPlan = ({ remove }) => {
 		setLocation(e.target.value)
 	}
 
+	// confirmation delete Tag
+	const handleDeleteTag = (id) => {
+		const tagDelete = tagPlan.filter((item) => item.id === id)
+		setTagDelete(tagDelete)
+		setIdDelete(id)
+		setConfirmDeleteTag(true)
+	}
+
 	// create plan
 	const editPlan = (item) => {
 		const updateData = [...finalData]
@@ -248,7 +273,6 @@ const ShowPlan = ({ remove }) => {
 			remove()
 		}
 	}
-
 	useEffect(() => {
 		document.addEventListener("click", handleClickOutSide, true)
 	}, [])
@@ -337,20 +361,24 @@ const ShowPlan = ({ remove }) => {
 							)}
 						</div>
 					</div>
-					<div className="tag-type-create-plan-container">
-						<div className="tag-type-create-plan-box-4">
-							{tagPlan.map((item) => {
+				</div>
+				<div className="tag-type-create-plan-container">
+					<div className="tag-type-create-plan-box-4">
+						{tagPlan
+							.sort((a, b) => b.id - a.id)
+							.map((item) => {
 								return (
 									<div
 										key={item.id}
 										className="array-of-tag-plan">
-										<div className="tag-type-create-plan__box">
+										<div
+											style={{ cursor: "pointer" }}
+											onClick={() => tagChosen(item.id)}
+											className="tag-type-create-plan__box">
 											<div
 												style={{
-													cursor: "pointer",
 													backgroundColor: item.color,
 												}}
-												onClick={() => tagChosen(item.id)}
 												className="tag-type-create-plan"></div>
 											<div className="content-type-create-plan">
 												{" "}
@@ -360,8 +388,7 @@ const ShowPlan = ({ remove }) => {
 										<RiDeleteBack2Line
 											style={{ cursor: "pointer" }}
 											onClick={() => {
-												setIdDelete(item.id)
-												setConfirmDeleteTag(true)
+												handleDeleteTag(item.id)
 											}}
 											color="red"
 										/>
@@ -374,12 +401,12 @@ const ShowPlan = ({ remove }) => {
 													<div className="tag-delete__pop-up">
 														<div
 															style={{
-																backgroundColor: tagDelete.color,
+																backgroundColor: tagDelete[0].color,
 															}}
 															className="tag-type-create-plan"></div>
 														<div className="content-type-create-plan">
 															{" "}
-															{tagDelete.type}
+															{tagDelete[0].type}
 														</div>
 													</div>
 													<div className="btn-delete-tag__pop-up">
@@ -404,56 +431,68 @@ const ShowPlan = ({ remove }) => {
 									</div>
 								)
 							})}
-						</div>
 					</div>
 				</div>
-				<div className="time-create-plan-container">
-					<div
-						style={{
-							marginTop: "6px",
-							display: "flex",
-							justifyContent: "center",
-						}}>
-						<FaRegClock size={30} />
-					</div>
-					<div className="date-detail-create-plan-box">
-						{isDayChoice ? (
-							<div
-								style={{ cursor: "pointer" }}
-								onClick={showDayPicker}
-								className="date-detail-create-plan-container">
-								{pickWeekday}, {planEdit.day} tháng {planEdit.month + 1} ,{" "}
-								{planEdit.year}
-							</div>
-						) : (
-							<div
-								style={{ cursor: "pointer" }}
-								onClick={showDayPicker}
-								className="date-detail-create-plan-container">
-								{getDayName()}, {day} tháng {month + 1} , {year}
-							</div>
-						)}
-						{displayDayPicker && (
-							<div className="calendar-picker-container">
+				<div className="time-show-plan-container">
+					<div className="time-show-plan-box">
+						<div>
+							<FaCalendarAlt size={30} />
+						</div>
+						<div className="date-detail-show-plan-box">
+							{isDayChoice ? (
 								<div
-									onClick={() => setDisplayDayPicker(false)}
-									className="calendar-picker-cover"
-								/>
-								<div className="calendar-for-pickerDate">
-									<BasicCalendar
-										onChange={(e) => {
-											setIsDayChoice(false)
-											setDayPicker(e)
-											setDisplayDayPicker(false)
-										}}
-										value={dayPicker}
-									/>
+									style={{ cursor: "pointer" }}
+									onClick={showDayPicker}
+									className="date-detail-create-plan-container">
+									{pickWeekday}, {planEdit.day} tháng {planEdit.month + 1} ,{" "}
+									{planEdit.year}
 								</div>
-							</div>
-						)}
-
-						<div className="repeat-create-plan-container"> Lặp lại</div>
-						<BasicTimePicker />
+							) : (
+								<div
+									style={{ cursor: "pointer" }}
+									onClick={showDayPicker}
+									className="date-detail-create-plan-container">
+									{getDayName()}, {day} tháng {month + 1} , {year}
+								</div>
+							)}
+							{displayDayPicker && (
+								<div className="calendar-picker-container">
+									<div
+										onClick={() => setDisplayDayPicker(false)}
+										className="calendar-picker-cover"
+									/>
+									<div className="calendar-for-pickerDate">
+										<BasicCalendar
+											onChange={(e) => {
+												setIsDayChoice(false)
+												setDayPicker(e)
+												setDisplayDayPicker(false)
+											}}
+											value={dayPicker}
+										/>
+									</div>
+								</div>
+							)}
+						</div>
+					</div>
+					<div className="calendar-date-picker__container">
+						<BsClockFill size={30} />
+						<LocalizationProvider dateAdapter={AdapterDayjs}>
+							<DemoContainer components={["TimePicker", "TimePicker"]}>
+								<TimePicker
+									sx={{
+										backgroundColor: "#f0f0f0",
+									}}
+									label="Giờ bắt đầu"
+									onChange={(startTime) => setStartTime(startTime)}
+								/>
+								<TimePicker
+									sx={{ backgroundColor: "#f0f0f0" }}
+									label="Giờ kết thúc"
+									onChange={(endTime) => setEndTime(endTime)}
+								/>
+							</DemoContainer>
+						</LocalizationProvider>
 					</div>
 				</div>
 				<div className="go-together-create-plan-container">
@@ -555,6 +594,7 @@ const ShowPlan = ({ remove }) => {
 						</div>
 					)}
 				</div>
+
 				{/* partner  */}
 				<div className="go-together-background">
 					{openGoToPlace && (

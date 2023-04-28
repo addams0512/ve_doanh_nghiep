@@ -21,6 +21,7 @@ const YourBusiness = ({ createBusinessPage, displayAddYourBusiness }) => {
 	const [sortIncome, setSortIncome] = useState(true)
 	const [sortAdmin, setSortAdmin] = useState(true)
 	const [sortAddress, setSortAddress] = useState(true)
+	const [idChoice, setIdChoice] = useState()
 	const [dataSelected, setDataSelected] = useState()
 	const [sortData, setSortData] = useState([])
 	const [color, setColor] = useState([])
@@ -338,6 +339,10 @@ const YourBusiness = ({ createBusinessPage, displayAddYourBusiness }) => {
 	// 	return b - a
 	// })
 
+	// show Business
+	const showBusiness = (id) => {
+		setIdChoice(id)
+	}
 	return (
 		<div className="your-business-container">
 			<div className="title-your-business-container">
@@ -489,7 +494,9 @@ const YourBusiness = ({ createBusinessPage, displayAddYourBusiness }) => {
 											}}
 											className="heading-main-your-business-container">
 											{/* card */}
-											<div className="card-item-main-your-business">
+											<div
+												onClick={() => showBusiness(element.id)}
+												className="card-item-main-your-business">
 												<div className="circles-card-nav-main-your-business"></div>
 												<div
 													onClick={createBusiness}

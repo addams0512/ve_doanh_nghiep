@@ -1,51 +1,59 @@
-import React, {
-	createContext,
-	useContext,
-	useEffect,
-	useRef,
-	useState,
-} from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 
-import "./CreatePlan.css"
+// timpicker
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo"
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
+import { TimePicker } from "@mui/x-date-pickers/TimePicker"
+import dayjs from "dayjs"
+import moment from "moment"
+
+// context
+import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
+import CreateTag, { TagContext } from "./CreateTag"
+
+// icon
 import { IoLocationSharp } from "react-icons/io5"
-import { BsFillPersonFill } from "react-icons/bs"
-import { FaRegClock, FaTags } from "react-icons/fa"
+import { BsFillPersonFill, BsClockFill } from "react-icons/bs"
 import { BiSearch } from "react-icons/bi"
 import { GrHistory } from "react-icons/gr"
-import BasicCalendar from "./BasicCalendar"
-import moment from "moment"
-import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
-import instance from "../../data/instance"
-import { RiDeleteBack2Line, RiChatDeleteLine } from "react-icons/ri"
-import { ChromePicker } from "react-color"
+import { FaCalendarAlt } from "react-icons/fa"
 import { HiPlusSmall } from "react-icons/hi2"
 import { DotSpinner } from "@uiball/loaders"
-import BasicTimePicker from "./TimePicker"
-import ShowPlan from "./ShowPlan"
-export const TimeContext = createContext()
+import BasicCalendar from "./BasicCalendar"
+
+// data
+import instance from "../../data/instance"
+
+// css
+import "./CreatePlan.css"
+
 const CreatePlan = ({ remove }) => {
-	const { finalData, setFinalData, tagPlan, setTagPlan, dayChosen } =
-		useContext(PlanContext)
-	const [tagChoice, setTagChoice] = useState()
+	const { finalData, setFinalData, dayChosen } = useContext(PlanContext)
+	const tagChoice = useContext(TagContext)
 	const [displayDayPicker, setDisplayDayPicker] = useState(false)
 	const [dayPicker, setDayPicker] = useState(dayChosen)
 	const [content, setContent] = useState()
 	const [displayMorePartner, setDisplayMorePartner] = useState(false)
-	const [timePicker, setTimePicker] = useState("00:00")
 	const [openGoToPlace, setOpenFileGoToPlace] = useState(false)
 	const [dataNotice, setDataNotice] = useState()
 	const [selectedUsers, setSelectedUsers] = useState([])
-	const [color, setColor] = useState("black")
-	const [showcolordisplay, setShowColorDisplay] = useState(false)
-	const [newPlan, setNewPlan] = useState("")
 	const [location, setLocation] = useState()
-	const [isTagChoice, setIsTagChoice] = useState(false)
 	const [isUserData, setIsUserData] = useState(false)
 	const [selectedIndex, setSelectedIndex] = useState(0)
-	const [idDelete, setIdDelete] = useState()
-	const [confirmDeleteTag, setConfirmDeleteTag] = useState(false)
-	const [tagDelete, setTagDelete] = useState()
-	const showPlan = false
+	const [startTime, setStartTime] = useState(dayjs("2022-04-17T15:30"))
+	const [endTime, setEndTime] = useState(dayjs("2022-04-17T15:30"))
+	const formatTime = (time) => {
+		if (1 <= time <= 9) {
+			return (time = time.toString().padStart(2, "0"))
+		}
+		return time
+	}
+	const startHour = formatTime(startTime.$H)
+	const startMinute = formatTime(startTime.$m)
+	const endHour = formatTime(endTime.$H)
+	const endMinute = formatTime(endTime.$m)
+	const interValTime = `${startHour}:${startMinute} - ${endHour}:${endMinute}`
 
 	// get day - month - year
 	const day = dayPicker.getDate()
@@ -75,47 +83,10 @@ const CreatePlan = ({ remove }) => {
 		setOpenFileGoToPlace(!openGoToPlace)
 	}
 
-	const deleteTag = (id) => {
-		setTagPlan(tagPlan.filter((plan) => plan.id !== idDelete))
-	}
-
 	// remove createPlan form
 
 	const handleCancel = () => {
 		remove()
-	}
-
-	// colorPicker
-	function showcolor() {
-		setShowColorDisplay(!showcolordisplay)
-	}
-
-	const closeColorPicker = () => {
-		setShowColorDisplay(false)
-	}
-
-	// handle add tag plan
-	const handleAddTag = (e) => {
-		if (e.key === "Enter") {
-			const lastTagId = tagPlan.length > 0 ? tagPlan.at(0).id + 1 : 0
-			const newTag = {
-				id: lastTagId,
-				color: color,
-				type: newPlan,
-				delete: false,
-			}
-			setTagPlan([...tagPlan, newTag])
-			setIsTagChoice(true)
-			setTagChoice(newTag)
-			setNewPlan("")
-		}
-	}
-
-	// choose Tag
-	const tagChosen = (id) => {
-		const tagChosen = tagPlan.find((tag) => id === tag.id)
-		setIsTagChoice(true)
-		setTagChoice(tagChosen)
 	}
 
 	// get User API
@@ -201,29 +172,23 @@ const CreatePlan = ({ remove }) => {
 				content: content,
 				tagChoice: tagChoice || { color: "black", name: "" }, // tag chosen
 				date: date, // full date format YYYY-MM-DD
-				intervalTime: timePicker, // time format HH:MM - HH:MM
+				intervalTime: interValTime, // time format HH:MM - HH:MM
 				partner: selectedUsers, // array of partner
 				location: location,
 				note: dataNotice,
 				planWeekDate: dayOfWeek, // day of week in format 1,2,3,4,5,6,7
-				planTime: Number(timePicker.slice(0, 2)), // time format HH
-				timePicker: timePicker.slice(0, 5), // time format HH:MM
+				planTime: Number(interValTime.slice(0, 2)), // time format HH
+				timePicker: interValTime.slice(0, 5), // time format HH:MM
 				day: day, // day in format DD with dayPicker
 				month: month, // month of dayPicker
 				year: year, // year of dayPicker
 				completed: false,
+				startTime: startTime,
+				endTime: endTime,
 			},
 		]
 		setFinalData(dataArray)
 		remove()
-	}
-	// delete Tag
-	const handleDeleteTag = (id) => {
-		const tagDelete = tagPlan.filter((item) => item.id === id)
-		console.log({ tagDelete })
-		setTagDelete(tagDelete)
-		setIdDelete(id)
-		setConfirmDeleteTag(true)
 	}
 
 	// outside click
@@ -238,174 +203,33 @@ const CreatePlan = ({ remove }) => {
 	})
 
 	return (
-		<TimeContext.Provider value={{ timePicker, setTimePicker }}>
-			<div className="create-plan-container">
-				{loading ? (
-					<div className="loading">
-						<DotSpinner
-							size={100}
-							speed={0.8}
-							color="#ccc"
-						/>
-					</div>
-				) : (
-					<div
-						ref={refOne}
-						className="create-plan-box">
-						<div className="create-plan-btn">Tạo kế hoạch</div>
-						<input
-							onChange={(e) => setContent(e.target.value)}
-							className="name-create-plan-input"
-							type="text"
-							placeholder="Kế hoạch của bạn"
-						/>
-						<div className="type-create-plan-container">
-							<div className="title-type-create-plan-container">
-								<FaTags size={30} />
-								<div className="title-type-create-plan">Loại kế hoạch</div>
-								<div className="new-tag-add-info">
-									{isTagChoice ? (
-										<div className="tag-type-create-plan__box">
-											<div
-												style={
-													isTagChoice
-														? {
-																cursor: "pointer",
-																backgroundColor: tagChoice.color,
-														  }
-														: { cursor: "pointer", backgroundColor: "black" }
-												}
-												className="tag-type-create-plan"></div>
-											<div className="content-type-create-plan">
-												{" "}
-												{tagChoice.type}
-											</div>
-											<RiChatDeleteLine
-												onClick={() => {
-													setTagChoice([])
-													setIsTagChoice(false)
-												}}
-												color="red"
-												size={20}
-												style={{ cursor: "pointer", marginBottom: "20px" }}
-											/>
-										</div>
-									) : (
-										<div className="add-new-tag-plan">
-											<input
-												onKeyUp={handleAddTag}
-												value={newPlan}
-												onChange={(e) => setNewPlan(e.target.value)}
-												type="text"
-												placeholder="Tạo tag"
-												className="new-tag-input"
-											/>
-
-											<div className="new-tag-add-color">
-												<div
-													onClick={showcolor}
-													style={{ backgroundColor: color }}
-													className="new-tag-color-option"></div>
-												{showcolordisplay && (
-													<div className="tag-color-option">
-														<div
-															onClick={closeColorPicker}
-															className="tag-color-option-cover"
-														/>
-														<ChromePicker
-															color={color}
-															onChange={(e) => setColor(e.hex)}
-														/>
-													</div>
-												)}
-											</div>
-										</div>
-									)}
+		<div className="create-plan-container">
+			{loading ? (
+				<div className="loading">
+					<DotSpinner
+						size={100}
+						speed={0.8}
+						color="#ccc"
+					/>
+				</div>
+			) : (
+				<div
+					ref={refOne}
+					className="create-plan-box">
+					<div className="create-plan-btn">Tạo kế hoạch</div>
+					<input
+						onChange={(e) => setContent(e.target.value)}
+						className="name-create-plan-input"
+						type="text"
+						placeholder="Kế hoạch của bạn"
+					/>
+					<div className="type-create-plan-container">
+						<CreateTag />
+						<div className="date-detail-create-plan-box">
+							<div className="date-picker-box">
+								<div>
+									<FaCalendarAlt size={30} />
 								</div>
-							</div>
-							<div className="tag-type-create-plan-container">
-								<div className="tag-type-create-plan-box-4">
-									{tagPlan
-										.sort((a, b) => b.id - a.id)
-										.map((item) => {
-											return (
-												<div
-													key={item.id}
-													className="array-of-tag-plan">
-													<div
-														style={{ cursor: "pointer" }}
-														onClick={() => tagChosen(item.id)}
-														className="tag-type-create-plan__box">
-														<div
-															style={{
-																backgroundColor: item.color,
-															}}
-															className="tag-type-create-plan"></div>
-														<div className="content-type-create-plan">
-															{" "}
-															{item.type}
-														</div>
-													</div>
-													<RiDeleteBack2Line
-														style={{ cursor: "pointer" }}
-														onClick={() => {
-															handleDeleteTag(item.id)
-														}}
-														color="red"
-													/>
-													{confirmDeleteTag && (
-														<div className="accept-delete-tag-container">
-															<div className="accept-delete-tag-box">
-																<b className="title-delete-tag__pop-up">
-																	Bạn có chắc chắn muốn hủy tag này?
-																</b>
-																<div className="tag-delete__pop-up">
-																	<div
-																		style={{
-																			backgroundColor: tagDelete[0].color,
-																		}}
-																		className="tag-type-create-plan"></div>
-																	<div className="content-type-create-plan">
-																		{" "}
-																		{tagDelete[0].type}
-																	</div>
-																</div>
-																<div className="btn-delete-tag__pop-up">
-																	<button
-																		onClick={() => {
-																			setConfirmDeleteTag(false)
-																		}}>
-																		Hủy
-																	</button>
-																	<button
-																		onClick={() => {
-																			deleteTag(item.id)
-																			setConfirmDeleteTag(false)
-																		}}>
-																		{" "}
-																		Xác nhận
-																	</button>
-																</div>
-															</div>
-														</div>
-													)}
-												</div>
-											)
-										})}
-								</div>
-							</div>
-						</div>
-						<div className="time-create-plan-container">
-							<div
-								style={{
-									marginTop: "6px",
-									display: "flex",
-									justifyContent: "center",
-								}}>
-								<FaRegClock size={30} />
-							</div>
-
-							<div className="date-detail-create-plan-box">
 								<div
 									style={{ cursor: "pointer" }}
 									onClick={showDayPicker}
@@ -429,156 +253,171 @@ const CreatePlan = ({ remove }) => {
 										</div>
 									</div>
 								)}
-								<div className="calendar-date-picker__container">
-									<BasicTimePicker />
-								</div>
 							</div>
-						</div>
-						<div className="go-together-create-plan-container">
-							<div
-								style={{
-									display: "flex",
-									justifyContent: "center",
-								}}>
-								<BsFillPersonFill size={30} />
+							<div className="calendar-date-picker__container">
+								<BsClockFill size={30} />
+								<LocalizationProvider dateAdapter={AdapterDayjs}>
+									<DemoContainer components={["TimePicker", "TimePicker"]}>
+										<TimePicker
+											sx={{
+												backgroundColor: "#f0f0f0",
+											}}
+											label="Giờ bắt đầu"
+											onChange={(startTime) => setStartTime(startTime)}
+										/>
+										<TimePicker
+											sx={{ backgroundColor: "#f0f0f0" }}
+											label="Giờ kết thúc"
+											onChange={(endTime) => setEndTime(endTime)}
+										/>
+									</DemoContainer>
+								</LocalizationProvider>
 							</div>
-							<div
-								onClick={showfilegotoplace}
-								style={
-									displayMorePartner ? { height: "100px" } : { height: "70px" }
-								}
-								className="go-together-create-plan-box">
-								{(selected.length > 5 && displayMorePartner
-									? selected
-									: selected.slice(0, 4)
-								).map((user) => {
-									return (
-										<div
-											key={user.id}
-											className="partner-together-item">
-											{user.username},
-										</div>
-									)
-								})}
-							</div>
-							<HiPlusSmall
-								color="gray"
-								style={{ cursor: "pointer" }}
-								onClick={showfilegotoplace}
-								size={36}
-							/>
-						</div>
-						{selected.length > 4 ? (
-							<div
-								className="show-more-partner"
-								onClick={() => setDisplayMorePartner(!displayMorePartner)}
-								style={{
-									marginTop: "10px",
-									cursor: "pointer",
-									fontStyle: "italic",
-									fontSize: "1rem	",
-								}}>
-								+ {selected.length > 4 ? selected.length - 4 : 0}
-							</div>
-						) : (
-							<div className="show-more-partner"></div>
-						)}
-						<div className="location-create-plan-container">
-							<div
-								style={{
-									display: "flex",
-									justifyContent: "center",
-								}}>
-								<IoLocationSharp size={30} />
-							</div>
-							<input
-								onChange={onChangeLocation}
-								placeholder="Vị trí"
-								className="location-create-plan-box"></input>
-						</div>
-						<div className="notice-create-plan-container">
-							<textarea
-								onChange={noticeData}
-								placeholder="Chú thích"></textarea>
-						</div>
-						<div className="button-delete-create-plan-container">
-							<button onClick={handleCancel}>Hủy</button>
-							<button onClick={createPlan}>Tạo</button>
-						</div>
-						{/* partner  */}
-						<div className="go-together-background">
-							{openGoToPlace && (
-								<div className="go-to-palace-container">
-									<div className="go-to-palace-tittle">
-										<div className="go-to-palace-tittle-info">Đi cùng</div>
-									</div>
-									<div className="go-to-palace-search-bar">
-										<div className="go-to-palace-search-all">
-											<div className="go-to-palace-search-icon">
-												<BiSearch size={20} />
-											</div>
-											<input
-												// onKeyDown={handleKeyDown}
-												onChange={(e) => filterData(e.target.value)}
-												type="text"
-												placeholder="Tìm bạn"
-												className="go-to-palace-search-input"></input>
-										</div>
-									</div>
-									<div className="go-to-palace-result">
-										<div className="go-to-palace-result-icon">
-											<GrHistory size={18} />
-										</div>
-										<div className="go-to-palace-result-info"> Gần nhất</div>
-									</div>
-									<div className="go-together-user-container">
-										{(filteringData.length === 0
-											? selected.slice(0, 5)
-											: filteringData
-										).map((user, index) => {
-											return (
-												<div
-													style={
-														selectedIndex === index
-															? {
-																	transform: "scale(1.1)",
-															  }
-															: {}
-													}
-													onClick={() => {
-														toggleUserSelection(user.id)
-													}}
-													key={user.id}
-													className={
-														user.chosen
-															? "go-to-palace-result-name-choice"
-															: "go-to-palace-result-name"
-													}>
-													<div className="go-to-palace-result-name-img"></div>
-													<div className="go-to-palace-result-name-info">
-														{user.username}
-													</div>
-												</div>
-											)
-										})}
-									</div>
-									<div className="go-to-palace-btn-bottom">
-										<div className="go-to-palace-btn-cancel">
-											<button
-												onClick={() => setOpenFileGoToPlace(false)}
-												className="go-to-palace-form-btn-cancel">
-												Hủy
-											</button>
-										</div>
-									</div>
-								</div>
-							)}
 						</div>
 					</div>
-				)}
-				{showPlan && <ShowPlan />}
-			</div>
-		</TimeContext.Provider>
+					<div className="go-together-create-plan-container">
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+							}}>
+							<BsFillPersonFill size={30} />
+						</div>
+						<div
+							onClick={showfilegotoplace}
+							style={
+								displayMorePartner ? { height: "100px" } : { height: "70px" }
+							}
+							className="go-together-create-plan-box">
+							{(selected.length > 5 && displayMorePartner
+								? selected
+								: selected.slice(0, 4)
+							).map((user) => {
+								return (
+									<div
+										key={user.id}
+										className="partner-together-item">
+										{user.username},
+									</div>
+								)
+							})}
+						</div>
+						<HiPlusSmall
+							color="gray"
+							style={{ cursor: "pointer" }}
+							onClick={showfilegotoplace}
+							size={36}
+						/>
+					</div>
+					{selected.length > 4 ? (
+						<div
+							className="show-more-partner"
+							onClick={() => setDisplayMorePartner(!displayMorePartner)}
+							style={{
+								marginTop: "10px",
+								cursor: "pointer",
+								fontStyle: "italic",
+								fontSize: "1rem	",
+							}}>
+							+ {selected.length > 4 ? selected.length - 4 : 0}
+						</div>
+					) : (
+						<div className="show-more-partner"></div>
+					)}
+					<div className="location-create-plan-container">
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+							}}>
+							<IoLocationSharp size={30} />
+						</div>
+						<input
+							onChange={onChangeLocation}
+							placeholder="Vị trí"
+							className="location-create-plan-box"></input>
+					</div>
+					<div className="notice-create-plan-container">
+						<textarea
+							onChange={noticeData}
+							placeholder="Chú thích"></textarea>
+					</div>
+					<div className="button-delete-create-plan-container">
+						<button onClick={handleCancel}>Hủy</button>
+						<button onClick={createPlan}>Tạo</button>
+					</div>
+					{/* partner  */}
+					<div className="go-together-background">
+						{openGoToPlace && (
+							<div className="go-to-palace-container">
+								<div className="go-to-palace-tittle">
+									<div className="go-to-palace-tittle-info">Đi cùng</div>
+								</div>
+								<div className="go-to-palace-search-bar">
+									<div className="go-to-palace-search-all">
+										<div className="go-to-palace-search-icon">
+											<BiSearch size={20} />
+										</div>
+										<input
+											// onKeyDown={handleKeyDown}
+											onChange={(e) => filterData(e.target.value)}
+											type="text"
+											placeholder="Tìm bạn"
+											className="go-to-palace-search-input"></input>
+									</div>
+								</div>
+								<div className="go-to-palace-result">
+									<div className="go-to-palace-result-icon">
+										<GrHistory size={18} />
+									</div>
+									<div className="go-to-palace-result-info"> Gần nhất</div>
+								</div>
+								<div className="go-together-user-container">
+									{(filteringData.length === 0
+										? selected.slice(0, 5)
+										: filteringData
+									).map((user, index) => {
+										return (
+											<div
+												style={
+													selectedIndex === index
+														? {
+																transform: "scale(1.1)",
+														  }
+														: {}
+												}
+												onClick={() => {
+													toggleUserSelection(user.id)
+												}}
+												key={user.id}
+												className={
+													user.chosen
+														? "go-to-palace-result-name-choice"
+														: "go-to-palace-result-name"
+												}>
+												<div className="go-to-palace-result-name-img"></div>
+												<div className="go-to-palace-result-name-info">
+													{user.username}
+												</div>
+											</div>
+										)
+									})}
+								</div>
+								<div className="go-to-palace-btn-bottom">
+									<div className="go-to-palace-btn-cancel">
+										<button
+											onClick={() => setOpenFileGoToPlace(false)}
+											className="go-to-palace-form-btn-cancel">
+											Hủy
+										</button>
+									</div>
+								</div>
+							</div>
+						)}
+					</div>
+				</div>
+			)}
+		</div>
 	)
 }
 

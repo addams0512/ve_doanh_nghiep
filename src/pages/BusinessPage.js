@@ -4,7 +4,6 @@ import YourBusiness from "../layouts/Business/YourBusiness"
 import "./BusinessPage.css"
 import CreateBusiness from "../layouts/Business/CreateBusiness"
 import AddBusiness from "../layouts/Business/AddBusiness"
-import AddBusiness2 from "../layouts/Business/AddBusiness2"
 export const BusinessContext = createContext()
 const BusinessPage = () => {
 	const [isCreateBusiness, setIsCreateBusiness] = useState(false)
@@ -32,7 +31,7 @@ const BusinessPage = () => {
 					/>
 				)}
 				{isAddBusiness && (
-					<AddBusiness2
+					<AddBusiness
 						showBusiness={() => {
 							setIsAddBusiness(false)
 							setIsYourBusiness(true)

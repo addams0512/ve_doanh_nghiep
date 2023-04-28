@@ -9,7 +9,7 @@ import CreatePlan from "../../components/Calendar/CreatePlan"
 import { planAPI, tagPlanAPI } from "../../data/planAPI"
 import ShowPlan from "../../components/Calendar/ShowPlan"
 import SearchBar from "../../components/Calendar/SearchBar"
-import CheckBox from "../../components/CheckBox"
+import CheckBox from "../../components/Calendar/CheckBox"
 import { RiDeleteBin5Line } from "react-icons/ri"
 
 export const DayContext = createContext()
