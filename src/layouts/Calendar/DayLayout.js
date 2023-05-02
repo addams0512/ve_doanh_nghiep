@@ -1,17 +1,17 @@
-import React, { useContext, useState } from "react"
-import "./DayLayout.css"
-import { RxAvatar } from "react-icons/rx"
-import { PlanContext } from "./CalendarLayout"
+import React, { useContext, useState } from "react";
+import "./DayLayout.css";
+import { RxAvatar } from "react-icons/rx";
+import { PlanContext } from "./CalendarLayout";
 
 const DayLayout = ({ editPlan }) => {
-	const { filterPlanInWeek, dayChosen } = useContext(PlanContext)
-	const [showPlan, setShowPlan] = useState(false)
+	const { filterPlanInWeek, dayChosen } = useContext(PlanContext);
+	const [showPlan, setShowPlan] = useState(false);
 
 	// day in week chosen
-	const dayWeekChosen = dayChosen.getDay() % 7 || 7
+	const dayWeekChosen = dayChosen.getDay() % 7 || 7;
 
-	const [currentId, setCurrentId] = useState("")
-	const [isShowDay, setIsShowDay] = useState(false)
+	const [currentId, setCurrentId] = useState("");
+	const [isShowDay, setIsShowDay] = useState(false);
 
 	const dayInWeek = [
 		{
@@ -49,46 +49,30 @@ const DayLayout = ({ editPlan }) => {
 			name: "CN	",
 			filter: false,
 		},
-	]
-	const [weekSelected, setWeekSelected] = useState(dayInWeek)
-
-	// handle day in week plan
-	const filterPlanDate = (id) => {
-		setIsShowDay(true)
-		setWeekSelected(
-			weekSelected.map((day) => {
-				if (id === dayWeekChosen) {
-					day.filter = !day.filter
-				} else {
-					day.filter = false
-				}
-				return day
-			})
-		)
-		setShowPlan(true)
-	}
+	];
+	const [weekSelected, setWeekSelected] = useState(dayInWeek);
 
 	const planInDate = filterPlanInWeek.filter(
 		(plan) => currentId === plan.planWeekDate
-	)
+	);
 
 	// handle current day
 	const planInCurrentDate = filterPlanInWeek.filter(
 		(plan) => plan.planWeekDate === dayWeekChosen
-	)
+	);
 
 	//handle btn current day
 	const btnInCurrentDay = dayInWeek.map((btn) => {
 		if (btn.id === dayWeekChosen) {
-			btn.filter = !btn.filter
+			btn.filter = !btn.filter;
 		}
-		return btn
-	})
+		return btn;
+	});
 
 	// edit-delete plan
 	const handleEditPlan = (id) => {
-		editPlan(id)
-	}
+		editPlan(id);
+	};
 
 	return (
 		<div>
@@ -99,14 +83,10 @@ const DayLayout = ({ editPlan }) => {
 							style={
 								item.filter ? { backgroundColor: "black", color: "white" } : {}
 							}
-							onClick={() => {
-								filterPlanDate(item.id)
-								setCurrentId(item.id)
-							}}
 							key={item.id}>
 							{item.name}
 						</button>
-					)
+					);
 				})}
 			</div>
 			<div className="plan-calendar">
@@ -143,12 +123,12 @@ const DayLayout = ({ editPlan }) => {
 									</div>
 								</div>
 							</div>
-						)
+						);
 					})}
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default DayLayout
+export default DayLayout;

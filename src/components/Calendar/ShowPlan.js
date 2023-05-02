@@ -1,27 +1,39 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
+
+// data
+import instance from "../../data/instance"
+
+// css
 import "./CreatePlan.css"
+import "./ShowPlan.css"
+
+// context
+import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
+
+// components
+import BasicCalendar from "./BasicCalendar"
+
+// timePicker packages
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo"
+import { ChromePicker } from "react-color"
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
+import { TimePicker } from "@mui/x-date-pickers/TimePicker"
+import dayjs from "dayjs"
+import moment from "moment"
+
+// icon
 import { IoLocationSharp } from "react-icons/io5"
 import { BsFillPersonFill, BsClockFill } from "react-icons/bs"
 import { FaTags } from "react-icons/fa"
 import { BiSearch } from "react-icons/bi"
 import { GrHistory } from "react-icons/gr"
-import BasicCalendar from "./BasicCalendar"
-import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
-import instance from "../../data/instance"
 import { RiDeleteBack2Line, RiChatDeleteLine } from "react-icons/ri"
-import moment from "moment"
-import { ChromePicker } from "react-color"
 import { HiPlusSmall } from "react-icons/hi2"
 import { FaCalendarAlt } from "react-icons/fa"
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo"
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
-import { TimePicker } from "@mui/x-date-pickers/TimePicker"
-import dayjs from "dayjs"
-
-import "./ShowPlan.css"
 
 const ShowPlan = ({ remove }) => {
+	// context
 	const {
 		finalData,
 		setFinalData,
@@ -31,38 +43,39 @@ const ShowPlan = ({ remove }) => {
 		idDeletePlan,
 	} = useContext(PlanContext)
 
-	// plan edited
+	// plan
 	const planEdit = finalData.find((plan) => plan.id === idEditPlan)
 	const formatDatePlanEdit = new Date(planEdit.date)
-
-	// tag choice
-	const [tagChoice, setTagChoice] = useState()
-	const [displayDayPicker, setDisplayDayPicker] = useState(false)
-	const [dayPicker, setDayPicker] = useState(formatDatePlanEdit)
-	const [content, setContent] = useState()
-	const [displayMorePartner, setDisplayMorePartner] = useState(false)
-	const [openGoToPlace, setOpenFileGoToPlace] = useState(false)
-	const [dataNotice, setDataNotice] = useState()
-	const [selectedUsers, setSelectedUsers] = useState(planEdit.partner)
-	const [color, setColor] = useState("black")
-	const [showcolordisplay, setShowColorDisplay] = useState(false)
-	const [newPlan, setNewPlan] = useState("")
-	const [location, setLocation] = useState()
-	const [isTagChoice, setIsTagChoice] = useState(true)
-	const [isDayChoice, setIsDayChoice] = useState(true)
-	const [isLocation, setIsLocation] = useState(true)
-	const [isNoticeData, setIsNoticeData] = useState(true)
-	const [isContent, setIsContent] = useState(true)
-	const [isEditTag, setIsEditTag] = useState(true)
-	const [selectedIndex, setSelectedIndex] = useState(0)
 	const [confirmDeletePlan, setIsConfirmDeletePlan] = useState(false)
-	const [confirmDeleteTag, setConfirmDeleteTag] = useState(false)
 	const [idDelete, setIdDelete] = useState("")
 	const [tagDelete, setTagDelete] = useState()
+	const [newPlan, setNewPlan] = useState("")
 
+	// tag
+	const [tagChoice, setTagChoice] = useState()
+	const [isTagChoice, setIsTagChoice] = useState(true)
+	const [confirmDeleteTag, setConfirmDeleteTag] = useState(false)
+	const [isEditTag, setIsEditTag] = useState(true)
+
+	// state
+	const [content, setContent] = useState()
+	const [isContent, setIsContent] = useState(true)
+	const [color, setColor] = useState("black")
+	const [showColorDisplay, setShowColorDisplay] = useState(false)
+	const [displayMorePartner, setDisplayMorePartner] = useState(false)
+	const [openGoToPlace, setOpenFileGoToPlace] = useState(false)
+	const [selectedUsers, setSelectedUsers] = useState(planEdit.partner)
+	const [selectedIndex, setSelectedIndex] = useState(0)
+
+	const [location, setLocation] = useState()
+	const [isLocation, setIsLocation] = useState(true)
+	const [isNoticeData, setIsNoticeData] = useState(true)
+	const [dataNotice, setDataNotice] = useState()
+
+	// time-day picker
+	// time
 	const [startTime, setStartTime] = useState(dayjs("2022-04-17T15:30"))
 	const [endTime, setEndTime] = useState(dayjs("2022-04-17T15:30"))
-
 	const formatTime = (time) => {
 		if (1 <= time <= 9) {
 			return (time = time.toString().padStart(2, "0"))
@@ -75,6 +88,10 @@ const ShowPlan = ({ remove }) => {
 	const endMinute = formatTime(endTime.$m)
 	const interValTime = `${startHour}:${startMinute} - ${endHour}:${endMinute}`
 	const [timePicker, setTimePicker] = useState(interValTime)
+	// day
+	const [displayDayPicker, setDisplayDayPicker] = useState(false)
+	const [dayPicker, setDayPicker] = useState(formatDatePlanEdit)
+	const [isDayChoice, setIsDayChoice] = useState(true)
 
 	// get day - month - year
 	const day = dayPicker.getDate()
@@ -114,7 +131,6 @@ const ShowPlan = ({ remove }) => {
 	function showfilegotoplace() {
 		setOpenFileGoToPlace(!openGoToPlace)
 	}
-
 	const deleteTag = (id) => {
 		const tagOnDelete = tagPlan.filter((tag) => tag.id !== idDelete)
 		setTagPlan(tagOnDelete)
@@ -127,9 +143,8 @@ const ShowPlan = ({ remove }) => {
 
 	// colorPicker
 	function showcolor() {
-		setShowColorDisplay(!showcolordisplay)
+		setShowColorDisplay(!showColorDisplay)
 	}
-
 	const closeColorPicker = () => {
 		setShowColorDisplay(false)
 	}
@@ -252,6 +267,8 @@ const ShowPlan = ({ remove }) => {
 			month: month || planEdit.month, // month of dayPicker
 			year: year || planEdit.year, // year of dayPicker
 			completed: false,
+			startTime: startTime,
+			endTime: endTime,
 		}
 		setFinalData(updateData)
 		remove()
@@ -344,7 +361,7 @@ const ShowPlan = ({ remove }) => {
 											onClick={showcolor}
 											style={{ backgroundColor: color }}
 											className="new-tag-color-option"></div>
-										{showcolordisplay && (
+										{showColorDisplay && (
 											<div className="tag-color-option">
 												<div
 													onClick={closeColorPicker}
@@ -444,7 +461,7 @@ const ShowPlan = ({ remove }) => {
 									style={{ cursor: "pointer" }}
 									onClick={showDayPicker}
 									className="date-detail-create-plan-container">
-									{pickWeekday}, {planEdit.day} tháng {planEdit.month + 1} ,{" "}
+									{pickWeekday}, {planEdit.day} tháng {planEdit.month + 1},{" "}
 									{planEdit.year}
 								</div>
 							) : (
@@ -480,16 +497,18 @@ const ShowPlan = ({ remove }) => {
 						<LocalizationProvider dateAdapter={AdapterDayjs}>
 							<DemoContainer components={["TimePicker", "TimePicker"]}>
 								<TimePicker
+									value={dayjs(planEdit.startTime)}
 									sx={{
 										backgroundColor: "#f0f0f0",
 									}}
 									label="Giờ bắt đầu"
-									onChange={(startTime) => setStartTime(startTime)}
+									onChange={(value) => setStartTime(value)}
 								/>
 								<TimePicker
+									value={dayjs(planEdit.endTime)}
 									sx={{ backgroundColor: "#f0f0f0" }}
 									label="Giờ kết thúc"
-									onChange={(endTime) => setEndTime(endTime)}
+									onChange={(value) => setEndTime(value)}
 								/>
 							</DemoContainer>
 						</LocalizationProvider>

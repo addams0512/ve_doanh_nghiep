@@ -82,11 +82,14 @@ const WeekLayout = ({ editPlan }) => {
 														  }
 												}
 												className="tag-specific-plan-week__container"></div>
-											<div
-												// style={{ color: matchingPlan.tagChoice?.color }}
-												className="title-specific-plan-week__container">
+											<div className="title-specific-plan-week__container">
 												<div className="content-specific-plan-week__container">
 													{matchingPlan.content}
+												</div>
+												<div
+													style={{ color: matchingPlan.tagChoice.color }}
+													className="interval-time-specific-plan-week__container">
+													{matchingPlan.intervalTime}
 												</div>
 											</div>
 											<div className="avatar-plan-week__container">

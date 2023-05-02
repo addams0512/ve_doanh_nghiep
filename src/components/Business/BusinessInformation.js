@@ -71,7 +71,7 @@ const inputs = [
 		errorMessage: "(*) Trường này là bắt buộc",
 		required: true,
 	},
-]
+];
 
 function FormInput(props) {
 	const {
@@ -82,7 +82,8 @@ function FormInput(props) {
 		onChange,
 		inputProps,
 		required,
-	} = props
+	} = props;
+
 	return (
 		<div className="input-business-information">
 			<label>{name}</label>
@@ -96,7 +97,7 @@ function FormInput(props) {
 			/>
 			<span>{errorMessage}</span>
 		</div>
-	)
+	);
 }
 
-export { inputs, FormInput }
+export { inputs, FormInput };

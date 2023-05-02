@@ -1,18 +1,19 @@
-import React, { createContext, useContext, useEffect, useRef } from "react"
-import "./AddBusiness.css"
-import { useState } from "react"
-import "../../components/Business/UploadImage"
-import UploadImage from "../../components/Business/UploadImage"
-import { BusinessContext } from "../../pages/BusinessPage"
-import PreviewBusiness from "./PreviewBusiness"
+import React, { useContext } from "react";
+import "./AddBusiness.css";
+import { useState } from "react";
+import "../../components/Business/UploadImage";
+import UploadImage from "../../components/Business/UploadImage";
+import { BusinessContext } from "../../pages/BusinessPage";
+import PreviewBusiness from "./PreviewBusiness";
 import {
 	FormInput,
 	inputs,
-} from "../../components/Business/BusinessInformation"
+} from "../../components/Business/BusinessInformation";
+
 export default function AddBusiness({ showBusiness }) {
-	const { businessData, setBusinessData } = useContext(BusinessContext)
-	const [openPageAfter, setOpenPageAfter] = useState(false)
-	const [closePageBefor, setClosePageBefor] = useState(true)
+	const { setBusinessData } = useContext(BusinessContext);
+	const [openPageAfter, setOpenPageAfter] = useState(false);
+	const [closePageBefor, setClosePageBefor] = useState(true);
 	const valueBusiness = {
 		businessName: "",
 		businessOwner: "",
@@ -24,30 +25,31 @@ export default function AddBusiness({ showBusiness }) {
 		city: "",
 		major: "",
 		description: "",
-	}
+	};
 
-	const [businessInformation, setBusinessInformation] = useState(valueBusiness)
+	const [businessInformation, setBusinessInformation] = useState(valueBusiness);
 	const showYourBusiness = () => {
-		showBusiness()
-	}
+		showBusiness();
+	};
 
 	// submit business data
 	const submitBusiness = (e) => {
-		e.preventDefault()
-		const dataBusiness = new FormData(e.target)
+		e.preventDefault();
+		const dataBusiness = new FormData(e.target);
 		setBusinessData((businessData) => {
-			return [...businessData, Object.fromEntries(dataBusiness.entries())]
-		})
-		setOpenPageAfter(true)
-		setClosePageBefor(false)
-	}
+			return [...businessData, Object.fromEntries(dataBusiness.entries())];
+		});
+		setOpenPageAfter(true);
+		setClosePageBefor(false);
+	};
+
 	// onchange Business Data
 	const onBusinessData = (e) => {
 		setBusinessInformation({
 			...businessInformation,
 			[e.target.name]: e.target.value, // array of name of business
-		})
-	}
+		});
+	};
 
 	return (
 		<div className="add-business-container-all">
@@ -95,7 +97,7 @@ export default function AddBusiness({ showBusiness }) {
 														setBusinessInformation({
 															...businessInformation,
 															description: e.target.value,
-														})
+														});
 													}}
 													name="description"
 													className="add-business-create-file-business-info-describe"
@@ -107,7 +109,7 @@ export default function AddBusiness({ showBusiness }) {
 										</form>
 									</div>
 								)}
-								{/* thoong tin trang 2 */}
+								{/* thông tin trang 2 */}
 								{openPageAfter && (
 									<div className="add-business-create-file-business-page-2">
 										<div className="add-business-create-file-business-body-tittle">
@@ -149,7 +151,7 @@ export default function AddBusiness({ showBusiness }) {
 										<div className="add-business-create-file-business-page-2-bottom">
 											<button
 												onClick={() => {
-													showYourBusiness()
+													showYourBusiness();
 												}}
 												className="add-business-create-file-business-page-2-btn">
 												XONG
@@ -174,5 +176,5 @@ export default function AddBusiness({ showBusiness }) {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }

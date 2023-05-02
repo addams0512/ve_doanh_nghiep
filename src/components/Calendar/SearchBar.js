@@ -1,85 +1,84 @@
-// import { AiOutlineSearch } from "react-icons/ai"
-import "./SearchBar.css"
+import React, { useEffect, useRef, useState } from "react";
 
-import React, { useEffect, useRef, useState } from "react"
+import "./SearchBar.css";
 
 const SearchBar = (props) => {
-	const [input, setInput] = useState("")
-	const [active, setActive] = useState(0)
-	const [isShow, setIsShow] = useState(false)
-	const [filtered, setFiltered] = useState([])
-	const selectRef = useRef(null)
+	const [input, setInput] = useState("");
+	const [active, setActive] = useState(0);
+	const [isShow, setIsShow] = useState(false);
+	const [filtered, setFiltered] = useState([]);
+	const selectRef = useRef(null);
 
 	const setChange = () => {
-		const selected = selectRef?.current?.querySelector(".isactive")
+		const selected = selectRef?.current?.querySelector(".isactive");
 		if (selected) {
 			selected?.scrollIntoView({
 				behavior: "smooth",
 				block: "end",
-			})
+			});
 		}
-	}
+	};
 
 	// show Plan and pass id for delete and edit
 	const onClick = (id) => {
-		setFiltered([])
-		setIsShow(false)
-		props.showChoicePlan(id)
-	}
+		setFiltered([]);
+		setIsShow(false);
+		props.showChoicePlan(id);
+	};
 
 	// handle Onchange
 	const onChange = (e) => {
-		const input = e.target.value
-		const { suggestions } = props
+		const input = e.target.value;
+		const { suggestions } = props;
 		const newFilteredSuggestion = suggestions.filter((item) =>
 			item.content.toLowerCase().includes(input.toLowerCase())
-		)
-		setActive(0)
-		setFiltered(newFilteredSuggestion)
-		setIsShow(true)
-		setInput(e.target.value)
-	}
+		);
+		setActive(0);
+		setFiltered(newFilteredSuggestion);
+		setIsShow(true);
+		setInput(e.target.value);
+	};
 
 	const onKeyDown = (e) => {
 		// enter key
 		if (e.keyCode === 13) {
-			const selectedPlan = filtered[active]
-			setActive(0)
-			props.showChoicePlan(selectedPlan.id)
-			setIsShow(false)
-			setInput("")
+			const selectedPlan = filtered[active];
+			setActive(0);
+			props.showChoicePlan(selectedPlan.id);
+			setIsShow(false);
+			setInput("");
 		}
 		// up arrow
 		if (e.keyCode === 38) {
 			setActive((active) => {
 				if (active === 0) {
-					return 0
+					return 0;
 				}
-				return active - 1
-			})
+				return active - 1;
+			});
 		}
 		// down arrow
 		if (e.keyCode === 40) {
 			setActive((active) => {
 				if (filtered.length === active) {
-					return 0
+					return 0;
 				}
-				return active + 1
-			})
+				return active + 1;
+			});
 		}
-	}
+	};
 
 	// handleOutside click
 	const handleOutsideClick = (e) => {
 		if (selectRef.current && !selectRef.current.contains(e.target)) {
-			setIsShow(false)
-			setInput("")
+			setIsShow(false);
+			setInput("");
 		}
-	}
+	};
 
 	useEffect(() => {
-		document.addEventListener("click", handleOutsideClick, true)
-	})
+		document.addEventListener("click", handleOutsideClick, true);
+	});
 
 	// renderAutoCompleted
 	const renderAutoCompleted = () => {
@@ -90,11 +89,11 @@ const SearchBar = (props) => {
 						className="autocomplete"
 						ref={selectRef}>
 						{filtered.map((suggestion, index) => {
-							let className
+							let className;
 							if (index === active) {
-								className = "isactive"
+								className = "isactive";
 							}
-							setTimeout(() => setChange(), [100])
+							setTimeout(() => setChange(), [100]);
 							return (
 								<li
 									className={className}
@@ -102,13 +101,13 @@ const SearchBar = (props) => {
 									onClick={() => onClick(suggestion.id)}>
 									{suggestion.content}
 								</li>
-							)
+							);
 						})}
 					</ul>
-				)
+				);
 			}
 		}
-	}
+	};
 	return (
 		<div className="btn-search-calendar">
 			<input
@@ -120,7 +119,7 @@ const SearchBar = (props) => {
 			/>
 			{renderAutoCompleted()}
 		</div>
-	)
-}
+	);
+};
 
-export default SearchBar
+export default SearchBar;

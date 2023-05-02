@@ -81,9 +81,6 @@
 	height: 200px;
 }
 
-.content-specific-plan-week__container {
-	margin-left: 4px;
-}
 .avatar-plan-week__container {
 	margin-top: auto;
 	margin-left: auto;
@@ -116,4 +113,9 @@
 
 .heading-specific-plan-week__container {
 	margin-bottom: 10px;
+}
+
+.interval-time-specific-plan-week__container {
+	font-style: italic;
+	font-size: 0.8rem;
 }
