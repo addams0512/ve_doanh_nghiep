@@ -5,13 +5,9 @@ import { PlanContext } from "./CalendarLayout";
 
 const DayLayout = ({ editPlan }) => {
 	const { filterPlanInWeek, dayChosen } = useContext(PlanContext);
-	const [showPlan, setShowPlan] = useState(false);
 
 	// day in week chosen
 	const dayWeekChosen = dayChosen.getDay() % 7 || 7;
-
-	const [currentId, setCurrentId] = useState("");
-	const [isShowDay, setIsShowDay] = useState(false);
 
 	const dayInWeek = [
 		{
@@ -50,11 +46,6 @@ const DayLayout = ({ editPlan }) => {
 			filter: false,
 		},
 	];
-	const [weekSelected, setWeekSelected] = useState(dayInWeek);
-
-	const planInDate = filterPlanInWeek.filter(
-		(plan) => currentId === plan.planWeekDate
-	);
 
 	// handle current day
 	const planInCurrentDate = filterPlanInWeek.filter(
@@ -77,7 +68,7 @@ const DayLayout = ({ editPlan }) => {
 	return (
 		<div>
 			<div className="btn-date-calendar">
-				{(isShowDay ? weekSelected : btnInCurrentDay).map((item) => {
+				{btnInCurrentDay.map((item) => {
 					return (
 						<button
 							style={
@@ -91,7 +82,7 @@ const DayLayout = ({ editPlan }) => {
 			</div>
 			<div className="plan-calendar">
 				<div className="plan-calendar-container">
-					{(showPlan ? planInDate : planInCurrentDate).map((item) => {
+					{planInCurrentDate.map((item) => {
 						return (
 							<div
 								key={item.id}

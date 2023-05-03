@@ -156,7 +156,7 @@ const CreateTag = () => {
 										<div className="content-type-create-plan"> {item.type}</div>
 									</div>
 									<RiDeleteBack2Line
-										style={{ cursor: "pointer" }}
+										style={{ marginLeft: "auto", cursor: "pointer" }}
 										onClick={() => {
 											handleDeleteTag(item.id);
 										}}

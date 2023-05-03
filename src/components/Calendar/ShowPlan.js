@@ -1,36 +1,40 @@
-import React, { useContext, useEffect, useRef, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 // data
-import instance from "../../data/instance"
+import instance from "../../data/instance";
 
 // css
-import "./CreatePlan.css"
-import "./ShowPlan.css"
+import "./CreatePlan.css";
+import "./ShowPlan.css";
 
 // context
-import { PlanContext } from "../../layouts/Calendar/CalendarLayout"
+import {
+	DayContext,
+	PartnerContext,
+	PlanContext,
+} from "../../layouts/Calendar/CalendarLayout";
 
 // components
-import BasicCalendar from "./BasicCalendar"
+import BasicCalendar from "./BasicCalendar";
 
 // timePicker packages
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo"
-import { ChromePicker } from "react-color"
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
-import { TimePicker } from "@mui/x-date-pickers/TimePicker"
-import dayjs from "dayjs"
-import moment from "moment"
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { ChromePicker } from "react-color";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import dayjs from "dayjs";
+import moment from "moment";
 
 // icon
-import { IoLocationSharp } from "react-icons/io5"
-import { BsFillPersonFill, BsClockFill } from "react-icons/bs"
-import { FaTags } from "react-icons/fa"
-import { BiSearch } from "react-icons/bi"
-import { GrHistory } from "react-icons/gr"
-import { RiDeleteBack2Line, RiChatDeleteLine } from "react-icons/ri"
-import { HiPlusSmall } from "react-icons/hi2"
-import { FaCalendarAlt } from "react-icons/fa"
+import { IoLocationSharp } from "react-icons/io5";
+import { BsFillPersonFill, BsClockFill } from "react-icons/bs";
+import { FaTags } from "react-icons/fa";
+import { BiSearch } from "react-icons/bi";
+import { GrHistory } from "react-icons/gr";
+import { RiDeleteBack2Line, RiChatDeleteLine } from "react-icons/ri";
+import { HiPlusSmall } from "react-icons/hi2";
+import { FaCalendarAlt } from "react-icons/fa";
 
 const ShowPlan = ({ remove }) => {
 	// context
@@ -41,223 +45,276 @@ const ShowPlan = ({ remove }) => {
 		setTagPlan,
 		idEditPlan,
 		idDeletePlan,
-	} = useContext(PlanContext)
+		userData,
+		setUserData,
+	} = useContext(PlanContext);
+	const { dayChosen } = useContext(DayContext);
+	const { setPartnerChoice } = useContext(PartnerContext);
 
 	// plan
-	const planEdit = finalData.find((plan) => plan.id === idEditPlan)
-	const formatDatePlanEdit = new Date(planEdit.date)
-	const [confirmDeletePlan, setIsConfirmDeletePlan] = useState(false)
-	const [idDelete, setIdDelete] = useState("")
-	const [tagDelete, setTagDelete] = useState()
-	const [newPlan, setNewPlan] = useState("")
+	const planEdit = finalData.find((plan) => plan.id === idEditPlan);
+	const formatDatePlanEdit = new Date(planEdit.date);
+	const [confirmDeletePlan, setIsConfirmDeletePlan] = useState(false);
+	const [idDelete, setIdDelete] = useState("");
+	const [tagDelete, setTagDelete] = useState();
+	const [newPlan, setNewPlan] = useState("");
 
 	// tag
-	const [tagChoice, setTagChoice] = useState()
-	const [isTagChoice, setIsTagChoice] = useState(true)
-	const [confirmDeleteTag, setConfirmDeleteTag] = useState(false)
-	const [isEditTag, setIsEditTag] = useState(true)
+	const [tagChoice, setTagChoice] = useState();
+	const [isTagChoice, setIsTagChoice] = useState(true);
+	const [confirmDeleteTag, setConfirmDeleteTag] = useState(false);
+	const [isEditTag, setIsEditTag] = useState(true);
+	const [color, setColor] = useState("black");
+	const [showColorDisplay, setShowColorDisplay] = useState(false);
 
-	// state
-	const [content, setContent] = useState()
-	const [isContent, setIsContent] = useState(true)
-	const [color, setColor] = useState("black")
-	const [showColorDisplay, setShowColorDisplay] = useState(false)
-	const [displayMorePartner, setDisplayMorePartner] = useState(false)
-	const [openGoToPlace, setOpenFileGoToPlace] = useState(false)
-	const [selectedUsers, setSelectedUsers] = useState(planEdit.partner)
-	const [selectedIndex, setSelectedIndex] = useState(0)
+	// partner
+	const [selectedUsers, setSelectedUsers] = useState(planEdit.partner);
+	const [isShowPartner, setIsShowPartner] = useState(false);
+	const [isShow, setIsShow] = useState(false);
+	const [input, setInput] = useState("");
+	const [filteredPartner, setFilteredPartner] = useState([]);
+	const [active, setActive] = useState("");
+	const selectedRef = useRef(null);
 
-	const [location, setLocation] = useState()
-	const [isLocation, setIsLocation] = useState(true)
-	const [isNoticeData, setIsNoticeData] = useState(true)
-	const [dataNotice, setDataNotice] = useState()
+	// state input
+	const [content, setContent] = useState();
+	const [isContent, setIsContent] = useState(true);
+	const [location, setLocation] = useState();
+	const [isLocation, setIsLocation] = useState(true);
+	const [isNoticeData, setIsNoticeData] = useState(true);
+	const [dataNotice, setDataNotice] = useState();
 
 	// time-day picker
 	// time
-	const [startTime, setStartTime] = useState(dayjs("2022-04-17T15:30"))
-	const [endTime, setEndTime] = useState(dayjs("2022-04-17T15:30"))
+	const [startTime, setStartTime] = useState(dayjs("2022-04-17T15:30"));
+	const [endTime, setEndTime] = useState(dayjs("2022-04-17T15:30"));
 	const formatTime = (time) => {
 		if (1 <= time <= 9) {
-			return (time = time.toString().padStart(2, "0"))
+			return (time = time.toString().padStart(2, "0"));
 		}
-		return time
-	}
-	const startHour = formatTime(startTime.$H)
-	const startMinute = formatTime(startTime.$m)
-	const endHour = formatTime(endTime.$H)
-	const endMinute = formatTime(endTime.$m)
-	const interValTime = `${startHour}:${startMinute} - ${endHour}:${endMinute}`
-	const [timePicker, setTimePicker] = useState(interValTime)
+		return time;
+	};
+	const startHour = formatTime(startTime.$H);
+	const startMinute = formatTime(startTime.$m);
+	const endHour = formatTime(endTime.$H);
+	const endMinute = formatTime(endTime.$m);
+	const interValTime = `${startHour}:${startMinute} - ${endHour}:${endMinute}`;
+	const [timePicker, setTimePicker] = useState(interValTime);
 	// day
-	const [displayDayPicker, setDisplayDayPicker] = useState(false)
-	const [dayPicker, setDayPicker] = useState(formatDatePlanEdit)
-	const [isDayChoice, setIsDayChoice] = useState(true)
+	const [displayDayPicker, setDisplayDayPicker] = useState(false);
+	const [dayPicker, setDayPicker] = useState(formatDatePlanEdit);
+	const [isDayChoice, setIsDayChoice] = useState(true);
 
 	// get day - month - year
-	const day = dayPicker.getDate()
-	const month = dayPicker.getMonth()
-	const year = dayPicker.getFullYear()
+	const day = dayPicker.getDate();
+	const month = dayPicker.getMonth();
+	const year = dayPicker.getFullYear();
 
 	// day of week of planEdit
 	const weekDay = [
-		"Chủ nhật",
 		"Thứ 2",
 		"Thứ 3",
 		"Thứ 4",
 		"Thứ 5",
 		"Thứ 6",
 		"Thứ 7",
-	]
-	const pickWeekday = weekDay[planEdit.planWeekDate]
+		"Chủ nhật",
+	];
+	const pickWeekday = weekDay[planEdit.planWeekDate - 1];
 
 	// format currentDay
-	const date = moment(dayPicker).format("YYYY-MM-DD")
+	const date = moment(dayPicker).format("YYYY-MM-DD");
 
 	// format CN-T2-T3-T4-T5-T6-T7 to 1-2-3-4-5-6-7
-	const dayOfWeek = dayPicker.getDay() % 7 || 7
+	const dayOfWeek = dayPicker.getDay() % 7 || 7;
 
 	// format day to Chủ nhật, Thứ 2, Thứ 3,...
 	const getDayName = (date = dayPicker, locale = "vi-VN") => {
-		return date.toLocaleDateString(locale, { weekday: "long" })
-	}
+		return date.toLocaleDateString(locale, { weekday: "long" });
+	};
 
-	// fucntion display
-	// Calendar for dayPicker
 	const showDayPicker = () => {
-		setDisplayDayPicker(!displayDayPicker)
-	}
+		setDisplayDayPicker(!displayDayPicker);
+	};
 
-	// Partner form
-	function showfilegotoplace() {
-		setOpenFileGoToPlace(!openGoToPlace)
-	}
-	const deleteTag = (id) => {
-		const tagOnDelete = tagPlan.filter((tag) => tag.id !== idDelete)
-		setTagPlan(tagOnDelete)
-	}
-
-	// remove createPlan form
 	const handleCancel = () => {
-		remove()
-	}
-
-	// colorPicker
+		remove();
+	};
 	function showcolor() {
-		setShowColorDisplay(!showColorDisplay)
+		setShowColorDisplay(!showColorDisplay);
 	}
 	const closeColorPicker = () => {
-		setShowColorDisplay(false)
-	}
+		setShowColorDisplay(false);
+	};
 
+	// tag
 	// handle add tag plan
 	const handleAddTag = (e) => {
 		if (e.key === "Enter") {
-			const lastTagId = tagPlan.length > 0 ? tagPlan.at(0).id + 1 : 0
+			const lastTagId = tagPlan.length > 0 ? tagPlan.at(0).id + 1 : 0;
 			const newTag = {
 				id: lastTagId,
 				color: color,
 				type: newPlan,
 				delete: false,
-			}
-			setTagPlan([...tagPlan, newTag])
-			setNewPlan("")
+			};
+			setTagPlan([...tagPlan, newTag]);
+			setNewPlan("");
 		}
-	}
-
-	// choose Tag
-	const tagChosen = (id) => {
-		const tagChosen = tagPlan.find((tag) => id === tag.id)
-		setIsTagChoice(true)
-		setTagChoice(tagChosen)
-		setIsEditTag(false)
-	}
-
-	// get User API
-	const [userData, setUserData] = useState("")
-	const [loading, setLoading] = useState(true)
-	const [filteringData, setFilteringData] = useState([])
-	useEffect(() => {
-		const getUserData = async () => {
-			try {
-				const res = await instance.get("/users")
-				setUserData(res.data)
-			} catch (error) {
-				console.log(error)
-			} finally {
-				setLoading(false)
-			}
-		}
-		getUserData()
-	}, [])
-
-	// searchbar function
-	const filterData = (value) => {
-		if (!value) {
-			setFilteringData([])
-			return
-		}
-		const querry = value.toLowerCase()
-		const dataFilter = userData.filter((item) => {
-			return item.username.toLowerCase().includes(querry)
-		})
-		setFilteringData(dataFilter)
-	}
-	const selected = selectedUsers.filter((s) => {
-		return s.chosen
-	})
-
-	// partnerChoices
-	const toggleUserSelection = (id) => {
-		setUserData(
-			userData.map((user) => {
-				if (user.id === id) {
-					user.chosen = !user.chosen
-				}
-				return user
-			})
-		)
-
-		setSelectedUsers((selectedUsers) => {
-			const existingUser = selectedUsers.find((user) => user.id === id)
-			if (existingUser) {
-				return selectedUsers.filter((user) => user.id !== id)
-			}
-			const newUser = userData.find((user) => user.id === id)
-
-			return [...selectedUsers, newUser]
-		})
-	}
-
-	// get Notices data
-	const handleNoticeData = (e) => {
-		setIsNoticeData(false)
-		setDataNotice(e.target.value)
-	}
-
-	// get Location data
-	const onChangeLocation = (e) => {
-		setIsLocation(false)
-		setLocation(e.target.value)
-	}
+	};
 
 	// confirmation delete Tag
 	const handleDeleteTag = (id) => {
-		const tagDelete = tagPlan.filter((item) => item.id === id)
-		setTagDelete(tagDelete)
-		setIdDelete(id)
-		setConfirmDeleteTag(true)
+		const tagDelete = tagPlan.filter((item) => item.id === id);
+		setTagDelete(tagDelete);
+		setIdDelete(id);
+		setConfirmDeleteTag(true);
+	};
+
+	const deleteTag = (id) => {
+		const tagOnDelete = tagPlan.filter((tag) => tag.id !== idDelete);
+		setTagPlan(tagOnDelete);
+	};
+	// choose Tag
+	const tagChosen = (id) => {
+		const tagChosen = tagPlan.find((tag) => id === tag.id);
+		setIsTagChoice(true);
+		setTagChoice(tagChosen);
+		setIsEditTag(false);
+	};
+
+	// input
+	const handleNoticeData = (e) => {
+		setIsNoticeData(false);
+		setDataNotice(e.target.value);
+	};
+
+	const onChangeLocation = (e) => {
+		setIsLocation(false);
+		setLocation(e.target.value);
+	};
+
+	// delete plan
+	const deleteCurrentPlan = () => {
+		setFinalData(
+			finalData.filter((plan) => {
+				return plan.id !== idDeletePlan;
+			})
+		);
+	};
+
+	// outside click
+	const refOne = useRef(null);
+	const handleClickOutSide = (e) => {
+		if (refOne.current && !refOne.current.contains(e.target)) {
+			remove();
+		}
+	};
+	useEffect(() => {
+		document.addEventListener("click", handleClickOutSide, true);
+	}, []);
+
+	// partner choice
+	// show partner form
+	function showfilegotoplace() {
+		setIsShowPartner(!isShowPartner);
 	}
 
-	// create plan
+	// function add partner
+	const addPartner = (id) => {
+		setUserData(
+			userData.map((user) => {
+				if (user.id === id) {
+					user.chosen = !user.chosen;
+				}
+				return user;
+			})
+		);
+
+		setSelectedUsers((selectedUsers) => {
+			// check if partner is exist
+			const existingUser = selectedUsers.find((user) => user.id === id);
+			if (existingUser) {
+				return selectedUsers.filter((user) => user.id !== id);
+			}
+			const newUser = userData.find((user) => user.id === id);
+			return [...selectedUsers, newUser];
+		});
+
+		const selected = selectedUsers.find((s) => s.chosen);
+
+		setPartnerChoice((partnerChoice) => [...partnerChoice, selected]);
+	};
+
+	// searchpartner function
+	const onSearchPartner = (e) => {
+		const input = e.target.value;
+		const filterPartner = userData.filter((partner) => {
+			return partner.username.toLowerCase().includes(input.toLowerCase());
+		});
+
+		setActive(0);
+		setFilteredPartner(filterPartner);
+		setIsShow(true);
+		setInput(input);
+	};
+
+	// onkey choice
+	const onKeySearch = (e) => {
+		const currentUser = filteredPartner[active];
+		if (e.keyCode === 13) {
+			addPartner(currentUser?.id);
+		}
+		// up arrow
+		if (e.keyCode === 38) {
+			setActive((active) => {
+				if (active === 0) return 0;
+				return (active = active - 1);
+			});
+		}
+		// down arrow
+		if (e.keyCode === 40) {
+			setActive((active) => {
+				if (filteredPartner.length === active) {
+					return 0;
+				}
+				return (active = active + 1);
+			});
+		}
+	};
+
+	// partnerChoices
+	const toggleUserSelection = (id) => {
+		addPartner(id);
+	};
+
+	// scroll behavior
+	const setChange = () => {
+		const selected = selectedRef?.current?.querySelector(
+			".go-to-palace-result-name-choice"
+		);
+		if (selected) {
+			selected?.scrollIntoView({
+				behavior: "smooth",
+				block: "end",
+			});
+		}
+	};
+
+	const partnerSelected = selectedUsers.filter((s) => {
+		return s.chosen;
+	});
+
+	// eidt plan
 	const editPlan = (item) => {
-		const updateData = [...finalData]
+		const updateData = [...finalData];
 		updateData[planEdit.id] = {
 			id: planEdit.id,
 			content: content || planEdit.content,
 			tagChoice: tagChoice || planEdit.tagChoice, // tag chosen
 			date: date || planEdit.date, // full date format YYYY-MM-DD
 			intervalTime: timePicker || planEdit.intervalTime, // time format HH:MM - HH:MM
-			partner: selectedUsers || planEdit.partner, // array of partner
+			partner: partnerSelected || planEdit.partner, // array of partner
 			location: location || planEdit.location,
 			note: dataNotice || planEdit.note,
 			planWeekDate: dayOfWeek || planEdit.planWeekDate, // day of week in format 1,2,3,4,5,6,7
@@ -269,47 +326,67 @@ const ShowPlan = ({ remove }) => {
 			completed: false,
 			startTime: startTime,
 			endTime: endTime,
+			dayChosen: dayChosen,
+		};
+		setFinalData(updateData);
+		remove();
+	};
+
+	function renderAutoComplete() {
+		if (isShow) {
+			if (filteredPartner.length) {
+				return (
+					<ul
+						ref={selectedRef}
+						className="go-together-user-container">
+						{(input ? filteredPartner : partnerSelected).map((user, index) => {
+							let className;
+							if (active === index) {
+								className = "go-to-palace-result-name-choice";
+							}
+							setTimeout(() => {
+								setChange();
+							}, [100]);
+							return (
+								<li
+									style={user.chosen ? { backgroundColor: "#ccc" } : {}}
+									onClick={() => {
+										toggleUserSelection(user.id);
+									}}
+									key={user.id}
+									className={className}>
+									<div className="go-to-palace-result-name-img"></div>
+									<div className="go-to-palace-result-name-info">
+										{user.username}
+									</div>
+								</li>
+							);
+						})}
+					</ul>
+				);
+			}
 		}
-		setFinalData(updateData)
-		remove()
 	}
-
-	// delete plan
-	const deleteCurrentPlan = () => {
-		setFinalData(
-			finalData.filter((plan) => {
-				return plan.id !== idDeletePlan
-			})
-		)
-	}
-
-	// out side click
-	const refOne = useRef(null)
-	const handleClickOutSide = (e) => {
-		if (refOne.current && !refOne.current.contains(e.target)) {
-			remove()
-		}
-	}
-	useEffect(() => {
-		document.addEventListener("click", handleClickOutSide, true)
-	}, [])
-
 	return (
 		<div className="create-plan-container">
 			<div
 				ref={refOne}
 				className="create-plan-box">
 				<div className="create-plan-btn">Tạo kế hoạch</div>
+
+				{/* content  */}
 				<input
 					onChange={(e) => {
-						setContent(e.target.value)
-						setIsContent(false)
+						setContent(e.target.value);
+						setIsContent(false);
 					}}
 					className="name-create-plan-input"
 					type="text"
 					value={isContent ? planEdit.content : content}
 					placeholder="Kế hoạch của bạn"
 				/>
+
+				{/* tag plan  */}
 				<div className="type-create-plan-container">
 					<div className="title-type-create-plan-container">
 						<FaTags size={30} />
@@ -336,9 +413,9 @@ const ShowPlan = ({ remove }) => {
 									</div>
 									<RiChatDeleteLine
 										onClick={() => {
-											setTagChoice([])
-											setIsTagChoice(false)
-											setIsEditTag(true)
+											setTagChoice([]);
+											setIsTagChoice(false);
+											setIsEditTag(true);
 										}}
 										color="red"
 										size={20}
@@ -405,7 +482,7 @@ const ShowPlan = ({ remove }) => {
 										<RiDeleteBack2Line
 											style={{ cursor: "pointer" }}
 											onClick={() => {
-												handleDeleteTag(item.id)
+												handleDeleteTag(item.id);
 											}}
 											color="red"
 										/>
@@ -429,14 +506,14 @@ const ShowPlan = ({ remove }) => {
 													<div className="btn-delete-tag__pop-up">
 														<button
 															onClick={() => {
-																setConfirmDeleteTag(false)
+																setConfirmDeleteTag(false);
 															}}>
 															Hủy
 														</button>
 														<button
 															onClick={() => {
-																deleteTag(item.id)
-																setConfirmDeleteTag(false)
+																deleteTag(item.id);
+																setConfirmDeleteTag(false);
 															}}>
 															{" "}
 															Xác nhận
@@ -446,10 +523,12 @@ const ShowPlan = ({ remove }) => {
 											</div>
 										)}
 									</div>
-								)
+								);
 							})}
 					</div>
 				</div>
+
+				{/* time - date picker  */}
 				<div className="time-show-plan-container">
 					<div className="time-show-plan-box">
 						<div>
@@ -481,9 +560,9 @@ const ShowPlan = ({ remove }) => {
 									<div className="calendar-for-pickerDate">
 										<BasicCalendar
 											onChange={(e) => {
-												setIsDayChoice(false)
-												setDayPicker(e)
-												setDisplayDayPicker(false)
+												setIsDayChoice(false);
+												setDayPicker(e);
+												setDisplayDayPicker(false);
 											}}
 											value={dayPicker}
 										/>
@@ -514,54 +593,78 @@ const ShowPlan = ({ remove }) => {
 						</LocalizationProvider>
 					</div>
 				</div>
+
+				{/* partner choice */}
 				<div className="go-together-create-plan-container">
-					<div
-						style={{
-							display: "flex",
-							justifyContent: "center",
-						}}>
-						<BsFillPersonFill size={30} />
+					<div className="partner-create-plan-box">
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+							}}>
+							<BsFillPersonFill size={30} />
+						</div>
+						<div
+							onClick={showfilegotoplace}
+							className="go-together-create-plan-box">
+							{partnerSelected.map((user) => {
+								return (
+									<div
+										key={user.id}
+										className="partner-together-item">
+										{user.username},
+									</div>
+								);
+							})}
+						</div>
+						<HiPlusSmall
+							color="gray"
+							style={{
+								cursor: "pointer",
+							}}
+							onClick={showfilegotoplace}
+							size={36}
+						/>
 					</div>
-					<div
-						style={
-							displayMorePartner ? { height: "100px" } : { height: "70px" }
-						}
-						className="go-together-create-plan-box">
-						{(selected.length > 5 && displayMorePartner
-							? selected
-							: selected.slice(0, 4)
-						).map((user) => {
-							return (
-								<div
-									key={user.id}
-									className="partner-together-item">
-									{user.username},
+					{isShowPartner && (
+						<div className="go-to-palace-container">
+							<div className="go-to-palace-tittle">
+								<div className="go-to-palace-tittle-info">Đi cùng</div>
+							</div>
+							<div className="go-to-palace-search-bar">
+								<div className="go-to-palace-search-all">
+									<BiSearch size={20} />
+									<input
+										value={input}
+										onChange={onSearchPartner}
+										onKeyDown={onKeySearch}
+										type="text"
+										placeholder="Tìm bạn"
+										className="go-to-palace-search-input"
+									/>
 								</div>
-							)
-						})}
-					</div>
-					<HiPlusSmall
-						color="gray"
-						style={{ cursor: "pointer" }}
-						onClick={showfilegotoplace}
-						size={36}
-					/>
+							</div>
+							<div className="go-to-palace-result">
+								<div className="go-to-palace-result-icon">
+									<GrHistory size={18} />
+								</div>
+								<div className="go-to-palace-result-info"> Gần nhất</div>
+							</div>
+							{renderAutoComplete()}
+							<div className="go-to-palace-btn-bottom">
+								<div className="go-to-palace-btn-cancel">
+									<button
+										onClick={() => setIsShowPartner(false)}
+										className="go-to-palace-form-btn-cancel">
+										Hủy
+									</button>
+								</div>
+							</div>
+						</div>
+					)}
 				</div>
-				{selected.length > 4 ? (
-					<div
-						className="show-more-partner"
-						onClick={() => setDisplayMorePartner(!displayMorePartner)}
-						style={{
-							marginTop: "10px",
-							cursor: "pointer",
-							fontStyle: "italic",
-							fontSize: "1rem	",
-						}}>
-						+ {selected.length > 4 ? selected.length - 4 : 0}
-					</div>
-				) : (
-					<div className="show-more-partner"></div>
-				)}
+
+				{/* location  */}
 				<div className="location-create-plan-container">
 					<div
 						style={{
@@ -576,12 +679,16 @@ const ShowPlan = ({ remove }) => {
 						placeholder="Địa điểm"
 						className="location-create-plan-box"></input>
 				</div>
+
+				{/* notice  */}
 				<div className="notice-create-plan-container">
 					<textarea
 						onChange={handleNoticeData}
 						value={isNoticeData ? planEdit.note : dataNotice}
 						placeholder="Chú thích"></textarea>
 				</div>
+
+				{/* function button  */}
 				<div className="button-delete-create-plan-container">
 					<button onClick={handleCancel}>Hủy</button>
 					<button onClick={editPlan}>Lưu</button>
@@ -595,15 +702,15 @@ const ShowPlan = ({ remove }) => {
 								<div className="btn-delete-plan__pop-up">
 									<button
 										onClick={() => {
-											setIsConfirmDeletePlan(false)
+											setIsConfirmDeletePlan(false);
 										}}>
 										Hủy
 									</button>
 									<button
 										onClick={() => {
-											deleteCurrentPlan()
-											setIsConfirmDeletePlan(false)
-											remove()
+											deleteCurrentPlan();
+											setIsConfirmDeletePlan(false);
+											remove();
 										}}>
 										{" "}
 										Xác nhận
@@ -613,78 +720,9 @@ const ShowPlan = ({ remove }) => {
 						</div>
 					)}
 				</div>
-
-				{/* partner  */}
-				<div className="go-together-background">
-					{openGoToPlace && (
-						<div className="go-to-palace-container">
-							<div className="go-to-palace-tittle">
-								<div className="go-to-palace-tittle-info">Đi cùng</div>
-							</div>
-							<div className="go-to-palace-search-bar">
-								<div className="go-to-palace-search-all">
-									<div className="go-to-palace-search-icon">
-										<BiSearch size={20} />
-									</div>
-									<input
-										onChange={(e) => filterData(e.target.value)}
-										type="text"
-										placeholder="Tìm bạn"
-										className="go-to-palace-search-input"></input>
-								</div>
-							</div>
-							<div className="go-to-palace-result">
-								<div className="go-to-palace-result-icon">
-									<GrHistory size={18} />
-								</div>
-								<div className="go-to-palace-result-info"> Gần nhất</div>
-							</div>
-							<div className="go-together-user-container">
-								{(filteringData.length === 0
-									? selected.slice(0, 5)
-									: filteringData
-								).map((user, index) => {
-									return (
-										<div
-											style={
-												selectedIndex === index
-													? {
-															transform: "scale(1.1)",
-													  }
-													: {}
-											}
-											onClick={() => {
-												toggleUserSelection(user.id)
-											}}
-											key={user.id}
-											className={
-												user.chosen
-													? "go-to-palace-result-name-choice"
-													: "go-to-palace-result-name"
-											}>
-											<div className="go-to-palace-result-name-img"></div>
-											<div className="go-to-palace-result-name-info">
-												{user.username}
-											</div>
-										</div>
-									)
-								})}
-							</div>
-							<div className="go-to-palace-btn-bottom">
-								<div className="go-to-palace-btn-cancel">
-									<button
-										onClick={() => setOpenFileGoToPlace(false)}
-										className="go-to-palace-form-btn-cancel">
-										Hủy
-									</button>
-								</div>
-							</div>
-						</div>
-					)}
-				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default ShowPlan
+export default ShowPlan;

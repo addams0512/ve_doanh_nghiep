@@ -27,18 +27,23 @@ import { FaCalendarAlt } from "react-icons/fa";
 import BasicCalendar from "./BasicCalendar";
 
 // context
-import { PlanContext } from "../../layouts/Calendar/CalendarLayout";
+import {
+	DayContext,
+	PartnerContext,
+	PlanContext,
+} from "../../layouts/Calendar/CalendarLayout";
 import { Partner } from "./Partner";
+import ShowPlan from "./ShowPlan";
 export const TagContext = createContext();
-export const PartnerContext = createContext();
 
 const CreatePlan = ({ remove }) => {
 	// context-value
-	const { finalData, setFinalData, dayChosen } = useContext(PlanContext);
+	const { finalData, setFinalData } = useContext(PlanContext);
+	const { dayChosen, setDayChosen } = useContext(DayContext);
+	const { partnerChoice, setPartnerChoice } = useContext(PartnerContext);
 
 	// state for context
 	const [tagChoice, setTagChoice] = useState();
-	const [partnerChoice, setPartnerChoice] = useState([]);
 
 	// state
 	const [content, setContent] = useState();
@@ -60,23 +65,23 @@ const CreatePlan = ({ remove }) => {
 	const endHour = formatTime(endTime.$H);
 	const endMinute = formatTime(endTime.$m);
 	const interValTime = `${startHour}:${startMinute} - ${endHour}:${endMinute}`;
+
 	// day
 	const [displayDayPicker, setDisplayDayPicker] = useState(false);
-	const [dayPicker, setDayPicker] = useState(dayChosen);
 
 	// get day - month - year
-	const day = dayPicker.getDate();
-	const month = dayPicker.getMonth();
-	const year = dayPicker.getFullYear();
+	const day = dayChosen.getDate();
+	const month = dayChosen.getMonth();
+	const year = dayChosen.getFullYear();
 
 	// format currentDay
-	const date = moment(dayPicker).format("YYYY-MM-DD");
+	const date = moment(dayChosen).format("YYYY-MM-DD");
 
 	// format T2-T3-T4-T5-T6-T7-CN to 1-2-3-4-5-6-7
-	const dayOfWeek = dayPicker.getDay() % 7 || 7;
+	const dayOfWeek = dayChosen.getDay() % 7 || 7;
 
 	// format day to Chủ nhật, Thứ 2, Thứ 3,...
-	const getDayName = (date = dayPicker, locale = "vi-VN") => {
+	const getDayName = (date = dayChosen, locale = "vi-VN") => {
 		return date.toLocaleDateString(locale, { weekday: "long" });
 	};
 
@@ -126,6 +131,7 @@ const CreatePlan = ({ remove }) => {
 				completed: false,
 				startTime: startTime,
 				endTime: endTime,
+				dayChosen: dayChosen,
 			},
 		];
 		setFinalData(dataArray);
@@ -144,111 +150,106 @@ const CreatePlan = ({ remove }) => {
 	});
 
 	return (
-		<PartnerContext.Provider value={{ partnerChoice, setPartnerChoice }}>
-			<TagContext.Provider value={{ tagChoice, setTagChoice }}>
-				<div className="create-plan-container">
-					<div
-						ref={refOne}
-						className="create-plan-box">
-						<div className="create-plan-btn">Tạo kế hoạch</div>
+		<TagContext.Provider value={{ tagChoice, setTagChoice }}>
+			<div className="create-plan-container">
+				<div
+					ref={refOne}
+					className="create-plan-box">
+					<div className="create-plan-btn">Tạo kế hoạch</div>
 
-						{/* content */}
-						<input
-							onChange={(e) => setContent(e.target.value)}
-							className="name-create-plan-input"
-							type="text"
-							placeholder="Kế hoạch của bạn"
-						/>
+					{/* content */}
+					<input
+						onChange={(e) => setContent(e.target.value)}
+						className="name-create-plan-input"
+						type="text"
+						placeholder="Kế hoạch của bạn"
+					/>
 
-						{/* tag */}
-						<div className="type-create-plan-container">
-							<CreateTag />
+					{/* tag */}
+					<div className="type-create-plan-container">
+						<CreateTag />
 
-							{/* date-time */}
-							<div className="date-detail-create-plan-box">
-								<div className="date-picker-box">
-									<div>
-										<FaCalendarAlt size={30} />
-									</div>
-									<div
-										style={{ cursor: "pointer" }}
-										onClick={showDayPicker}
-										className="date-detail-create-plan-container">
-										{getDayName()}, {day} tháng {month + 1}, {year}
-									</div>
-									{displayDayPicker && (
-										<div className="calendar-picker-container">
-											<div
-												onClick={() => setDisplayDayPicker(false)}
-												className="calendar-picker-cover"
+						{/* date-time */}
+						<div className="date-detail-create-plan-box">
+							<div className="date-picker-box">
+								<div>
+									<FaCalendarAlt size={30} />
+								</div>
+								<div
+									style={{ cursor: "pointer" }}
+									onClick={showDayPicker}
+									className="date-detail-create-plan-container">
+									{getDayName()}, {day} tháng {month + 1}, {year}
+								</div>
+								{displayDayPicker && (
+									<div className="calendar-picker-container">
+										<div
+											onClick={() => setDisplayDayPicker(false)}
+											className="calendar-picker-cover"
+										/>
+										<div className="calendar-for-pickerDate">
+											<BasicCalendar
+												onChange={setDayChosen}
+												value={dayChosen}
 											/>
-											<div className="calendar-for-pickerDate">
-												<BasicCalendar
-													onChange={(e) => {
-														setDayPicker(e);
-														setDisplayDayPicker(false);
-													}}
-													value={dayPicker}
-												/>
-											</div>
 										</div>
-									)}
-								</div>
-								<div className="calendar-date-picker__container">
-									<BsClockFill size={30} />
-									<LocalizationProvider dateAdapter={AdapterDayjs}>
-										<DemoContainer components={["TimePicker", "TimePicker"]}>
-											<TimePicker
-												sx={{
-													backgroundColor: "#f0f0f0",
-												}}
-												label="Giờ bắt đầu"
-												onChange={(startTime) => setStartTime(startTime)}
-											/>
-											<TimePicker
-												sx={{ backgroundColor: "#f0f0f0" }}
-												label="Giờ kết thúc"
-												onChange={(endTime) => setEndTime(endTime)}
-											/>
-										</DemoContainer>
-									</LocalizationProvider>
-								</div>
+									</div>
+								)}
 							</div>
-						</div>
-						{/* partner */}
-						<Partner />
-
-						{/* location  */}
-						<div className="location-create-plan-container">
-							<div
-								style={{
-									display: "flex",
-									justifyContent: "center",
-								}}>
-								<IoLocationSharp size={30} />
+							<div className="calendar-date-picker__container">
+								<BsClockFill size={30} />
+								<LocalizationProvider dateAdapter={AdapterDayjs}>
+									<DemoContainer components={["TimePicker", "TimePicker"]}>
+										<TimePicker
+											sx={{
+												backgroundColor: "#f0f0f0",
+											}}
+											label="Giờ bắt đầu"
+											onChange={(startTime) => setStartTime(startTime)}
+										/>
+										<TimePicker
+											sx={{ backgroundColor: "#f0f0f0" }}
+											label="Giờ kết thúc"
+											onChange={(endTime) => setEndTime(endTime)}
+										/>
+									</DemoContainer>
+								</LocalizationProvider>
 							</div>
-							<input
-								onChange={onChangeLocation}
-								placeholder="Vị trí"
-								className="location-create-plan-box"></input>
-						</div>
-
-						{/* notice  */}
-						<div className="notice-create-plan-container">
-							<textarea
-								onChange={noticeData}
-								placeholder="Chú thích"></textarea>
-						</div>
-
-						{/* button  */}
-						<div className="button-delete-create-plan-container">
-							<button onClick={handleCancel}>Hủy</button>
-							<button onClick={createPlan}>Tạo</button>
 						</div>
 					</div>
+					{/* partner */}
+					<Partner />
+
+					{/* location  */}
+					<div className="location-create-plan-container">
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+							}}>
+							<IoLocationSharp size={30} />
+						</div>
+						<input
+							onChange={onChangeLocation}
+							placeholder="Vị trí"
+							className="location-create-plan-box"></input>
+					</div>
+
+					{/* notice  */}
+					<div className="notice-create-plan-container">
+						<textarea
+							onChange={noticeData}
+							placeholder="Chú thích"></textarea>
+					</div>
+
+					{/* button  */}
+					<div className="button-delete-create-plan-container">
+						<button onClick={handleCancel}>Hủy</button>
+						<button onClick={createPlan}>Tạo</button>
+					</div>
 				</div>
-			</TagContext.Provider>
-		</PartnerContext.Provider>
+			</div>
+		</TagContext.Provider>
 	);
 };
 

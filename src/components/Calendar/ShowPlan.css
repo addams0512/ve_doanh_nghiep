@@ -88,10 +88,11 @@
 	margin-left: 40px;
 }
 
-.tag-type-show-plan-box-4 {
+.tag-type-create-plan-box-4 {
+	margin-left: 40px;
 	display: flex;
 	gap: 10px;
-	width: 400px;
+	width: 480px;
 	overflow-y: scroll;
 	flex-wrap: wrap;
 	height: 70px;

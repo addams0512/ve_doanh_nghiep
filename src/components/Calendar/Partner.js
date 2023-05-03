@@ -8,20 +8,22 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi";
 import { GrHistory } from "react-icons/gr";
 import { HiPlusSmall } from "react-icons/hi2";
-import { DotSpinner } from "@uiball/loaders";
 
 // data
 import instance from "../../data/instance";
 
 // context
-import { PartnerContext } from "./CreatePlan";
+import {
+	PartnerContext,
+	PlanContext,
+} from "../../layouts/Calendar/CalendarLayout";
 
 export function Partner() {
 	// context
 	const { setPartnerChoice } = useContext(PartnerContext);
+	const { userData, setUserData } = useContext(PlanContext);
 
 	// state
-	const [displayMorePartner, setDisplayMorePartner] = useState(false);
 	const [isShowPartner, setIsShowPartner] = useState(false);
 	const [selectedUsers, setSelectedUsers] = useState([]);
 
@@ -36,24 +38,6 @@ export function Partner() {
 		setIsShowPartner(!isShowPartner);
 	}
 
-	// get User API
-	const [userData, setUserData] = useState("");
-	const [loading, setLoading] = useState(true);
-	useEffect(() => {
-		const getUserData = async () => {
-			try {
-				const res = await instance.get("/users");
-				setLoading(false);
-				setUserData(res.data);
-			} catch (error) {
-				console.log(error);
-			} finally {
-				setLoading(false);
-			}
-		};
-		getUserData();
-	}, []);
-
 	// searchbar function
 	const onSearchPartner = (e) => {
 		const input = e.target.value;
@@ -67,37 +51,33 @@ export function Partner() {
 		setInput(input);
 	};
 
+	// function add partner
+	const addPartner = (id) => {
+		setUserData(
+			userData.map((user) => {
+				if (user.id === id) {
+					user.chosen = !user.chosen;
+				}
+				return user;
+			})
+		);
+
+		setSelectedUsers((selectedUsers) => {
+			// check if partner is exist
+			const existingUser = selectedUsers.find((user) => user.id === id);
+			if (existingUser) {
+				return selectedUsers.filter((user) => user.id !== id);
+			}
+			const newUser = userData.find((user) => user.id === id);
+			return [...selectedUsers, newUser];
+		});
+	};
+
 	// onkey choice
 	const onKeySearch = (e) => {
 		const currentUser = filteredPartner[active];
 		if (e.keyCode === 13) {
-			setUserData(
-				userData.map((user) => {
-					if (user.id === currentUser?.id) {
-						user.chosen = !user.chosen;
-					}
-					return user;
-				})
-			);
-			setSelectedUsers((selectedUsers) => {
-				const existingUser = selectedUsers.find(
-					(user) => user.id === currentUser?.id
-				);
-				if (existingUser) {
-					return selectedUsers.filter((user) => user.id !== currentUser?.id);
-				}
-				const newUser = userData.find((user) => user.id === currentUser?.id);
-
-				return [...selectedUsers, newUser];
-			});
-
-			const selected = selectedUsers.filter((s) => {
-				return s.chosen;
-			});
-
-			setPartnerChoice((partnerChoice) => {
-				return [...partnerChoice, selected];
-			});
+			addPartner(currentUser?.id);
 		}
 		// up arrow
 		if (e.keyCode === 38) {
@@ -130,41 +110,19 @@ export function Partner() {
 		}
 	};
 
-	// partnerChoices
+	// partnerChoices by click
 	const toggleUserSelection = (id) => {
-		setUserData(
-			userData.map((user) => {
-				if (user.id === id) {
-					user.chosen = !user.chosen;
-				}
-				return user;
-			})
-		);
-
-		setSelectedUsers((selectedUsers) => {
-			// check if partner is exist
-			const existingUser = selectedUsers.find((user) => user.id === id);
-			if (existingUser) {
-				return selectedUsers.filter((user) => user.id !== id);
-			}
-			const newUser = userData.find((user) => user.id === id);
-
-			return [...selectedUsers, newUser];
-		});
-
-		const selected = selectedUsers.filter((s) => {
-			return s.chosen;
-		});
-
-		setPartnerChoice((partnerChoice) => {
-			return [...partnerChoice, selected];
-		});
+		addPartner(id);
 	};
 
 	const selected = selectedUsers.filter((s) => {
 		return s.chosen;
 	});
 
+	useEffect(() => {
+		setPartnerChoice(selected);
+	}, [selected]);
+	useEffect(() => console.log({ userData }), [userData]);
 	function renderAutoComplete() {
 		if (isShow) {
 			if (filteredPartner.length) {
@@ -203,110 +161,81 @@ export function Partner() {
 
 	return (
 		<>
-			{loading ? (
-				<div className="loading">
-					<DotSpinner
-						size={100}
-						speed={0.6}
-						color="#ccc"
+			<div className="go-together-create-plan-container">
+				<div className="partner-create-plan-box">
+					<div
+						style={{
+							display: "flex",
+							justifyContent: "center",
+						}}>
+						<BsFillPersonFill size={30} />
+					</div>
+
+					<div
+						onClick={showfilegotoplace}
+						className="go-together-create-plan-box">
+						{selected.map((user) => {
+							return (
+								<div
+									key={user.id}
+									className="partner-together-item">
+									{user.username},
+								</div>
+							);
+						})}
+					</div>
+					<HiPlusSmall
+						color="gray"
+						style={{
+							cursor: "pointer",
+						}}
+						onClick={showfilegotoplace}
+						size={36}
 					/>
 				</div>
-			) : (
-				<div className="go-together-create-plan-container">
-					<div className="partner-create-plan-box">
-						<div
-							style={{
-								display: "flex",
-								justifyContent: "center",
-							}}>
-							<BsFillPersonFill size={30} />
+
+				{/* partner  */}
+				{isShowPartner && (
+					<div className="go-to-palace-container">
+						<div className="go-to-palace-tittle">
+							<div className="go-to-palace-tittle-info">Đi cùng</div>
 						</div>
-						<div
-							onClick={showfilegotoplace}
-							className={
-								displayMorePartner
-									? "more-partner-showing"
-									: "go-together-create-plan-box"
-							}>
-							{(selected.length > 5 && displayMorePartner
-								? selected
-								: selected.slice(0, 4)
-							).map((user) => {
-								return (
-									<div
-										key={user.id}
-										className="partner-together-item">
-										{user.username},
-									</div>
-								);
-							})}
+
+						{/* search partner */}
+						<div className="go-to-palace-search-bar">
+							<div className="go-to-palace-search-all">
+								<BiSearch size={20} />
+								<input
+									value={input}
+									onChange={onSearchPartner}
+									onKeyDown={onKeySearch}
+									type="text"
+									placeholder="Tìm bạn"
+									className="go-to-palace-search-input"
+								/>
+							</div>
 						</div>
-						<HiPlusSmall
-							color="gray"
-							style={{
-								cursor: "pointer",
-							}}
-							onClick={showfilegotoplace}
-							size={36}
-						/>
+						<div className="go-to-palace-result">
+							<div className="go-to-palace-result-icon">
+								<GrHistory size={18} />
+							</div>
+							<div className="go-to-palace-result-info"> Gần nhất</div>
+						</div>
+
+						{/* show partner */}
+						{renderAutoComplete()}
+						<div className="go-to-palace-btn-bottom">
+							<div className="go-to-palace-btn-cancel">
+								<button
+									onClick={() => setIsShowPartner(false)}
+									className="go-to-palace-form-btn-cancel">
+									Hủy
+								</button>
+							</div>
+						</div>
 					</div>
-					{selected.length > 4 && (
-						<div
-							className="show-more-partner"
-							onClick={() => setDisplayMorePartner(!displayMorePartner)}
-							style={{
-								cursor: "pointer",
-								fontStyle: "italic",
-								fontSize: "1rem	",
-							}}>
-							+ {selected.length > 4 ? selected.length - 4 : 0}
-						</div>
-					)}
-
-					{/* partner  */}
-
-					{isShowPartner && (
-						<div className="go-to-palace-container">
-							<div className="go-to-palace-tittle">
-								<div className="go-to-palace-tittle-info">Đi cùng</div>
-							</div>
-
-							{/* search partner */}
-							<div className="go-to-palace-search-bar">
-								<div className="go-to-palace-search-all">
-									<BiSearch size={20} />
-									<input
-										value={input}
-										onChange={onSearchPartner}
-										onKeyDown={onKeySearch}
-										type="text"
-										placeholder="Tìm bạn"
-										className="go-to-palace-search-input"
-									/>
-								</div>
-							</div>
-							<div className="go-to-palace-result">
-								<div className="go-to-palace-result-icon">
-									<GrHistory size={18} />
-								</div>
-								<div className="go-to-palace-result-info"> Gần nhất</div>
-							</div>
-
-							{/* show partner */}
-							{renderAutoComplete()}
-							<div className="go-to-palace-btn-bottom">
-								<div className="go-to-palace-btn-cancel">
-									<button
-										onClick={() => setIsShowPartner(false)}
-										className="go-to-palace-form-btn-cancel">
-										Hủy
-									</button>
-								</div>
-							</div>
-						</div>
-					)}
-				</div>
-			)}
+				)}
+			</div>
 		</>
 	);
 }
