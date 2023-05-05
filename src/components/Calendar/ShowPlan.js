@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 
 // data
-import instance from "../../data/instance";
 
 // css
 import "./CreatePlan.css";
@@ -86,8 +85,8 @@ const ShowPlan = ({ remove }) => {
 
 	// time-day picker
 	// time
-	const [startTime, setStartTime] = useState(dayjs("2022-04-17T15:30"));
-	const [endTime, setEndTime] = useState(dayjs("2022-04-17T15:30"));
+	const [startTime, setStartTime] = useState(planEdit.startTime);
+	const [endTime, setEndTime] = useState(planEdit.endTime);
 	const formatTime = (time) => {
 		if (1 <= time <= 9) {
 			return (time = time.toString().padStart(2, "0"));
@@ -99,7 +98,7 @@ const ShowPlan = ({ remove }) => {
 	const endHour = formatTime(endTime.$H);
 	const endMinute = formatTime(endTime.$m);
 	const interValTime = `${startHour}:${startMinute} - ${endHour}:${endMinute}`;
-	const [timePicker, setTimePicker] = useState(interValTime);
+
 	// day
 	const [displayDayPicker, setDisplayDayPicker] = useState(false);
 	const [dayPicker, setDayPicker] = useState(formatDatePlanEdit);
@@ -194,15 +193,6 @@ const ShowPlan = ({ remove }) => {
 		setLocation(e.target.value);
 	};
 
-	// delete plan
-	const deleteCurrentPlan = () => {
-		setFinalData(
-			finalData.filter((plan) => {
-				return plan.id !== idDeletePlan;
-			})
-		);
-	};
-
 	// outside click
 	const refOne = useRef(null);
 	const handleClickOutSide = (e) => {
@@ -269,7 +259,7 @@ const ShowPlan = ({ remove }) => {
 		if (e.keyCode === 38) {
 			setActive((active) => {
 				if (active === 0) return 0;
-				return (active = active - 1);
+				return active - 1;
 			});
 		}
 		// down arrow
@@ -278,7 +268,7 @@ const ShowPlan = ({ remove }) => {
 				if (filteredPartner.length === active) {
 					return 0;
 				}
-				return (active = active + 1);
+				return active + 1;
 			});
 		}
 	};
@@ -306,32 +296,46 @@ const ShowPlan = ({ remove }) => {
 	});
 
 	// eidt plan
-	const editPlan = (item) => {
-		const updateData = [...finalData];
-		updateData[planEdit.id] = {
-			id: planEdit.id,
-			content: content || planEdit.content,
-			tagChoice: tagChoice || planEdit.tagChoice, // tag chosen
-			date: date || planEdit.date, // full date format YYYY-MM-DD
-			intervalTime: timePicker || planEdit.intervalTime, // time format HH:MM - HH:MM
-			partner: partnerSelected || planEdit.partner, // array of partner
-			location: location || planEdit.location,
-			note: dataNotice || planEdit.note,
-			planWeekDate: dayOfWeek || planEdit.planWeekDate, // day of week in format 1,2,3,4,5,6,7
-			planTime: Number(timePicker.slice(0, 2)) || planEdit.planTime, // time format HH
-			timePicker: timePicker.slice(0, 5) || planEdit.timePicker, // time format HH:MM
-			day: day || planEdit.day, // day in format DD with dayPicker
-			month: month || planEdit.month, // month of dayPicker
-			year: year || planEdit.year, // year of dayPicker
-			completed: false,
-			startTime: startTime,
-			endTime: endTime,
-			dayChosen: dayChosen,
-		};
+	const editPlan = () => {
+		const updateData = finalData.map((plan) => {
+			if (plan.id === idEditPlan) {
+				return {
+					...plan,
+					content: content || planEdit.content,
+					tagChoice: tagChoice || planEdit.tagChoice, // tag chosen
+					date: date || planEdit.date, // full date format YYYY-MM-DD
+					intervalTime: interValTime || planEdit.intervalTime, // time format HH:MM - HH:MM
+					partner: partnerSelected || planEdit.partner, // array of partner
+					location: location || planEdit.location,
+					note: dataNotice || planEdit.note,
+					planWeekDate: dayOfWeek || planEdit.planWeekDate, // day of week in format 1,2,3,4,5,6,7
+					planTime: Number(interValTime.slice(0, 2)) || planEdit.planTime, // time format HH
+					timePicker: interValTime.slice(0, 5) || planEdit.interValTime, // time format HH:MM
+					day: day || planEdit.day, // day in format DD with dayPicker
+					month: month || planEdit.month, // month of dayPicker
+					year: year || planEdit.year, // year of dayPicker
+					startTime: startTime,
+					endTime: endTime,
+					dayChosen: dayChosen,
+				};
+			}
+			return plan;
+		});
 		setFinalData(updateData);
 		remove();
 	};
+	console.log({ dayChosen });
 
+	// delete plan
+	const deleteCurrentPlan = () => {
+		setFinalData(
+			finalData.filter((plan) => {
+				return plan.id !== idDeletePlan;
+			})
+		);
+	};
+
+	// search partner component
 	function renderAutoComplete() {
 		if (isShow) {
 			if (filteredPartner.length) {
@@ -464,7 +468,7 @@ const ShowPlan = ({ remove }) => {
 								return (
 									<div
 										key={item.id}
-										className="array-of-tag-plan">
+										className="array-of-tag-show-plan">
 										<div
 											style={{ cursor: "pointer" }}
 											onClick={() => tagChosen(item.id)}
@@ -474,13 +478,10 @@ const ShowPlan = ({ remove }) => {
 													backgroundColor: item.color,
 												}}
 												className="tag-type-create-plan"></div>
-											<div className="content-type-create-plan">
-												{" "}
-												{item.type}
-											</div>
+											<div className="content-type-show-plan"> {item.type}</div>
 										</div>
 										<RiDeleteBack2Line
-											style={{ cursor: "pointer" }}
+											style={{ marginLeft: "auto", cursor: "pointer" }}
 											onClick={() => {
 												handleDeleteTag(item.id);
 											}}
@@ -552,7 +553,7 @@ const ShowPlan = ({ remove }) => {
 								</div>
 							)}
 							{displayDayPicker && (
-								<div className="calendar-picker-container">
+								<div className="calendar-picker-show-container">
 									<div
 										onClick={() => setDisplayDayPicker(false)}
 										className="calendar-picker-cover"
@@ -576,18 +577,18 @@ const ShowPlan = ({ remove }) => {
 						<LocalizationProvider dateAdapter={AdapterDayjs}>
 							<DemoContainer components={["TimePicker", "TimePicker"]}>
 								<TimePicker
-									value={dayjs(planEdit.startTime)}
+									value={startTime}
 									sx={{
 										backgroundColor: "#f0f0f0",
 									}}
 									label="Giờ bắt đầu"
-									onChange={(value) => setStartTime(value)}
+									onChange={(startTime) => setStartTime(startTime)}
 								/>
 								<TimePicker
-									value={dayjs(planEdit.endTime)}
+									value={endTime}
 									sx={{ backgroundColor: "#f0f0f0" }}
 									label="Giờ kết thúc"
-									onChange={(value) => setEndTime(value)}
+									onChange={(endTime) => setEndTime(endTime)}
 								/>
 							</DemoContainer>
 						</LocalizationProvider>

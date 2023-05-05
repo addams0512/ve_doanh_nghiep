@@ -47,6 +47,10 @@
 }
 .day-week__layout-container {
 	display: flex;
+	position: sticky;
+	top: 0;
+	background-color: #f6f6f6;
+	border-bottom: 1px solid #ccc;
 }
 .item-day-week__layout-container {
 	width: calc(1000px / 7);
@@ -118,4 +122,13 @@
 .interval-time-specific-plan-week__container {
 	font-style: italic;
 	font-size: 0.8rem;
+}
+
+.padding-plan-week__container {
+	display: flex;
+	width: calc(1000px / 7);
+	height: 200px;
+	border-left: none;
+	border-bottom: none;
+	background-color: #e8e6e6;
 }

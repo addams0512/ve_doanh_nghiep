@@ -10,7 +10,6 @@ import { GrHistory } from "react-icons/gr";
 import { HiPlusSmall } from "react-icons/hi2";
 
 // data
-import instance from "../../data/instance";
 
 // context
 import {
@@ -21,18 +20,17 @@ import {
 export function Partner() {
 	// context
 	const { setPartnerChoice } = useContext(PartnerContext);
-	const { userData, setUserData } = useContext(PlanContext);
+	const { userData } = useContext(PlanContext);
 
 	// state
 	const [isShowPartner, setIsShowPartner] = useState(false);
 	const [selectedUsers, setSelectedUsers] = useState([]);
-
 	const [isShow, setIsShow] = useState(false);
 	const [input, setInput] = useState("");
 	const [filteredPartner, setFilteredPartner] = useState([]);
 	const [active, setActive] = useState("");
 	const selectedRef = useRef(null);
-
+	const [selectedPartner, setSelectedPartner] = useState([]);
 	// show partner form
 	function showfilegotoplace() {
 		setIsShowPartner(!isShowPartner);
@@ -53,7 +51,7 @@ export function Partner() {
 
 	// function add partner
 	const addPartner = (id) => {
-		setUserData(
+		setSelectedPartner(
 			userData.map((user) => {
 				if (user.id === id) {
 					user.chosen = !user.chosen;
@@ -122,7 +120,7 @@ export function Partner() {
 	useEffect(() => {
 		setPartnerChoice(selected);
 	}, [selected]);
-	useEffect(() => console.log({ userData }), [userData]);
+
 	function renderAutoComplete() {
 		if (isShow) {
 			if (filteredPartner.length) {

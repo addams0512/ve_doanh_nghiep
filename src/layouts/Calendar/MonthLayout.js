@@ -1,26 +1,30 @@
-import React, { useContext, useState } from "react"
-import "./MonthLayout.css"
-import { planMonthAPI } from "../../data/planAPI"
-import { PlanContext } from "./CalendarLayout"
+import React, { useContext, useState } from "react";
+import "./MonthLayout.css";
+import { planMonthAPI } from "../../data/planAPI";
+import { PlanContext } from "./CalendarLayout";
 const MonthLayout = () => {
-	const { finalData } = useContext(PlanContext)
-	const [isMorePlan, setIsMorePlan] = useState(false)
+	const { finalData } = useContext(PlanContext);
+	const currentMonth = new Date().getMonth();
+	const filterMonthPlan = finalData.filter(
+		(plan) => plan.month === currentMonth
+	);
+	const [isMorePlan, setIsMorePlan] = useState(false);
 	const showMorePlan = () => {
-		setIsMorePlan(!isMorePlan)
-	}
+		setIsMorePlan(!isMorePlan);
+	};
 	const month = Array.from({ length: 31 }, (v, i) => {
 		return {
 			id: i + 1,
 			day: i + 1,
-		}
-	})
+		};
+	});
 	return (
 		<div className="month-layout-container">
 			<div className="month-layout-overflow-container">
 				{month.map((elements) => {
-					const matchingPlan = finalData.filter(
+					const matchingPlan = filterMonthPlan.filter(
 						(plan) => elements.day === plan.day
-					)
+					);
 					if (matchingPlan.length > 0) {
 						return (
 							<div
@@ -44,7 +48,7 @@ const MonthLayout = () => {
 														{plan.content}
 													</div>
 												</div>
-											)
+											);
 										}
 									)}
 								</div>
@@ -70,7 +74,7 @@ const MonthLayout = () => {
 									</div>
 								</div>
 							</div>
-						)
+						);
 					} else {
 						return (
 							<div
@@ -78,12 +82,12 @@ const MonthLayout = () => {
 								className="month-layout-box2">
 								{elements.day}
 							</div>
-						)
+						);
 					}
 				})}
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default MonthLayout
+export default MonthLayout;

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./DayLayout.css";
 import { RxAvatar } from "react-icons/rx";
 import { PlanContext } from "./CalendarLayout";

@@ -46,6 +46,7 @@ const CalendarLayout = () => {
 		};
 		getUserData();
 	}, []);
+
 	// sun is startDate and sat is the endDate
 	const dayOfWeek = dayChosen.getDay();
 	const daysToSubtract = dayOfWeek === 0 ? 6 : dayOfWeek - 1;

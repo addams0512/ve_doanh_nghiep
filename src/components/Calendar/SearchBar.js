@@ -31,7 +31,7 @@ const SearchBar = (props) => {
 		const input = e.target.value;
 		const { suggestions } = props;
 		const newFilteredSuggestion = suggestions.filter((item) =>
-			item.content.toLowerCase().includes(input.toLowerCase())
+			item.content?.toLowerCase().includes(input.toLowerCase())
 		);
 		setActive(0);
 		setFiltered(newFilteredSuggestion);

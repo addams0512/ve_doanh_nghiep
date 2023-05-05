@@ -35,7 +35,7 @@
 .tag-type-show-plan-box-4 {
 	display: flex;
 	gap: 10px;
-	width: 480px;
+	width: 470px;
 	overflow-y: scroll;
 	flex-wrap: wrap;
 	height: 70px;
@@ -48,7 +48,10 @@
 	margin-right: 10px;
 	width: 200px;
 }
-
+.content-type-create-plan {
+	width: 140px;
+	word-break: break-all;
+}
 .tag-type-create-plan {
 	border-radius: 8px;
 	background-color: red;
@@ -63,7 +66,11 @@
 	border: none;
 	height: 42px;
 	padding-left: 10px;
-	border-radius: 10px;
+	border-radius: 4px;
+	border: 1px #b8b8b8 solid;
+}
+.new-tag-input:hover {
+	border: 1px solid black;
 }
 .new-tag-add-color {
 	display: flex;

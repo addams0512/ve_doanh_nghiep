@@ -91,7 +91,7 @@ const CreateTag = () => {
 										: { cursor: "pointer", backgroundColor: "black" }
 								}
 								className="tag-type-create-plan"></div>
-							<div className="content-type-create-plan"> {tagChoice.type}</div>
+							<div className="content-type-create-plan">{tagChoice.type}</div>
 							<RiChatDeleteLine
 								onClick={() => {
 									setTagChoice([]);

@@ -1,8 +1,6 @@
-import React, { createContext, useState } from "react";
-import Calendar, { MonthView } from "react-calendar";
+import React, { createContext } from "react";
+import Calendar from "react-calendar";
 import "./BasicCalendar.css";
-import { useContext } from "react";
-import { PlanContext } from "../../layouts/Calendar/CalendarLayout";
 export const CalendarDay = createContext();
 
 export default function BasicCalendar({ year, view, onChange, value, month }) {

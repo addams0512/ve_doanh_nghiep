@@ -1,22 +1,26 @@
-import React, { useContext } from "react"
-import "./WeekLayout.css"
-import { PlanContext } from "./CalendarLayout"
-import { RxAvatar } from "react-icons/rx"
+import React, { useContext } from "react";
+import "./WeekLayout.css";
+import { PlanContext } from "./CalendarLayout";
+import { RxAvatar } from "react-icons/rx";
 const WeekLayout = ({ editPlan }) => {
-	const { filterPlanInWeek } = useContext(PlanContext)
-	const day = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"]
-	const plan = Array.from({ length: 25 * 7 }, (v, i) => {
+	const { filterPlanInWeek } = useContext(PlanContext);
+
+	const day = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
+	const plan = Array.from({ length: 24 * 7 }, (v, i) => {
 		return {
 			id: i + 1,
-		}
-	})
+		};
+	});
+
 	const time = [
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-		21, 22, 23, 24,
-	]
+		21, 22, 23,
+	];
+
 	const showEditPlan = (id) => {
-		editPlan(id)
-	}
+		editPlan(id);
+	};
+
 	return (
 		<div className="week-layout-container">
 			<div className="week-layout-edit">
@@ -49,7 +53,7 @@ const WeekLayout = ({ editPlan }) => {
 									className="item-day-week__layout-container">
 									{item}
 								</div>
-							)
+							);
 						})}
 					</div>
 					<div className="plan-week__layout-container">
@@ -59,8 +63,28 @@ const WeekLayout = ({ editPlan }) => {
 									(item.id % 7 === 0 ? 7 : item.id % 7) === plan.planWeekDate &&
 									(item.id % 7 === 0
 										? Math.floor(item.id / 7) - 1
-										: Math.floor(item.id / 7)) === plan.planTime
-							)
+										: Math.floor(item.id / 7)) === plan.startTime.$H
+							);
+							const paddingTime = filterPlanInWeek.find((plan) => {
+								for (let i = plan.startTime.$H + 1; i <= plan.endTime.$H; i++) {
+									const dayOfWeek = item.id % 7 === 0 ? 7 : item.id % 7;
+									const weekNumber =
+										item.id % 7 === 0
+											? Math.floor(item.id / 7) - 1
+											: Math.floor(item.id / 7);
+									if (dayOfWeek === plan.planWeekDate && weekNumber === i) {
+										return true;
+									}
+								}
+								return false;
+							});
+							if (paddingTime) {
+								return (
+									<div
+										key={item.id}
+										className="padding-plan-week__container"></div>
+								);
+							}
 							if (matchingPlan) {
 								return (
 									<div
@@ -97,20 +121,20 @@ const WeekLayout = ({ editPlan }) => {
 											</div>
 										</div>
 									</div>
-								)
+								);
 							}
 
 							return (
 								<div
 									key={item.id}
 									className="item-plan-week__layout-container"></div>
-							)
+							);
 						})}
 					</div>
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default WeekLayout
+export default WeekLayout;

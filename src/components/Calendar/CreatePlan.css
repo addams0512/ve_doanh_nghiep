@@ -16,7 +16,7 @@
 	background-color: white;
 	border-radius: 16px;
 	width: 700px;
-	height: 820px;
+	height: 850px;
 	display: flex;
 	position: relative;
 	flex-direction: column;
@@ -115,24 +115,25 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-radius: 10px;
-	margin-right: 30px;
+	border-radius: 4px;
+	border: 1px #b8b8b8 solid;
+	cursor: pointer;
 }
 
+.date-detail-create-plan-container:hover {
+	border: 1px solid;
+}
 .calendar-picker-container {
-	z-index: 9998;
 	position: absolute;
-	top: 50px;
-	left: 14px;
-	width: 380px;
-	height: 340px;
+	z-index: 9999;
+	top: 40px;
+	left: 50px;
+	animation-duration: 0.4s;
 	animation-name: zoom-in;
-	animation-duration: 0.5s;
 }
 .calendar-for-pickerDate {
 	position: absolute;
-	top: 20px;
-	left: 0;
+	top: 30px;
 	width: 380px;
 	height: 340px;
 }

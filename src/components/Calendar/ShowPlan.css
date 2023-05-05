@@ -72,8 +72,25 @@
 
 .date-detail-show-plan-box {
 	display: flex;
+	position: relative;
 }
 
+.calendar-picker-show-container {
+	position: absolute;
+	z-index: 9999;
+	top: 30px;
+	animation-duration: 0.4s;
+	animation-name: zoom;
+}
+
+@keyframes zoom {
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
 .time-show-plan-box {
 	display: flex;
 	gap: 20px;
@@ -89,11 +106,24 @@
 }
 
 .tag-type-create-plan-box-4 {
-	margin-left: 40px;
 	display: flex;
 	gap: 10px;
-	width: 480px;
+	width: 470px;
 	overflow-y: scroll;
 	flex-wrap: wrap;
 	height: 70px;
+	margin-left: 40px;
+}
+
+.array-of-tag-show-plan {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	margin-right: 10px;
+	width: 200px;
+}
+
+.content-type-show-plan {
+	width: 140px;
+	word-break: break-all;
 }
