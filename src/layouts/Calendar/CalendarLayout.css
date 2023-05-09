@@ -1,39 +1,39 @@
 .container-calendar {
 	background-color: white;
-	display: grid;
-	grid-template-rows: 100px 1000px;
-	height: fit-content;
-	padding: 20px 20px 0 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 1330px;
 }
 
 .content-container-calendar {
 	display: grid;
-	grid-template-columns: 440px 900px;
+	grid-template-columns: 400px 930px;
 }
 
 .header-container-calendar {
-	padding-top: 20px;
 	display: grid;
-	grid-template-columns: 400px 900px;
+	grid-template-columns: 400px 930px;
+	height: 100px;
 }
 
 .time-search-type-calendar {
 	display: flex;
 	justify-content: flex-end;
+	align-items: center;
 }
 
 /* box1 */
 .box1-calendar {
 	display: flex;
 	flex-direction: column;
-	gap: 30px;
+	gap: 20px;
 }
 .date-calendar {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	gap: 18px;
-	margin-bottom: 40px;
 }
 
 .date-calendar h1 {
@@ -58,15 +58,16 @@
 	cursor: pointer;
 	background-color: #373737;
 	width: 240px;
-	height: 60px;
+	height: 50px;
 	font-size: 20px;
 	color: #f6f6f6;
 	font-weight: normal;
 	margin-top: 0;
 	border: none;
 	border-radius: 20px;
-	font-size: 1.6rem;
+	font-size: 1.4rem;
 }
+
 .add-plan-calendar button:hover {
 	background-color: #f6f6f6;
 	color: #373737;
@@ -81,13 +82,13 @@
 
 /* type-calendar  */
 .type-plan-calendar-container {
-	padding: 14px 10px 20px 10px;
-	width: 380px;
+	width: 340px;
 	background-color: #f6f6f6;
 	height: fit-content;
 	display: flex;
 	flex-direction: column;
 	height: fit-content;
+	padding: 10px;
 }
 .type-plan-calendar {
 	display: flex;
@@ -145,9 +146,9 @@
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	height: fit-content;
+	height: 280px;
 	background-color: #f6f6f6;
-	width: 380px;
+	width: 340px;
 	border-radius: 40px;
 	padding-bottom: 18px;
 }
@@ -207,9 +208,8 @@
 }
 /* box2 */
 .box2-calendar {
-	display: grid;
-	grid-template-rows: 60px 60px auto;
-	width: auto;
+	display: flex;
+	flex-direction: column;
 }
 
 .container-box2-plan {
@@ -224,7 +224,7 @@
 	background-color: #f6f6f6;
 	border: none;
 	margin-left: 4px;
-	height: 30px;
+	height: 40px;
 	border-radius: 20px;
 }
 
@@ -234,7 +234,8 @@
 }
 
 .btn-date-calendar {
-	margin-left: 30px;
 	display: flex;
+	align-items: center;
+	justify-content: center;
 	gap: 10px;
 }

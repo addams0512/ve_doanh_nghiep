@@ -1,0 +1,35 @@
+.plan-week__layout2-container {
+	display: flex;
+	max-width: 1000px;
+	flex-wrap: wrap;
+}
+.day-week__layout2-container {
+	display: flex;
+	width: auto;
+	height: auto;
+	border-left: none;
+	border-bottom: none;
+	display: flex;
+	position: sticky;
+	top: 0;
+}
+
+.week-layout2-edit {
+	height: fit-content;
+	display: flex;
+}
+
+.plan-time-week__layout2-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.week-layout2-edit-timeOption {
+	position: sticky;
+	left: 0;
+	z-index: 9998;
+	height: 120px;
+	padding: 4px 6px 10px 10px;
+	background-color: white;
+	border-right: 2px solid #ccc;
+}

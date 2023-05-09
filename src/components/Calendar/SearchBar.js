@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-
 import "./SearchBar.css";
 
 const SearchBar = (props) => {

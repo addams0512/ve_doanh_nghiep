@@ -150,27 +150,23 @@ const CreatePlan = ({ remove }) => {
 
 	// handle existing time
 	const handleTime = (time, functionExist, functionSetTime) => {
-		// check existing day
-		const existingDay = finalData.some((plan) => {
-			return plan.month === month && plan.year === year && plan.day === day;
-		});
-
 		// check existing time
-		const hourExist = [];
-		const minuteExist = [];
-		finalData.map((plan) => {
+		const existingTime = finalData.some((plan) => {
+			const hourExist = [];
+			const minuteExist = [];
 			for (let i = plan.startTime?.$H; i < plan.endTime?.$H; i++) {
 				hourExist.push(i);
 			}
-			for (let i = plan.startTime?.$m; i < plan.endTime?.$m; i++) {
-				minuteExist.push(i);
+			if (hourExist.includes(time.$H)) {
+				for (let i = plan.startTime?.$m; i < plan.endTime?.$m; i++) {
+					minuteExist.push(i);
+				}
+				minuteExist.includes(time.$m);
 			}
-			return plan;
+			return plan.month === month && plan.year === year && plan.day === day;
 		});
-		const existTime = hourExist.includes(time.$H);
-		const existMinute = minuteExist.includes(time.$m);
 
-		if (existTime && existMinute && existingDay) {
+		if (existingTime) {
 			functionExist(true);
 			functionSetTime(time);
 		} else {

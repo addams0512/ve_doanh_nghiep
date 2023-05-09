@@ -47,7 +47,7 @@ const ShowPlan = ({ remove }) => {
 		userData,
 		setUserData,
 	} = useContext(PlanContext);
-	const { dayChosen } = useContext(DayContext);
+	const { dayChosen, setDayChosen } = useContext(DayContext);
 	const { setPartnerChoice } = useContext(PartnerContext);
 
 	// plan
@@ -87,6 +87,8 @@ const ShowPlan = ({ remove }) => {
 	// time
 	const [startTime, setStartTime] = useState(planEdit.startTime);
 	const [endTime, setEndTime] = useState(planEdit.endTime);
+	const [alertExistingTime, setAlertExistingTime] = useState(false);
+
 	const formatTime = (time) => {
 		if (1 <= time <= 9) {
 			return (time = time.toString().padStart(2, "0"));
@@ -103,6 +105,7 @@ const ShowPlan = ({ remove }) => {
 	const [displayDayPicker, setDisplayDayPicker] = useState(false);
 	const [dayPicker, setDayPicker] = useState(formatDatePlanEdit);
 	const [isDayChoice, setIsDayChoice] = useState(true);
+	const [alertExistDay, setAlertExistDay] = useState(false);
 
 	// get day - month - year
 	const day = dayPicker.getDate();
@@ -324,7 +327,6 @@ const ShowPlan = ({ remove }) => {
 		setFinalData(updateData);
 		remove();
 	};
-	console.log({ dayChosen });
 
 	// delete plan
 	const deleteCurrentPlan = () => {
@@ -333,6 +335,69 @@ const ShowPlan = ({ remove }) => {
 				return plan.id !== idDeletePlan;
 			})
 		);
+	};
+
+	// handle existing time
+	const handleTime = (time, functionExist, functionSetTime) => {
+		// check existing day
+		const existingDay = finalData.some((plan) => {
+			return plan.month === month && plan.year === year && plan.day === day;
+		});
+
+		// check existing time
+		const hourExist = [];
+		const minuteExist = [];
+		finalData.map((plan) => {
+			for (let i = plan.startTime?.$H; i < plan.endTime?.$H; i++) {
+				hourExist.push(i);
+			}
+			for (let i = plan.startTime?.$m; i < plan.endTime?.$m; i++) {
+				minuteExist.push(i);
+			}
+			return plan;
+		});
+		const existTime = hourExist.includes(time.$H);
+		const existMinute = minuteExist.includes(time.$m);
+
+		if (existTime && existMinute && existingDay) {
+			functionExist(true);
+			functionSetTime(time);
+		} else {
+			functionExist(false);
+			functionSetTime(time);
+		}
+		setDisplayDayPicker(false);
+	};
+
+	const handleStartTime = (startTime) => {
+		handleTime(startTime, setAlertExistingTime, setStartTime);
+	};
+
+	const handleEndTime = (endTime) => {
+		handleTime(endTime, setAlertExistingTime, setEndTime);
+	};
+
+	// handle existing day
+	const handleChooseDay = (e) => {
+		const time = Array.from({ length: 23 }, (v, i) => i);
+
+		// const fullPlanInDay = finalData
+		const fullPlanOfDate = finalData.every((plan) => {
+			return time.includes(plan.year, plan.month, plan.day);
+		});
+
+		if (fullPlanOfDate) {
+			setAlertExistDay(true);
+			setIsDayChoice(false);
+			setDayPicker(e);
+		} else {
+			setIsDayChoice(false);
+			setAlertExistDay(false);
+			setAlertExistingTime(false);
+			setDayPicker(e);
+		}
+
+		setDisplayDayPicker(false);
 	};
 
 	// search partner component
@@ -552,6 +617,11 @@ const ShowPlan = ({ remove }) => {
 									{getDayName()}, {day} tháng {month + 1} , {year}
 								</div>
 							)}
+							{alertExistDay && (
+								<div style={{ color: "red" }}>
+									Bạn đã đầy kế hoạch ở ngày này rồi!
+								</div>
+							)}
 							{displayDayPicker && (
 								<div className="calendar-picker-show-container">
 									<div
@@ -561,9 +631,7 @@ const ShowPlan = ({ remove }) => {
 									<div className="calendar-for-pickerDate">
 										<BasicCalendar
 											onChange={(e) => {
-												setIsDayChoice(false);
-												setDayPicker(e);
-												setDisplayDayPicker(false);
+												handleChooseDay(e);
 											}}
 											value={dayPicker}
 										/>
@@ -582,17 +650,22 @@ const ShowPlan = ({ remove }) => {
 										backgroundColor: "#f0f0f0",
 									}}
 									label="Giờ bắt đầu"
-									onChange={(startTime) => setStartTime(startTime)}
+									onChange={(startTime) => handleStartTime(startTime)}
 								/>
 								<TimePicker
 									value={endTime}
 									sx={{ backgroundColor: "#f0f0f0" }}
 									label="Giờ kết thúc"
-									onChange={(endTime) => setEndTime(endTime)}
+									onChange={(endTime) => handleEndTime(endTime)}
 								/>
 							</DemoContainer>
 						</LocalizationProvider>
 					</div>
+					{alertExistingTime && (
+						<div style={{ marginLeft: "50px", color: "red" }}>
+							Bạn đã có kế hoạch ở thời gian này rồi!
+						</div>
+					)}
 				</div>
 
 				{/* partner choice */}
